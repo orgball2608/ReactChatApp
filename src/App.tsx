@@ -1,16 +1,12 @@
 
-import './App.css';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import {RegisterPage} from './pages/RegisterPage';
 function App() {
     return (
        <>
-           <h1 className="text-3xl font-bold underline">
-               Hello world!
-           </h1>
-              <Routes>
-                    <Route path="/" element={<Outlet />} />
-                    <Route path="*" element={<h1>404</h1>} />
-              </Routes>
+           <Routes>
+               <Route path="/register" element={<RegisterPage />} />
+           </Routes>
        </>
     );
 }
