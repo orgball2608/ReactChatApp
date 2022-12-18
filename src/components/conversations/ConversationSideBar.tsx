@@ -18,6 +18,7 @@ export const ConversationSidebar: FC<Props> = ({conversations}) => {
                 {conversations && conversations.map((conversation) => (
                         <div className={"flex justify-start items-center gap-5 px-8 py-5 box-border border-b-[1px] border-solid border-border-conversations bg-simple-gray"}
                             onClick={()=>{navigate(`/conversations/${conversation.id}`)}}
+                             key = {conversation.id}
                         >
                             <div className="bg-white h-14 w-14 rounded-full"></div>
                            <div>

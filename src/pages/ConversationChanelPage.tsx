@@ -1,10 +1,11 @@
-import {ConversationPanel} from "../components/conversations/ConversationPanel"
-
+import { useContext } from 'react';
+import { AuthContext } from '../contex/AuthContext';
 export const  ConversationChannelPage = () =>
 {
+    const {user} =useContext(AuthContext);
     return (
         <div className="h-full ml-[400px]">
-            <ConversationPanel/>
+            {user && user.email}
         </div>
     )
 
