@@ -1,13 +1,21 @@
 import React from "react";
 import {Link } from "react-router-dom";
 import {useForm} from "react-hook-form";
+import {CreateUserParams} from "../../utils/types";
+import {postRegisterUser} from '../../utils/api'
 
 export const RegisterForm = () => {
     const {register, handleSubmit,
         formState: { errors },
-    } = useForm();
-    const FormSubmit =(data: any)=>{
-       console.log(data);
+    } = useForm<CreateUserParams>();
+    const FormSubmit = async (data: CreateUserParams) =>{
+        console.log(data)
+       try{
+           await postRegisterUser(data)
+       }catch (errors)
+       {
+           console.log(errors)
+       }
     }
     return (
         <>

@@ -1,23 +1,31 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import {UserCredentialsParams} from "../../utils/types"
+import {postLoginUser} from "../../utils/api"
 
 export const LoginForm = () => {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
-    const FormSubmit = (data: any) => {
+    } = useForm<UserCredentialsParams>();
+    const FormSubmit = async (data: UserCredentialsParams) => {
         console.log(data);
+        try{
+            await postLoginUser(data)
+        }catch(errors)
+        {
+            console.log(errors)
+        }
     }
     return (
         <>
             <form className="w-[800px]" onSubmit ={handleSubmit(FormSubmit)}>
                 <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box my-2">
-                    <label htmlFor="email" className="block text-label-white text-[16px] px-[14px]">Username</label>
+                    <label htmlFor="email" className="block text-label-white text-[16px] px-[14px]">Email</label>
                     <input type="email" id="email"
-                           {...register("username", {required: true})}
+                           {...register("email", {required: true})}
                            className="text-[18px] w-full border-box p-0 my-1 text-white bg-inherit border-0 outline-0" />
                 </div>
                 <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box my-2">
