@@ -4,7 +4,7 @@ export const  ConversationChannelPage = () =>
 {
     const {user} =useContext(AuthContext);
     return (
-        <div className="h-full ml-[400px]">
+        <div className="h-full ml-[300px]">
             {user && user.email}
         </div>
     )

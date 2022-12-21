@@ -19,7 +19,7 @@ export const CreateConversationForm = () => {
                 </div>
             </section>
 
-            <button className="w-full outline-0 border-0 text-[20px] bg-blue-button text-white rounded-[10px] py-4" onClick={(e) => e.preventDefault()} >
+            <button className="w-full outline-0 border-0 text-[20px] bg-blue-button text-white rounded-[10px] py-4 mt-2" onClick={(e) => e.preventDefault()} >
                 Create Conversation
             </button>
 

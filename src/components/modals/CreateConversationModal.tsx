@@ -26,7 +26,6 @@ export const CreateConversationModal: FC<Props> = ({ setShowModal }) => {
             setShowModal(false);
         }
     };
-
     return(
         <div className="w-full h-full bg-overlay-background fixed flex justify-center items-center z-10"
             onClick={handleOverlayClick}>

@@ -14,11 +14,11 @@ export const ConversationSidebar: FC<Props> = ({conversations}) => {
     return (
         <>
             {showModal && <CreateConversationModal setShowModal={setShowModal} />}
-        <aside className="position: absolute top-0 left-0 h-full w-[400px] bg-dark-light border-r-[1px] border-solid border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
-            <header className="position: fixed top-0 left-0 w-[400px] flex justify-between items-center px-8 bg-dark-header h-[100px] border-b-[1px] border-border-conversations">
+        <aside className="position: absolute top-0 left-0 h-full w-[300px] bg-dark-light border-r-[1px] border-solid border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
+            <header className="position: fixed top-0 left-0 w-[300px] flex justify-between items-center px-8 bg-dark-header h-[100px] border-b-[1px] border-border-conversations">
                 <h1 className="font-normal text-2xl">Conversations</h1>
                 <div onClick={() => setShowModal(!showModal)}>
-                    <TbEdit size={40} />
+                    <TbEdit size={32} />
                 </div>
             </header>
             <div>
@@ -27,7 +27,7 @@ export const ConversationSidebar: FC<Props> = ({conversations}) => {
                             onClick={()=>{navigate(`/conversations/${conversation.id}`)}}
                              key = {conversation.id}
                         >
-                            <div className="bg-white h-14 w-14 rounded-full"></div>
+                            <div className="bg-white h-12 w-12 rounded-full bg-blue-500"></div>
                            <div>
                                 <span className="block font-bold text-base">
                                 { conversation.name}
