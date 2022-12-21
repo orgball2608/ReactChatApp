@@ -1,18 +1,25 @@
 import {TbEdit} from "react-icons/tb";
 import {useNavigate} from "react-router-dom";
-import { FC } from 'react';
+import {FC, useState} from 'react';
 import {ConversationType} from "../../utils/types"
+import {CreateConversationModal} from "../modals/CreateConversationModal";
 
 type Props = {
     conversations : ConversationType[]
 }
 export const ConversationSidebar: FC<Props> = ({conversations}) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+
     return (
+        <>
+            {showModal && <CreateConversationModal setShowModal={setShowModal} />}
         <aside className="position: absolute top-0 left-0 h-full w-[400px] bg-dark-light border-r-[1px] border-solid border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
             <header className="position: fixed top-0 left-0 w-[400px] flex justify-between items-center px-8 bg-dark-header h-[100px] border-b-[1px] border-border-conversations">
                 <h1 className="font-normal text-2xl">Conversations</h1>
-                <TbEdit size={36} />
+                <div onClick={() => setShowModal(!showModal)}>
+                    <TbEdit size={40} />
+                </div>
             </header>
             <div>
                 {conversations && conversations.map((conversation) => (
@@ -35,5 +42,6 @@ export const ConversationSidebar: FC<Props> = ({conversations}) => {
             </div>
 
         </aside>
+        </>
     )
 }

@@ -10,8 +10,16 @@ module.exports = {
           'label-white': "#8f8f8f",
           'blue-button': '#2b09ff',
           'dark-header': '#151515',
-          'border-conversations': '#5454543d'
-        }
+          'border-conversations': '#5454543d',
+          'modal-background': '#121212',
+          'overlay-background': '#000000c4',
+          'conversation-form':'#161616'
+        },
+      fontFamily: {
+        'poppins': ['Poppins', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+        'Inter': ['Inter', 'sans-serif'],
+      }
     },
   },
   plugins: [
