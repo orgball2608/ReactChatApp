@@ -13,7 +13,8 @@ module.exports = {
           'border-conversations': '#5454543d',
           'modal-background': '#121212',
           'overlay-background': '#000000c4',
-          'conversation-form':'#161616'
+          'conversation-form':'#161616',
+          'message-form':'#101010',
         },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
