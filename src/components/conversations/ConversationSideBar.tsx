@@ -1,15 +1,26 @@
 import {TbEdit} from "react-icons/tb";
 import {useNavigate} from "react-router-dom";
-import {FC, useState} from 'react';
+import {FC, useContext, useState} from 'react';
 import {ConversationType} from "../../utils/types"
 import {CreateConversationModal} from "../modals/CreateConversationModal";
+import {AuthContext} from "../../contex/AuthContext";
 
 type Props = {
     conversations : ConversationType[]
 }
 export const ConversationSidebar: FC<Props> = ({conversations}) => {
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const [showModal, setShowModal] = useState(false);
+
+    console.log(conversations);
+    console.log(user);
+
+    const getDisplayUser = (conversation: ConversationType) => {
+        return conversation.creator.id === user?.id
+            ? conversation.recipient
+            : conversation.creator;
+    };
 
     return (
         <>
@@ -21,8 +32,8 @@ export const ConversationSidebar: FC<Props> = ({conversations}) => {
                     <TbEdit size={32} />
                 </div>
             </header>
-            <div>
-                {conversations && conversations.map((conversation) => (
+            <div className="mt-[100px]">
+                {conversations.map((conversation) => (
                         <div className={"flex justify-start items-center gap-5 px-8 py-5 box-border border-b-[1px] border-solid border-border-conversations bg-simple-gray"}
                             onClick={()=>{navigate(`/conversations/${conversation.id}`)}}
                              key = {conversation.id}
@@ -30,10 +41,12 @@ export const ConversationSidebar: FC<Props> = ({conversations}) => {
                             <div className="bg-white h-12 w-12 rounded-full bg-blue-500"></div>
                            <div>
                                 <span className="block font-bold text-base">
-                                { conversation.name}
+                                    {`${getDisplayUser(conversation).firstName} ${
+                                        getDisplayUser(conversation).lastName
+                                    }`}
                             </span>
                                <span className="text-sm text-white">
-                                {conversation.lastMessage}
+                                   Last message
                             </span>
                            </div>
                         </div>

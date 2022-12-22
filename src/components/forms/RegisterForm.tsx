@@ -2,7 +2,7 @@ import React from "react";
 import {Link } from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {CreateUserParams} from "../../utils/types";
-import {postRegisterUser} from '../../utils/api'
+import {postRegisterUser} from '../../services/api'
 
 export const RegisterForm = () => {
     const {register, handleSubmit,

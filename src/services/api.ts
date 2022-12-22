@@ -1,5 +1,5 @@
 import axios, {AxiosRequestConfig} from 'axios'
-import {CreateUserParams, User, UserCredentialsParams} from './types'
+import {CreateUserParams, User, UserCredentialsParams} from '../utils/types'
 
 const API_URL = process.env.REACT_APP_API_URL;
 const config: AxiosRequestConfig = { withCredentials: true };
@@ -15,3 +15,6 @@ export const postLoginUser = (data:UserCredentialsParams) => axios.post(
 export const getAuthUser = () => axios.get<User>(
     `${API_URL}/auth/status`, config
 )
+
+export const getConversations = () =>
+    axios.get(`${API_URL}/conversations`, config);

@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {UserCredentialsParams} from "../../utils/types"
-import {postLoginUser} from "../../utils/api"
+import {postLoginUser} from "../../services/api"
 
 export const LoginForm = () => {
     const {
