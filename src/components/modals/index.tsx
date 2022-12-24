@@ -1,4 +1,4 @@
-import {FC, PropsWithChildren} from "react";
+import { FC, PropsWithChildren } from 'react';
 
 export const ModalHeader: FC<PropsWithChildren> = ({ children }) => {
     return <header className="w-100 px-6 box-border flex justify-between items-center mt-6">{children}</header>;

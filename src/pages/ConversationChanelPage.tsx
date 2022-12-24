@@ -1,13 +1,12 @@
-import { useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
-import {getConversationMessages} from "../services/api";
-import {MessagePanel} from "../components/messages/MessagePanel";
-import {MessageType} from "../utils/types";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getConversationMessages } from '../services/api';
+import { MessagePanel } from '../components/messages/MessagePanel';
+import { MessageType } from '../utils/types';
 
-export const  ConversationChannelPage = () =>
-{
+export const ConversationChannelPage = () => {
     const [messages, setMessages] = useState<MessageType[]>([]);
-    const {id} = useParams<{id: string}>();
+    const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
         const conversationId = parseInt(id!);
@@ -17,7 +16,6 @@ export const  ConversationChannelPage = () =>
                 setMessages(data);
             })
             .catch((err) => console.log(err));
-
     }, [id]);
 
     return (
@@ -26,7 +24,5 @@ export const  ConversationChannelPage = () =>
                 <MessagePanel messages={messages} />
             </div>
         </>
-
-    )
-
-}
+    );
+};

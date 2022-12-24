@@ -1,12 +1,12 @@
 import { Outlet, useParams } from 'react-router-dom';
-import {ConversationPanel} from "../components/conversations/ConversationPanel"
-import {ConversationSidebar} from "../components/conversations/ConversationSideBar"
-import {ConversationType} from "../utils/types";
-import {useEffect, useState} from "react";
-import {getConversations} from "../services/api";
+import { ConversationPanel } from '../components/conversations/ConversationPanel';
+import { ConversationSidebar } from '../components/conversations/ConversationSideBar';
+import { ConversationType } from '../utils/types';
+import { useEffect, useState } from 'react';
+import { getConversations } from '../services/api';
 export const ConversationPage = () => {
-    const {id} = useParams()
-    const [conversations, setConversations] = useState<ConversationType[]>([])
+    const { id } = useParams();
+    const [conversations, setConversations] = useState<ConversationType[]>([]);
     useEffect(() => {
         getConversations()
             .then(({ data }) => {
@@ -17,12 +17,9 @@ export const ConversationPage = () => {
 
     return (
         <div className="bg-dark-light h-full">
-            <ConversationSidebar conversations = {conversations}/>
-            {
-                !id && <ConversationPanel/>
-            }
-            <Outlet/>
+            <ConversationSidebar conversations={conversations} />
+            {!id && <ConversationPanel />}
+            <Outlet />
         </div>
-
     );
 };
