@@ -20,7 +20,7 @@ export const ConversationChannelPage = () => {
 
     return (
         <>
-            <div className="h-full ml-[300px]">
+            <div className={`h-full ml-80`}>
                 <MessagePanel messages={messages} />
             </div>
         </>

@@ -17,8 +17,8 @@ export const MessageContainer: FC<Props> = ({ messages }) => {
             }
             if (currentMessage.author.id === nextMessage.author.id) {
                 return (
-                    <div className="flex gap-5 items-center py-1" key={m.id}>
-                        <div className="p-0 pl-20 text-lg">{m.content}</div>
+                    <div className="flex gap-4 items-center " key={m.id}>
+                        <div className="p-0 pl-14 text-base">{m.content}</div>
                     </div>
                 );
             }
@@ -31,7 +31,7 @@ export const MessageContainer: FC<Props> = ({ messages }) => {
     });
 
     return (
-        <div className="h-full box-border py-3 flex flex-col-reverse overflow-y-scroll scrollbar-hide overflow-auto">
+        <div className="h-full box-border py-2 flex flex-col-reverse overflow-y-scroll scrollbar-hide overflow-auto">
             {formatMessages()}
         </div>
     );

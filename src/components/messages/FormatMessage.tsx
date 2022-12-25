@@ -9,8 +9,8 @@ type FormattedMessageProps = {
 
 export const FormattedMessage: FC<FormattedMessageProps> = ({ user, message }) => {
     return (
-        <div className="flex gap-5 pt-3 pb-1 items-center">
-            <div className="w-14 h-14 rounded-full bg-red-500"></div>
+        <div className="flex gap-4 pt-3 pb-1 items-center">
+            <div className="w-10 h-10 rounded-full bg-red-500"></div>
             <div className=" flex-col gap-3">
                 <div className="flex gap-3 py-1">
                     <span
@@ -23,7 +23,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({ user, message }) =
                     </span>
                     <span className="font-semi-bold">{moment(message.createdAt).fromNow()}</span>
                 </div>
-                <div className="text-lg">{message.content}</div>
+                <div className="text-base">{message.content}</div>
             </div>
         </div>
     );

@@ -23,18 +23,18 @@ export const ConversationSidebar: FC<Props> = ({ conversations }) => {
     return (
         <>
             {showModal && <CreateConversationModal setShowModal={setShowModal} />}
-            <aside className="absolute top-0 left-0 h-full w-[300px] bg-dark-light border-r-[1px] border-solid border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
-                <header className="position: fixed top-0 left-0 w-[300px] flex justify-between items-center px-8 bg-dark-header h-[100px] border-b-[1px] border-border-conversations">
-                    <h1 className="font-normal text-2xl">Conversations</h1>
+            <aside className="absolute top-0 left-0 h-full w-80 bg-dark-light border-r-[1px] border-solid border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
+                <header className="position: fixed top-0 left-0 w-80 flex justify-between items-center px-8 bg-dark-header h-16 border-b-[1px] border-border-conversations">
+                    <h1 className="font-normal text-lg">Conversations</h1>
                     <div onClick={() => setShowModal(!showModal)}>
-                        <TbEdit size={32} />
+                        <TbEdit size={28} />
                     </div>
                 </header>
-                <div className="mt-[100px]">
+                <div className="mt-16">
                     {conversations.map((conversation) => (
                         <div
                             className={
-                                'flex justify-start items-center gap-5 px-8 py-5 box-border border-b-[1px] border-solid border-border-conversations bg-simple-gray'
+                                'flex justify-start items-center gap-5 px-8 py-3 box-border border-b-[1px] border-solid border-border-conversations bg-simple-gray'
                             }
                             onClick={() => {
                                 navigate(`/conversations/${conversation.id}`);
