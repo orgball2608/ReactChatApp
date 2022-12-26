@@ -10,12 +10,14 @@ type Props = {
 };
 export const MessagePanel: FC<Props> = ({ messages }) => {
     return (
-        <div className="bg-inherit h-full box-border relative">
-            <MessagePanelHeader />
-            <MessagePanelBody>
-                <MessageContainer messages={messages} />
-                <MessageInputField />
-            </MessagePanelBody>
-        </div>
+        <>
+            <div className="bg-inherit h-full box-border relative">
+                <MessagePanelHeader />
+                <MessagePanelBody>
+                    <MessageContainer messages={messages} />
+                    <MessageInputField />
+                </MessagePanelBody>
+            </div>
+        </>
     );
 };

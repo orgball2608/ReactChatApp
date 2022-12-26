@@ -16,7 +16,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({ user, message }) =
                     <span
                         className="text-[#6d6d6d] text-base font-bold"
                         style={{
-                            color: user?.id === message.author.id ? '#757575' : '#5E8BFF',
+                            color: user?.id === message.author.id ? '#989898' : '#5E8BFF',
                         }}
                     >
                         {message.author.firstName} {message.author.lastName}
