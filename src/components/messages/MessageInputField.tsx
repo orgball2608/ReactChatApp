@@ -7,7 +7,7 @@ type Props = {
 };
 export const MessageInputField: FC<Props> = ({ content, setContent, sendMessage }) => {
     return (
-        <div className="w-full box-border bg-message-form rounded px-8 py-2 mt-2">
+        <div className="w-full box-border bg-message-form rounded px-8 py-3 mt-2">
             <form onSubmit={sendMessage}>
                 <input
                     type="text"

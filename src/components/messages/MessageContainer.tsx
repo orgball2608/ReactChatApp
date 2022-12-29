@@ -2,14 +2,22 @@ import { MessageType } from '../../utils/types';
 import { FC, useContext, useEffect } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FormattedMessage } from './FormatMessage';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { useParams } from 'react-router-dom';
 
 type Props = {
     messages: MessageType[];
 };
 export const MessageContainer: FC<Props> = ({ messages }) => {
     const { user } = useContext(AuthContext);
+    const { id } = useParams();
+    const conversationMessages = useSelector((state: RootState) => state.conversation.messages);
+
     const formatMessages = () => {
-        return messages.map((m, index, arr) => {
+        const msgs = conversationMessages.find((cm) => cm.id === parseInt(id!));
+        if (!msgs) return [];
+        return msgs.messages.map((m, index, arr) => {
             const currentMessage = arr[index];
             const nextMessage = arr[index + 1];
             if (arr.length === index + 1) {
