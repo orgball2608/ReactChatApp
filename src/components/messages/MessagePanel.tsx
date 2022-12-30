@@ -1,5 +1,4 @@
-import React, { FC, useState } from 'react';
-import { MessageType } from '../../utils/types';
+import React, { useState } from 'react';
 import { MessagePanelHeader } from './MessagePanelHeader';
 import { MessageContainer } from './MessageContainer';
 import { MessagePanelBody } from './MessagePanelBody';
@@ -7,10 +6,7 @@ import { MessageInputField } from './MessageInputField';
 import { useParams } from 'react-router-dom';
 import { postNewMessage } from '../../services/api';
 
-type Props = {
-    messages: MessageType[];
-};
-export const MessagePanel: FC<Props> = ({ messages }) => {
+export const MessagePanel = () => {
     const [content, setContent] = useState('');
     const { id } = useParams();
 
@@ -32,7 +28,7 @@ export const MessagePanel: FC<Props> = ({ messages }) => {
             <div className="bg-inherit h-full box-border relative">
                 <MessagePanelHeader />
                 <MessagePanelBody>
-                    <MessageContainer messages={messages} />
+                    <MessageContainer />
                     <MessageInputField content={content} setContent={setContent} sendMessage={sendMessage} />
                 </MessagePanelBody>
             </div>

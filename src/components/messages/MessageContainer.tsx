@@ -1,18 +1,14 @@
-import { MessageType } from '../../utils/types';
-import { FC, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FormattedMessage } from './FormatMessage';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useParams } from 'react-router-dom';
 
-type Props = {
-    messages: MessageType[];
-};
-export const MessageContainer: FC<Props> = ({ messages }) => {
+export const MessageContainer = () => {
     const { user } = useContext(AuthContext);
     const { id } = useParams();
-    const conversationMessages = useSelector((state: RootState) => state.conversation.messages);
+    const conversationMessages = useSelector((state: RootState) => state.messages.messages);
 
     const formatMessages = () => {
         const msgs = conversationMessages.find((cm) => cm.id === parseInt(id!));
@@ -25,7 +21,7 @@ export const MessageContainer: FC<Props> = ({ messages }) => {
             }
             if (currentMessage.author.id === nextMessage.author.id) {
                 return (
-                    <div className="flex gap-4 items-center " key={m.id}>
+                    <div className="flex gap-4 items-center break-all" key={m.id}>
                         <div className="p-0 pl-14 text-base">{m.content}</div>
                     </div>
                 );
