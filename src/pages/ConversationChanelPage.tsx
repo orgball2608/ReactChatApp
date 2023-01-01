@@ -6,6 +6,7 @@ import { SocketContext } from '../contex/SocketContext';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
 import { addMessage, fetchMessagesThunk } from '../store/messageSlice';
+import { updateConversation } from '../store/coversationSlice';
 
 export const ConversationChannelPage = () => {
     const { id } = useParams<{ id: string }>();
@@ -20,7 +21,9 @@ export const ConversationChannelPage = () => {
     useEffect(() => {
         socket.on('connected', () => console.log('Connected'));
         socket.on('onMessage', (payload: MessageEventPayload) => {
+            const { conversation } = payload;
             dispatch(addMessage(payload));
+            dispatch(updateConversation(conversation));
         });
         return () => {
             socket.off('connected');

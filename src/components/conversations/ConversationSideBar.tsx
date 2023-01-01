@@ -4,15 +4,14 @@ import { useContext, useState } from 'react';
 import { ConversationType } from '../../utils/types';
 import { CreateConversationModal } from '../modals/CreateConversationModal';
 import { AuthContext } from '../../contex/AuthContext';
-import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '../../store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 export const ConversationSidebar = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
     const [showModal, setShowModal] = useState(false);
 
-    const dispatch = useDispatch<AppDispatch>();
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
 
     const getDisplayUser = (conversation: ConversationType) => {
@@ -47,7 +46,7 @@ export const ConversationSidebar = () => {
                                         getDisplayUser(conversation).lastName
                                     }`}
                                 </span>
-                                <span className="text-sm text-white">Last message</span>
+                                <span className="text-sm text-white">{conversation.lastMessageSent.content}</span>
                             </div>
                         </div>
                     ))}

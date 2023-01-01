@@ -9,7 +9,6 @@ export const MessageContainer = () => {
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const conversationMessages = useSelector((state: RootState) => state.messages.messages);
-
     const formatMessages = () => {
         const msgs = conversationMessages.find((cm) => cm.id === parseInt(id!));
         if (!msgs) return [];

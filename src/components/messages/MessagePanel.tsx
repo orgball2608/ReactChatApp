@@ -15,7 +15,6 @@ export const MessagePanel = () => {
         if (!id || !content) return;
         const conversationId = parseInt(id);
         try {
-            console.log(`sendMessage`);
             await postNewMessage({ conversationId, content });
             setContent('');
         } catch (err) {
