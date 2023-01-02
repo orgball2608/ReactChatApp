@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import {
     ConversationType,
+    CreateConversationParams,
     CreateMessageParams,
     CreateUserParams,
     FetchMessagePayload,
@@ -19,6 +20,8 @@ export const getAuthUser = () => axios.get<User>(`${API_URL}/auth/status`, confi
 
 export const getConversations = () => axios.get<ConversationType[]>(`${API_URL}/conversations`, config);
 
+export const postNewConversation = (data: CreateConversationParams) =>
+    axios.post<ConversationType>(`${API_URL}/conversations`, data, config);
 export const getConversationMessages = (id: number) =>
     axios.get<FetchMessagePayload>(`${API_URL}/messages/${id}`, config);
 

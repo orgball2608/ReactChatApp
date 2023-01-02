@@ -44,7 +44,9 @@ export type CreateMessageParams = {
 };
 
 export type CreateConversationParams = {
-    recipient: string;
+    email: string;
+
+    message: string;
 };
 
 export type FetchMessagePayload = {
