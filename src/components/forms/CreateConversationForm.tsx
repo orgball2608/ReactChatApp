@@ -5,6 +5,7 @@ import { CreateConversationParams } from '../../utils/types';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { createConversationThunk } from '../../store/coversationSlice';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     setShowModal: Dispatch<React.SetStateAction<boolean>>;
@@ -13,12 +14,15 @@ type Props = {
 export const CreateConversationForm: FC<Props> = ({ setShowModal }) => {
     const { register, handleSubmit } = useForm<CreateConversationParams>({});
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
 
     const onSubmit = (data: CreateConversationParams) => {
         dispatch(createConversationThunk(data))
-            .then((res) => {
-                console.log(res);
+            .unwrap()
+            .then(({ data }) => {
+                console.log(data);
                 setShowModal(false);
+                navigate(`/conversations/${data.id}`);
             })
             .catch((err) => console.log(err));
     };

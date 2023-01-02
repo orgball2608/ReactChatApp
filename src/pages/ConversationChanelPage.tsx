@@ -19,7 +19,7 @@ export const ConversationChannelPage = () => {
     }, [id]);
 
     useEffect(() => {
-        socket.on('connected', () => console.log('Connected'));
+        socket.on('onClientConnect', () => console.log('Connected'));
         socket.on('onMessage', (payload: MessageEventPayload) => {
             const { conversation } = payload;
             dispatch(addMessage(payload));
@@ -31,10 +31,15 @@ export const ConversationChannelPage = () => {
         };
     }, []);
 
+    const sendTypingStatus = () => {
+        console.log('You are typing');
+        socket.emit('onUserTyping', { conversationId: id });
+    };
+
     return (
         <>
             <div className={`h-full ml-80`}>
-                <MessagePanel />
+                <MessagePanel sendTypingStatus={sendTypingStatus} />
             </div>
         </>
     );

@@ -10,7 +10,7 @@ export const MessagePanelHeader = () => {
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const conversation = conversations.find((con) => con.id == parseInt(id!));
     const name =
-        user?.id == conversation?.creator.id
+        user?.id != conversation?.creator.id
             ? `${conversation?.creator.lastName} ${conversation?.creator.firstName}`
             : `${conversation?.recipient.lastName} ${conversation?.recipient.firstName}`;
 

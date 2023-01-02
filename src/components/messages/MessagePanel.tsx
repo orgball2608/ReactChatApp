@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { MessagePanelHeader } from './MessagePanelHeader';
 import { MessageContainer } from './MessageContainer';
 import { MessagePanelBody } from './MessagePanelBody';
@@ -6,7 +6,11 @@ import { MessageInputField } from './MessageInputField';
 import { useParams } from 'react-router-dom';
 import { postNewMessage } from '../../services/api';
 
-export const MessagePanel = () => {
+type Props = {
+    sendTypingStatus: () => void;
+};
+
+export const MessagePanel: FC<Props> = ({ sendTypingStatus }) => {
     const [content, setContent] = useState('');
     const { id } = useParams();
 
@@ -28,7 +32,12 @@ export const MessagePanel = () => {
                 <MessagePanelHeader />
                 <MessagePanelBody>
                     <MessageContainer />
-                    <MessageInputField content={content} setContent={setContent} sendMessage={sendMessage} />
+                    <MessageInputField
+                        content={content}
+                        setContent={setContent}
+                        sendMessage={sendMessage}
+                        sendTypingStatus={sendTypingStatus}
+                    />
                 </MessagePanelBody>
             </div>
         </>
