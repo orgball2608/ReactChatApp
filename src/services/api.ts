@@ -22,7 +22,7 @@ export const getConversations = () => axios.get<ConversationType[]>(`${API_URL}/
 
 export const postNewConversation = (data: CreateConversationParams) =>
     axios.post<ConversationType>(`${API_URL}/conversations`, data, config);
-export const getConversationMessages = (id: number) =>
-    axios.get<FetchMessagePayload>(`${API_URL}/messages/${id}`, config);
-
-export const postNewMessage = (data: CreateMessageParams) => axios.post(`${API_URL}/messages`, data, config);
+export const getConversationMessages = (conversationId: number) =>
+    axios.get<FetchMessagePayload>(`${API_URL}/conversations/${conversationId}/messages`, config);
+export const postNewMessage = (data: CreateMessageParams, conversationId: number) =>
+    axios.post(`${API_URL}/conversations/${conversationId}/messages`, data, config);

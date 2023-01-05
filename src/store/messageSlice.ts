@@ -10,9 +10,10 @@ const initialState: MessagesState = {
     messages: [],
     loading: false,
 };
-export const fetchMessagesThunk = createAsyncThunk('messages/fetch', (id: number) => {
-    return getConversationMessages(id);
+export const fetchMessagesThunk = createAsyncThunk('messages/fetch', (conversationId: number) => {
+    return getConversationMessages(conversationId);
 });
+
 const messagesSlice = createSlice({
     name: 'messages',
     initialState,

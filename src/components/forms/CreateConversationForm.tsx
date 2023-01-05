@@ -20,7 +20,6 @@ export const CreateConversationForm: FC<Props> = ({ setShowModal }) => {
         dispatch(createConversationThunk(data))
             .unwrap()
             .then(({ data }) => {
-                console.log(data);
                 setShowModal(false);
                 navigate(`/conversations/${data.id}`);
             })
