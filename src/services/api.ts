@@ -4,6 +4,8 @@ import {
     CreateConversationParams,
     CreateMessageParams,
     CreateUserParams,
+    DeleteMessageParams,
+    DeleteMessageResponse,
     FetchMessagePayload,
     User,
     UserCredentialsParams,
@@ -26,3 +28,7 @@ export const getConversationMessages = (conversationId: number) =>
     axios.get<FetchMessagePayload>(`${API_URL}/conversations/${conversationId}/messages`, config);
 export const postNewMessage = (data: CreateMessageParams, conversationId: number) =>
     axios.post(`${API_URL}/conversations/${conversationId}/messages`, data, config);
+
+export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams) => {
+    axios.delete<DeleteMessageResponse>(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, config);
+};

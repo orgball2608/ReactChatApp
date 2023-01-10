@@ -1,13 +1,18 @@
 import { MessageType, User } from '../../utils/types';
-import { FC } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import moment from 'moment';
+import { FiMoreVertical } from 'react-icons/fi';
+import { MenuContext } from '../Menu-Context/MenuContext';
+import { MessageMenuContext } from '../../contex/MessageMenuContext';
 
 type FormattedMessageProps = {
     user?: User;
     message: MessageType;
+    handleShowMenu: (e: React.MouseEvent<SVGElement>, message: MessageType) => void;
 };
 
-export const FormattedMessage: FC<FormattedMessageProps> = ({ user, message }) => {
+export const FormattedMessage: FC<FormattedMessageProps> = ({ user, message, handleShowMenu }) => {
+    const { message: m } = useContext(MessageMenuContext);
     return (
         <div className="flex gap-4 pt-3 pb-1 items-center">
             <div className="w-10 h-10 rounded-full bg-red-500"></div>
@@ -23,7 +28,10 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({ user, message }) =
                     </span>
                     <span className="font-semi-bold">{moment(message.createdAt).fromNow()}</span>
                 </div>
-                <div className="text-base">{message.content}</div>
+                <div className="text-base flex justify-start items-center">
+                    <div>{message.content}</div>
+                    <FiMoreVertical size={14} className="ml-1" onClick={(e) => handleShowMenu(e, message)} />
+                </div>
             </div>
         </div>
     );

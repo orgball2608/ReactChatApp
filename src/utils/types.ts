@@ -57,3 +57,13 @@ export type ConversationMessage = {
     id: number;
     messages: MessageType[];
 };
+
+export type DeleteMessageParams = {
+    conversationId: number;
+    messageId: number;
+};
+
+export type DeleteMessageResponse = {
+    conversationId: number;
+    messageId: number;
+};
