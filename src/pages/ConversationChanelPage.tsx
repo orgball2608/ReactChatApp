@@ -19,7 +19,7 @@ export const ConversationChannelPage = () => {
     }, [id]);
 
     useEffect(() => {
-        socket.on('onClientConnect', () => console.log('Connected'));
+        socket.on('onConversationJoin', () => console.log('Connected'));
         socket.on('onMessage', (payload: MessageEventPayload) => {
             const { conversation } = payload;
             dispatch(addMessage(payload));

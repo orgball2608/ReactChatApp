@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FormattedMessage } from './FormatMessage';
 import { useSelector } from 'react-redux';
@@ -17,20 +17,25 @@ export const MessageContainer = () => {
     const [selectedMessage, setSelectedMessage] = useState<MessageType | null>(null);
     const conversationMessages = useSelector((state: RootState) => state.messages.messages);
 
+    const handleOnScroll = () => {
+        setShowMenu(false);
+    };
+
+    const handleOnClick = () => {
+        if (points.x > 0 && points.y > 0) {
+            setPoints({ x: 0, y: 0 });
+            console.log('close');
+            setShowMenu(false);
+        }
+    };
+
     const handleShowMenu = (e: React.MouseEvent<SVGElement>, message: MessageType) => {
         e.preventDefault();
-        setShowMenu(false);
+        console.log('show');
         setShowMenu(true);
         setPoints({ x: e.pageX, y: e.pageY });
         setSelectedMessage(message);
     };
-
-    // useEffect(() => {
-    //     const handleClick = () => setShowMenu(false);
-    //     window.addEventListener('click', handleClick);
-    //     return () => window.removeEventListener('click', handleClick);
-    // }, []);
-
     const formatMessages = () => {
         const msgs = conversationMessages.find((cm) => cm.id === parseInt(id!));
         if (!msgs) return [];
@@ -57,7 +62,11 @@ export const MessageContainer = () => {
 
     return (
         <MessageMenuContext.Provider value={{ message: selectedMessage, setMessage: setSelectedMessage }}>
-            <div className="h-full box-border py-2 flex flex-col-reverse overflow-y-scroll scrollbar-hide overflow-auto relative">
+            <div
+                className="h-full box-border py-2 mt-8 flex flex-col-reverse overflow-y-scroll scrollbar-hide overflow-auto relative"
+                onScroll={handleOnScroll}
+                onClick={handleOnClick}
+            >
                 <>{formatMessages()}</>
                 {showMenu && <MenuContext points={points} setShowMenu={setShowMenu} />}
             </div>
