@@ -1,18 +1,28 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { MessagePanelHeader } from './MessagePanelHeader';
 import { MessageContainer } from './MessageContainer';
 import { MessagePanelBody } from './MessagePanelBody';
 import { MessageInputField } from './MessageInputField';
 import { useParams } from 'react-router-dom';
 import { postNewMessage } from '../../services/api';
+import { AuthContext } from '../../contex/AuthContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { getRecipientFromConversation } from '../../utils/helpers';
 
 type Props = {
     sendTypingStatus: () => void;
+    recipientIsTyping: boolean;
 };
 
-export const MessagePanel: FC<Props> = ({ sendTypingStatus }) => {
+export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping }) => {
     const [content, setContent] = useState('');
     const { id } = useParams();
+    const { user } = useContext(AuthContext);
+    const conversations = useSelector((state: RootState) => state.conversation.conversations);
+    const conversation = conversations.find((conversation) => conversation.id == parseInt(id!));
+
+    const recipient = getRecipientFromConversation(conversation, user);
 
     const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -32,12 +42,17 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus }) => {
                 <MessagePanelHeader />
                 <MessagePanelBody>
                     <MessageContainer />
-                    <MessageInputField
-                        content={content}
-                        setContent={setContent}
-                        sendMessage={sendMessage}
-                        sendTypingStatus={sendTypingStatus}
-                    />
+                    <div>
+                        <MessageInputField
+                            content={content}
+                            setContent={setContent}
+                            sendMessage={sendMessage}
+                            sendTypingStatus={sendTypingStatus}
+                        />
+                        <div className="w-full text-base text-[#adadad] box-border h-4 mt-2">
+                            {recipientIsTyping ? `${recipient?.firstName} is typing...` : ''}
+                        </div>
+                    </div>
                 </MessagePanelBody>
             </div>
         </>

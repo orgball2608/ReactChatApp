@@ -1,8 +1,7 @@
 import { MessageType, User } from '../../utils/types';
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import moment from 'moment';
 import { FiMoreVertical } from 'react-icons/fi';
-import { MenuContext } from '../Menu-Context/MenuContext';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 
 type FormattedMessageProps = {

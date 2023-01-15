@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { FiMoreVertical } from 'react-icons/fi';
 import { MessageType } from '../../utils/types';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
-import { MenuContext } from '../Menu-Context/MenuContext';
+import { MenuContext } from '../menu-Context/MenuContext';
 
 export const MessageContainer = () => {
     const { user } = useContext(AuthContext);
