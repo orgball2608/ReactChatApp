@@ -20,8 +20,13 @@ export const EditMessageContainer: FC<Props> = ({ onEditMessageChange, editMessa
             messageId: editMessage?.id,
             content: editMessage?.content,
         };
-        dispatch(editMessageThunk(params));
-        setIsEditing(false);
+        dispatch(editMessageThunk(params))
+            .unwrap()
+            .then(() => setIsEditing(false))
+            .catch((err) => {
+                console.log(err);
+                setIsEditing(false);
+            });
     };
 
     return (

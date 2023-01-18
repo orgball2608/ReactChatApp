@@ -47,7 +47,7 @@ export const MessageContainer = () => {
     };
 
     const handleSubmit = (event: React.KeyboardEvent<HTMLImageElement>) => {
-        if (event.key == 'Escape') setIsEditing(false);
+        if (event.key === 'Escape') setIsEditing(false);
     };
 
     const onEditMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +82,7 @@ export const MessageContainer = () => {
             if (currentMessage.author.id === nextMessage.author.id) {
                 return (
                     <div className="flex gap-4 items-center break-all" key={m.id}>
-                        {isEditing && m.id == editMessage?.id ? (
+                        {isEditing && m.id === editMessage?.id ? (
                             <div className="p-0 pl-14 text-base flex justify-start items-center w-full mt-2">
                                 <EditMessageContainer
                                     onEditMessageChange={onEditMessageChange}

@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { deleteMessage as deleteMessageApi, editMessage, getConversationMessages } from '../services/api';
+import {
+    deleteMessage as deleteMessageApi,
+    editMessage as editMessageAPI,
+    getConversationMessages,
+} from '../services/api';
 import {
     ConversationMessage,
     DeleteMessageParams,
@@ -25,7 +29,7 @@ export const deleteMessageThunk = createAsyncThunk('messages/delete', (params: D
 });
 
 export const editMessageThunk = createAsyncThunk('messages/edit', (params: EditMessageParams) => {
-    return editMessage(params);
+    return editMessageAPI(params);
 });
 
 const messagesSlice = createSlice({
@@ -45,6 +49,14 @@ const messagesSlice = createSlice({
             const messageIndex = conversationMessages.messages.findIndex((m) => m.id === payload.messageId);
             conversationMessages.messages.splice(messageIndex, 1);
         },
+        editMessage: (state, action) => {
+            console.log('Inside Update Message reducer');
+            const { conversation, id, content } = action.payload;
+            const conversationMessage = state.messages.find((cm) => cm.id === conversation.id);
+            if (!conversationMessage) return;
+            const messageIndex = conversationMessage.messages.findIndex((message) => message.id === id);
+            conversationMessage.messages[messageIndex].content = content;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -53,7 +65,6 @@ const messagesSlice = createSlice({
                 const index = state.messages.findIndex((cm) => cm.id === id);
                 const exists = state.messages.find((cm) => cm.id === id);
                 if (exists) {
-                    console.log('exists');
                     state.messages[index] = action.payload.data;
                 } else {
                     state.messages.push(action.payload.data);
@@ -65,9 +76,16 @@ const messagesSlice = createSlice({
                 if (!conversationMessages) return;
                 const messageIndex = conversationMessages.messages.findIndex((m) => m.id === messageId);
                 conversationMessages.messages.splice(messageIndex, 1);
+            })
+            .addCase(editMessageThunk.fulfilled, (state, action) => {
+                const { conversationId, messageId, content } = action.meta.arg;
+                const conversationMessages = state.messages.find((cm) => cm.id === conversationId);
+                if (!conversationMessages) return;
+                const messageIndex = conversationMessages.messages.findIndex((message) => message.id === messageId);
+                if (messageIndex > -1) conversationMessages.messages[messageIndex].content = content;
             });
     },
 });
-export const { addMessage, deleteMessage } = messagesSlice.actions;
+export const { addMessage, deleteMessage, editMessage } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

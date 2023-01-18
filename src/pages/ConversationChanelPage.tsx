@@ -5,7 +5,7 @@ import { MessageEventPayload } from '../utils/types';
 import { SocketContext } from '../contex/SocketContext';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
-import { addMessage, fetchMessagesThunk, deleteMessage } from '../store/messageSlice';
+import { addMessage, fetchMessagesThunk, deleteMessage, editMessage } from '../store/messageSlice';
 import { updateConversation } from '../store/coversationSlice';
 import { AuthContext } from '../contex/AuthContext';
 
@@ -46,14 +46,17 @@ export const ConversationChannelPage = () => {
             dispatch(updateConversation(conversation));
         });
         socket.on('onMessageDelete', (payload) => {
-            console.log('Message Deleted');
             console.log(payload);
             dispatch(deleteMessage(payload));
+        });
+        socket.on('onMessageUpdate', (payload) => {
+            dispatch(editMessage(payload));
         });
         return () => {
             socket.off('connected');
             socket.off('onMessage');
             socket.off('onMessageDelete');
+            socket.off('onMessageUpdate');
         };
     }, []);
 

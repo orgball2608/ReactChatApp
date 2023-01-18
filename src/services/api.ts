@@ -8,6 +8,7 @@ import {
     DeleteMessageResponse,
     EditMessageParams,
     FetchMessagePayload,
+    MessageType,
     User,
     UserCredentialsParams,
 } from '../utils/types';
@@ -35,5 +36,5 @@ export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams
 };
 
 export const editMessage = ({ conversationId, messageId, content }: EditMessageParams) => {
-    axios.patch(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config);
+    axios.patch<MessageType>(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config);
 };

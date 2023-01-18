@@ -39,7 +39,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                     </span>
                     <span className="font-semi-bold">{moment(message.createdAt).fromNow()}</span>
                 </div>
-                {isEditing && message.id == editMessage?.id ? (
+                {isEditing && message.id === editMessage?.id ? (
                     <div className="text-base flex justify-start items-center">
                         <EditMessageContainer
                             onEditMessageChange={onEditMessageChange}
