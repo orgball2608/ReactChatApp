@@ -9,14 +9,15 @@ import { deleteMessageThunk } from '../../store/messageSlice';
 type Props = {
     points: { x: number; y: number };
     setShowMenu: Dispatch<SetStateAction<boolean>>;
+    setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
-export const MenuContext: FC<Props> = ({ points, setShowMenu }) => {
+export const MenuContext: FC<Props> = ({ points, setShowMenu, setIsEditing }) => {
     const { x, y } = points;
     const styleMenu = {
         left: x,
         top: y,
     };
-    const { message } = useContext(MessageMenuContext);
+    const { message, setEditMessage } = useContext(MessageMenuContext);
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
@@ -27,6 +28,11 @@ export const MenuContext: FC<Props> = ({ points, setShowMenu }) => {
         setShowMenu(false);
         dispatch(deleteMessageThunk({ conversationId, messageId: message.id }));
     };
+
+    const handleEditMessage = () => {
+        setIsEditing(true);
+        setEditMessage(message);
+    };
     return (
         <div className={`bg-[#252525] box-border w-20 fixed z-10 px-3 rounded-md`} style={styleMenu}>
             <ul className="list-none m-0">
@@ -35,7 +41,11 @@ export const MenuContext: FC<Props> = ({ points, setShowMenu }) => {
                         Delete
                     </li>
                 )}
-                {message?.author.id === user?.id && <li className="px-3 py-1 hover:cursor-pointer rounded-md">Edit</li>}
+                {message?.author.id === user?.id && (
+                    <li className="px-3 py-1 hover:cursor-pointer rounded-md" onClick={handleEditMessage}>
+                        Edit
+                    </li>
+                )}
             </ul>
         </div>
     );

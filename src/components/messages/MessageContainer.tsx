@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FormattedMessage } from './FormatMessage';
 import { useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import { FiMoreVertical } from 'react-icons/fi';
 import { MessageType } from '../../utils/types';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { MenuContext } from '../menu-Context/MenuContext';
+import { EditMessageContainer } from './EditMessageContainer';
 
 export const MessageContainer = () => {
     const { user } = useContext(AuthContext);
@@ -16,25 +17,48 @@ export const MessageContainer = () => {
     const [points, setPoints] = useState({ x: 0, y: 0 });
     const [selectedMessage, setSelectedMessage] = useState<MessageType | null>(null);
     const conversationMessages = useSelector((state: RootState) => state.messages.messages);
+    const [editMessage, setEditMessage] = useState<MessageType | null>(null);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
 
     const handleOnScroll = () => {
         setShowMenu(false);
     };
 
+    useEffect(() => {
+        return () => {
+            setEditMessage(null);
+            setSelectedMessage(null);
+            setIsEditing(false);
+        };
+    }, [id]);
+
     const handleOnClick = () => {
         if (points.x > 0 && points.y > 0) {
             setPoints({ x: 0, y: 0 });
-            console.log('close');
             setShowMenu(false);
         }
     };
 
     const handleShowMenu = (e: React.MouseEvent<SVGElement>, message: MessageType) => {
         e.preventDefault();
-        console.log('show');
         setShowMenu(true);
         setPoints({ x: e.pageX, y: e.pageY });
         setSelectedMessage(message);
+    };
+
+    const handleSubmit = (event: React.KeyboardEvent<HTMLImageElement>) => {
+        if (event.key == 'Escape') setIsEditing(false);
+    };
+
+    const onEditMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!editMessage) return;
+        setEditMessage(
+            (prev) =>
+                prev && {
+                    ...prev,
+                    content: e.target.value,
+                },
+        );
     };
     const formatMessages = () => {
         const msgs = conversationMessages.find((cm) => cm.id === parseInt(id!));
@@ -43,32 +67,71 @@ export const MessageContainer = () => {
             const currentMessage = arr[index];
             const nextMessage = arr[index + 1];
             if (arr.length === index + 1) {
-                return <FormattedMessage user={user} message={m} key={m.id} handleShowMenu={handleShowMenu} />;
+                return (
+                    <FormattedMessage
+                        user={user}
+                        message={m}
+                        key={m.id}
+                        handleShowMenu={handleShowMenu}
+                        isEditing={isEditing}
+                        setIsEditing={setIsEditing}
+                        onEditMessageChange={onEditMessageChange}
+                    />
+                );
             }
             if (currentMessage.author.id === nextMessage.author.id) {
                 return (
                     <div className="flex gap-4 items-center break-all" key={m.id}>
-                        <div className="p-0 pl-14 text-base flex justify-start items-center">
-                            <div>{m.content}</div>
-                            <FiMoreVertical size={14} className="ml-1" onClick={(e) => handleShowMenu(e, m)} />
-                        </div>
+                        {isEditing && m.id == editMessage?.id ? (
+                            <div className="p-0 pl-14 text-base flex justify-start items-center w-full mt-2">
+                                <EditMessageContainer
+                                    onEditMessageChange={onEditMessageChange}
+                                    editMessage={editMessage}
+                                    setIsEditing={setIsEditing}
+                                />
+                            </div>
+                        ) : (
+                            <div className="p-0 pl-14 text-base flex justify-start items-center">
+                                <div>{m.content}</div>
+                                <FiMoreVertical size={14} className="ml-1" onClick={(e) => handleShowMenu(e, m)} />
+                            </div>
+                        )}
                     </div>
                 );
             }
 
-            return <FormattedMessage user={user} message={m} key={m.id} handleShowMenu={handleShowMenu} />;
+            return (
+                <FormattedMessage
+                    user={user}
+                    message={m}
+                    key={m.id}
+                    handleShowMenu={handleShowMenu}
+                    isEditing={isEditing}
+                    onEditMessageChange={onEditMessageChange}
+                    setIsEditing={setIsEditing}
+                />
+            );
         });
     };
 
     return (
-        <MessageMenuContext.Provider value={{ message: selectedMessage, setMessage: setSelectedMessage }}>
+        <MessageMenuContext.Provider
+            value={{
+                message: selectedMessage,
+                setMessage: setSelectedMessage,
+                editMessage: editMessage,
+                setEditMessage: setEditMessage,
+            }}
+        >
             <div
-                className="h-full box-border py-2 mt-8 flex flex-col-reverse overflow-y-scroll scrollbar-hide overflow-auto relative"
+                className="h-full box-border py-2 mt-8 flex flex-col-reverse overflow-y-scroll scrollbar-hide overflow-auto relative outline-0"
                 onScroll={handleOnScroll}
                 onClick={handleOnClick}
+                onKeyDown={handleSubmit}
+                tabIndex={0}
             >
                 <>{formatMessages()}</>
-                {showMenu && <MenuContext points={points} setShowMenu={setShowMenu} />}
+                {showMenu && <MenuContext points={points} setShowMenu={setShowMenu} setIsEditing={setIsEditing} />}
             </div>
         </MessageMenuContext.Provider>
     );

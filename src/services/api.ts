@@ -6,6 +6,7 @@ import {
     CreateUserParams,
     DeleteMessageParams,
     DeleteMessageResponse,
+    EditMessageParams,
     FetchMessagePayload,
     User,
     UserCredentialsParams,
@@ -31,4 +32,8 @@ export const postNewMessage = (data: CreateMessageParams, conversationId: number
 
 export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams) => {
     axios.delete<DeleteMessageResponse>(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, config);
+};
+
+export const editMessage = ({ conversationId, messageId, content }: EditMessageParams) => {
+    axios.patch(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config);
 };
