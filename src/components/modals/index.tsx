@@ -9,5 +9,5 @@ export const ModalContentBody: FC<PropsWithChildren> = ({ children }) => {
 };
 
 export const ModalContainer: FC<PropsWithChildren> = ({ children }) => {
-    return <div className="bg-modal-background w-[600px] box-border rounded-lg">{children}</div>;
+    return <div className="bg-modal-background w-2/5 box-border rounded-lg">{children}</div>;
 };

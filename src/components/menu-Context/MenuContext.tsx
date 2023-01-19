@@ -34,7 +34,7 @@ export const MenuContext: FC<Props> = ({ points, setShowMenu, setIsEditing }) =>
         setEditMessage(message);
     };
     return (
-        <div className={`bg-[#252525] box-border w-20 fixed z-10 px-3 rounded-md`} style={styleMenu}>
+        <div className={`bg-[#252525] box-border w-20 fixed z-10 px-3 rounded-md rounded-tl-none`} style={styleMenu}>
             <ul className="list-none m-0">
                 {message?.author.id === user?.id && (
                     <li onClick={handleDeleteMessage} className="px-3 py-1 hover:cursor-pointer rounded-md">

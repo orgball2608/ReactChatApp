@@ -42,8 +42,8 @@ export const ConversationSidebar = () => {
                             <div className="bg-white h-12 w-12 rounded-full bg-blue-500"></div>
                             <div>
                                 <span className="block font-bold text-base">
-                                    {`${getDisplayUser(conversation).firstName} ${
-                                        getDisplayUser(conversation).lastName
+                                    {` ${getDisplayUser(conversation).lastName} ${
+                                        getDisplayUser(conversation).firstName
                                     }`}
                                 </span>
                                 <span className="text-sm text-white">{conversation.lastMessageSent?.content}</span>

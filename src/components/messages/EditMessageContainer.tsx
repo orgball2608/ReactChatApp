@@ -38,7 +38,7 @@ export const EditMessageContainer: FC<Props> = ({ onEditMessageChange, editMessa
                     defaultValue={editMessage?.content}
                 />
             </form>
-            <div className="text-sm text-[1d77ff]">
+            <div className="text-sm text-[1d77ff] text-end">
                 escape to <span className="text-red-600">cancel</span> - enter to{' '}
                 <span className="text-blue-button">save</span>
             </div>

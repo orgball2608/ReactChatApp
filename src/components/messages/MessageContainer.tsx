@@ -81,7 +81,12 @@ export const MessageContainer = () => {
             }
             if (currentMessage.author.id === nextMessage.author.id) {
                 return (
-                    <div className="flex gap-4 items-center break-all" key={m.id}>
+                    <div
+                        className={`flex gap-4 items-center break-all w-1/2 ${
+                            user?.id === m.author.id ? 'place-self-end justify-end' : 'place-self-start justify-start'
+                        }`}
+                        key={m.id}
+                    >
                         {isEditing && m.id === editMessage?.id ? (
                             <div className="p-0 pl-14 text-base flex justify-start items-center w-full mt-2">
                                 <EditMessageContainer
@@ -91,9 +96,25 @@ export const MessageContainer = () => {
                                 />
                             </div>
                         ) : (
-                            <div className="p-0 pl-14 text-base flex justify-start items-center">
-                                <div>{m.content}</div>
-                                <FiMoreVertical size={14} className="ml-1" onClick={(e) => handleShowMenu(e, m)} />
+                            <div
+                                className={`p-0 pl-14 text-base flex justify-start items-center my-1 ${
+                                    user?.id === m.author.id ? 'flex-row-reverse' : ''
+                                }`}
+                            >
+                                <div
+                                    className={`bg-dark-header p-2 px-5 rounded-2xl  ${
+                                        user?.id === m.author.id ? 'rounded-tr-none' : 'rounded-tl-none'
+                                    }`}
+                                >
+                                    {m.content}
+                                </div>
+                                <FiMoreVertical
+                                    size={16}
+                                    className={`${
+                                        user?.id === m.author.id ? 'mr-2' : 'ml-2'
+                                    } text-white hover:bg-[#686868] hover:rounded-full`}
+                                    onClick={(e) => handleShowMenu(e, m)}
+                                />
                             </div>
                         )}
                     </div>

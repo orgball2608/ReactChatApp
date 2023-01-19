@@ -26,9 +26,9 @@ export const CreateConversationForm: FC<Props> = ({ setShowModal }) => {
             .catch((err) => console.log(err));
     };
     return (
-        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <form className="w-full flex justify-center flex-col" onSubmit={handleSubmit(onSubmit)}>
             <section>
-                <div className="bg-conversation-form py-2 px-4 rounded-[10px] w-full border-box my-2">
+                <div className="bg-conversation-form py-2 px-4 rounded-[10px] w-full border-box my-1">
                     <label htmlFor="email" className="block text-label-white text-sm px-4">
                         Recipient
                     </label>
@@ -41,7 +41,7 @@ export const CreateConversationForm: FC<Props> = ({ setShowModal }) => {
             </section>
 
             <section className="my-3">
-                <div className="bg-conversation-form py-2 px-4 rounded-[10px] w-full border-box my-2">
+                <div className="bg-conversation-form py-2 px-4 rounded-[10px] w-full border-box my-1">
                     <label htmlFor="message" className="block text-label-white text-sm px-4">
                         Message (optional)
                     </label>
@@ -53,7 +53,7 @@ export const CreateConversationForm: FC<Props> = ({ setShowModal }) => {
                 </div>
             </section>
 
-            <button className="w-full outline-0 border-0 text-xl bg-blue-button text-white rounded-[10px] py-3 mt-2">
+            <button className=" outline-0 border-0 text-xl bg-blue-button text-white rounded-[10px] py-3 mt-2">
                 Create Conversation
             </button>
         </form>

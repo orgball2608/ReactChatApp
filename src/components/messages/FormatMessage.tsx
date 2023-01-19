@@ -25,17 +25,21 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     const { message: m } = useContext(MessageMenuContext);
     const { editMessage } = useContext(MessageMenuContext);
     return (
-        <div className="flex gap-4 pt-3 pb-1 items-center">
-            <div className="w-10 h-10 rounded-full bg-red-500"></div>
-            <div className=" flex-col gap-3 w-full">
-                <div className="flex gap-3 py-1">
+        <div
+            className={`flex gap-4 pt-3 pb-1 items-center w-1/2 ${
+                user?.id === message.author.id ? 'place-self-end justify-end' : 'place-self-start'
+            }`}
+        >
+            <div className={`w-10 h-10 rounded-full bg-red-500`}></div>
+            <div className=" flex-col gap-3">
+                <div className={`flex gap-3 py-1  ${user?.id === message.author.id ? 'justify-end' : ''}`}>
                     <span
                         className="text-[#6d6d6d] text-base font-bold"
                         style={{
                             color: user?.id === message.author.id ? '#989898' : '#5E8BFF',
                         }}
                     >
-                        {message.author.firstName} {message.author.lastName}
+                        {message.author.lastName} {message.author.firstName}
                     </span>
                     <span className="font-semi-bold">{moment(message.createdAt).fromNow()}</span>
                 </div>
@@ -48,9 +52,25 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                         />
                     </div>
                 ) : (
-                    <div className="text-base flex justify-start items-center">
-                        <div>{message.content}</div>
-                        <FiMoreVertical size={14} className="ml-1" onClick={(e) => handleShowMenu(e, message)} />
+                    <div
+                        className={`text-base flex justify-start items-center w-full ${
+                            user?.id === message.author.id ? 'flex-row-reverse' : ''
+                        }`}
+                    >
+                        <div
+                            className={`bg-dark-header p-2 rounded-2xl ${
+                                user?.id === message.author.id ? 'rounded-tr-none' : 'rounded-tl-none'
+                            }`}
+                        >
+                            {message.content}
+                        </div>
+                        <FiMoreVertical
+                            size={16}
+                            className={`${
+                                user?.id === message.author.id ? 'mr-2' : 'ml-2'
+                            } text-white hover:bg-[#686868] hover:rounded-full`}
+                            onClick={(e) => handleShowMenu(e, message)}
+                        />
                     </div>
                 )}
             </div>
