@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchConversationsThunk } from '../store/coversationSlice';
 import { AppDispatch } from '../store';
+import { fetchGroupsThunk } from '../store/groupSlice';
 
 export const ConversationPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -12,6 +13,7 @@ export const ConversationPage = () => {
     useEffect(() => {
         console.log('Fetching Conversations in ConversationPage');
         dispatch(fetchConversationsThunk());
+        dispatch(fetchGroupsThunk());
     }, []);
 
     return (

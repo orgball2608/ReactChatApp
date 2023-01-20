@@ -71,14 +71,18 @@ const messagesSlice = createSlice({
                 }
             })
             .addCase(deleteMessageThunk.fulfilled, (state, action) => {
-                const { conversationId, messageId } = action.meta.arg;
+                const { conversationId, messageId } = action.payload.data;
                 const conversationMessages = state.messages.find((cm) => cm.id === conversationId);
                 if (!conversationMessages) return;
                 const messageIndex = conversationMessages.messages.findIndex((m) => m.id === messageId);
                 conversationMessages.messages.splice(messageIndex, 1);
             })
             .addCase(editMessageThunk.fulfilled, (state, action) => {
-                const { conversationId, messageId, content } = action.meta.arg;
+                const {
+                    conversation: { id: conversationId },
+                    id: messageId,
+                    content,
+                } = action.payload.data;
                 const conversationMessages = state.messages.find((cm) => cm.id === conversationId);
                 if (!conversationMessages) return;
                 const messageIndex = conversationMessages.messages.findIndex((message) => message.id === messageId);

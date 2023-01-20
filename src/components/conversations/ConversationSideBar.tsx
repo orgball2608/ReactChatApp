@@ -1,22 +1,17 @@
 import { TbEdit } from 'react-icons/tb';
-import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { ConversationType } from '../../utils/types';
+import { useState } from 'react';
 import { CreateConversationModal } from '../modals/CreateConversationModal';
-import { AuthContext } from '../../contex/AuthContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { ConversationSelected } from './ConversationSelected';
+import { ConversationSideBarItem } from './ConversationSideBarItem';
+import { GroupSideBarItem } from '../groups/GroupSideBarItem';
 
 export const ConversationSidebar = () => {
-    const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
     const [showModal, setShowModal] = useState(false);
-
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
-
-    const getDisplayUser = (conversation: ConversationType) => {
-        return conversation.creator.id === user?.id ? conversation.recipient : conversation.creator;
-    };
+    const selectedType = useSelector((state: RootState) => state.type.type);
+    const groups = useSelector((state: RootState) => state.group.groups);
 
     return (
         <>
@@ -28,29 +23,14 @@ export const ConversationSidebar = () => {
                         <TbEdit size={28} />
                     </div>
                 </header>
-                <div className="mt-16">
-                    {conversations.map((conversation) => (
-                        <div
-                            className={
-                                'flex justify-start items-center gap-5 px-8 py-3 box-border border-b-[1px] border-solid border-border-conversations bg-simple-gray'
-                            }
-                            onClick={() => {
-                                navigate(`/conversations/${conversation.id}`);
-                            }}
-                            key={conversation.id}
-                        >
-                            <div className="bg-white h-12 w-12 rounded-full bg-blue-500"></div>
-                            <div>
-                                <span className="block font-bold text-base">
-                                    {` ${getDisplayUser(conversation).lastName} ${
-                                        getDisplayUser(conversation).firstName
-                                    }`}
-                                </span>
-                                <span className="text-sm text-white">{conversation.lastMessageSent?.content}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                <ConversationSelected />
+                <section>
+                    {selectedType === 'private'
+                        ? conversations.map((conversation) => (
+                              <ConversationSideBarItem conversation={conversation} key={conversation.id} />
+                          ))
+                        : groups.map((group) => <GroupSideBarItem group={group} key={group.id} />)}
+                </section>
             </aside>
         </>
     );
