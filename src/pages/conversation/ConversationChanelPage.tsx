@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { MessagePanel } from '../components/messages/MessagePanel';
-import { MessageEventPayload } from '../utils/types';
-import { SocketContext } from '../contex/SocketContext';
+import { MessagePanel } from '../../components/messages/MessagePanel';
+import { MessageEventPayload } from '../../utils/types';
+import { SocketContext } from '../../contex/SocketContext';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../store';
-import { addMessage, fetchMessagesThunk, deleteMessage, editMessage } from '../store/messageSlice';
-import { updateConversation } from '../store/coversationSlice';
-import { AuthContext } from '../contex/AuthContext';
+import { AppDispatch } from '../../store';
+import { addMessage, fetchMessagesThunk, deleteMessage, editMessage } from '../../store/messageSlice';
+import { updateConversation } from '../../store/coversationSlice';
+import { AuthContext } from '../../contex/AuthContext';
 
 export const ConversationChannelPage = () => {
     const { id } = useParams<{ id: string }>();
@@ -80,7 +80,7 @@ export const ConversationChannelPage = () => {
 
     return (
         <>
-            <div className={`h-full ml-80`}>
+            <div className={`h-full ml-96`}>
                 <MessagePanel sendTypingStatus={sendTypingStatus} recipientIsTyping={isRecipientTyping} />
             </div>
         </>

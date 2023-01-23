@@ -8,7 +8,7 @@ type Props = {
 };
 export const MessageInputField: FC<Props> = ({ content, setContent, sendMessage, sendTypingStatus }) => {
     return (
-        <div className="w-full box-border bg-message-form rounded px-8 py-3 mt-2">
+        <div className="w-full box-border bg-message-form rounded-md px-8 py-3 mt-2">
             <form onSubmit={sendMessage} className="w-full">
                 <input
                     type="text"

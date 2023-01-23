@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { CreateConversationModal } from '../modals/CreateConversationModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { ConversationSelected } from './ConversationSelected';
-import { ConversationSideBarItem } from './ConversationSideBarItem';
+import { ConversationSelected } from '../conversations/ConversationSelected';
+import { ConversationSideBarItem } from '../conversations/ConversationSideBarItem';
 import { GroupSideBarItem } from '../groups/GroupSideBarItem';
+import { ConversationSearchBar } from '../conversations/ConversationSearchBar';
 
 export const ConversationSidebar = () => {
     const [showModal, setShowModal] = useState(false);
@@ -16,14 +17,15 @@ export const ConversationSidebar = () => {
     return (
         <>
             {showModal && <CreateConversationModal setShowModal={setShowModal} />}
-            <aside className="absolute top-0 left-0 h-full w-80 bg-dark-light border-r-[1px] border-solid border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
-                <header className="position: fixed top-0 left-0 w-80 flex justify-between items-center px-8 bg-dark-header h-16 border-b-[1px] border-border-conversations">
+            <aside className="absolute top-0 left-16 h-full w-80 bg-dark-light border-r-[1px] border-solid border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
+                <header className="position: fixed top-0 left-16 w-80 flex justify-between items-center px-8 bg-dark-header h-16 border-b-[1px] border-r-[1px] border-border-conversations">
                     <h1 className="font-normal text-2xl">Conversations</h1>
                     <div onClick={() => setShowModal(!showModal)}>
                         <TbEdit size={28} />
                     </div>
                 </header>
                 <ConversationSelected />
+                <ConversationSearchBar />
                 <section>
                     {selectedType === 'private'
                         ? conversations.map((conversation) => (

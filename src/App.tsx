@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
-import { ConversationChannelPage } from './pages/ConversationChanelPage';
-import { ConversationPage } from './pages/ConversationPage';
+import { ConversationChannelPage } from './pages/conversation/ConversationChanelPage';
+import { ConversationPage } from './pages/conversation/ConversationPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { AuthenticatedRoute } from './components/AuthenticatedRoute';
 import { AuthContext } from './contex/AuthContext';
@@ -13,6 +13,9 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './store';
 import { Socket } from 'socket.io-client';
 import { enableMapSet } from 'immer';
+import { GroupPage } from './pages/group/GroupPage';
+import { GroupChannelPage } from './pages/group/GroupChanelPage';
+import { AppPage } from './pages/AppPage';
 
 enableMapSet();
 
@@ -40,24 +43,18 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route
-                    path="/conversations"
                     element={
                         <AuthenticatedRoute>
-                            <ConversationPage />
+                            <AppPage />
                         </AuthenticatedRoute>
                     }
                 >
-                    <Route path="/conversations/:id" element={<ConversationChannelPage />} />
-                </Route>
-                <Route
-                    path="/groups"
-                    element={
-                        <AuthenticatedRoute>
-                            <ConversationPage />
-                        </AuthenticatedRoute>
-                    }
-                >
-                    <Route path="/groups/:id" element={<ConversationChannelPage />} />
+                    <Route path="/conversations/" element={<ConversationPage />}>
+                        <Route path="/conversations/:id" element={<ConversationChannelPage />} />
+                    </Route>
+                    <Route path="/groups/" element={<GroupPage />}>
+                        <Route path="/groups/:id" element={<GroupChannelPage />} />
+                    </Route>
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

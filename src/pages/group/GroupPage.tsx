@@ -1,0 +1,25 @@
+import { Outlet, useParams } from 'react-router-dom';
+import { ConversationPanel } from '../../components/conversations/ConversationPanel';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchConversationsThunk } from '../../store/coversationSlice';
+import { AppDispatch } from '../../store';
+import { fetchGroupsThunk } from '../../store/groupSlice';
+import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
+
+export const GroupPage = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { id } = useParams();
+    useEffect(() => {
+        console.log('Fetching Conversations in ConversationPage');
+        dispatch(fetchConversationsThunk());
+        dispatch(fetchGroupsThunk());
+    }, []);
+
+    return (
+        <div className="bg-dark-light h-full">
+            {!id && <ConversationPanel />}
+            <Outlet />
+        </div>
+    );
+};
