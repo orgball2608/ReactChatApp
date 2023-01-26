@@ -1,5 +1,5 @@
 import { Group } from '../utils/types';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchGroups as fetchGroupsAPI } from '../services/api';
 
 export interface GroupState {
@@ -16,7 +16,15 @@ export const fetchGroupsThunk = createAsyncThunk('groups/fetch', () => {
 const groupsSlice = createSlice({
     name: 'groups',
     initialState,
-    reducers: {},
+    reducers: {
+        updateGroupConversations: (state, action: PayloadAction<Group>) => {
+            const group = action.payload;
+            const index = state.groups.findIndex((group) => group.id === group.id);
+            console.log(index);
+            state.groups.splice(index, 1);
+            state.groups.unshift(group);
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchGroupsThunk.fulfilled, (state, action) => {
             state.groups = action.payload.data;
@@ -24,5 +32,5 @@ const groupsSlice = createSlice({
     },
 });
 
-export const {} = groupsSlice.actions;
+export const { updateGroupConversations } = groupsSlice.actions;
 export default groupsSlice.reducer;

@@ -1,4 +1,4 @@
-import { MessageType, User } from '../../utils/types';
+import { GroupMessageType, MessageType, User } from '../../utils/types';
 import React, { ChangeEvent, Dispatch, FC, SetStateAction, useContext } from 'react';
 import moment from 'moment';
 import { FiMoreVertical } from 'react-icons/fi';
@@ -7,8 +7,8 @@ import { EditMessageContainer } from './EditMessageContainer';
 
 type FormattedMessageProps = {
     user?: User;
-    message: MessageType;
-    handleShowMenu: (e: React.MouseEvent<SVGElement>, message: MessageType) => void;
+    message: MessageType | GroupMessageType;
+    handleShowMenu: (e: React.MouseEvent<SVGElement>, message: MessageType | GroupMessageType) => void;
     isEditing: boolean;
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
     setIsEditing: Dispatch<SetStateAction<boolean>>;

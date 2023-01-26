@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import {
     Conversation,
     CreateConversationParams,
+    CreateGroupMessageParams,
     CreateMessageParams,
     CreateUserParams,
     DeleteMessageParams,
@@ -17,25 +18,34 @@ import {
 const API_URL = process.env.REACT_APP_API_URL;
 const config: AxiosRequestConfig = { withCredentials: true };
 
-export const postRegisterUser = (data: CreateUserParams) => axios.post(`${API_URL}/auth/register`, data, config);
+const axiosClient = axios.create({
+    baseURL: API_URL,
+});
 
-export const postLoginUser = (data: UserCredentialsParams) => axios.post(`${API_URL}/auth/login`, data, config);
+export const postRegisterUser = (data: CreateUserParams) => axiosClient.post(`/auth/register`, data, config);
 
-export const getAuthUser = () => axios.get<User>(`${API_URL}/auth/status`, config);
+export const postLoginUser = (data: UserCredentialsParams) => axiosClient.post(`/auth/login`, data, config);
 
-export const getConversations = () => axios.get<Conversation[]>(`${API_URL}/conversations`, config);
+export const getAuthUser = () => axiosClient.get<User>(`/auth/status`, config);
+
+export const getConversations = () => axiosClient.get<Conversation[]>(`/conversations`, config);
 
 export const postNewConversation = (data: CreateConversationParams) =>
-    axios.post<Conversation>(`${API_URL}/conversations`, data, config);
+    axiosClient.post<Conversation>(`/conversations`, data, config);
 export const getConversationMessages = (conversationId: number) =>
-    axios.get<FetchMessagePayload>(`${API_URL}/conversations/${conversationId}/messages`, config);
-export const postNewMessage = (data: CreateMessageParams, conversationId: number) =>
-    axios.post(`${API_URL}/conversations/${conversationId}/messages`, data, config);
+    axiosClient.get<FetchMessagePayload>(`/conversations/${conversationId}/messages`, config);
+export const postNewMessage = ({ id, content }: CreateMessageParams) =>
+    axiosClient.post(`/conversations/${id}/messages`, { content }, config);
 
 export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams) =>
-    axios.delete<DeleteMessageResponse>(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, config);
+    axiosClient.delete<DeleteMessageResponse>(`/conversations/${conversationId}/messages/${messageId}`, config);
 
 export const editMessage = ({ conversationId, messageId, content }: EditMessageParams) =>
-    axios.patch<MessageType>(`${API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config);
+    axiosClient.patch<MessageType>(`/conversations/${conversationId}/messages/${messageId}`, { content }, config);
 
-export const fetchGroups = () => axios.get<Group[]>(`${API_URL}/groups`, config);
+export const fetchGroups = () => axiosClient.get<Group[]>(`/groups`, config);
+
+export const fetchGroupMessages = (groupId: number) => axiosClient.get(`/groups/${groupId}/messages`, config);
+
+export const postGroupMessage = ({ id, content }: CreateGroupMessageParams) =>
+    axiosClient.post(`/groups/${id}/messages`, { content }, config);

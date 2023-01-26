@@ -39,6 +39,7 @@ export type MessageEventPayload = {
 };
 
 export type CreateMessageParams = {
+    id: number;
     content: string;
 };
 
@@ -90,4 +91,27 @@ export type Group = {
     createdAt: number;
     lastMessageSent: MessageType;
     lastMessageSentAt: Date;
+};
+
+export type GroupMessageType = {
+    id: number;
+    content: string;
+    author: User;
+    createdAt: string;
+    group: Group;
+};
+
+export type GroupMessage = {
+    id: number;
+    messages: GroupMessageType[];
+};
+
+export type CreateGroupMessageParams = {
+    id: number;
+    content: string;
+};
+
+export type GroupMessageEventPayload = {
+    group: Group;
+    message: MessageType;
 };

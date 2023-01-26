@@ -4,7 +4,7 @@ import { MessageContainer } from './MessageContainer';
 import { MessagePanelBody } from './MessagePanelBody';
 import { MessageInputField } from './MessageInputField';
 import { useParams } from 'react-router-dom';
-import { postNewMessage } from '../../services/api';
+import { postGroupMessage, postNewMessage } from '../../services/api';
 import { AuthContext } from '../../contex/AuthContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -24,16 +24,22 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
 
     const recipient = getRecipientFromConversation(conversation, user);
 
+    const selectedType = useSelector((state: RootState) => state.type.type);
+
     const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+        console.log('submit');
         e.preventDefault();
         if (!id || !content) return;
-        const conversationId = parseInt(id);
-        try {
-            await postNewMessage({ content }, conversationId);
-            setContent('');
-        } catch (err) {
-            console.log(err);
-        }
+        const Id = parseInt(id);
+        const params = { id: Id, content };
+        if (selectedType === 'private')
+            postNewMessage(params)
+                .then(() => setContent(''))
+                .catch((err) => console.log(err));
+        else
+            postGroupMessage(params)
+                .then(() => setContent(''))
+                .catch((err) => console.log(err));
     };
 
     return (

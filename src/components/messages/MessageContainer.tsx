@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useParams } from 'react-router-dom';
 import { FiMoreVertical } from 'react-icons/fi';
-import { MessageType } from '../../utils/types';
+import { GroupMessageType, MessageType } from '../../utils/types';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { MenuContext } from '../menu-Context/MenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
@@ -15,10 +15,12 @@ export const MessageContainer = () => {
     const { id } = useParams();
     const [showMenu, setShowMenu] = useState(false);
     const [points, setPoints] = useState({ x: 0, y: 0 });
-    const [selectedMessage, setSelectedMessage] = useState<MessageType | null>(null);
+    const [selectedMessage, setSelectedMessage] = useState<MessageType | GroupMessageType | null>(null);
     const conversationMessages = useSelector((state: RootState) => state.messages.messages);
-    const [editMessage, setEditMessage] = useState<MessageType | null>(null);
+    const [editMessage, setEditMessage] = useState<MessageType | GroupMessageType | null>(null);
     const [isEditing, setIsEditing] = useState<boolean>(false);
+    const selectedType = useSelector((state: RootState) => state.type.type);
+    const groupMessages = useSelector((state: RootState) => state.groupMessage.messages);
 
     const handleOnScroll = () => {
         setShowMenu(false);
@@ -39,7 +41,7 @@ export const MessageContainer = () => {
         }
     };
 
-    const handleShowMenu = (e: React.MouseEvent<SVGElement>, message: MessageType) => {
+    const handleShowMenu = (e: React.MouseEvent<SVGElement>, message: MessageType | GroupMessageType) => {
         e.preventDefault();
         setShowMenu(true);
         setPoints({ x: e.pageX, y: e.pageY });
@@ -61,12 +63,16 @@ export const MessageContainer = () => {
         );
     };
     const formatMessages = () => {
-        const msgs = conversationMessages.find((cm) => cm.id === parseInt(id!));
+        const msgs =
+            selectedType === 'private'
+                ? conversationMessages.find((cm) => cm.id === parseInt(id!))
+                : groupMessages.find((gm) => gm.id === parseInt(id!));
         if (!msgs) return [];
         return msgs.messages.map((m, index, arr) => {
+            const nextIndex = index + 1;
             const currentMessage = arr[index];
-            const nextMessage = arr[index + 1];
-            if (arr.length === index + 1) {
+            const nextMessage = arr[nextIndex];
+            if (arr.length === nextIndex || currentMessage.author.id !== nextMessage.author.id) {
                 return (
                     <FormattedMessage
                         user={user}

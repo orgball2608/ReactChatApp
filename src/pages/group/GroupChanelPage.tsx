@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MessagePanel } from '../../components/messages/MessagePanel';
-import { MessageEventPayload } from '../../utils/types';
 import { SocketContext } from '../../contex/SocketContext';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
-import { addMessage, fetchMessagesThunk, deleteMessage, editMessage } from '../../store/messageSlice';
-import { updateConversation } from '../../store/coversationSlice';
 import { AuthContext } from '../../contex/AuthContext';
+import { fetchGroupMessagesThunk } from '../../store/groupMessageSlice';
 
 export const GroupChannelPage = () => {
     const { id } = useParams<{ id: string }>();
@@ -21,7 +19,7 @@ export const GroupChannelPage = () => {
 
     useEffect(() => {
         const conversationId = parseInt(id!);
-        dispatch(fetchMessagesThunk(conversationId));
+        dispatch(fetchGroupMessagesThunk(conversationId));
     }, [id]);
 
     useEffect(() => {
@@ -40,25 +38,12 @@ export const GroupChannelPage = () => {
     }, [id]);
 
     useEffect(() => {
-        socket.on('onMessage', (payload: MessageEventPayload) => {
-            const { conversation } = payload;
-            dispatch(addMessage(payload));
-            dispatch(updateConversation(conversation));
-        });
-        socket.on('onMessageDelete', (payload) => {
-            console.log(payload);
-            dispatch(deleteMessage(payload));
-        });
-        socket.on('onMessageUpdate', (payload) => {
-            dispatch(editMessage(payload));
-        });
+        const groupId = id!;
+        socket.emit('onGroupJoin', { groupId });
         return () => {
-            socket.off('connected');
-            socket.off('onMessage');
-            socket.off('onMessageDelete');
-            socket.off('onMessageUpdate');
+            socket.emit('onGroupLeave', { groupId });
         };
-    }, []);
+    }, [id]);
 
     const sendTypingStatus = () => {
         if (isTyping) {

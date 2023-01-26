@@ -1,11 +1,11 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
-import { MessageType } from '../utils/types';
+import { GroupMessageType, MessageType } from '../utils/types';
 
 type MessageMenuContextType = {
-    message: MessageType | null;
-    setMessage: Dispatch<SetStateAction<MessageType | null>>;
-    editMessage: MessageType | null;
-    setEditMessage: Dispatch<SetStateAction<MessageType | null>>;
+    message: MessageType | GroupMessageType | null;
+    setMessage: Dispatch<SetStateAction<MessageType | GroupMessageType | null>>;
+    editMessage: MessageType | GroupMessageType | null;
+    setEditMessage: Dispatch<SetStateAction<MessageType | GroupMessageType | null>>;
 };
 
 export const MessageMenuContext = createContext<MessageMenuContextType>({

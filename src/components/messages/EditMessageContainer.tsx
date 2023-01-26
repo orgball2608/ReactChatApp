@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction } from 'react';
-import { MessageType } from '../../utils/types';
+import { GroupMessageType, MessageType } from '../../utils/types';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
@@ -7,7 +7,7 @@ import { editMessageThunk } from '../../store/messageSlice';
 
 type Props = {
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    editMessage: MessageType;
+    editMessage: MessageType | GroupMessageType;
     setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
 export const EditMessageContainer: FC<Props> = ({ onEditMessageChange, editMessage, setIsEditing }) => {
