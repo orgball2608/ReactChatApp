@@ -19,8 +19,7 @@ const groupsSlice = createSlice({
     reducers: {
         updateGroupConversations: (state, action: PayloadAction<Group>) => {
             const group = action.payload;
-            const index = state.groups.findIndex((group) => group.id === group.id);
-            console.log(index);
+            const index = state.groups.findIndex((gm) => gm.id === group.id);
             state.groups.splice(index, 1);
             state.groups.unshift(group);
         },
