@@ -14,7 +14,7 @@ export const ConversationSelectTypeForm: FC<Props> = ({ conversationType, setCon
     };
     return (
         <div>
-            <div className="flex ml-6 gap-4 mt-1">
+            <div className="flex ml-6 gap-4 my-1">
                 {ChatTypes.map((chat, index) => (
                     <div
                         key={index}

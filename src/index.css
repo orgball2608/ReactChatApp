@@ -24,3 +24,26 @@ html {
 h1 {
     margin: 0;
 }
+
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #5454543d #8f8f8f;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #5454543d;
+    border-radius: 1px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #8f8f8f;
+    border-radius: 8px;
+    border: 1px solid #8f8f8f;
+}

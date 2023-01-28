@@ -1,6 +1,6 @@
-import { Group } from '../utils/types';
+import { CreateGroupParams, Group } from '../utils/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchGroups as fetchGroupsAPI } from '../services/api';
+import { createGroupConversation, fetchGroups as fetchGroupsAPI } from '../services/api';
 
 export interface GroupState {
     groups: Group[];
@@ -11,6 +11,10 @@ const initialState: GroupState = {
 
 export const fetchGroupsThunk = createAsyncThunk('groups/fetch', () => {
     return fetchGroupsAPI();
+});
+
+export const createGroupThunk = createAsyncThunk('groups/create', (params: CreateGroupParams) => {
+    return createGroupConversation(params);
 });
 
 const groupsSlice = createSlice({
@@ -25,9 +29,13 @@ const groupsSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchGroupsThunk.fulfilled, (state, action) => {
-            state.groups = action.payload.data;
-        });
+        builder
+            .addCase(fetchGroupsThunk.fulfilled, (state, action) => {
+                state.groups = action.payload.data;
+            })
+            .addCase(createGroupThunk.fulfilled, (state, action) => {
+                console.log(action.payload.data);
+            });
     },
 });
 

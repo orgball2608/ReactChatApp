@@ -25,7 +25,6 @@ export const CreateConversationModal: FC<Props> = ({ setShowModal }) => {
             setIsSearching(true);
             searchUsers(query)
                 .then(({ data }) => {
-                    console.log(data);
                     setUserResults(data);
                 })
                 .catch((err) => console.log(err))
@@ -64,7 +63,10 @@ export const CreateConversationModal: FC<Props> = ({ setShowModal }) => {
                         setShowModal={setShowModal}
                         setQuery={setQuery}
                         userResults={userResults}
+                        setUserResults={setUserResults}
                         isSearching={isSearching}
+                        type={conversationType}
+                        query={query}
                     />
                 </ModalContentBody>
             </ModalContainer>
