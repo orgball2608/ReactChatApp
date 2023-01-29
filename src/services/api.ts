@@ -12,6 +12,7 @@ import {
     EditMessageParams,
     FetchMessagePayload,
     Group,
+    GroupMessageType,
     MessageType,
     User,
     UserCredentialsParams,
@@ -42,8 +43,8 @@ export const postNewMessage = ({ id, content }: CreateMessageParams) =>
 export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams) =>
     axiosClient.delete<DeleteMessageResponse>(`/conversations/${conversationId}/messages/${messageId}`, config);
 
-export const editMessage = ({ conversationId, messageId, content }: EditMessageParams) =>
-    axiosClient.patch<MessageType>(`/conversations/${conversationId}/messages/${messageId}`, { content }, config);
+export const editMessage = ({ id, messageId, content }: EditMessageParams) =>
+    axiosClient.patch<MessageType>(`/conversations/${id}/messages/${messageId}`, { content }, config);
 
 export const fetchGroups = () => axiosClient.get<Group[]>(`/groups`, config);
 
@@ -57,3 +58,5 @@ export const createGroupConversation = (data: CreateGroupParams) => axiosClient.
 
 export const deleteGroupMessage = ({ groupId, messageId }: DeleteGroupMessageParams) =>
     axiosClient.delete(`/groups/${groupId}/messages/${messageId}`, config);
+export const editGroupMessage = ({ id, messageId, content }: EditMessageParams) =>
+    axiosClient.patch<GroupMessageType>(`/groups/${id}/messages/${messageId}`, { content }, config);

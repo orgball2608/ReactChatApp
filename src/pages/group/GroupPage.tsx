@@ -6,7 +6,7 @@ import { fetchConversationsThunk } from '../../store/coversationSlice';
 import { AppDispatch } from '../../store';
 import { addGroupConversations, fetchGroupsThunk, updateGroupConversations } from '../../store/groupSlice';
 import { socket } from '../../contex/SocketContext';
-import { addGroupMessage } from '../../store/groupMessageSlice';
+import { addGroupMessage, editGroupMessage } from '../../store/groupMessageSlice';
 import { GroupMessageEventPayload } from '../../utils/types';
 import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
 import { deleteGroupMessage } from '../../store/groupMessageSlice';
@@ -34,10 +34,15 @@ export const GroupPage = () => {
         socket.on('onDeleteGroupMessage', (payload) => {
             dispatch(deleteGroupMessage(payload));
         });
+
+        socket.on('onEditGroupMessage', (payload) => {
+            dispatch(editGroupMessage(payload));
+        });
         return () => {
             socket.off('onGroupMessage');
             socket.off('onGroupCreate');
             socket.off('onDeleteGroupMessage');
+            socket.off('onEditGroupMessage');
         };
     }, [id]);
 

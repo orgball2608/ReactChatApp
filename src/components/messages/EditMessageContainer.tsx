@@ -1,9 +1,11 @@
 import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction } from 'react';
 import { GroupMessageType, MessageType } from '../../utils/types';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
 import { editMessageThunk } from '../../store/messageSlice';
+import { selectType } from '../../store/typeSlice';
+import { editGroupMessageThunk } from '../../store/groupMessageSlice';
 
 type Props = {
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -13,20 +15,32 @@ type Props = {
 export const EditMessageContainer: FC<Props> = ({ onEditMessageChange, editMessage, setIsEditing }) => {
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
+    const conversationType = useSelector((state: RootState) => selectType(state));
+
     const handleSubmitEditMessage = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const params = {
-            conversationId: parseInt(id!),
+            id: parseInt(id!),
             messageId: editMessage?.id,
             content: editMessage?.content,
         };
-        dispatch(editMessageThunk(params))
-            .unwrap()
-            .then(() => setIsEditing(false))
-            .catch((err) => {
-                console.log(err);
-                setIsEditing(false);
-            });
+        if (conversationType === 'private') {
+            dispatch(editMessageThunk(params))
+                .unwrap()
+                .then(() => setIsEditing(false))
+                .catch((err) => {
+                    console.log(err);
+                    setIsEditing(false);
+                });
+        } else {
+            dispatch(editGroupMessageThunk(params))
+                .unwrap()
+                .then(() => setIsEditing(false))
+                .catch((err) => {
+                    console.log(err);
+                    setIsEditing(false);
+                });
+        }
     };
 
     return (

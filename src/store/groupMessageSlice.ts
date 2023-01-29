@@ -1,9 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     deleteGroupMessage as deleteGroupMessageAPI,
+    editGroupMessage as editGroupMessageAPI,
     fetchGroupMessages as fetchGroupMessagesAPI,
 } from '../services/api';
-import { DeleteGroupMessageParams, DeleteGroupMessageResponse, GroupMessage } from '../utils/types';
+import {
+    DeleteGroupMessageParams,
+    DeleteGroupMessageResponse,
+    EditMessageParams,
+    GroupMessage,
+    GroupMessageType,
+} from '../utils/types';
 
 export interface GroupMessagesState {
     messages: GroupMessage[];
@@ -17,6 +24,10 @@ export const fetchGroupMessagesThunk = createAsyncThunk('groupMessages/fetch', (
 
 export const deleteGroupMessageThunk = createAsyncThunk('groupMessages/delete', (params: DeleteGroupMessageParams) =>
     deleteGroupMessageAPI(params),
+);
+
+export const editGroupMessageThunk = createAsyncThunk('groupMessages/edit', (params: EditMessageParams) =>
+    editGroupMessageAPI(params),
 );
 export const groupMessagesSlice = createSlice({
     name: 'groupMessages',
@@ -35,6 +46,14 @@ export const groupMessagesSlice = createSlice({
             const messageIndex = groupMessages.messages.findIndex((m) => m.id === messageId);
             groupMessages.messages.splice(messageIndex, 1);
         },
+        editGroupMessage: (state, action: PayloadAction<GroupMessageType>) => {
+            console.log('Inside Update Group Message reducer');
+            const { group, id, content } = action.payload;
+            const conversationMessage = state.messages.find((cm) => cm.id === group.id);
+            if (!conversationMessage) return;
+            const messageIndex = conversationMessage.messages.findIndex((message) => message.id === id);
+            conversationMessage.messages[messageIndex].content = content;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -50,10 +69,21 @@ export const groupMessagesSlice = createSlice({
                 if (!groupMessages) return;
                 const index = groupMessages.messages.findIndex((message) => message.id === messageId);
                 groupMessages.messages.splice(index, 1);
+            })
+            .addCase(editGroupMessageThunk.fulfilled, (state, action) => {
+                const {
+                    group: { id },
+                    id: messageId,
+                    content,
+                } = action.payload.data;
+                const groupMessages = state.messages.find((gm) => gm.id === id);
+                if (!groupMessages) return;
+                const index = groupMessages.messages.findIndex((message) => message.id === messageId);
+                groupMessages.messages[index].content = content;
             });
     },
 });
 
-export const { addGroupMessage, deleteGroupMessage } = groupMessagesSlice.actions;
+export const { addGroupMessage, deleteGroupMessage, editGroupMessage } = groupMessagesSlice.actions;
 
 export default groupMessagesSlice.reducer;
