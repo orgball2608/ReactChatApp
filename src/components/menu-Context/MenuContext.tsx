@@ -2,9 +2,11 @@ import { Dispatch, FC, SetStateAction, useContext } from 'react';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { AuthContext } from '../../contex/AuthContext';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
 import { deleteMessageThunk } from '../../store/messageSlice';
+import { selectType } from '../../store/typeSlice';
+import { deleteGroupMessageThunk } from '../../store/groupMessageSlice';
 
 type Props = {
     points: { x: number; y: number };
@@ -21,12 +23,14 @@ export const MenuContext: FC<Props> = ({ points, setShowMenu, setIsEditing }) =>
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
+    const conversationType = useSelector((state: RootState) => selectType(state));
     const handleDeleteMessage = () => {
-        const conversationId = parseInt(id!);
+        const Id = parseInt(id!);
         console.log(`Delete message ${message?.id}`);
         if (!message) return;
         setShowMenu(false);
-        dispatch(deleteMessageThunk({ conversationId, messageId: message.id }));
+        if (conversationType === 'private') dispatch(deleteMessageThunk({ conversationId: Id, messageId: message.id }));
+        dispatch(deleteGroupMessageThunk({ groupId: Id, messageId: message.id }));
     };
 
     const handleEditMessage = () => {

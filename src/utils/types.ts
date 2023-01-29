@@ -120,3 +120,13 @@ export type CreateGroupParams = {
     users: string[];
     title: string;
 };
+
+export type DeleteGroupMessageParams = {
+    groupId: number;
+    messageId: number;
+};
+
+export type DeleteGroupMessageResponse = {
+    groupId: number;
+    messageId: number;
+};

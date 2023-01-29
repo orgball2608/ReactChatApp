@@ -9,6 +9,7 @@ import { socket } from '../../contex/SocketContext';
 import { addGroupMessage } from '../../store/groupMessageSlice';
 import { GroupMessageEventPayload } from '../../utils/types';
 import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
+import { deleteGroupMessage } from '../../store/groupMessageSlice';
 
 export const GroupPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -29,9 +30,14 @@ export const GroupPage = () => {
         socket.on('onGroupCreate', (payload) => {
             dispatch(addGroupConversations(payload));
         });
+
+        socket.on('onDeleteGroupMessage', (payload) => {
+            dispatch(deleteGroupMessage(payload));
+        });
         return () => {
             socket.off('onGroupMessage');
             socket.off('onGroupCreate');
+            socket.off('onDeleteGroupMessage');
         };
     }, [id]);
 

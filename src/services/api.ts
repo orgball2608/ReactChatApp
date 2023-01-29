@@ -6,6 +6,7 @@ import {
     CreateGroupParams,
     CreateMessageParams,
     CreateUserParams,
+    DeleteGroupMessageParams,
     DeleteMessageParams,
     DeleteMessageResponse,
     EditMessageParams,
@@ -53,3 +54,6 @@ export const postGroupMessage = ({ id, content }: CreateGroupMessageParams) =>
 export const searchUsers = (query: string) => axiosClient.get(`/user/search?query=${query}`, config);
 
 export const createGroupConversation = (data: CreateGroupParams) => axiosClient.post('/groups', data, config);
+
+export const deleteGroupMessage = ({ groupId, messageId }: DeleteGroupMessageParams) =>
+    axiosClient.delete(`/groups/${groupId}/messages/${messageId}`, config);
