@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserCredentialsParams } from '../../utils/types';
 import { postLoginUser } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import { SocketContext } from '../../contex/SocketContext';
 
 export const LoginForm = () => {
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm<UserCredentialsParams>();
+    const socket = useContext(SocketContext);
     const FormSubmit = async (data: UserCredentialsParams) => {
         try {
             await postLoginUser(data);
+            socket.connect();
             navigate('/conversations');
         } catch (errors) {
             console.log(errors);

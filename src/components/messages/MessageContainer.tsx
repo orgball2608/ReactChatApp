@@ -41,7 +41,10 @@ export const MessageContainer = () => {
         }
     };
 
-    const handleShowMenu = (e: React.MouseEvent<SVGElement>, message: MessageType | GroupMessageType) => {
+    const handleShowMenu = (
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        message: MessageType | GroupMessageType,
+    ) => {
         e.preventDefault();
         setShowMenu(true);
         setPoints({ x: e.pageX, y: e.pageY });
@@ -114,13 +117,14 @@ export const MessageContainer = () => {
                                 >
                                     {m.content}
                                 </div>
-                                <FiMoreVertical
-                                    size={16}
-                                    className={`${
-                                        user?.id === m.author.id ? 'mr-2' : 'ml-2'
-                                    } text-white hover:bg-[#686868] hover:rounded-full`}
+                                <div
+                                    className={`w-fit h-fit px-1 py-1 hover:bg-[#686868] hover:rounded-full ${
+                                        user?.id === m.author.id ? 'mr-1' : 'ml-1'
+                                    }`}
                                     onClick={(e) => handleShowMenu(e, m)}
-                                />
+                                >
+                                    <FiMoreVertical size={16} className="text-white" />
+                                </div>
                             </div>
                         )}
                     </div>

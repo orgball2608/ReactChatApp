@@ -49,9 +49,11 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
                 <MessagePanelBody>
                     <MessageContainer />
                     <div>
-                        <div className="w-full text-base text-[#adadad] box-border h-4 mt-2">
-                            {recipientIsTyping ? `${recipient?.firstName} is typing...` : ''}
-                        </div>
+                        {recipientIsTyping && (
+                            <div className="w-full text-base text-[#adadad] box-border h-4 mt-2">
+                                {recipientIsTyping ? `${recipient?.firstName} is typing...` : ''}
+                            </div>
+                        )}
                         <MessageInputField
                             content={content}
                             setContent={setContent}

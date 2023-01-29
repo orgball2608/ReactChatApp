@@ -8,9 +8,20 @@ type Props = {
 };
 export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     const { user } = useContext(AuthContext);
+    const MAX_MESSAGE_LENGTH = 30;
     const getDisplayUser = (conversation: Conversation) => {
         return conversation.creator.id === user?.id ? conversation.recipient : conversation.creator;
     };
+
+    const lastMessageContent = () => {
+        const { lastMessageSent } = conversation;
+        if (lastMessageSent)
+            return lastMessageSent.content.length > MAX_MESSAGE_LENGTH
+                ? lastMessageSent.content.slice(0, MAX_MESSAGE_LENGTH).concat('...')
+                : lastMessageSent.content;
+        return null;
+    };
+
     const navigate = useNavigate();
     return (
         <div
@@ -22,12 +33,12 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
             }}
             key={conversation.id}
         >
-            <div className="bg-white h-12 w-12 rounded-full bg-blue-500"></div>
-            <div>
-                <span className="block font-bold text-base">
+            <div className="bg-white h-12 w-12 rounded-full bg-blue-500 flex-none"></div>
+            <div className="flex flex-col flex-nowrap flex-1 break-all">
+                <span className="block font-bold text-base ">
                     {` ${getDisplayUser(conversation).lastName} ${getDisplayUser(conversation).firstName}`}
                 </span>
-                <span className="text-sm text-white">{conversation.lastMessageSent?.content}</span>
+                <span className="text-sm text-white">{lastMessageContent()}</span>
             </div>
         </div>
     );

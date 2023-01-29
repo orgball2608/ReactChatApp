@@ -8,7 +8,7 @@ import { EditMessageContainer } from './EditMessageContainer';
 type FormattedMessageProps = {
     user?: User;
     message: MessageType | GroupMessageType;
-    handleShowMenu: (e: React.MouseEvent<SVGElement>, message: MessageType | GroupMessageType) => void;
+    handleShowMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, message: MessageType | GroupMessageType) => void;
     isEditing: boolean;
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
     setIsEditing: Dispatch<SetStateAction<boolean>>;
@@ -30,9 +30,9 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                 user?.id === message.author.id ? 'place-self-end justify-end' : 'place-self-start'
             }`}
         >
-            <div className={`w-10 h-10 rounded-full bg-red-500`}></div>
-            <div className=" flex-col gap-3">
+            <div className=" flex-col gap-3 w-full">
                 <div className={`flex gap-3 py-1  ${user?.id === message.author.id ? 'justify-end' : ''}`}>
+                    <div className={`w-10 h-10 rounded-full bg-red-500 flex-0`}></div>
                     <span
                         className="text-[#6d6d6d] text-base font-bold"
                         style={{
@@ -59,18 +59,19 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                     >
                         <div
                             className={`bg-dark-header p-2 rounded-2xl ${
-                                user?.id === message.author.id ? 'rounded-tr-none' : 'rounded-tl-none'
+                                user?.id === message.author.id ? 'rounded-tr-none' : 'rounded-tl-none ml-14'
                             }`}
                         >
                             {message.content}
                         </div>
-                        <FiMoreVertical
-                            size={16}
+                        <div
                             className={`${
                                 user?.id === message.author.id ? 'mr-2' : 'ml-2'
-                            } text-white hover:bg-[#686868] hover:rounded-full`}
+                            } w-fit h-fit px-1 py-1 hover:bg-[#686868] hover:rounded-full`}
                             onClick={(e) => handleShowMenu(e, message)}
-                        />
+                        >
+                            <FiMoreVertical size={16} className="text-white" />
+                        </div>
                     </div>
                 )}
             </div>
