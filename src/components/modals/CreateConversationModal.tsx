@@ -6,6 +6,7 @@ import { ConversationSelectTypeForm } from './ConversationSelectTypeForm';
 import { ConversationType, User } from '../../utils/types';
 import { useDebounce } from '../../hooks/useDebounce';
 import { searchUsers } from '../../services/api';
+import { CreateGroupForm } from '../forms/CreateGroupForm';
 
 type Props = {
     setShowModal: Dispatch<React.SetStateAction<boolean>>;
@@ -59,15 +60,24 @@ export const CreateConversationModal: FC<Props> = ({ setShowModal }) => {
                     setConversationType={setConversationType}
                 />
                 <ModalContentBody>
-                    <CreateConversationForm
-                        setShowModal={setShowModal}
-                        setQuery={setQuery}
-                        userResults={userResults}
-                        setUserResults={setUserResults}
-                        isSearching={isSearching}
-                        type={conversationType}
-                        query={query}
-                    />
+                    {conversationType === 'private' ? (
+                        <CreateConversationForm
+                            setShowModal={setShowModal}
+                            setQuery={setQuery}
+                            userResults={userResults}
+                            setUserResults={setUserResults}
+                            isSearching={isSearching}
+                        />
+                    ) : (
+                        <CreateGroupForm
+                            setShowModal={setShowModal}
+                            setQuery={setQuery}
+                            userResults={userResults}
+                            setUserResults={setUserResults}
+                            isSearching={isSearching}
+                            query={query}
+                        />
+                    )}
                 </ModalContentBody>
             </ModalContainer>
         </div>

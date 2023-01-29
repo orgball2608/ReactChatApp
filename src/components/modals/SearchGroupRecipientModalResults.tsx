@@ -5,24 +5,27 @@ import { AuthContext } from '../../contex/AuthContext';
 type Props = {
     userResults: User[];
     isSearching: boolean;
-    setSelectedUser: Dispatch<React.SetStateAction<User | undefined>>;
     setUserResults: Dispatch<React.SetStateAction<User[]>>;
     setQuery: Dispatch<React.SetStateAction<string>>;
+    setSelectedUsers: Dispatch<React.SetStateAction<User[]>>;
+    selectedUsers: User[];
 };
-export const SearchRecipientModalResults: FC<Props> = ({
+export const SearchGroupRecipientModalResults: FC<Props> = ({
     userResults,
     isSearching,
-    setSelectedUser,
     setUserResults,
     setQuery,
+    setSelectedUsers,
+    selectedUsers,
 }) => {
-    const handleSelectedUser = (user: User) => {
-        setSelectedUser(user);
+    const { user } = useContext(AuthContext);
+
+    const handleMultiSelectedUser = (user: User) => {
+        const exists = selectedUsers.find((u) => u.id === user.id);
+        if (!exists) setSelectedUsers((prev) => [...prev, user]);
         setUserResults([]);
         setQuery('');
     };
-
-    const { user } = useContext(AuthContext);
 
     return (
         <>
@@ -34,7 +37,7 @@ export const SearchRecipientModalResults: FC<Props> = ({
                                 <div
                                     key={u.id}
                                     className="hover:cursor-pointer hover:bg-[#0c0c0c] box-border px-4 py-1 rounded-lg"
-                                    onClick={() => handleSelectedUser(u)}
+                                    onClick={() => handleMultiSelectedUser(u)}
                                 >
                                     <span>{u.email}</span>
                                 </div>

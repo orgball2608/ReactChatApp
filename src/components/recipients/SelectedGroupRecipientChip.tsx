@@ -1,15 +1,15 @@
 import { User } from '../../utils/types';
-import React, { Dispatch, FC } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import { CircleX } from 'akar-icons';
 
 type Props = {
     selectedUser: User | undefined;
-    setSelectedUser: Dispatch<React.SetStateAction<User | undefined>>;
+    setSelectedUsers: Dispatch<SetStateAction<User[]>>;
 };
 
-export const SelectedRecipientChip: FC<Props> = ({ setSelectedUser, selectedUser }) => {
+export const SelectedGroupRecipientChip: FC<Props> = ({ selectedUser, setSelectedUsers }) => {
     const handleRemoveSelectedUser = () => {
-        setSelectedUser(undefined);
+        setSelectedUsers((prev) => prev.filter((u) => u.id !== selectedUser?.id));
     };
     return (
         <div>
