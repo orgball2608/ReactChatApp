@@ -8,6 +8,7 @@ import { fetchGroupsThunk, updateGroupConversations } from '../../store/groupSli
 import { socket } from '../../contex/SocketContext';
 import { addGroupMessage } from '../../store/groupMessageSlice';
 import { GroupMessageEventPayload } from '../../utils/types';
+import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
 
 export const GroupPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -30,7 +31,8 @@ export const GroupPage = () => {
     }, [id]);
 
     return (
-        <div className="bg-dark-light h-full">
+        <div className="bg-dark-light h-full w-full flex">
+            <ConversationSidebar />
             {!id && <ConversationPanel />}
             <Outlet />
         </div>

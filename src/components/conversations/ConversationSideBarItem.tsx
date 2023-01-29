@@ -15,7 +15,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     return (
         <div
             className={
-                'flex justify-start items-center gap-5 px-8 py-3 box-border border-b-[1px] border-solid border-border-conversations bg-simple-gray'
+                'flex justify-start mt-42 items-center gap-5 px-8 py-3 box-border border-b-[1px] border-solid border-border-conversations bg-simple-gray'
             }
             onClick={() => {
                 navigate(`/conversations/${conversation.id}`);

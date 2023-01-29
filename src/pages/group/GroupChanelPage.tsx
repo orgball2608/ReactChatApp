@@ -65,7 +65,7 @@ export const GroupChannelPage = () => {
 
     return (
         <>
-            <div className={`h-full ml-96`}>
+            <div className={`h-full w-full`}>
                 <MessagePanel sendTypingStatus={sendTypingStatus} recipientIsTyping={isRecipientTyping} />
             </div>
         </>

@@ -79,10 +79,8 @@ export const ConversationChannelPage = () => {
     };
 
     return (
-        <>
-            <div className={`h-full ml-96`}>
-                <MessagePanel sendTypingStatus={sendTypingStatus} recipientIsTyping={isRecipientTyping} />
-            </div>
-        </>
+        <div className={`h-full w-full`}>
+            <MessagePanel sendTypingStatus={sendTypingStatus} recipientIsTyping={isRecipientTyping} />
+        </div>
     );
 };

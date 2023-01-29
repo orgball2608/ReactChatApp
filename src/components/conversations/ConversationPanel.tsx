@@ -1,3 +1,3 @@
 export const ConversationPanel = () => {
-    return <div className="h-full ml-96">ConversationPanel</div>;
+    return <div className="h-full w-full">Welcome to Conversation</div>;
 };

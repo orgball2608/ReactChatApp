@@ -12,7 +12,7 @@ type Props = {
     type: ConversationType;
     selectedUsers: User[];
 };
-export const SearchUserModalResults: FC<Props> = ({
+export const SearchRecipientModalResults: FC<Props> = ({
     userResults,
     isSearching,
     setSelectedUser,

@@ -17,7 +17,7 @@ export const ConversationSelected = () => {
     };
 
     return (
-        <div className="flex justify-center items-center px-2 h-12 mt-14 gap-2 text-base font-medium box-border bg-simple-gray cursor-pointer">
+        <div className="flex justify-center h-14 w-80 items-center px-2 gap-2 text-base font-medium box-border bg-simple-gray cursor-pointer border-r-[1px] border-border-conversations">
             {ChatTypes.map((chat, index) => (
                 <div
                     onClick={() => handleChangeType(chat)}

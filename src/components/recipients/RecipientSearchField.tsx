@@ -1,5 +1,5 @@
 import { SelectedRecipientChip } from './SelectedRecipientChip';
-import { SearchUserModalResults } from '../modals/SearchUserModalResults';
+import { SearchRecipientModalResults } from '../modals/SearchRecipientModalResults';
 import React, { Dispatch, FC } from 'react';
 import { ConversationType, User } from '../../utils/types';
 
@@ -78,7 +78,7 @@ export const RecipientSearchField: FC<Props> = ({
                 </label>
                 <div className="flex gap-2 flex-wrap">{renderRecipients()}</div>
             </div>
-            <SearchUserModalResults
+            <SearchRecipientModalResults
                 userResults={userResults}
                 isSearching={isSearching}
                 setSelectedUser={setSelectedUser}
@@ -87,7 +87,7 @@ export const RecipientSearchField: FC<Props> = ({
                 setSelectedUsers={setSelectedUsers}
                 type={type}
                 selectedUsers={selectedUsers}
-            ></SearchUserModalResults>
+            ></SearchRecipientModalResults>
         </section>
     );
 };

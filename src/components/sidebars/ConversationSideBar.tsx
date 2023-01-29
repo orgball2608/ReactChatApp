@@ -17,16 +17,21 @@ export const ConversationSidebar = () => {
     return (
         <>
             {showModal && <CreateConversationModal setShowModal={setShowModal} />}
-            <aside className="absolute top-0 left-16 h-full w-80 bg-dark-light border-r-[1px] border-solid border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
-                <header className="position: fixed top-0 left-16 w-80 flex justify-between items-center px-8 bg-dark-header h-14 border-b-[1px] border-r-[1px] border-border-conversations">
-                    <h1 className="font-normal text-2xl">Conversations</h1>
-                    <div onClick={() => setShowModal(!showModal)}>
-                        <TbEdit size={28} />
+            <aside className="h-full flex-none bg-dark-light w-80 border-solid border-r-[1px] border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
+                <header className="fixed top-0 left-16 w-80 flex flex-col justify-between items-center px-8 bg-dark-header">
+                    <div className="flex justify-between px-4 items-center h-14 w-80 border-b-[1px] border-r-[1px] border-border-conversations">
+                        <h1 className="font-normal text-2xl">Conversations</h1>
+                        <div onClick={() => setShowModal(!showModal)}>
+                            <TbEdit size={28} />
+                        </div>
+                    </div>
+                    <div className="w-80 flex flex-col border-b-[1px] border-border-conversations">
+                        <ConversationSelected />
+                        <ConversationSearchBar />
                     </div>
                 </header>
-                <ConversationSelected />
-                <ConversationSearchBar />
-                <section>
+
+                <section className="mt-40 w-full">
                     {selectedType === 'private'
                         ? conversations.map((conversation) => (
                               <ConversationSideBarItem conversation={conversation} key={conversation.id} />

@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { fetchConversationsThunk } from '../../store/coversationSlice';
 import { AppDispatch } from '../../store';
 import { fetchGroupsThunk } from '../../store/groupSlice';
+import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
 
 export const ConversationPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -16,7 +17,8 @@ export const ConversationPage = () => {
     }, []);
 
     return (
-        <div className="bg-dark-light h-full">
+        <div className="bg-dark-light h-full w-full flex">
+            <ConversationSidebar />
             {!id && <ConversationPanel />}
             <Outlet />
         </div>
