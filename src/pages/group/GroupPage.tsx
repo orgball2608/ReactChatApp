@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchConversationsThunk } from '../../store/coversationSlice';
 import { AppDispatch } from '../../store';
-import { fetchGroupsThunk, updateGroupConversations } from '../../store/groupSlice';
+import { addGroupConversations, fetchGroupsThunk, updateGroupConversations } from '../../store/groupSlice';
 import { socket } from '../../contex/SocketContext';
 import { addGroupMessage } from '../../store/groupMessageSlice';
 import { GroupMessageEventPayload } from '../../utils/types';
@@ -25,8 +25,13 @@ export const GroupPage = () => {
             dispatch(addGroupMessage(payload));
             dispatch(updateGroupConversations(group));
         });
+
+        socket.on('onGroupCreate', (payload) => {
+            dispatch(addGroupConversations(payload));
+        });
         return () => {
             socket.off('onGroupMessage');
+            socket.off('onGroupCreate');
         };
     }, [id]);
 

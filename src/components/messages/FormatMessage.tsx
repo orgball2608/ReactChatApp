@@ -1,9 +1,9 @@
 import { GroupMessageType, MessageType, User } from '../../utils/types';
 import React, { ChangeEvent, Dispatch, FC, SetStateAction, useContext } from 'react';
 import moment from 'moment';
-import { FiMoreVertical } from 'react-icons/fi';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
+import { MessageOption } from './MessageOption';
 
 type FormattedMessageProps = {
     user?: User;
@@ -64,14 +64,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                         >
                             {message.content}
                         </div>
-                        <div
-                            className={`${
-                                user?.id === message.author.id ? 'mr-2' : 'ml-2'
-                            } w-fit h-fit px-1 py-1 hover:bg-[#686868] hover:rounded-full`}
-                            onClick={(e) => handleShowMenu(e, message)}
-                        >
-                            <FiMoreVertical size={16} className="text-white" />
-                        </div>
+                        <MessageOption message={message} handleShowMenu={handleShowMenu} />
                     </div>
                 )}
             </div>

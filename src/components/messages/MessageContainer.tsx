@@ -4,11 +4,11 @@ import { FormattedMessage } from './FormatMessage';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useParams } from 'react-router-dom';
-import { FiMoreVertical } from 'react-icons/fi';
 import { GroupMessageType, MessageType } from '../../utils/types';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { MenuContext } from '../menu-Context/MenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
+import { MessageOption } from './MessageOption';
 
 export const MessageContainer = () => {
     const { user } = useContext(AuthContext);
@@ -65,6 +65,7 @@ export const MessageContainer = () => {
                 },
         );
     };
+
     const formatMessages = () => {
         const msgs =
             selectedType === 'private'
@@ -117,14 +118,7 @@ export const MessageContainer = () => {
                                 >
                                     {m.content}
                                 </div>
-                                <div
-                                    className={`w-fit h-fit px-1 py-1 hover:bg-[#686868] hover:rounded-full ${
-                                        user?.id === m.author.id ? 'mr-1' : 'ml-1'
-                                    }`}
-                                    onClick={(e) => handleShowMenu(e, m)}
-                                >
-                                    <FiMoreVertical size={16} className="text-white" />
-                                </div>
+                                <MessageOption message={m} handleShowMenu={handleShowMenu} />
                             </div>
                         )}
                     </div>
