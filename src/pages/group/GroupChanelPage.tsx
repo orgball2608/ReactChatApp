@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { AuthContext } from '../../contex/AuthContext';
 import { fetchGroupMessagesThunk } from '../../store/groupMessageSlice';
+import { ConversationSettingSideBar } from '../../components/sidebars/ConversationSettingSideBar';
 
 export const GroupChannelPage = () => {
     const { id } = useParams<{ id: string }>();
@@ -68,6 +69,7 @@ export const GroupChannelPage = () => {
             <div className={`h-full w-full`}>
                 <MessagePanel sendTypingStatus={sendTypingStatus} recipientIsTyping={isRecipientTyping} />
             </div>
+            <ConversationSettingSideBar />
         </>
     );
 };

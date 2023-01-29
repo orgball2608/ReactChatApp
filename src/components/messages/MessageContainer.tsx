@@ -6,7 +6,7 @@ import { RootState } from '../../store';
 import { useParams } from 'react-router-dom';
 import { GroupMessageType, MessageType } from '../../utils/types';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
-import { MenuContext } from '../menu-Context/MenuContext';
+import { MenuContext } from '../menu-context/MenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
 

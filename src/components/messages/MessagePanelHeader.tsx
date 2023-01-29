@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
+import { FiMoreVertical } from 'react-icons/fi';
 
 export const MessagePanelHeader = () => {
     const { id } = useParams();
@@ -20,7 +21,10 @@ export const MessagePanelHeader = () => {
             className="bg-dark-header border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-8 box-border
     absolute top-0 left-0 w-full h-14 text-lg rounded z-8"
         >
-            {selectedType === 'private' ? fullName : 'Group'}
+            <div> {selectedType === 'private' ? fullName : 'Group'}</div>
+            <div className={`w-fit h-fit px-1 py-1 hover:bg-[#686868] hover:rounded-full`}>
+                <FiMoreVertical size={16} className="text-white" />
+            </div>
         </header>
     );
 };
