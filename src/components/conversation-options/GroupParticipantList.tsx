@@ -9,7 +9,7 @@ type Props = {
 export const GroupParticipantList: FC<Props> = ({ offlineUsers, onlineUsers }) => {
     const getFullName = (user: User) => user.lastName + ' ' + user.firstName;
     return (
-        <div className="flex flex-col justify-center gap-2 px-2">
+        <div className="flex flex-col justify-center gap-2 px-2 overflow-y-scroll scrollbar-hide overflow-auto">
             <div className="flex flex-col gap-2 justify-center">
                 <div className="text-base font-medium rounded-md">Online</div>
                 <div className="flex flex-col gap-2">

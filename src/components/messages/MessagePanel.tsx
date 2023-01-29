@@ -59,6 +59,7 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
                             setContent={setContent}
                             sendMessage={sendMessage}
                             sendTypingStatus={sendTypingStatus}
+                            recipient={recipient}
                         />
                     </div>
                 </MessagePanelBody>
