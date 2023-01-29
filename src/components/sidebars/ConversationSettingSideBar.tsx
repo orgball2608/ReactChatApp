@@ -1,24 +1,52 @@
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { User } from '../../utils/types';
 import { ChevronRight } from 'akar-icons';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { GroupParticipantList } from '../conversation-options/GroupParticipantList';
+import { AuthContext } from '../../contex/AuthContext';
+import { SocketContext } from '../../contex/SocketContext';
+import { User } from '../../utils/types';
 
 export const ConversationSettingSideBar = () => {
     const { id } = useParams();
-    const getFullName = (user: User) => user.lastName + ' ' + user.firstName;
+    const groupId = parseInt(id!);
     const groups = useSelector((state: RootState) => state.group.groups);
-    const selectedGroup = groups.find((group) => group.id === parseInt(id!));
+    const selectedGroup = groups.find((group) => group.id === groupId);
     const [showParticipants, setShowParticipants] = useState<boolean>(false);
+
+    const { user } = useContext(AuthContext);
+    const socket = useContext(SocketContext);
+    const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
+    const [offlineUsers, setOfflineUsers] = useState<User[] | undefined>([]);
+
+    useEffect(() => {
+        if (user) setOnlineUsers((prev) => [...prev, user]);
+        setOfflineUsers(selectedGroup?.users.filter((u) => u.id !== user?.id));
+        socket.emit('getOnlineGroupUsers', { groupId });
+        const interval = setInterval(() => {
+            socket.emit('getOnlineGroupUsers', { groupId, userId: user?.id });
+        }, 10000);
+        socket.on('onlineGroupUsersReceived', (payload) => {
+            setOnlineUsers(payload.onlineUsers);
+            setOfflineUsers(payload.offlineUsers);
+        });
+        return () => {
+            clearInterval(interval);
+            socket.off('onlineGroupUsersReceived');
+            setOfflineUsers([]);
+            setOnlineUsers([]);
+        };
+    }, [groupId]);
+
+    useEffect(() => {
+        setShowParticipants(false);
+    }, [groupId]);
+
     const handleShowParticipants = () => {
         if (showParticipants) setShowParticipants(false);
         else setShowParticipants(true);
     };
-
-    useEffect(() => {
-        setShowParticipants(false);
-    }, [id]);
 
     return (
         <aside className="w-72 flex-none bg-[#141414] px-2 gap-2 flex flex-col border-border-conversations border-l-[1px] ">
@@ -38,19 +66,7 @@ export const ConversationSettingSideBar = () => {
                         <ChevronRight size={20} />
                     </div>
                 </div>
-                {showParticipants && (
-                    <div className="flex flex-col gap-2">
-                        {selectedGroup?.users.map((user) => (
-                            <div
-                                key={user.id}
-                                className="flex justify-start items-center text-base gap-4 my-1 font-medium"
-                            >
-                                <div className="w-8 h-8 rounded-full bg-blue-500"></div>
-                                <span>{getFullName(user)}</span>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                {showParticipants && <GroupParticipantList onlineUsers={onlineUsers} offlineUsers={offlineUsers} />}
             </div>
         </aside>
     );
