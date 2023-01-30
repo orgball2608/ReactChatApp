@@ -23,7 +23,7 @@ export const GroupRecipientSearchField: FC<Props> = ({
     query,
 }) => {
     const renderRecipients = () => {
-        if (selectedUsers.length == 0)
+        if (selectedUsers && selectedUsers.length === 0)
             return (
                 <input
                     id="email"
@@ -35,14 +35,16 @@ export const GroupRecipientSearchField: FC<Props> = ({
         return (
             <div className="flex flex-wrap">
                 {selectedUsers.map((user) => (
-                    <SelectedGroupRecipientChip selectedUser={user} key={user.id} setSelectedUsers={setSelectedUsers} />
+                    <SelectedGroupRecipientChip key={user.id} selectedUser={user} setSelectedUsers={setSelectedUsers} />
                 ))}
 
                 <input
                     id="email"
                     className="text-lg w-full border-box p-0 text-white bg-inherit border-0 outline-0 scrollbar-hide overflow-auto resize-none"
                     value={query}
-                    onChange={(event) => setQuery(event.target.value)}
+                    onChange={(event) => {
+                        setQuery(event.target.value);
+                    }}
                 />
             </div>
         );

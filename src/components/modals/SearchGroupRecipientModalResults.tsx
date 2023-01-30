@@ -23,8 +23,8 @@ export const SearchGroupRecipientModalResults: FC<Props> = ({
     const handleMultiSelectedUser = (user: User) => {
         const exists = selectedUsers.find((u) => u.id === user.id);
         if (!exists) setSelectedUsers((prev) => [...prev, user]);
-        setUserResults([]);
         setQuery('');
+        setUserResults([]);
     };
 
     return (

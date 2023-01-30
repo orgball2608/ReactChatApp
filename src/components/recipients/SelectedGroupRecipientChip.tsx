@@ -11,6 +11,7 @@ export const SelectedGroupRecipientChip: FC<Props> = ({ selectedUser, setSelecte
     const handleRemoveSelectedUser = () => {
         setSelectedUsers((prev) => prev.filter((u) => u.id !== selectedUser?.id));
     };
+
     return (
         <div>
             <div className="flex justify-start gap-2 items-center">

@@ -8,7 +8,6 @@ import { addGroupConversations, fetchGroupsThunk, updateGroupConversations } fro
 import { socket } from '../../contex/SocketContext';
 import { addGroupMessage, editGroupMessage } from '../../store/groupMessageSlice';
 import { GroupMessageEventPayload } from '../../utils/types';
-import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
 import { deleteGroupMessage } from '../../store/groupMessageSlice';
 
 export const GroupPage = () => {
@@ -48,7 +47,6 @@ export const GroupPage = () => {
 
     return (
         <div className="bg-dark-light h-full w-full flex">
-            <ConversationSidebar />
             {!id && <ConversationPanel />}
             <Outlet />
         </div>
