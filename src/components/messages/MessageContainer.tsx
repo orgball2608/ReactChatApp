@@ -3,7 +3,7 @@ import { AuthContext } from '../../contex/AuthContext';
 import { FormattedMessage } from './FormatMessage';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { GroupMessageType, MessageType } from '../../utils/types';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { MenuContext } from '../menu-context/MenuContext';
@@ -21,7 +21,7 @@ export const MessageContainer = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groupMessages = useSelector((state: RootState) => state.groupMessage.messages);
-
+    const navigate = useNavigate();
     const handleOnScroll = () => {
         setShowMenu(false);
     };
@@ -71,8 +71,11 @@ export const MessageContainer = () => {
             selectedType === 'private'
                 ? conversationMessages.find((cm) => cm.id === parseInt(id!))
                 : groupMessages.find((gm) => gm.id === parseInt(id!));
-        if (!msgs) return [];
-        return msgs.messages.map((m, index, arr) => {
+        if (!msgs) {
+            if (selectedType === 'private') navigate(`/conversations`);
+            else navigate(`/groups`);
+        }
+        return msgs?.messages.map((m, index, arr) => {
             const nextIndex = index + 1;
             const currentMessage = arr[index];
             const nextMessage = arr[nextIndex];

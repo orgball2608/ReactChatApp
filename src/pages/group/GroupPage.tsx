@@ -4,7 +4,12 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchConversationsThunk } from '../../store/coversationSlice';
 import { AppDispatch } from '../../store';
-import { addGroupConversations, fetchGroupsThunk, updateGroupConversations } from '../../store/groupSlice';
+import {
+    addGroupConversations,
+    editGroupConversationsTitle,
+    fetchGroupsThunk,
+    updateGroupConversations,
+} from '../../store/groupSlice';
 import { socket } from '../../contex/SocketContext';
 import { addGroupMessage, editGroupMessage } from '../../store/groupMessageSlice';
 import { GroupMessageEventPayload } from '../../utils/types';
@@ -20,7 +25,6 @@ export const GroupPage = () => {
 
     useEffect(() => {
         socket.on('onGroupMessage', (payload: GroupMessageEventPayload) => {
-            console.log('Group Message Received');
             const { group } = payload;
             dispatch(addGroupMessage(payload));
             dispatch(updateGroupConversations(group));
@@ -37,11 +41,16 @@ export const GroupPage = () => {
         socket.on('onEditGroupMessage', (payload) => {
             dispatch(editGroupMessage(payload));
         });
+
+        socket.on('onEditGroupTitle', (payload) => {
+            dispatch(editGroupConversationsTitle(payload));
+        });
         return () => {
             socket.off('onGroupMessage');
             socket.off('onGroupCreate');
             socket.off('onDeleteGroupMessage');
             socket.off('onEditGroupMessage');
+            socket.off('onEditGroupTitle');
         };
     }, [id]);
 

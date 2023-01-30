@@ -49,10 +49,10 @@ export const groupMessagesSlice = createSlice({
         editGroupMessage: (state, action: PayloadAction<GroupMessageType>) => {
             console.log('Inside Update Group Message reducer');
             const { group, id, content } = action.payload;
-            const conversationMessage = state.messages.find((cm) => cm.id === group.id);
-            if (!conversationMessage) return;
-            const messageIndex = conversationMessage.messages.findIndex((message) => message.id === id);
-            conversationMessage.messages[messageIndex].content = content;
+            const groupMessages = state.messages.find((cm) => cm.id === group.id);
+            if (!groupMessages) return;
+            const messageIndex = groupMessages.messages.findIndex((message) => message.id === id);
+            groupMessages.messages[messageIndex].content = content;
         },
     },
     extraReducers: (builder) => {

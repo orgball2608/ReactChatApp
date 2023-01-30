@@ -39,6 +39,12 @@ const groupsSlice = createSlice({
             const group = action.payload;
             state.groups.unshift(group);
         },
+        editGroupConversationsTitle: (state, action: PayloadAction<Group>) => {
+            const group = action.payload;
+            const index = state.groups.findIndex((gm) => gm.id === group.id);
+            state.groups.splice(index, 1);
+            state.groups.unshift(group);
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -58,5 +64,5 @@ const groupsSlice = createSlice({
     },
 });
 
-export const { updateGroupConversations, addGroupConversations } = groupsSlice.actions;
+export const { updateGroupConversations, addGroupConversations, editGroupConversationsTitle } = groupsSlice.actions;
 export default groupsSlice.reducer;
