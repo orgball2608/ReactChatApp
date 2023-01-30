@@ -92,7 +92,7 @@ export const MessageContainer = () => {
             if (currentMessage.author.id === nextMessage.author.id) {
                 return (
                     <div
-                        className={`flex gap-4 items-center break-all w-1/2 ${
+                        className={`flex gap-4 items-center break-all w-1/2 group ${
                             user?.id === m.author.id ? 'place-self-end justify-end' : 'place-self-start justify-start'
                         }`}
                         key={m.id}
@@ -118,7 +118,9 @@ export const MessageContainer = () => {
                                 >
                                     {m.content}
                                 </div>
-                                <MessageOption message={m} handleShowMenu={handleShowMenu} />
+                                <div className="invisible group-hover:visible">
+                                    <MessageOption message={m} handleShowMenu={handleShowMenu} />
+                                </div>
                             </div>
                         )}
                     </div>

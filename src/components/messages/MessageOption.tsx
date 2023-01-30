@@ -11,15 +11,13 @@ type Props = {
 export const MessageOption: FC<Props> = ({ message, handleShowMenu }) => {
     const { user } = useContext(AuthContext);
     return (
-        <div>
-            <div
-                className={`w-fit h-fit px-1 py-1 hover:bg-[#686868] hover:rounded-full ${
-                    user?.id === message.author.id ? 'mr-1' : 'ml-1'
-                }`}
-                onClick={(e) => handleShowMenu(e, message)}
-            >
-                <FiMoreVertical size={16} className="text-white" />
-            </div>
+        <div
+            className={`w-fit h-fit px-1 py-1 hover:bg-[#686868] hover:rounded-full ${
+                user?.id === message.author.id ? 'mr-1' : 'ml-1'
+            }`}
+            onClick={(e) => handleShowMenu(e, message)}
+        >
+            <FiMoreVertical size={16} className="text-white" />
         </div>
     );
 };

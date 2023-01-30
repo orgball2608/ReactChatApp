@@ -21,6 +21,7 @@ module.exports = {
                 roboto: ['Roboto', 'sans-serif'],
                 Inter: ['Inter', 'sans-serif'],
             },
+            invisible: ['group-hover'],
         },
     },
     plugins: [require('tailwind-scrollbar-hide')],

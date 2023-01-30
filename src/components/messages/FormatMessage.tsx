@@ -53,7 +53,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                     </div>
                 ) : (
                     <div
-                        className={`text-base flex justify-start items-center w-full ${
+                        className={`text-base flex justify-start items-center w-full group ${
                             user?.id === message.author.id ? 'flex-row-reverse' : ''
                         }`}
                     >
@@ -64,7 +64,9 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                         >
                             {message.content}
                         </div>
-                        <MessageOption message={message} handleShowMenu={handleShowMenu} />
+                        <div className="invisible group-hover:visible">
+                            <MessageOption message={message} handleShowMenu={handleShowMenu} />
+                        </div>
                     </div>
                 )}
             </div>
