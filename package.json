@@ -14,6 +14,7 @@
         "@types/react-dom": "^18.0.9",
         "akar-icons": "^1.9.22",
         "axios": "^1.2.1",
+        "emoji-picker-react": "^4.4.7",
         "follow-redirects": "^1.15.2",
         "form-data": "^4.0.0",
         "moment": "^2.29.4",

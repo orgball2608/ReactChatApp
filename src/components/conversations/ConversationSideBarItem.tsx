@@ -33,7 +33,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
             }}
             key={conversation.id}
         >
-            <div className="bg-white h-12 w-12 rounded-full bg-blue-500 flex-none"></div>
+            <div className="bg-blue-500 h-12 w-12 rounded-full bg-blue-500 flex-none"></div>
             <div className="flex flex-col flex-nowrap flex-1 break-all">
                 <span className="block font-bold text-base ">
                     {` ${getDisplayUser(conversation).lastName} ${getDisplayUser(conversation).firstName}`}

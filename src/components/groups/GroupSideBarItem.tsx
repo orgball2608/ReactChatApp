@@ -39,7 +39,7 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
             }}
             key={group.id}
         >
-            <div className="bg-white h-12 w-12 rounded-full bg-blue-500"></div>
+            <div className="bg-blue-500 h-12 w-12 rounded-full bg-blue-500"></div>
             <div>
                 <span className="block font-bold text-base">{getGroupTitleDisplay(group)}</span>
                 <span className="text-sm text-white">{lastMessageContent()}</span>
