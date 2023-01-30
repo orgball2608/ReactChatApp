@@ -9,6 +9,7 @@ import {
     DeleteGroupMessageParams,
     DeleteMessageParams,
     DeleteMessageResponse,
+    EditGroupTitleParams,
     EditMessageParams,
     FetchMessagePayload,
     Group,
@@ -60,3 +61,6 @@ export const deleteGroupMessage = ({ groupId, messageId }: DeleteGroupMessagePar
     axiosClient.delete(`/groups/${groupId}/messages/${messageId}`, config);
 export const editGroupMessage = ({ id, messageId, content }: EditMessageParams) =>
     axiosClient.patch<GroupMessageType>(`/groups/${id}/messages/${messageId}`, { content }, config);
+
+export const editGroupTitle = ({ id, title }: EditGroupTitleParams) =>
+    axiosClient.post(`/groups/${id}`, { title }, config);

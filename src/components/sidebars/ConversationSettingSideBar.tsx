@@ -1,19 +1,20 @@
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { ChevronRight } from 'akar-icons';
 import { useContext, useEffect, useState } from 'react';
-import { GroupParticipantList } from '../conversation-options/GroupParticipantList';
+import { GroupParticipantOptions } from '../conversation-options/GroupParticipantOptions';
 import { AuthContext } from '../../contex/AuthContext';
 import { SocketContext } from '../../contex/SocketContext';
 import { User } from '../../utils/types';
+import { CustomizeConversationOptions } from '../conversation-options/CustomizeConversationOptions';
+import { ChangeGroupTitleModal } from '../modals/ChangeGroupTitleModal';
 
 export const ConversationSettingSideBar = () => {
     const { id } = useParams();
     const groupId = parseInt(id!);
     const groups = useSelector((state: RootState) => state.group.groups);
     const selectedGroup = groups.find((group) => group.id === groupId);
-    const [showParticipants, setShowParticipants] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false);
 
     const { user } = useContext(AuthContext);
     const socket = useContext(SocketContext);
@@ -39,35 +40,22 @@ export const ConversationSettingSideBar = () => {
         };
     }, [groupId]);
 
-    useEffect(() => {
-        setShowParticipants(false);
-    }, [groupId]);
-
-    const handleShowParticipants = () => {
-        if (showParticipants) setShowParticipants(false);
-        else setShowParticipants(true);
-    };
-
     return (
-        <aside className="w-72 flex-none bg-[#141414] px-2 gap-2 flex flex-col border-border-conversations border-l-[1px] ">
-            <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 break-all">
-                <div className="w-28 h-28 rounded-full bg-blue-500"></div>
-                <div className="flex flex-col text-2xl">
-                    <span>{selectedGroup?.title}</span>
-                </div>
-            </div>
-            <div className="flex flex-col justify-center ml-2 mt-2">
-                <div
-                    className="text-xl flex items-center justify-between font-medium py-1 px-2 hover:bg-[#1c1e21] rounded-md my-2"
-                    onClick={handleShowParticipants}
-                >
-                    <span>Participants</span>
-                    <div className="px-1 py-1">
-                        <ChevronRight size={20} />
+        <>
+            {showModal && <ChangeGroupTitleModal setShowModal={setShowModal} selectedGroup={selectedGroup} />}
+
+            <aside className="w-72 flex-none bg-[#141414] px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] ">
+                <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
+                    <div className="w-28 h-28 rounded-full bg-blue-500"></div>
+                    <div className="flex flex-col text-2xl">
+                        <span className="text-center break-all">{selectedGroup?.title}</span>
                     </div>
                 </div>
-                {showParticipants && <GroupParticipantList onlineUsers={onlineUsers} offlineUsers={offlineUsers} />}
-            </div>
-        </aside>
+                <div className="flex flex-col gap-2 justify-center">
+                    <CustomizeConversationOptions setShowModal={setShowModal} groupId={groupId} />
+                    <GroupParticipantOptions onlineUsers={onlineUsers} offlineUsers={offlineUsers} groupId={groupId} />
+                </div>
+            </aside>
+        </>
     );
 };

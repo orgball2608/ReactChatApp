@@ -130,3 +130,8 @@ export type DeleteGroupMessageResponse = {
     groupId: number;
     messageId: number;
 };
+
+export type EditGroupTitleParams = {
+    id: number;
+    title: string | undefined;
+};
