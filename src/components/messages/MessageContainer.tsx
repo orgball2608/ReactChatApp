@@ -3,7 +3,7 @@ import { AuthContext } from '../../contex/AuthContext';
 import { FormattedMessage } from './FormatMessage';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { GroupMessageType, MessageType } from '../../utils/types';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { MenuContext } from '../menu-context/MenuContext';
@@ -21,7 +21,6 @@ export const MessageContainer = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groupMessages = useSelector((state: RootState) => state.groupMessage.messages);
-    const navigate = useNavigate();
     const handleOnScroll = () => {
         setShowMenu(false);
     };
@@ -71,10 +70,11 @@ export const MessageContainer = () => {
             selectedType === 'private'
                 ? conversationMessages.find((cm) => cm.id === parseInt(id!))
                 : groupMessages.find((gm) => gm.id === parseInt(id!));
-        if (!msgs) {
-            if (selectedType === 'private') navigate(`/conversations`);
-            else navigate(`/groups`);
-        }
+        if (!msgs) return [];
+        // if (!msgs) {
+        //     if (selectedType === 'private') navigate(`/conversations`);
+        //     else navigate(`/groups`);
+        // }
         return msgs?.messages.map((m, index, arr) => {
             const nextIndex = index + 1;
             const currentMessage = arr[index];
@@ -95,7 +95,7 @@ export const MessageContainer = () => {
             if (currentMessage.author.id === nextMessage.author.id) {
                 return (
                     <div
-                        className={`flex gap-4 items-center break-all w-1/2 group ${
+                        className={`flex gap-4 items-center break-all w-5/6 group ${
                             user?.id === m.author.id ? 'place-self-end justify-end' : 'place-self-start justify-start'
                         }`}
                         key={m.id}

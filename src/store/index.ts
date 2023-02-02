@@ -5,6 +5,7 @@ import typeReducer from './typeSlice';
 import groupReducer from './groupSlice';
 import groupMessageReducer from './groupMessageSlice';
 import settingSidebarReducer from './settingSidebarSlice';
+import selectedPageReducer from './selectedPageSlice';
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         group: groupReducer,
         groupMessage: groupMessageReducer,
         settingSidebar: settingSidebarReducer,
+        selectedPage: selectedPageReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });

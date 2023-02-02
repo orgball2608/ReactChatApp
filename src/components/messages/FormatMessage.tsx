@@ -26,7 +26,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     const { editMessage } = useContext(MessageMenuContext);
     return (
         <div
-            className={`flex gap-4 pt-3 pb-1 items-center w-1/2 ${
+            className={`flex gap-4 pt-3 pb-1 items-center w-5/6 ${
                 user?.id === message.author.id ? 'place-self-end justify-end' : 'place-self-start'
             }`}
         >

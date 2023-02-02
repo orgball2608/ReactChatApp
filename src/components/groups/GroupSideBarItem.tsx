@@ -31,18 +31,18 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
     };
     return (
         <div
-            className={
-                'flex justify-start items-center gap-5 px-8 py-3 box-border border-b-[1px] border-solid border-border-conversations bg-simple-gray'
-            }
+            className={'mt-42 items-center w-full bg-simple-gray'}
             onClick={() => {
                 navigate(`/groups/${group.id}`);
             }}
             key={group.id}
         >
-            <div className="bg-blue-500 h-12 w-12 rounded-full bg-blue-500"></div>
-            <div>
-                <span className="block font-bold text-base">{getGroupTitleDisplay(group)}</span>
-                <span className="text-sm text-white">{lastMessageContent()}</span>
+            <div className="flex justify-start gap-5 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations">
+                <div className="bg-blue-500 h-12 w-12 rounded-full"></div>
+                <div>
+                    <span className="block font-bold text-base">{getGroupTitleDisplay(group)}</span>
+                    <span className="text-sm text-white">{lastMessageContent()}</span>
+                </div>
             </div>
         </div>
     );

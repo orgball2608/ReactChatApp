@@ -39,7 +39,7 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
     return (
         <div
             onKeyDown={(e) => handleKeyDownSubmitTitle(e)}
-            className="w-full h-full bg-overlay-background fixed flex justify-center items-center z-25"
+            className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-25"
         >
             <div className="bg-modal-background w-2/5 box-border rounded-xl">
                 <div className=" box-border flex justify-between mx-6 items-center mt-6">
@@ -56,7 +56,7 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
                                 </label>
                                 <input
                                     id="title"
-                                    value={title}
+                                    value={title || ''}
                                     onChange={(e) => setTitle(e.target.value)}
                                     className="text-lg w-full border-box p-0 text-white bg-inherit border-0 outline-0 scrollbar-hide overflow-auto resize-none"
                                 />

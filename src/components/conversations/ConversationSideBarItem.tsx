@@ -25,20 +25,20 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     const navigate = useNavigate();
     return (
         <div
-            className={
-                'flex justify-start mt-42 items-center gap-5 px-8 py-3 box-border border-b-[1px] border-solid border-border-conversations bg-simple-gray'
-            }
+            className={'mt-42 items-center w-full bg-simple-gray'}
             onClick={() => {
                 navigate(`/conversations/${conversation.id}`);
             }}
             key={conversation.id}
         >
-            <div className="bg-blue-500 h-12 w-12 rounded-full bg-blue-500 flex-none"></div>
-            <div className="flex flex-col flex-nowrap flex-1 break-all">
-                <span className="block font-bold text-base ">
-                    {` ${getDisplayUser(conversation).lastName} ${getDisplayUser(conversation).firstName}`}
-                </span>
-                <span className="text-sm text-white">{lastMessageContent()}</span>
+            <div className="flex justify-start gap-5 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations">
+                <div className="bg-blue-500 h-12 w-12 rounded-full flex-none"></div>
+                <div className="flex flex-col flex-nowrap flex-1 break-all">
+                    <span className="block font-bold text-base ">
+                        {` ${getDisplayUser(conversation).lastName} ${getDisplayUser(conversation).firstName}`}
+                    </span>
+                    <span className="text-sm text-white">{lastMessageContent()}</span>
+                </div>
             </div>
         </div>
     );

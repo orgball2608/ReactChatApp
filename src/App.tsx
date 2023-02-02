@@ -16,6 +16,7 @@ import { enableMapSet } from 'immer';
 import { GroupPage } from './pages/group/GroupPage';
 import { GroupChannelPage } from './pages/group/GroupChanelPage';
 import { AppPage } from './pages/AppPage';
+import SettingPage from './pages/SettingPage';
 
 enableMapSet();
 
@@ -55,6 +56,8 @@ function App() {
                     <Route path="/groups/" element={<GroupPage />}>
                         <Route path="/groups/:id" element={<GroupChannelPage />} />
                     </Route>
+
+                    <Route path="/setting" element={<SettingPage />}></Route>
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

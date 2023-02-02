@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MessagePanel } from '../../components/messages/MessagePanel';
 import { SocketContext } from '../../contex/SocketContext';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
 import { AuthContext } from '../../contex/AuthContext';
 import { fetchGroupMessagesThunk } from '../../store/groupMessageSlice';
+import { ConversationSettingSideBar } from '../../components/sidebars/ConversationSettingSideBar';
 
 export const GroupChannelPage = () => {
     const { id } = useParams<{ id: string }>();
@@ -16,6 +17,7 @@ export const GroupChannelPage = () => {
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>();
     const [isTyping, setIsTyping] = useState(false);
     const [isRecipientTyping, setIsRecipientTyping] = useState(false);
+    const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
 
     useEffect(() => {
         const conversationId = parseInt(id!);
@@ -65,8 +67,9 @@ export const GroupChannelPage = () => {
 
     return (
         <>
-            <div className={`h-full w-full`}>
+            <div className={`h-full w-full flex`}>
                 <MessagePanel sendTypingStatus={sendTypingStatus} recipientIsTyping={isRecipientTyping} />
+                {showSidebar && <ConversationSettingSideBar />}
             </div>
         </>
     );

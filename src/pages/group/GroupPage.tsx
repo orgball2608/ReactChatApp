@@ -14,6 +14,7 @@ import { socket } from '../../contex/SocketContext';
 import { addGroupMessage, editGroupMessage } from '../../store/groupMessageSlice';
 import { GroupMessageEventPayload } from '../../utils/types';
 import { deleteGroupMessage } from '../../store/groupMessageSlice';
+import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
 
 export const GroupPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -56,6 +57,7 @@ export const GroupPage = () => {
 
     return (
         <div className="bg-dark-light h-full w-full flex">
+            <ConversationSidebar />
             {!id && <ConversationPanel />}
             <Outlet />
         </div>

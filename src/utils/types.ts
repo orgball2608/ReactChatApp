@@ -1,3 +1,5 @@
+import selectedPageSlice from '../store/selectedPageSlice';
+
 export type CreateUserParams = {
     email: string;
     firstName: string;
@@ -134,4 +136,11 @@ export type DeleteGroupMessageResponse = {
 export type EditGroupTitleParams = {
     id: number;
     title: string | undefined;
+};
+
+export type SelectedPageType = 'setting' | 'async' | 'archire' | 'friend' | 'chat';
+
+export type SelectedPageTypeData = {
+    type: SelectedPageType;
+    label: string;
 };

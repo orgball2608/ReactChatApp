@@ -20,7 +20,7 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
     const { id } = useParams();
     const { user } = useContext(AuthContext);
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
-    const conversation = conversations.find((conversation) => conversation.id == parseInt(id!));
+    const conversation = conversations.find((conversation) => conversation.id === parseInt(id!));
 
     const recipient = getRecipientFromConversation(conversation, user);
 
@@ -44,7 +44,7 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
 
     return (
         <>
-            <div className="bg-inherit h-full box-border relative">
+            <div className="bg-inherit h-full w-full box-border relative">
                 <MessagePanelHeader />
                 <MessagePanelBody>
                     <MessageContainer />
