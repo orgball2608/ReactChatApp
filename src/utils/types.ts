@@ -1,5 +1,3 @@
-import selectedPageSlice from '../store/selectedPageSlice';
-
 export type CreateUserParams = {
     email: string;
     firstName: string;
@@ -143,4 +141,11 @@ export type SelectedPageType = 'setting' | 'async' | 'archire' | 'friend' | 'con
 export type SelectedPageTypeData = {
     page: SelectedPageType;
     action: string;
+};
+
+export type UserContextMenuItemType = 'kick' | 'transfer_owner';
+
+export type ContextMenuItemType = {
+    label: string;
+    action: UserContextMenuItemType;
 };

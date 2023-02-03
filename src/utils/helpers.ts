@@ -1,11 +1,11 @@
-import { ArrowCycle, ChatDots, Gear, Person, Ribbon } from 'akar-icons';
-import { Conversation, SelectedPageType, User } from './types';
+import { ArrowCycle, ChatDots, Crown, Gear, Person, PersonCross, Ribbon } from 'akar-icons';
+import { Conversation, SelectedPageType, User, UserContextMenuItemType } from './types';
 
 export const getRecipientFromConversation = (conversation?: Conversation, user?: User) => {
     return user?.id === conversation?.creator.id ? conversation?.recipient : conversation?.creator;
 };
 
-export const getUserContextMenuIcon = (page: SelectedPageType) => {
+export const getUserSideBarIcon = (page: SelectedPageType) => {
     switch (page) {
         case 'conversations':
             return { icon: ChatDots };
@@ -19,5 +19,16 @@ export const getUserContextMenuIcon = (page: SelectedPageType) => {
             return { icon: Gear };
         default:
             return { icon: ChatDots };
+    }
+};
+
+export const getUserContextMenuIcon = (type: UserContextMenuItemType) => {
+    switch (type) {
+        case 'kick':
+            return { icon: PersonCross };
+        case 'transfer_owner':
+            return { icon: Crown };
+        default:
+            return { icon: PersonCross };
     }
 };

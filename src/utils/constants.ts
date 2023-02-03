@@ -1,4 +1,4 @@
-import { ConversationTypeData, SelectedPageTypeData } from './types';
+import { ContextMenuItemType, ConversationTypeData, SelectedPageTypeData } from './types';
 
 export const ConversationTypes: ConversationTypeData[] = [
     {
@@ -31,5 +31,16 @@ export const SelectedPageTypes: SelectedPageTypeData[] = [
     {
         page: 'setting',
         action: 'Setting',
+    },
+];
+
+export const userContextMenuItems: ContextMenuItemType[] = [
+    {
+        label: 'Kick User',
+        action: 'kick',
+    },
+    {
+        label: 'Transfer Owner',
+        action: 'transfer_owner',
     },
 ];

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
 import { useContext, useEffect, useState } from 'react';
 import { GroupParticipantOptions } from '../conversation-options/GroupParticipantOptions';
 import { AuthContext } from '../../contex/AuthContext';

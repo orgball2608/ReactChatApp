@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { changePage } from '../../store/selectedPageSlice';
 import { SelectedPageType } from '../../utils/types';
-import { getUserContextMenuIcon } from '../../utils/helpers';
+import { getUserSideBarIcon } from '../../utils/helpers';
 import { FC } from 'react';
 export const UserSideBar = () => {
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ export const UserSideBar = () => {
     };
 
     const CustomIcon: FC<CustomIconProps> = ({ page }) => {
-        const { icon: MyIcon } = getUserContextMenuIcon(page);
+        const { icon: MyIcon } = getUserSideBarIcon(page);
         return <MyIcon size={26} />;
     };
 
