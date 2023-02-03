@@ -43,7 +43,7 @@ export const MessageInputField: FC<Props> = ({ content, setContent, sendMessage,
             <form onSubmit={sendMessage} className="w-full">
                 <input
                     type="text"
-                    className="bg-inherit outline-0 border-0 text-[#454545] py-2 font-Inter box-border text-lg  w-full p-0 resize-none"
+                    className="bg-inherit outline-0 border-0 text-[#454545] py-2 font-Inter box-border text-lg  w-full p-0 resize-none break-words "
                     value={content}
                     ref={inputRef}
                     placeholder={`Send message to ${

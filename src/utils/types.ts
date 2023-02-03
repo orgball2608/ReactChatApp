@@ -138,9 +138,9 @@ export type EditGroupTitleParams = {
     title: string | undefined;
 };
 
-export type SelectedPageType = 'setting' | 'async' | 'archire' | 'friend' | 'chat';
+export type SelectedPageType = 'setting' | 'async' | 'archire' | 'friend' | 'conversations';
 
 export type SelectedPageTypeData = {
-    type: SelectedPageType;
-    label: string;
+    page: SelectedPageType;
+    action: string;
 };

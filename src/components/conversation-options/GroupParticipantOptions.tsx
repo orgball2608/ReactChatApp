@@ -1,6 +1,7 @@
 import { User } from '../../utils/types';
 import { FC, useEffect, useState } from 'react';
 import { ChevronDown, ChevronRight } from 'akar-icons';
+import { FiMoreHorizontal } from 'react-icons/fi';
 
 type Props = {
     onlineUsers: User[];
@@ -34,29 +35,40 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
             {showParticipants && (
                 <div className="flex flex-col justify-center gap-2 px-2 overflow-y-scroll scrollbar-hide overflow-auto">
                     <div className="flex flex-col gap-2 justify-center">
-                        <div className="text-base font-medium rounded-md">Online</div>
+                        <div className="flex justify-between items-center">
+                            <div className="text-base font-medium rounded-md">Online</div>
+                            <div className="text-base font-medium text-green-600 mr-2">({onlineUsers?.length})</div>
+                        </div>
+
                         <div className="flex flex-col gap-2">
                             {onlineUsers?.map((user) => (
-                                <div
-                                    key={user.id}
-                                    className="flex justify-start items-center text-base gap-4 my-1 font-medium"
-                                >
-                                    <div className="w-8 h-8 rounded-full bg-blue-500"></div>
-                                    <span>{getFullName(user)}</span>
+                                <div key={user.id} className="flex justify-between items-center">
+                                    <div className="flex justify-start items-center gap-4 my-1 font-medium">
+                                        <div className="w-8 h-8 rounded-full bg-blue-500"></div>
+                                        <span>{getFullName(user)}</span>
+                                    </div>
+                                    <div className=" p-2 hover:bg-[#686868] rounded-full">
+                                        <FiMoreHorizontal size={16} className="text-white" />
+                                    </div>
                                 </div>
                             ))}
                         </div>
                     </div>
                     <div className="flex flex-col gap-2 justify-center">
-                        <div className="text-base font-medium rounded-md">Offline</div>
-                        <div>
+                        <div className="flex justify-between items-center text-base font-medium">
+                            <div className=" rounded-md">Offline</div>
+                            <div className=" text-red-600 mr-2">({offlineUsers?.length})</div>
+                        </div>
+                        <div className="flex flex-col gap-2">
                             {offlineUsers?.map((user) => (
-                                <div
-                                    key={user.id}
-                                    className="flex justify-start items-center text-base gap-4 my-1 font-medium"
-                                >
-                                    <div className="w-8 h-8 rounded-full bg-blue-500"></div>
-                                    <span>{getFullName(user)}</span>
+                                <div key={user.id} className="flex justify-between items-center">
+                                    <div className="flex justify-start items-center text-base gap-4 my-1 font-medium">
+                                        <div className="w-8 h-8 rounded-full bg-blue-500"></div>
+                                        <span>{getFullName(user)}</span>
+                                    </div>
+                                    <div className="p-2 hover:bg-[#686868] rounded-full">
+                                        <FiMoreHorizontal size={16} className="text-white" />
+                                    </div>
                                 </div>
                             ))}
                         </div>

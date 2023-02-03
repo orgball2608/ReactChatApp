@@ -13,23 +13,23 @@ export const ConversationTypes: ConversationTypeData[] = [
 
 export const SelectedPageTypes: SelectedPageTypeData[] = [
     {
-        type: 'chat',
-        label: 'Chat',
+        page: 'conversations',
+        action: 'Chat',
     },
     {
-        type: 'friend',
-        label: 'Friend',
+        page: 'friend',
+        action: 'Friend',
     },
     {
-        type: 'archire',
-        label: 'Archire',
+        page: 'archire',
+        action: 'Archire',
     },
     {
-        type: 'async',
-        label: 'Async',
+        page: 'async',
+        action: 'Async',
     },
     {
-        type: 'setting',
-        label: 'Setting',
+        page: 'setting',
+        action: 'Setting',
     },
 ];

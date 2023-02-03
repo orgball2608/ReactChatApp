@@ -6,7 +6,7 @@ export interface SeletedPageSlice {
 }
 
 const initialState: SeletedPageSlice = {
-    page: 'chat',
+    page: 'conversations',
 };
 
 const seletedPageSlice = createSlice({

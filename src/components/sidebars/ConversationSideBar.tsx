@@ -1,4 +1,3 @@
-import { TbEdit } from 'react-icons/tb';
 import { useState } from 'react';
 import { CreateConversationModal } from '../modals/CreateConversationModal';
 import { useSelector } from 'react-redux';
@@ -7,6 +6,7 @@ import { ConversationSelected } from '../conversations/ConversationSelected';
 import { ConversationSideBarItem } from '../conversations/ConversationSideBarItem';
 import { GroupSideBarItem } from '../groups/GroupSideBarItem';
 import { ConversationSearchBar } from '../conversations/ConversationSearchBar';
+import { Edit } from 'akar-icons';
 
 export const ConversationSidebar = () => {
     const [showModal, setShowModal] = useState(false);
@@ -21,8 +21,11 @@ export const ConversationSidebar = () => {
                 <header className="fixed top-0 left-16 w-80 flex flex-col justify-between items-center px-8 bg-dark-header">
                     <div className="flex justify-between px-4 items-center h-14 w-80 border-b-[1px] border-r-[1px] border-border-conversations">
                         <h1 className="font-normal text-2xl">Conversations</h1>
-                        <div onClick={() => setShowModal(!showModal)}>
-                            <TbEdit size={28} />
+                        <div
+                            className="hover:bg-[#686868] p-[6px] rounded-full flex justify-center items-center bg-[#5a5252] "
+                            onClick={() => setShowModal(!showModal)}
+                        >
+                            <Edit size={24} />
                         </div>
                     </div>
                     <div className="w-80 flex flex-col border-b-[1px] border-border-conversations">

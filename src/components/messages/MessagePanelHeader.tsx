@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
-import { FiMoreVertical } from 'react-icons/fi';
+import { FiMoreHorizontal } from 'react-icons/fi';
 import { toggleSidebar } from '../../store/settingSidebarSlice';
 
 export const MessagePanelHeader = () => {
@@ -29,10 +29,14 @@ export const MessagePanelHeader = () => {
             className="bg-dark-header border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-8 box-border
     absolute top-0 left-0 w-full h-14 text-lg rounded z-8"
         >
-            <div> {selectedType === 'private' ? fullName : selectedGroup?.title}</div>
+            <div className="flex justify-center items-center gap-2">
+                <div className={`w-10 h-10 rounded-full bg-red-500`}></div>
+                <div> {selectedType === 'private' ? fullName : selectedGroup?.title}</div>
+            </div>
+
             <div onClick={handleChangeSideState} className={`w-fit h-fit px-1 py-1 hover:bg-[#686868] rounded-full`}>
                 <div className={`rounded-full p-[1px] ${showSidebar ? 'bg-white' : ''}`}>
-                    <FiMoreVertical size={16} className={` ${showSidebar ? 'text-black' : 'text-white'}`} />
+                    <FiMoreHorizontal size={16} className={` ${showSidebar ? 'text-black' : 'text-white'}`} />
                 </div>
             </div>
         </header>

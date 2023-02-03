@@ -1,18 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FormattedMessage } from './FormatMessage';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
+import { useLocation, useParams } from 'react-router-dom';
 import { GroupMessageType, MessageType } from '../../utils/types';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { MenuContext } from '../menu-context/MenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
+import { changeType } from '../../store/typeSlice';
 
 export const MessageContainer = () => {
     const { user } = useContext(AuthContext);
     const { id } = useParams();
+    const { pathname } = useLocation();
+    const dispatch = useDispatch<AppDispatch>();
     const [showMenu, setShowMenu] = useState(false);
     const [points, setPoints] = useState({ x: 0, y: 0 });
     const [selectedMessage, setSelectedMessage] = useState<MessageType | GroupMessageType | null>(null);
@@ -66,15 +69,15 @@ export const MessageContainer = () => {
     };
 
     const formatMessages = () => {
+        const conversationPathNameType = pathname.split('/')[1];
+        if (selectedType === 'private' && conversationPathNameType === 'groups') dispatch(changeType('group'));
+
         const msgs =
             selectedType === 'private'
                 ? conversationMessages.find((cm) => cm.id === parseInt(id!))
                 : groupMessages.find((gm) => gm.id === parseInt(id!));
         if (!msgs) return [];
-        // if (!msgs) {
-        //     if (selectedType === 'private') navigate(`/conversations`);
-        //     else navigate(`/groups`);
-        // }
+
         return msgs?.messages.map((m, index, arr) => {
             const nextIndex = index + 1;
             const currentMessage = arr[index];
