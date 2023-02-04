@@ -1,9 +1,10 @@
-import { CreateGroupParams, EditGroupTitleParams, Group } from '../utils/types';
+import { CreateGroupParams, EditGroupTitleParams, Group, RemoveRecentGroupParams } from '../utils/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     createGroupConversation,
     fetchGroups as fetchGroupsAPI,
     editGroupTitle as editGroupTitleAPI,
+    removeRecipient,
 } from '../services/api';
 
 export interface GroupState {
@@ -23,6 +24,11 @@ export const createGroupThunk = createAsyncThunk('groups/create', (params: Creat
 
 export const editGroupTitleThunk = createAsyncThunk('groups/title/edit', (params: EditGroupTitleParams) =>
     editGroupTitleAPI(params),
+);
+
+export const removeRecentGroupThunk = createAsyncThunk(
+    'groups/recipients/remove',
+    ({ groupId, userId }: RemoveRecentGroupParams) => removeRecipient(groupId, userId),
 );
 
 const groupsSlice = createSlice({
@@ -45,6 +51,11 @@ const groupsSlice = createSlice({
             state.groups.splice(index, 1);
             state.groups.unshift(group);
         },
+        deleteGroupConversations: (state, action: PayloadAction<Group>) => {
+            const group = action.payload;
+            const index = state.groups.findIndex((gm) => gm.id === group.id);
+            state.groups.splice(index, 1);
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -64,5 +75,10 @@ const groupsSlice = createSlice({
     },
 });
 
-export const { updateGroupConversations, addGroupConversations, editGroupConversationsTitle } = groupsSlice.actions;
+export const {
+    updateGroupConversations,
+    addGroupConversations,
+    editGroupConversationsTitle,
+    deleteGroupConversations,
+} = groupsSlice.actions;
 export default groupsSlice.reducer;

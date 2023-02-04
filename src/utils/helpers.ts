@@ -28,6 +28,8 @@ export const getUserContextMenuIcon = (type: UserContextMenuItemType) => {
             return { icon: PersonCross };
         case 'transfer_owner':
             return { icon: Crown };
+        case 'profile':
+            return { icon: Person };
         default:
             return { icon: PersonCross };
     }

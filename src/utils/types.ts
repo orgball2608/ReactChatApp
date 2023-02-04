@@ -86,6 +86,7 @@ export type Group = {
     id: number;
     title?: string;
     users: User[];
+    owner: User;
     creator: User;
     messages: GroupMessageType[];
     createdAt: number;
@@ -143,9 +144,21 @@ export type SelectedPageTypeData = {
     action: string;
 };
 
-export type UserContextMenuItemType = 'kick' | 'transfer_owner';
+export type UserContextMenuItemType = 'kick' | 'transfer_owner' | 'profile';
 
 export type ContextMenuItemType = {
     label: string;
     action: UserContextMenuItemType;
+    ownerOnly: boolean;
+    onClick?: () => void;
+};
+
+export type RemoveRecentGroupParams = {
+    groupId: number;
+    userId: number;
+};
+
+export type ChangeGroupOwnerParams = {
+    groupId: number;
+    newOwnerId: number;
 };

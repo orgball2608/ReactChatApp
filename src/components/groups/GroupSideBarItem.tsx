@@ -10,15 +10,19 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
     const MAX_LENGTH_OF_TITLE = 23;
     const MAX_MESSAGE_LENGTH = 20;
     const getGroupTitleDisplay = (group: Group) => {
-        if (!group.title) {
-            const usersToString = group.users.map((user) => user.firstName).join(', ');
-            return usersToString.length > MAX_LENGTH_OF_TITLE
-                ? usersToString.slice(0, MAX_LENGTH_OF_TITLE).concat('...')
-                : usersToString;
+        if (group.title) {
+            return group.title.length > MAX_LENGTH_OF_TITLE
+                ? group.title.slice(0, MAX_LENGTH_OF_TITLE).concat('...')
+                : group.title;
         }
-        return group.title.length > MAX_LENGTH_OF_TITLE
-            ? group.title.slice(0, MAX_LENGTH_OF_TITLE).concat('...')
-            : group.title;
+        const usersToString = group.users
+            .map((user) => {
+                if (user) return user.firstName;
+            })
+            .join(', ');
+        return usersToString.length > MAX_LENGTH_OF_TITLE
+            ? usersToString.slice(0, MAX_LENGTH_OF_TITLE).concat('...')
+            : usersToString;
     };
 
     const lastMessageContent = () => {

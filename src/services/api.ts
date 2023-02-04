@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import {
+    ChangeGroupOwnerParams,
     Conversation,
     CreateConversationParams,
     CreateGroupMessageParams,
@@ -64,3 +65,9 @@ export const editGroupMessage = ({ id, messageId, content }: EditMessageParams) 
 
 export const editGroupTitle = ({ id, title }: EditGroupTitleParams) =>
     axiosClient.post(`/groups/${id}`, { title }, config);
+
+export const removeRecipient = (groupId: number, userId: number) =>
+    axiosClient.delete(`/groups/${groupId}/recipients/${userId}`, config);
+
+export const changeGroupOwner = ({ groupId, newOwnerId }: ChangeGroupOwnerParams) =>
+    axiosClient.patch(`/groups/${groupId}`, { newOwnerId }, config);

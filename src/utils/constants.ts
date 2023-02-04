@@ -38,9 +38,16 @@ export const userContextMenuItems: ContextMenuItemType[] = [
     {
         label: 'Kick User',
         action: 'kick',
+        ownerOnly: true,
     },
     {
         label: 'Transfer Owner',
         action: 'transfer_owner',
+        ownerOnly: true,
+    },
+    {
+        label: 'Proifle',
+        action: 'profile',
+        ownerOnly: false,
     },
 ];
