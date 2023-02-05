@@ -58,6 +58,9 @@ function App() {
                     </Route>
 
                     <Route path="/setting" element={<SettingPage />}></Route>
+                    <Route path="/archire" element={<SettingPage />}></Route>
+                    <Route path="/async" element={<SettingPage />}></Route>
+                    <Route path="/friend" element={<SettingPage />}></Route>
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

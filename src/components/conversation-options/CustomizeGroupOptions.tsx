@@ -1,10 +1,12 @@
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { ChevronDown, ChevronRight, Pencil } from 'akar-icons';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
-export const CustomizeConversationOptions = () => {
-    const { id } = useParams();
-    const groupId = parseInt(id!);
+type Props = {
+    setShowModal: Dispatch<SetStateAction<boolean>>;
+    groupId: number;
+};
+
+export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
     const [showCustomizeConversation, setShowCustomizeConversation] = useState<boolean>(false);
     useEffect(() => {
         setShowCustomizeConversation(false);
@@ -13,6 +15,9 @@ export const CustomizeConversationOptions = () => {
     const handleShowCustomizeConversation = () => {
         if (showCustomizeConversation) setShowCustomizeConversation(false);
         else setShowCustomizeConversation(true);
+    };
+    const handleShowModal = () => {
+        setShowModal(true);
     };
 
     return (
@@ -28,11 +33,14 @@ export const CustomizeConversationOptions = () => {
             </div>
             {showCustomizeConversation && (
                 <div className="flex flex-col justify-center gap-2 px-2 overflow-y-scroll scrollbar-hide overflow-auto">
-                    <div className="flex justify-start gap-2 items-center rounded-xl px-2 py-1 hover:bg-[#1c1e21]">
+                    <div
+                        onClick={handleShowModal}
+                        className="flex justify-start gap-2 items-center rounded-xl px-2 py-1 hover:bg-[#1c1e21]"
+                    >
                         <div className="p-1 rounded-full  text-white">
                             <Pencil size={20} />
                         </div>
-                        <span className="text-lg">Change Emoji Icon</span>
+                        <span className="text-lg">Change conversation title</span>
                     </div>
                 </div>
             )}

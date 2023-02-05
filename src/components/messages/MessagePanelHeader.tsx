@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { toggleSidebar } from '../../store/settingSidebarSlice';
+import { getFullName } from '../../utils/helpers';
 
 export const MessagePanelHeader = () => {
     const { id } = useParams();
@@ -15,10 +16,6 @@ export const MessagePanelHeader = () => {
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groups = useSelector((state: RootState) => state.group.groups);
     const selectedGroup = groups.find((group) => group.id === parseInt(id!));
-    const fullName =
-        user?.id != conversation?.creator.id
-            ? `${conversation?.creator.lastName} ${conversation?.creator.firstName}`
-            : `${conversation?.recipient.lastName} ${conversation?.recipient.firstName}`;
 
     const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
     const handleChangeSideState = () => {
@@ -31,7 +28,7 @@ export const MessagePanelHeader = () => {
         >
             <div className="flex justify-center items-center gap-2">
                 <div className={`w-10 h-10 rounded-full bg-red-500`}></div>
-                <div> {selectedType === 'private' ? fullName : selectedGroup?.title}</div>
+                <div> {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}</div>
             </div>
 
             <div onClick={handleChangeSideState} className={`w-fit h-fit px-1 py-1 hover:bg-[#686868] rounded-full`}>
