@@ -12,6 +12,7 @@ type FormattedMessageProps = {
     isEditing: boolean;
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
     setIsEditing: Dispatch<SetStateAction<boolean>>;
+    isOneElement?: boolean;
 };
 
 export const FormattedMessage: FC<FormattedMessageProps> = ({
@@ -21,6 +22,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     isEditing,
     onEditMessageChange,
     setIsEditing,
+    isOneElement,
 }) => {
     const { message: m } = useContext(MessageMenuContext);
     const { editMessage } = useContext(MessageMenuContext);
@@ -58,9 +60,11 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                         }`}
                     >
                         <div
-                            className={`bg-dark-header p-2 rounded-2xl ${
-                                user?.id === message.author.id ? 'rounded-tr-none' : 'rounded-tl-none ml-14'
-                            }`}
+                            className={`bg-dark-header py-2 px-5 rounded-2xl  ${
+                                isOneElement
+                                    ? `${user?.id === message.author.id ? 'rounded-r-2xl' : 'rounded-l-2xl ml-14'}`
+                                    : `${user?.id === message.author.id ? 'rounded-br-none' : 'rounded-bl-none ml-14'}`
+                            } `}
                         >
                             {message.content}
                         </div>

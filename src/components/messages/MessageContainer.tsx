@@ -81,6 +81,8 @@ export const MessageContainer = () => {
         return msgs?.messages.map((m, index, arr) => {
             const nextIndex = index + 1;
             const currentMessage = arr[index];
+            const prevIndex = nextIndex - 2;
+            const prevMessage = arr[prevIndex];
             const nextMessage = arr[nextIndex];
             if (arr.length === nextIndex || currentMessage.author.id !== nextMessage.author.id) {
                 return (
@@ -92,6 +94,7 @@ export const MessageContainer = () => {
                         isEditing={isEditing}
                         setIsEditing={setIsEditing}
                         onEditMessageChange={onEditMessageChange}
+                        isOneElement={currentMessage.author.id !== prevMessage?.author.id}
                     />
                 );
             }
@@ -113,14 +116,17 @@ export const MessageContainer = () => {
                             </div>
                         ) : (
                             <div
-                                className={`p-0 pl-14 text-base flex justify-start items-center my-1 ${
+                                className={`p-0 pl-14 text-base flex justify-start items-center mb-1 ${
                                     user?.id === m.author.id ? 'flex-row-reverse' : ''
                                 }`}
                             >
                                 <div
-                                    className={`bg-dark-header p-2 px-5 rounded-2xl  ${
-                                        user?.id === m.author.id ? 'rounded-tr-none' : 'rounded-tl-none'
-                                    }`}
+                                    className={`${
+                                        (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
+                                        index === 0
+                                            ? `${user?.id === m.author.id ? 'rounded-tr-none ' : 'rounded-tl-none '}`
+                                            : `${user?.id === m.author.id ? 'rounded-r-md ' : 'rounded-l-md '}`
+                                    }bg-dark-header py-2 px-5 rounded-2xl `}
                                 >
                                     {m.content}
                                 </div>
