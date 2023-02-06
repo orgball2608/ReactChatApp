@@ -77,3 +77,5 @@ export const changeGroupOwner = ({ groupId, newOwnerId }: ChangeGroupOwnerParams
 export const getFriendRequests = () => axiosClient.get<FriendRequestType[]>(`/friend-requests/`, config);
 
 export const getFriends = () => axiosClient.get<FriendType[]>(`/friends`, config);
+
+export const postFriendRequestAPI = (email: string) => axiosClient.post(`/friend-requests/`, { email }, config);

@@ -177,3 +177,7 @@ export type FriendType = {
     receiver: User;
     createdAt: string;
 };
+
+export type CreateNewFriendRequestParams = {
+    email: string;
+};
