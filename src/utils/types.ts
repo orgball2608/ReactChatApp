@@ -162,3 +162,18 @@ export type ChangeGroupOwnerParams = {
     groupId: number;
     newOwnerId: number;
 };
+
+export type FriendRequestType = {
+    id: number;
+    sender: User;
+    status: 'pending' | 'accepted' | 'rejected';
+    receiver: User;
+    createdAt: string;
+};
+
+export type FriendType = {
+    id: number;
+    sender: User;
+    receiver: User;
+    createdAt: string;
+};

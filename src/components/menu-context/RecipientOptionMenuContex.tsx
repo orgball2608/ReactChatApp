@@ -66,7 +66,7 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
     };
 
     return (
-        <div className={` w-60 rounded-3xl`}>
+        <div className={`w-60 rounded-3xl`}>
             <div className="flex flex-col justify-center">
                 {getUserMenuContexAction(user, selectedGroup).map((item: ContextMenuItemType) => (
                     <div
