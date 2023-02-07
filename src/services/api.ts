@@ -74,7 +74,9 @@ export const removeRecipient = (groupId: number, userId: number) =>
 export const changeGroupOwner = ({ groupId, newOwnerId }: ChangeGroupOwnerParams) =>
     axiosClient.patch(`/groups/${groupId}`, { newOwnerId }, config);
 
-export const getFriendRequests = () => axiosClient.get<FriendRequestType[]>(`/friend-requests/`, config);
+export const getReceiveFriendRequests = () => axiosClient.get<FriendRequestType[]>(`/friend-requests/`, config);
+
+export const getSendFriendRequests = () => axiosClient.get<FriendRequestType[]>(`/friend-requests/send`, config);
 
 export const getFriends = () => axiosClient.get<FriendType[]>(`/friends`, config);
 

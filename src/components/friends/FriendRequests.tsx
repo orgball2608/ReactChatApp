@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     acceptFriendRequestReceive,
     cancelFriendRequestSend,
-    getFriendRequests,
     rejectFriendRequestReceive,
 } from '../../store/friendSlice';
 import { AppDispatch, RootState } from '../../store';
@@ -16,9 +14,6 @@ export const FriendRequests = () => {
     const dispatch = useDispatch<AppDispatch>();
     const friendReceiveRequests = useSelector((state: RootState) => state.friends.receiveRequests);
     const friendSendRequests = useSelector((state: RootState) => state.friends.sendRequests);
-    useEffect(() => {
-        dispatch(getFriendRequests());
-    }, []);
 
     const handleRejectFriendRequestReceive = (id: number) => {
         dispatch(rejectFriendRequestReceive(id))

@@ -3,8 +3,9 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     acceptFriendRequestReceiveAPI,
     cancelFriendRequestSendAPI,
-    getFriendRequests as getFriendRequestsAPI,
+    getReceiveFriendRequests as getReceiveFriendRequestsAPI,
     rejectFriendRequestReceiveAPI,
+    getSendFriendRequests as getSendFriendRequestsAPI,
 } from '../services/api';
 import { getFriends as getFriendsAPI, postFriendRequestAPI } from '../services/api';
 
@@ -20,7 +21,11 @@ const initialState: FriendState = {
     friends: [],
 };
 
-export const getFriendRequests = createAsyncThunk('friends/fetch/pending', () => getFriendRequestsAPI());
+export const getReceiveFriendRequests = createAsyncThunk('friends/receive/fetch/pending', () =>
+    getReceiveFriendRequestsAPI(),
+);
+
+export const getSendFriendRequests = createAsyncThunk('friends/send/fetch/pending', () => getSendFriendRequestsAPI());
 
 export const postFriendRequest = createAsyncThunk('friends/send/post', ({ email }: CreateNewFriendRequestParams) =>
     postFriendRequestAPI(email),
@@ -63,7 +68,7 @@ const friendsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getFriendRequests.fulfilled, (state, action) => {
+            .addCase(getReceiveFriendRequests.fulfilled, (state, action) => {
                 state.receiveRequests = action.payload.data;
             })
             .addCase(getFriends.fulfilled, (state, action) => {
@@ -82,6 +87,9 @@ const friendsSlice = createSlice({
             })
             .addCase(cancelFriendRequestSend.fulfilled, (state, action) => {
                 state.sendRequests = state.sendRequests.filter((item) => item.id !== action.payload.data.id);
+            })
+            .addCase(getSendFriendRequests.fulfilled, (state, action) => {
+                state.sendRequests = action.payload.data;
             });
     },
 });

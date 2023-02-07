@@ -7,6 +7,8 @@ import {
     friendRequestCancelled,
     friendRequestReceived,
     friendRequestRejected,
+    getReceiveFriendRequests,
+    getSendFriendRequests,
 } from '../../store/friendSlice';
 import { FriendLists } from '../friends/FriendLists';
 import { FriendRequests } from '../friends/FriendRequests';
@@ -18,6 +20,11 @@ type Props = {
 export const FriendSideBar: FC<Props> = ({ selectedItem }) => {
     const socket = useContext(SocketContext);
     const dispatch = useDispatch<AppDispatch>();
+    useEffect(() => {
+        dispatch(getSendFriendRequests());
+        dispatch(getReceiveFriendRequests());
+    }, []);
+
     useEffect(() => {
         socket.on('onFriendRequestReceived', (payload) => {
             dispatch(friendRequestReceived(payload));
