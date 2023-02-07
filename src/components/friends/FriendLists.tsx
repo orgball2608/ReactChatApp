@@ -12,11 +12,18 @@ export const FriendLists = () => {
     }, []);
     return (
         <div className="flex p-6 w-full">
-            <div className="flex flex-col justify-center">
-                {friendRequests.map((request) => (
-                    <FriendItem friend={request} type={'friends'} />
-                ))}
-            </div>
+            {friendRequests.length > 0 && (
+                <div className="flex flex-col justify-center gap-2">
+                    {friendRequests.map((request) => (
+                        <FriendItem friend={request} type={'friends'} key={request.id} />
+                    ))}
+                </div>
+            )}
+            {friendRequests.length === 0 && (
+                <div className="flex flex-col justify-center gap-2">
+                    <p className="text-gray-500">No friends yet</p>
+                </div>
+            )}
         </div>
     );
 };

@@ -79,3 +79,11 @@ export const getFriendRequests = () => axiosClient.get<FriendRequestType[]>(`/fr
 export const getFriends = () => axiosClient.get<FriendType[]>(`/friends`, config);
 
 export const postFriendRequestAPI = (email: string) => axiosClient.post(`/friend-requests/`, { email }, config);
+
+export const acceptFriendRequestReceiveAPI = (id: number) =>
+    axiosClient.post(`/friend-requests/${id}/accept`, {}, config);
+
+export const cancelFriendRequestSendAPI = (id: number) => axiosClient.delete(`/friend-requests/${id}/cancel`, config);
+
+export const rejectFriendRequestReceiveAPI = (id: number) =>
+    axiosClient.post(`/friend-requests/${id}/reject`, {}, config);

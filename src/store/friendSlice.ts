@@ -1,6 +1,11 @@
 import { CreateNewFriendRequestParams, FriendRequestType, FriendType } from '../utils/types';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFriendRequests as getFriendRequestsAPI } from '../services/api';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+    acceptFriendRequestReceiveAPI,
+    cancelFriendRequestSendAPI,
+    getFriendRequests as getFriendRequestsAPI,
+    rejectFriendRequestReceiveAPI,
+} from '../services/api';
 import { getFriends as getFriendsAPI, postFriendRequestAPI } from '../services/api';
 
 export interface FriendState {
@@ -17,8 +22,20 @@ const initialState: FriendState = {
 
 export const getFriendRequests = createAsyncThunk('friends/fetch/pending', () => getFriendRequestsAPI());
 
-export const postFriendRequest = createAsyncThunk('friends/post', ({ email }: CreateNewFriendRequestParams) =>
+export const postFriendRequest = createAsyncThunk('friends/send/post', ({ email }: CreateNewFriendRequestParams) =>
     postFriendRequestAPI(email),
+);
+
+export const acceptFriendRequestReceive = createAsyncThunk('friends/accept/receive', (id: number) =>
+    acceptFriendRequestReceiveAPI(id),
+);
+
+export const rejectFriendRequestReceive = createAsyncThunk('friends/reject/receive', (id: number) =>
+    rejectFriendRequestReceiveAPI(id),
+);
+
+export const cancelFriendRequestSend = createAsyncThunk('friends/cancel/send', (id: number) =>
+    cancelFriendRequestSendAPI(id),
 );
 
 export const getFriends = createAsyncThunk('friends/fetch/friends', () => getFriendsAPI());
@@ -26,7 +43,24 @@ export const getFriends = createAsyncThunk('friends/fetch/friends', () => getFri
 const friendsSlice = createSlice({
     name: 'friends',
     initialState,
-    reducers: {},
+    reducers: {
+        friendRequestReceived: (state, action: PayloadAction<FriendRequestType>) => {
+            state.receiveRequests.unshift(action.payload);
+        },
+        friendRequestAccepted: (state, action) => {
+            const { friend, friendRequest } = action.payload;
+            state.sendRequests = state.sendRequests.filter((request) => request.id !== friendRequest.id);
+            state.friends.unshift(friend);
+        },
+        friendRequestRejected: (state, action: PayloadAction<FriendRequestType>) => {
+            const friendRequest = action.payload;
+            state.sendRequests = state.sendRequests.filter((request) => request.id !== friendRequest.id);
+        },
+        friendRequestCancelled: (state, action: PayloadAction<FriendRequestType>) => {
+            const friendRequest = action.payload;
+            state.receiveRequests = state.receiveRequests.filter((request) => request.id !== friendRequest.id);
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getFriendRequests.fulfilled, (state, action) => {
@@ -36,12 +70,23 @@ const friendsSlice = createSlice({
                 state.friends = action.payload.data;
             })
             .addCase(postFriendRequest.fulfilled, (state, action) => {
-                console.log(action.payload.data);
                 state.sendRequests = [...state.sendRequests, action.payload.data];
+            })
+            .addCase(acceptFriendRequestReceive.fulfilled, (state, action) => {
+                const { friend, friendRequest } = action.payload.data;
+                state.receiveRequests = state.receiveRequests.filter((item) => item.id !== friendRequest.id);
+                state.friends = [...state.friends, friend];
+            })
+            .addCase(rejectFriendRequestReceive.fulfilled, (state, action) => {
+                state.receiveRequests = state.receiveRequests.filter((item) => item.id !== action.payload.data.id);
+            })
+            .addCase(cancelFriendRequestSend.fulfilled, (state, action) => {
+                state.sendRequests = state.sendRequests.filter((item) => item.id !== action.payload.data.id);
             });
     },
 });
 
-export const {} = friendsSlice.actions;
+export const { friendRequestReceived, friendRequestAccepted, friendRequestRejected, friendRequestCancelled } =
+    friendsSlice.actions;
 
 export default friendsSlice.reducer;
