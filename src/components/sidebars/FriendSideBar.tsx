@@ -7,6 +7,7 @@ import {
     friendRequestCancelled,
     friendRequestReceived,
     friendRequestRejected,
+    getFriends,
     getReceiveFriendRequests,
     getSendFriendRequests,
 } from '../../store/friendSlice';
@@ -23,6 +24,7 @@ export const FriendSideBar: FC<Props> = ({ selectedItem }) => {
     useEffect(() => {
         dispatch(getSendFriendRequests());
         dispatch(getReceiveFriendRequests());
+        dispatch(getFriends());
     }, []);
 
     useEffect(() => {

@@ -1,19 +1,19 @@
 import Tippy from '@tippyjs/react';
 import { FC, useState } from 'react';
 import { FriendRequestType, FriendType } from '../../utils/types';
-import { FriendMenuContext } from '../menu-context/FriendMenuContext';
+import { FriendRequestMenuContext } from '../menu-context/FriendRequestMenuContext';
 
 type Props = {
     friend: FriendType | FriendRequestType;
 };
 
-export const FriendItem: FC<Props> = ({ friend }) => {
+export const FriendRequestItem: FC<Props> = ({ friend }) => {
     const [visible, setVisible] = useState(false);
     return (
         <Tippy
             visible={visible}
             onClickOutside={() => setVisible(false)}
-            content={<FriendMenuContext friend={friend} />}
+            content={<FriendRequestMenuContext friend={friend} />}
             placement="bottom-end"
             interactive={true}
             animation="fade"

@@ -9,6 +9,7 @@ import { FriendItem } from './FriendItem';
 import { Check, Cross } from 'akar-icons';
 import { toast } from 'react-toastify';
 import { FriendRequestType } from '../../utils/types';
+import { FriendRequestItem } from './FriendRequestItem';
 
 export const FriendRequests = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -56,7 +57,7 @@ export const FriendRequests = () => {
                     {friendReceiveRequests.length > 0 ? (
                         friendReceiveRequests.map((request: FriendRequestType) => (
                             <div key={request.id} className="flex justify-between items-center">
-                                <FriendItem friend={request} type={'friends'} />
+                                <FriendRequestItem friend={request} />
                                 <div className="flex justify-center items-start gap-2">
                                     <div
                                         onClick={() => handleAcceptFriendRequestReceive(request.id)}
@@ -85,7 +86,7 @@ export const FriendRequests = () => {
                     {friendSendRequests.length > 0 ? (
                         friendSendRequests.map((request) => (
                             <div key={request.id} className="flex justify-between items-center">
-                                <FriendItem friend={request} type={'friends'} />
+                                <FriendRequestItem friend={request} />
                                 <div className="flex justify-center items-start gap-2">
                                     <div
                                         onClick={() => handleCancleFriendRequestSend(request.id)}

@@ -8,10 +8,6 @@ type Props = {
 export const FriendRequestMenuContext: FC<Props> = ({ friend }) => {
     const FriendRequestMenuAction = [
         {
-            action: 'Remove',
-            label: 'Remove',
-        },
-        {
             action: 'Profile',
             label: 'Profile',
         },
