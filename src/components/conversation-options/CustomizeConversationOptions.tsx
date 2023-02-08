@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom';
 
 export const CustomizeConversationOptions = () => {
     const { id } = useParams();
-    const groupId = parseInt(id!);
+    const conversationId = parseInt(id!);
     const [showCustomizeConversation, setShowCustomizeConversation] = useState<boolean>(false);
+
     useEffect(() => {
         setShowCustomizeConversation(false);
-    }, [groupId]);
+    }, [conversationId]);
 
     const handleShowCustomizeConversation = () => {
         if (showCustomizeConversation) setShowCustomizeConversation(false);

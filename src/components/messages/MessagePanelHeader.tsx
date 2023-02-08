@@ -6,6 +6,7 @@ import { AuthContext } from '../../contex/AuthContext';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { toggleSidebar } from '../../store/settingSidebarSlice';
 import { getFullName } from '../../utils/helpers';
+import defaultAvatar from '../../__assets__/default_avatar.jpg';
 
 export const MessagePanelHeader = () => {
     const { id } = useParams();
@@ -18,16 +19,32 @@ export const MessagePanelHeader = () => {
     const selectedGroup = groups.find((group) => group.id === parseInt(id!));
 
     const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
+
+    const recipientUser = conversation?.recipient.id !== user?.id ? conversation?.recipient : conversation?.creator;
+
+    const getAvatar = () => {
+        if (selectedType === 'private') {
+            if (recipientUser?.profile) return recipientUser?.profile.avatar;
+            return defaultAvatar;
+        } else {
+            return defaultAvatar;
+        }
+    };
     const handleChangeSideState = () => {
         dispatch(toggleSidebar());
     };
     return (
         <header
-            className="bg-dark-header border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-8 box-border
+            className="bg-dark-header border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-6 box-border
     absolute top-0 left-0 w-full h-14 text-lg rounded z-8"
         >
             <div className="flex justify-center items-center gap-2">
-                <div className={`w-10 h-10 rounded-full bg-red-500`}></div>
+                {selectedType === 'private' ? (
+                    <img src={getAvatar()} className={`w-10 h-10 rounded-full object-cover `} />
+                ) : (
+                    <div className="w-10 h-10 rounded-full bg-red-500"></div>
+                )}
+
                 <div> {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}</div>
             </div>
 

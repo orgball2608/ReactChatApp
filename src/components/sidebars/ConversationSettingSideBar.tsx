@@ -5,6 +5,8 @@ import { AuthContext } from '../../contex/AuthContext';
 import { RootState } from '../../store';
 import { getFullName } from '../../utils/helpers';
 import { CustomizeConversationOptions } from '../conversation-options/CustomizeConversationOptions';
+import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const ConversationSettingSideBar = () => {
     const { id } = useParams();
@@ -12,11 +14,21 @@ export const ConversationSettingSideBar = () => {
     const conversationId = parseInt(id!);
     const conversation = useSelector((state: RootState) => state.conversation.conversations);
     const selectedConversation = conversation.find((group) => group.id === conversationId);
+    const recipientUser =
+        selectedConversation?.recipient.id !== user?.id
+            ? selectedConversation?.recipient
+            : selectedConversation?.creator;
+
+    const getAvatar = () => {
+        if (recipientUser?.profile) return recipientUser?.profile.avatar;
+        return defaultAvatar;
+    };
+
     return (
         <>
             <aside className="w-72 flex-none bg-[#141414] px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] ">
                 <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
-                    <div className="w-28 h-28 rounded-full bg-blue-500"></div>
+                    <LazyLoadImage src={getAvatar()} alt={'avatar'} className="w-28 h-28 rounded-full object-cover " />
                     <div className="flex flex-col text-2xl">
                         <span className="text-center break-all">{getFullName(user, selectedConversation)}</span>
                     </div>

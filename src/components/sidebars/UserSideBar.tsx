@@ -1,4 +1,3 @@
-import avatar from '../../__assets__/avatar.jpg';
 import { SignOut } from 'akar-icons';
 import { SelectedPageTypes } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
@@ -7,11 +6,15 @@ import { AppDispatch, RootState } from '../../store';
 import { changePage } from '../../store/selectedPageSlice';
 import { SelectedPageType } from '../../utils/types';
 import { getUserSideBarIcon } from '../../utils/helpers';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
+import { AuthContext } from '../../contex/AuthContext';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 export const UserSideBar = () => {
     const navigate = useNavigate();
     const selectedPage = useSelector((state: RootState) => state.selectedPage.page);
     const dispatch = useDispatch<AppDispatch>();
+    const { user } = useContext(AuthContext);
+    const { profile } = user!;
 
     type CustomIconProps = {
         page: SelectedPageType;
@@ -25,7 +28,11 @@ export const UserSideBar = () => {
     return (
         <div className="w-16 flex-none h-full flex flex-col items-center justify-between bg-[#121212] border-r-[1px] border-solid border-border-conversations">
             <div className=" w-full flex justify-center items-center flex-col box-border mt-3">
-                <img src={avatar} className="w-10 h-10 rounded-full object-cover" alt="avatar cua quang" />
+                <LazyLoadImage
+                    src={profile?.avatar}
+                    className="w-10 h-10 rounded-full object-cover"
+                    alt="avatar cua quang"
+                />
                 <hr className="w-full mt-2 h-[2px] text-[#3030303e] border-0" />
                 <div className="w-full flex justify-center items-center flex-col gap-3 mt-4">
                     {SelectedPageTypes.map((page) => (

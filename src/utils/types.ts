@@ -10,11 +10,20 @@ export type UserCredentialsParams = {
     password: string;
 };
 
+export type ProfileType = {
+    id: number;
+    avatar: string;
+    banner: string;
+    bio: string;
+    location: string;
+};
+
 export type User = {
     id: number;
     email: string;
     firstName: string;
     lastName: string;
+    profile: ProfileType;
 };
 
 export type Conversation = {

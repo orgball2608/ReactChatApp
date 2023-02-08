@@ -4,6 +4,10 @@ import moment from 'moment';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 type FormattedMessageProps = {
     user?: User;
@@ -24,8 +28,15 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     setIsEditing,
     isOneElement,
 }) => {
-    const { message: m } = useContext(MessageMenuContext);
     const { editMessage } = useContext(MessageMenuContext);
+    const conversationType = useSelector((state: RootState) => state.type.type);
+    const getAvatar = () => {
+        if (conversationType === 'private') {
+            if (message.author.profile) return message.author.profile.avatar;
+            return defaultAvatar;
+        }
+        return defaultAvatar;
+    };
     return (
         <div
             className={`flex gap-4 pt-3 pb-1 items-center w-5/6 ${
@@ -34,7 +45,16 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
         >
             <div className=" flex-col gap-3 w-full">
                 <div className={`flex gap-3 py-1  ${user?.id === message.author.id ? 'justify-end' : ''}`}>
-                    <div className={`w-10 h-10 rounded-full bg-red-500 flex-0`}></div>
+                    {conversationType === 'group' ? (
+                        <div className={`w-10 h-10 rounded-full bg-red-500 flex-0`}></div>
+                    ) : (
+                        <LazyLoadImage
+                            src={getAvatar()}
+                            alt="avatar"
+                            className={`w-10 h-10 rounded-full flex-0 object-cover `}
+                        />
+                    )}
+
                     <span
                         className="text-[#6d6d6d] text-base font-bold"
                         style={{
