@@ -18,6 +18,7 @@ import { GroupChannelPage } from './pages/group/GroupChanelPage';
 import { AppPage } from './pages/AppPage';
 import SettingPage from './pages/SettingPage';
 import { FriendPageLayout } from './pages/friend/FriendPageLayout';
+import { ProfilePage } from './pages/friend/ProfilePage';
 
 enableMapSet();
 
@@ -61,7 +62,9 @@ function App() {
                     <Route path="/setting" element={<SettingPage />}></Route>
                     <Route path="/archire" element={<SettingPage />}></Route>
                     <Route path="/async" element={<SettingPage />}></Route>
-                    <Route path="/friend" element={<FriendPageLayout />}></Route>
+                    <Route path="/friend" element={<FriendPageLayout />}>
+                        <Route path="/friend/profile/:id" element={<ProfilePage />} />
+                    </Route>
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

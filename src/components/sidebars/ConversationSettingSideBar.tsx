@@ -28,7 +28,11 @@ export const ConversationSettingSideBar = () => {
         <>
             <aside className="w-72 flex-none bg-[#141414] px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] ">
                 <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
-                    <LazyLoadImage src={getAvatar()} alt={'avatar'} className="w-28 h-28 rounded-full object-cover " />
+                    <LazyLoadImage
+                        src={getAvatar() || defaultAvatar}
+                        alt={'avatar'}
+                        className="w-28 h-28 rounded-full object-cover "
+                    />
                     <div className="flex flex-col text-2xl">
                         <span className="text-center break-all">{getFullName(user, selectedConversation)}</span>
                     </div>

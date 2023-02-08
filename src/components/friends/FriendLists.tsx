@@ -6,9 +6,9 @@ export const FriendLists = () => {
     const friendRequests = useSelector((state: RootState) => state.friends.friends);
 
     return (
-        <div className="flex p-6 w-full">
+        <div className="flex py-6 px-1 w-full">
             {friendRequests.length > 0 && (
-                <div className="flex flex-col justify-center gap-2">
+                <div className="flex flex-col justify-center gap-2 w-full">
                     {friendRequests.map((request) => (
                         <FriendItem friend={request} key={request.id} />
                     ))}

@@ -1,5 +1,6 @@
 import { FC, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { SocketContext } from '../../contex/SocketContext';
 import { AppDispatch } from '../../store';
 import {
@@ -11,6 +12,7 @@ import {
     getReceiveFriendRequests,
     getSendFriendRequests,
 } from '../../store/friendSlice';
+import { changePage } from '../../store/selectedPageSlice';
 import { FriendLists } from '../friends/FriendLists';
 import { FriendRequests } from '../friends/FriendRequests';
 
@@ -21,6 +23,13 @@ type Props = {
 export const FriendSideBar: FC<Props> = ({ selectedItem }) => {
     const socket = useContext(SocketContext);
     const dispatch = useDispatch<AppDispatch>();
+    const location = useLocation();
+    const selectedPath = location.pathname.split('/')[1];
+
+    useEffect(() => {
+        if (selectedPath === 'friend') dispatch(changePage('friend'));
+    }, [selectedPath]);
+
     useEffect(() => {
         dispatch(getSendFriendRequests());
         dispatch(getReceiveFriendRequests());
@@ -49,7 +58,7 @@ export const FriendSideBar: FC<Props> = ({ selectedItem }) => {
     }, []);
 
     return (
-        <div className="flex flex-col w-1/3 h-full border-border-conversations border-r-[1px]">
+        <div className="flex flex-col flex-none w-88 h-full border-border-conversations border-r-[1px]">
             {selectedItem === 'requests' && <FriendRequests />}
             {selectedItem === 'friends' && <FriendLists />}
         </div>

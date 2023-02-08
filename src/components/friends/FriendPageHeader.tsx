@@ -16,7 +16,7 @@ export const FriendPageHeader: FC<Props> = ({ selectedItem, setSelectedItem }) =
     return (
         <>
             {showModal && <AddNewFriendModal showModal={showModal} setShowModal={setShowModal} />}
-            <aside className=" flex justify-between px-10 items-center bg-[#121212] h-14 text-xl border-border-conversations border-b-[1px]">
+            <aside className=" flex flex-none justify-between px-10 items-center bg-[#121212] h-14 text-xl border-border-conversations border-b-[1px]">
                 <div className="flex justify-start items-center">
                     {FriendHeaderItem.map((item) => (
                         <div key={item.name} onClick={() => setSelectedItem(item.path)} className="px-3">

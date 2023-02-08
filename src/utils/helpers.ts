@@ -36,6 +36,6 @@ export const getUserContextMenuIcon = (type: UserContextMenuItemType) => {
 };
 
 export const getFullName = (user: User | undefined, conversation: Conversation | undefined) =>
-    user?.id != conversation?.creator.id
+    user?.id !== conversation?.creator.id
         ? `${conversation?.creator.lastName} ${conversation?.creator.firstName}`
         : `${conversation?.recipient.lastName} ${conversation?.recipient.firstName}`;

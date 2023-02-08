@@ -89,3 +89,5 @@ export const cancelFriendRequestSendAPI = (id: number) => axiosClient.delete(`/f
 
 export const rejectFriendRequestReceiveAPI = (id: number) =>
     axiosClient.post(`/friend-requests/${id}/reject`, {}, config);
+
+export const getProfileById = (id: number) => axiosClient.get(`/user-profile/${id}`, config);

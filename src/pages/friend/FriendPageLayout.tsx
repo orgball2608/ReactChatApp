@@ -15,7 +15,7 @@ export const FriendPageLayout = () => {
         dispatch(fetchConversationsThunk());
     }, []);
     return (
-        <div className="flex flex-col bg-dark-light h-full w-full">
+        <div className="flex flex-col bg-dark-light h-full w-full overflow-hidden">
             <FriendPageHeader selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
             <div className="flex h-full w-full">
                 <FriendSideBar selectedItem={selectedItem} />

@@ -33,10 +33,11 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     const getAvatar = () => {
         if (conversationType === 'private') {
             if (message.author.profile) return message.author.profile.avatar;
-            return defaultAvatar;
         }
         return defaultAvatar;
     };
+
+    console.log(getAvatar());
     return (
         <div
             className={`flex gap-4 pt-3 pb-1 items-center w-5/6 ${
@@ -49,7 +50,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                         <div className={`w-10 h-10 rounded-full bg-red-500 flex-0`}></div>
                     ) : (
                         <LazyLoadImage
-                            src={getAvatar()}
+                            src={getAvatar() || defaultAvatar}
                             alt="avatar"
                             className={`w-10 h-10 rounded-full flex-0 object-cover `}
                         />

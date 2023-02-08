@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { Dispatch, FC, SetStateAction, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contex/AuthContext';
@@ -10,9 +10,10 @@ import { FriendRequestType, FriendType } from '../../utils/types';
 
 type Props = {
     friend: FriendType | FriendRequestType;
+    setVisible: Dispatch<SetStateAction<boolean>>;
 };
 
-export const FriendMenuContext: FC<Props> = ({ friend }) => {
+export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -58,6 +59,12 @@ export const FriendMenuContext: FC<Props> = ({ friend }) => {
                         })
                         .catch((err) => console.log(err));
                 }
+                break;
+
+            case 'Profile':
+                navigate(`/friend/profile/${recipient.id}`);
+                setVisible(false);
+                break;
         }
     };
 

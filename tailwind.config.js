@@ -22,6 +22,10 @@ module.exports = {
                 Inter: ['Inter', 'sans-serif'],
             },
             invisible: ['group-hover'],
+            width: {
+                86: '21.5rem',
+                88: '22rem',
+            },
         },
     },
     plugins: [require('tailwind-scrollbar-hide')],

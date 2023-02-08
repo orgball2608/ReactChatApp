@@ -40,7 +40,7 @@ export const MessagePanelHeader = () => {
         >
             <div className="flex justify-center items-center gap-2">
                 {selectedType === 'private' ? (
-                    <img src={getAvatar()} className={`w-10 h-10 rounded-full object-cover `} />
+                    <img src={getAvatar() || defaultAvatar} className={`w-10 h-10 rounded-full object-cover `} />
                 ) : (
                     <div className="w-10 h-10 rounded-full bg-red-500"></div>
                 )}

@@ -71,7 +71,7 @@ export const AddNewFriendModal: FC<Props> = ({ showModal, setShowModal }) => {
             <div
                 onClick={handleOverlayClick}
                 ref={ref}
-                className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-25"
+                className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50"
             >
                 <div className="bg-modal-background w-2/5 box-border rounded-lg">
                     <div className=" box-border flex justify-between mx-6 items-center mt-6">
