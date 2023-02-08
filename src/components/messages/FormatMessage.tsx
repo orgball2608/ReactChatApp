@@ -36,8 +36,6 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
         }
         return defaultAvatar;
     };
-
-    console.log(getAvatar());
     return (
         <div
             className={`flex gap-4 pt-3 pb-1 items-center w-5/6 ${

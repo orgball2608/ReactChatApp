@@ -1,27 +1,24 @@
-import { Dispatch, FC, SetStateAction, useContext } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../contex/AuthContext';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../store';
 import { createConversationThunk } from '../../store/coversationSlice';
 import { changePage } from '../../store/selectedPageSlice';
 import { changeType } from '../../store/typeSlice';
-import { FriendRequestType, FriendType } from '../../utils/types';
+import { User } from '../../utils/types';
 
 type Props = {
-    friend: FriendType | FriendRequestType;
+    friend: User;
     setVisible: Dispatch<SetStateAction<boolean>>;
 };
 
 export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
-    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
-    const { sender, receiver } = friend;
-    const recipient = sender === user ? receiver : sender;
     const exitsConversation = conversations.find(
-        (conversation) => conversation.creator.id === recipient.id || conversation.recipient.id === recipient.id,
+        (conversation) => conversation.creator.id === friend.id || conversation.recipient.id === friend.id,
     );
     const conversationType = useSelector((state: RootState) => state.type.type);
     const FriendMenuAction = [
@@ -49,7 +46,7 @@ export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
                 } else {
                     dispatch(
                         createConversationThunk({
-                            email: recipient.email,
+                            email: friend.email,
                             message: '',
                         }),
                     )
@@ -62,8 +59,12 @@ export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
                 break;
 
             case 'Profile':
-                navigate(`/friend/profile/${recipient.id}`);
-                setVisible(false);
+                if (parseInt(id!) === friend.id) setVisible(false);
+                else {
+                    navigate(`/friend/profile/${friend.id}`);
+                    setVisible(false);
+                }
+
                 break;
         }
     };
