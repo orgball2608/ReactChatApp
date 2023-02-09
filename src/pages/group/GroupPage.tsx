@@ -10,6 +10,7 @@ import {
     editGroupConversationsTitle,
     fetchGroupsThunk,
     updateGroupConversations,
+    updateGroupDeleteMessage,
     updateGroupEditMessage,
 } from '../../store/groupSlice';
 import { socket } from '../../contex/SocketContext';
@@ -42,6 +43,7 @@ export const GroupPage = () => {
 
         socket.on('onDeleteGroupMessage', (payload) => {
             dispatch(deleteGroupMessage(payload));
+            dispatch(updateGroupDeleteMessage(payload));
         });
 
         socket.on('onEditGroupMessage', (payload) => {

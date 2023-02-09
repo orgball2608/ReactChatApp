@@ -8,6 +8,7 @@ import { deleteMessageThunk } from '../../store/messageSlice';
 import { selectType } from '../../store/typeSlice';
 import { deleteGroupMessageThunk } from '../../store/groupMessageSlice';
 import { updateDeleteMessage } from '../../store/coversationSlice';
+import { updateGroupDeleteMessage } from '../../store/groupSlice';
 
 type Props = {
     points: { x: number; y: number };
@@ -34,15 +35,18 @@ export const MenuContext: FC<Props> = ({ points, setShowMenu, setIsEditing }) =>
         if (conversationType === 'private') {
             dispatch(deleteMessageThunk({ conversationId: Id, messageId: message.id }))
                 .unwrap()
-                .then(({ data }) => {
-                    console.log(data);
+                .then(() => {
                     dispatch(updateDeleteMessage({ conversationId: Id, messageId: message.id, selectedMessage }));
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         } else {
-            dispatch(deleteGroupMessageThunk({ groupId: Id, messageId: message.id }));
+            dispatch(deleteGroupMessageThunk({ groupId: Id, messageId: message.id }))
+                .unwrap()
+                .then(({ data }) => {
+                    dispatch(updateGroupDeleteMessage(data));
+                });
         }
     };
 
