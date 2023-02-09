@@ -32,11 +32,22 @@ export const conversationsSlice = createSlice({
             console.log('addConversation');
         },
         updateConversation: (state, action: PayloadAction<Conversation>) => {
-            console.log('Inside updateConversation');
             const conversation = action.payload;
             const index = state.conversations.findIndex((c) => c.id === conversation.id);
             state.conversations.splice(index, 1);
             state.conversations.unshift(conversation);
+        },
+        updateEditMessage: (state, action) => {
+            const { id, messageId, content } = action.payload;
+            const conversation = state.conversations.find((c) => c.id === id);
+            if (conversation) {
+                conversation.lastMessageSent.content =
+                    conversation.lastMessageSent.id === messageId ? content : conversation.lastMessageSent.content;
+
+                const index = state.conversations.findIndex((c) => c.id === id);
+                state.conversations.splice(index, 1);
+                state.conversations.unshift(conversation);
+            }
         },
     },
     extraReducers: (builder) => {
@@ -59,5 +70,5 @@ export const conversationsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addConversation, updateConversation } = conversationsSlice.actions;
+export const { addConversation, updateConversation, updateEditMessage } = conversationsSlice.actions;
 export default conversationsSlice.reducer;

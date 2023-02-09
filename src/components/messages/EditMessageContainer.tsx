@@ -6,6 +6,8 @@ import { AppDispatch, RootState } from '../../store';
 import { editMessageThunk } from '../../store/messageSlice';
 import { selectType } from '../../store/typeSlice';
 import { editGroupMessageThunk } from '../../store/groupMessageSlice';
+import { updateEditMessage } from '../../store/coversationSlice';
+import { updateGroupEditMessage } from '../../store/groupSlice';
 
 type Props = {
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -27,7 +29,10 @@ export const EditMessageContainer: FC<Props> = ({ onEditMessageChange, editMessa
         if (conversationType === 'private') {
             dispatch(editMessageThunk(params))
                 .unwrap()
-                .then(() => setIsEditing(false))
+                .then(() => {
+                    dispatch(updateEditMessage(params));
+                    setIsEditing(false);
+                })
                 .catch((err) => {
                     console.log(err);
                     setIsEditing(false);
@@ -35,7 +40,10 @@ export const EditMessageContainer: FC<Props> = ({ onEditMessageChange, editMessa
         } else {
             dispatch(editGroupMessageThunk(params))
                 .unwrap()
-                .then(() => setIsEditing(false))
+                .then(() => {
+                    dispatch(updateGroupEditMessage(params));
+                    setIsEditing(false);
+                })
                 .catch((err) => {
                     console.log(err);
                     setIsEditing(false);

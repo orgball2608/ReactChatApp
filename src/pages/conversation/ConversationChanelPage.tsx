@@ -1,12 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MessagePanel } from '../../components/messages/MessagePanel';
-import { MessageEventPayload } from '../../utils/types';
 import { SocketContext } from '../../contex/SocketContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
-import { addMessage, fetchMessagesThunk, deleteMessage, editMessage } from '../../store/messageSlice';
-import { updateConversation } from '../../store/coversationSlice';
+import { fetchMessagesThunk } from '../../store/messageSlice';
 import { AuthContext } from '../../contex/AuthContext';
 import { ConversationSettingSideBar } from '../../components/sidebars/ConversationSettingSideBar';
 
@@ -16,7 +14,6 @@ export const ConversationChannelPage = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { user } = useContext(AuthContext);
     const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
-
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>();
     const [isTyping, setIsTyping] = useState(false);
     const [isRecipientTyping, setIsRecipientTyping] = useState(false);
@@ -40,27 +37,6 @@ export const ConversationChannelPage = () => {
             socket.off('onTypingStop');
         };
     }, [id]);
-
-    useEffect(() => {
-        socket.on('onMessage', (payload: MessageEventPayload) => {
-            const { conversation } = payload;
-            dispatch(addMessage(payload));
-            dispatch(updateConversation(conversation));
-        });
-        socket.on('onMessageDelete', (payload) => {
-            console.log(payload);
-            dispatch(deleteMessage(payload));
-        });
-        socket.on('onMessageUpdate', (payload) => {
-            dispatch(editMessage(payload));
-        });
-        return () => {
-            socket.off('connected');
-            socket.off('onMessage');
-            socket.off('onMessageDelete');
-            socket.off('onMessageUpdate');
-        };
-    }, []);
 
     const sendTypingStatus = () => {
         if (isTyping) {
