@@ -49,6 +49,26 @@ export const conversationsSlice = createSlice({
                 state.conversations.unshift(conversation);
             }
         },
+        updateDeleteMessage: (state, action) => {
+            const { conversationId, messageId, selectedMessage } = action.payload;
+            const conversation = state.conversations.find((c) => c.id === conversationId);
+            if (conversation) {
+                if (conversation.lastMessageSent.id === messageId) {
+                    const index = state.conversations.findIndex((c) => c.id === conversationId);
+                    state.conversations[index].lastMessageSent = selectedMessage.messages[1];
+                }
+            }
+        },
+        updateDeleteMessageEvent: (state, action) => {
+            const { conversationId, messageId, conversation: conversationResponse } = action.payload;
+            const conversation = state.conversations.find((c) => c.id === conversationId);
+            if (conversation) {
+                if (conversation.lastMessageSent.id === messageId) {
+                    const index = state.conversations.findIndex((c) => c.id === conversationId);
+                    state.conversations[index].lastMessageSent = conversationResponse.lastMessageSent;
+                }
+            }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -70,5 +90,6 @@ export const conversationsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addConversation, updateConversation, updateEditMessage } = conversationsSlice.actions;
+export const { addConversation, updateConversation, updateEditMessage, updateDeleteMessage, updateDeleteMessageEvent } =
+    conversationsSlice.actions;
 export default conversationsSlice.reducer;

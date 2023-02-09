@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from '../../store';
 import { deleteMessageThunk } from '../../store/messageSlice';
 import { selectType } from '../../store/typeSlice';
 import { deleteGroupMessageThunk } from '../../store/groupMessageSlice';
+import { updateDeleteMessage } from '../../store/coversationSlice';
 
 type Props = {
     points: { x: number; y: number };
@@ -23,14 +24,26 @@ export const MenuContext: FC<Props> = ({ points, setShowMenu, setIsEditing }) =>
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
+    const conMessages = useSelector((state: RootState) => state.messages.messages);
     const conversationType = useSelector((state: RootState) => selectType(state));
+    const selectedMessage = conMessages.find((con) => con.id === parseInt(id!));
     const handleDeleteMessage = () => {
         const Id = parseInt(id!);
-        console.log(`Delete message ${message?.id}`);
         if (!message) return;
         setShowMenu(false);
-        if (conversationType === 'private') dispatch(deleteMessageThunk({ conversationId: Id, messageId: message.id }));
-        dispatch(deleteGroupMessageThunk({ groupId: Id, messageId: message.id }));
+        if (conversationType === 'private') {
+            dispatch(deleteMessageThunk({ conversationId: Id, messageId: message.id }))
+                .unwrap()
+                .then(({ data }) => {
+                    console.log(data);
+                    dispatch(updateDeleteMessage({ conversationId: Id, messageId: message.id, selectedMessage }));
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            dispatch(deleteGroupMessageThunk({ groupId: Id, messageId: message.id }));
+        }
     };
 
     const handleEditMessage = () => {
