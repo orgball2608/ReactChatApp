@@ -56,11 +56,7 @@ export const ProfileAction = () => {
     }, [id, existsReceiver, existsSender]);
 
     const isFriend = friends.find(
-        (friend) =>
-            friend.receiver.id === parseInt(id!) ||
-            friend.sender.id === parseInt(id!) ||
-            friend.receiver.id === user?.id ||
-            friend.sender.id === user?.id,
+        (friend) => friend.receiver.id === parseInt(id!) || friend.sender.id === parseInt(id!),
     );
 
     const handleAddFriend = () => {

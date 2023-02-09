@@ -6,6 +6,7 @@ import { FriendMenuContext } from '../menu-context/FriendMenuContext';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import defaultAvatar from '../../__assets__/default_avatar.jpg';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useNavigate, useParams } from 'react-router-dom';
 
 type Props = {
     friend: User;
@@ -14,10 +15,23 @@ type Props = {
 
 export const FriendItem: FC<Props> = ({ friend, isOnline }) => {
     const [visible, setVisible] = useState(false);
+    const { id } = useParams();
+    const navigate = useNavigate();
     const avatar = friend.profile.avatar ? friend.profile.avatar : defaultAvatar;
+
+    const onProfileClick = () => {
+        if (parseInt(id!) === friend.id) setVisible(false);
+        else {
+            navigate(`/friend/profile/${friend.id}`);
+            setVisible(false);
+        }
+    };
     return (
-        <div className="flex justify-between items-center w-full group hover:bg-[#b2aeae] cursor-pointer rounded-lg py-1 px-3">
-            <div className="flex justify-start items-center gap-2">
+        <div className="flex justify-between items-center w-full cursor-pointer py-1 px-2 relative">
+            <div
+                onClick={onProfileClick}
+                className="flex justify-start items-center gap-2 hover:bg-[#b2aeae] w-full rounded-lg px-1 py-1"
+            >
                 <div className="relative w-10 h-10 rounded-full">
                     <LazyLoadImage src={avatar} effect="opacity" className="w-10 h-10 rounded-full object-cover" />
                     {isOnline && (
@@ -37,7 +51,7 @@ export const FriendItem: FC<Props> = ({ friend, isOnline }) => {
             >
                 <div
                     onClick={() => setVisible((prevState) => !prevState)}
-                    className="invisible group-hover:visible bg-[#989696] p-2 rounded-full opacity-50"
+                    className=" bg-[#989696] p-2 rounded-full opacity-50 absolute right-4 z-50 top-auto bottom-auto hover:opacity-70"
                 >
                     <MoreVerticalFill size={20} />
                 </div>

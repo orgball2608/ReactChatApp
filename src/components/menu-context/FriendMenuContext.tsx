@@ -25,10 +25,6 @@ export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
     const conversationType = useSelector((state: RootState) => state.type.type);
     const FriendMenuAction = [
         {
-            action: 'Profile',
-            label: 'Profile',
-        },
-        {
             action: 'Message',
             label: 'Message',
         },
@@ -60,14 +56,13 @@ export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
                 }
                 break;
 
-            case 'Profile':
-                if (parseInt(id!) === friend.id) setVisible(false);
-                else {
-                    navigate(`/friend/profile/${friend.id}`);
-                    setVisible(false);
-                }
-
-                break;
+            // case 'Profile':
+            //     if (parseInt(id!) === friend.id) setVisible(false);
+            //     else {
+            //         navigate(`/friend/profile/${friend.id}`);
+            //         setVisible(false);
+            //     }
+            //     break;
             case 'Remove':
                 dispatch(deleteFriend(friend.id))
                     .unwrap()
@@ -80,6 +75,8 @@ export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
                         toast.clearWaitingQueue();
                         toast.error(err.message);
                     });
+                break;
+            default:
                 break;
         }
     };
