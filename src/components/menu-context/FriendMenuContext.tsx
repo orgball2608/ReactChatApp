@@ -1,8 +1,10 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AppDispatch, RootState } from '../../store';
 import { createConversationThunk } from '../../store/coversationSlice';
+import { deleteFriend } from '../../store/friendSlice';
 import { changePage } from '../../store/selectedPageSlice';
 import { changeType } from '../../store/typeSlice';
 import { User } from '../../utils/types';
@@ -65,6 +67,19 @@ export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
                     setVisible(false);
                 }
 
+                break;
+            case 'Remove':
+                dispatch(deleteFriend(friend.id))
+                    .unwrap()
+                    .then(() => {
+                        setVisible(false);
+                        toast.clearWaitingQueue();
+                        toast.success('Remove friend successfully');
+                    })
+                    .catch((err) => {
+                        toast.clearWaitingQueue();
+                        toast.error(err.message);
+                    });
                 break;
         }
     };

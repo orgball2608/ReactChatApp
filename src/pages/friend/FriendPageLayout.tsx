@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useParams } from 'react-router-dom';
 import { FriendPageHeader } from '../../components/friends/FriendPageHeader';
 import { FriendPanel } from '../../components/friends/FriendPanel';
 import { FriendSideBar } from '../../components/sidebars/FriendSideBar';
 import { AuthContext } from '../../contex/AuthContext';
 import { SocketContext } from '../../contex/SocketContext';
-import { AppDispatch } from '../../store';
+import { AppDispatch, RootState } from '../../store';
 import { fetchConversationsThunk } from '../../store/coversationSlice';
-import { User } from '../../utils/types';
+import { updateOfflineFriends, updateOnlineFriends } from '../../store/friendSlice';
 
 export const FriendPageLayout = () => {
     const { id } = useParams<{ id: string }>();
@@ -16,8 +16,7 @@ export const FriendPageLayout = () => {
     const dispatch = useDispatch<AppDispatch>();
     const socket = useContext(SocketContext);
     const { user } = useContext(AuthContext);
-    const [onlineFriends, setOnlineFriends] = useState<User[]>([]);
-    const [offlineFriends, setOfflineFriends] = useState<User[]>([]);
+    const { onlineFriends, offlineFriends } = useSelector((state: RootState) => state.friends);
     useEffect(() => {
         dispatch(fetchConversationsThunk());
         socket.emit('getOnlineFriends', { user });
@@ -25,14 +24,14 @@ export const FriendPageLayout = () => {
             socket.emit('getOnlineFriends', { user });
         }, 10000);
         socket.on('getStatusFriends', (payload) => {
-            setOnlineFriends(payload.onlineFriends);
-            setOfflineFriends(payload.offlineFriends);
+            dispatch(updateOfflineFriends(payload.offlineFriends));
+            dispatch(updateOnlineFriends(payload.onlineFriends));
         });
         return () => {
             clearInterval(interval);
             socket.off('getStatusFriends');
-            setOfflineFriends([]);
-            setOnlineFriends([]);
+            dispatch(updateOfflineFriends([]));
+            dispatch(updateOnlineFriends([]));
         };
     }, []);
     return (

@@ -1,4 +1,4 @@
-import { CreateNewFriendRequestParams, FriendRequestType, FriendType } from '../utils/types';
+import { CreateNewFriendRequestParams, DeleteFriendPayload, FriendRequestType, FriendType, User } from '../utils/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     acceptFriendRequestReceiveAPI,
@@ -6,6 +6,7 @@ import {
     getReceiveFriendRequests as getReceiveFriendRequestsAPI,
     rejectFriendRequestReceiveAPI,
     getSendFriendRequests as getSendFriendRequestsAPI,
+    deleteFriendAPI,
 } from '../services/api';
 import { getFriends as getFriendsAPI, postFriendRequestAPI } from '../services/api';
 
@@ -13,12 +14,16 @@ export interface FriendState {
     receiveRequests: FriendRequestType[];
     sendRequests: FriendRequestType[];
     friends: FriendType[];
+    onlineFriends: User[];
+    offlineFriends: User[];
 }
 
 const initialState: FriendState = {
     receiveRequests: [],
     sendRequests: [],
     friends: [],
+    onlineFriends: [],
+    offlineFriends: [],
 };
 
 export const getReceiveFriendRequests = createAsyncThunk('friends/receive/fetch/pending', () =>
@@ -45,6 +50,8 @@ export const cancelFriendRequestSend = createAsyncThunk('friends/cancel/send', (
 
 export const getFriends = createAsyncThunk('friends/fetch/friends', () => getFriendsAPI());
 
+export const deleteFriend = createAsyncThunk('friends/delete/friend', (id: number) => deleteFriendAPI(id));
+
 const friendsSlice = createSlice({
     name: 'friends',
     initialState,
@@ -53,8 +60,10 @@ const friendsSlice = createSlice({
             state.receiveRequests.unshift(action.payload);
         },
         friendRequestAccepted: (state, action) => {
-            const { friend, friendRequest } = action.payload;
+            const { friend, friendRequest, user } = action.payload;
             state.sendRequests = state.sendRequests.filter((request) => request.id !== friendRequest.id);
+            const recipient = friend.sender.id === user.id ? friend.sender : friend.receiver;
+            state.onlineFriends.unshift(recipient);
             state.friends.unshift(friend);
         },
         friendRequestRejected: (state, action: PayloadAction<FriendRequestType>) => {
@@ -64,6 +73,19 @@ const friendsSlice = createSlice({
         friendRequestCancelled: (state, action: PayloadAction<FriendRequestType>) => {
             const friendRequest = action.payload;
             state.receiveRequests = state.receiveRequests.filter((request) => request.id !== friendRequest.id);
+        },
+        deleteFriendUpdate: (state, action: PayloadAction<DeleteFriendPayload>) => {
+            const { friend, userId } = action.payload;
+            const recipient = friend.sender.id === userId ? friend.sender : friend.receiver;
+            state.onlineFriends = state.onlineFriends.filter((item) => item.id !== recipient.id);
+            state.offlineFriends = state.offlineFriends.filter((item) => item.id !== recipient.id);
+            state.friends = state.friends.filter((item) => item.id !== friend.id);
+        },
+        updateOnlineFriends: (state, action: PayloadAction<User[]>) => {
+            state.onlineFriends = action.payload;
+        },
+        updateOfflineFriends: (state, action: PayloadAction<User[]>) => {
+            state.offlineFriends = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -78,9 +100,11 @@ const friendsSlice = createSlice({
                 state.sendRequests = [...state.sendRequests, action.payload.data];
             })
             .addCase(acceptFriendRequestReceive.fulfilled, (state, action) => {
-                const { friend, friendRequest } = action.payload.data;
+                const { friend, friendRequest, user } = action.payload.data;
                 state.receiveRequests = state.receiveRequests.filter((item) => item.id !== friendRequest.id);
+                const recipient = friend.sender.id === user.id ? friend.receiver : friend.sender;
                 state.friends = [...state.friends, friend];
+                state.offlineFriends = [...state.offlineFriends, recipient];
             })
             .addCase(rejectFriendRequestReceive.fulfilled, (state, action) => {
                 state.receiveRequests = state.receiveRequests.filter((item) => item.id !== action.payload.data.id);
@@ -90,11 +114,25 @@ const friendsSlice = createSlice({
             })
             .addCase(getSendFriendRequests.fulfilled, (state, action) => {
                 state.sendRequests = action.payload.data;
+            })
+            .addCase(deleteFriend.fulfilled, (state, action) => {
+                const { friend, userId } = action.payload.data;
+                const recipient = friend.sender.id === userId ? friend.receiver : friend.sender;
+                state.onlineFriends = state.onlineFriends.filter((item) => item.id !== recipient.id);
+                state.offlineFriends = state.offlineFriends.filter((item) => item.id !== recipient.id);
+                state.friends = state.friends.filter((item) => item.id !== friend.id);
             });
     },
 });
 
-export const { friendRequestReceived, friendRequestAccepted, friendRequestRejected, friendRequestCancelled } =
-    friendsSlice.actions;
+export const {
+    friendRequestReceived,
+    friendRequestAccepted,
+    friendRequestRejected,
+    friendRequestCancelled,
+    deleteFriendUpdate,
+    updateOnlineFriends,
+    updateOfflineFriends,
+} = friendsSlice.actions;
 
 export default friendsSlice.reducer;

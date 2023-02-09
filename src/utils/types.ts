@@ -190,3 +190,8 @@ export type FriendType = {
 export type CreateNewFriendRequestParams = {
     email: string;
 };
+
+export type DeleteFriendPayload = {
+    userId: number;
+    friend: FriendType;
+};

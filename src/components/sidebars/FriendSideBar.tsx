@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { SocketContext } from '../../contex/SocketContext';
 import { AppDispatch } from '../../store';
 import {
+    deleteFriendUpdate,
     friendRequestAccepted,
     friendRequestCancelled,
     friendRequestReceived,
@@ -52,11 +53,15 @@ export const FriendSideBar: FC<Props> = ({ selectedItem, onlineFriends, offlineF
         socket.on('onFriendRequestCancelled', (payload) => {
             dispatch(friendRequestCancelled(payload));
         });
+        socket.on('onFriendRemoved', (payload) => {
+            dispatch(deleteFriendUpdate(payload));
+        });
         return () => {
             socket.off('onFriendRequestReceived');
             socket.off('onFriendRequestAccepted');
             socket.off('onFriendRequestRejected');
             socket.off('onFriendRequestCancelled');
+            socket.off('onFriendRemoved');
         };
     }, []);
 
