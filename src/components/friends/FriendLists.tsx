@@ -9,7 +9,7 @@ type Props = {
 
 export const FriendLists: FC<Props> = ({ onlineFriends, offlineFriends }) => {
     return (
-        <div className="flex py-6 px-1 w-full">
+        <div className="flex flex-col py-6 px-1 w-full">
             <div className="flex flex-col gap-2 w-full">
                 {onlineFriends.length > 0 && (
                     <div className="flex flex-col justify-center gap-2 w-full">
@@ -28,7 +28,7 @@ export const FriendLists: FC<Props> = ({ onlineFriends, offlineFriends }) => {
             </div>
 
             {onlineFriends.length + offlineFriends.length === 0 && (
-                <div className="flex flex-col justify-center items-center gap-2 w-full">
+                <div className="flex flex-col justify-center items-start px-5 gap-2 w-full">
                     <p className="text-gray-500">No friends yet</p>
                 </div>
             )}

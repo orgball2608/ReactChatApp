@@ -5,7 +5,6 @@ import {
     rejectFriendRequestReceive,
 } from '../../store/friendSlice';
 import { AppDispatch, RootState } from '../../store';
-import { FriendItem } from './FriendItem';
 import { Check, Cross } from 'akar-icons';
 import { toast } from 'react-toastify';
 import { FriendRequestType } from '../../utils/types';

@@ -38,7 +38,7 @@ export const FriendRequestItem: FC<Props> = ({ friend }) => {
                     effect="blur"
                     className="w-10 h-10 rounded-full relative"
                 />
-                <span className="text-lg font-medium">{friend.sender.firstName + ' ' + friend.sender.lastName}</span>
+                <span className="text-lg font-medium">{recipient.firstName + ' ' + recipient.lastName}</span>
             </div>
         </Tippy>
     );
