@@ -13,11 +13,15 @@ export const ConversationSettingSideBar = () => {
     const { user } = useContext(AuthContext);
     const conversationId = parseInt(id!);
     const conversation = useSelector((state: RootState) => state.conversation.conversations);
+    const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
+
     const selectedConversation = conversation.find((group) => group.id === conversationId);
     const recipientUser =
         selectedConversation?.recipient.id !== user?.id
             ? selectedConversation?.recipient
             : selectedConversation?.creator;
+
+    const isOnline = onlineFriends.find((friend) => friend.id === recipientUser?.id) ? true : false;
 
     const getAvatar = () => {
         if (recipientUser?.profile) return recipientUser?.profile.avatar;
@@ -33,8 +37,9 @@ export const ConversationSettingSideBar = () => {
                         alt={'avatar'}
                         className="w-28 h-28 rounded-full object-cover "
                     />
-                    <div className="flex flex-col text-2xl">
-                        <span className="text-center break-all">{getFullName(user, selectedConversation)}</span>
+                    <div className="flex flex-col items-center">
+                        <span className="text-center break-all text-xl">{getFullName(user, selectedConversation)}</span>
+                        {isOnline && <span className="text-base text-gray-400">Online</span>}
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 justify-center">

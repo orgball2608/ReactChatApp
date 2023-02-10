@@ -20,11 +20,13 @@ export const MessagePanelHeader = () => {
     const conversation = conversations.find((con) => con.id == parseInt(id!));
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groups = useSelector((state: RootState) => state.group.groups);
+    const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
+    const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
     const selectedGroup = groups.find((group) => group.id === parseInt(id!));
 
-    const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
-
     const recipientUser = conversation?.recipient.id !== user?.id ? conversation?.recipient : conversation?.creator;
+
+    const isOnline = onlineFriends.find((friend) => friend.id === recipientUser?.id) ? true : false;
 
     const getAvatar = () => {
         if (selectedType === 'private') {
@@ -57,13 +59,23 @@ export const MessagePanelHeader = () => {
                 onClick={handleDirectProfile}
                 className="flex justify-center items-center gap-2 px-2 py-1 rounded-md cursor-pointer hover:bg-[#2d3133] "
             >
-                <LazyLoadImage
-                    src={getAvatar()}
-                    alt="avatar"
-                    effect="blur"
-                    className={`w-10 h-10 rounded-full object-cover bg-white`}
-                />
-                <div> {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}</div>
+                <div className="w-10 h-10 rounded-full relative">
+                    <LazyLoadImage
+                        src={getAvatar()}
+                        alt="avatar"
+                        effect="blur"
+                        className={`w-10 h-10 rounded-full object-cover bg-white`}
+                    />
+                    {isOnline && (
+                        <div className="w-2 h-2 p-1 rounded-full absolute bottom-0 right-1 bg-green-500"></div>
+                    )}
+                </div>
+                <div className="flex flex-col justify-center">
+                    <span> {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}</span>
+                    {isOnline && (
+                        <span className="text-sm text-gray-400">{selectedType === 'private' ? 'Online' : 'Group'}</span>
+                    )}
+                </div>
             </div>
 
             <div

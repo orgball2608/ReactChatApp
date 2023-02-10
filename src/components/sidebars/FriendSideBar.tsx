@@ -14,17 +14,14 @@ import {
     getSendFriendRequests,
 } from '../../store/friendSlice';
 import { changePage } from '../../store/selectedPageSlice';
-import { User } from '../../utils/types';
 import { FriendLists } from '../friends/FriendLists';
 import { FriendRequests } from '../friends/FriendRequests';
 
 type Props = {
     selectedItem: string;
-    onlineFriends: User[];
-    offlineFriends: User[];
 };
 
-export const FriendSideBar: FC<Props> = ({ selectedItem, onlineFriends, offlineFriends }) => {
+export const FriendSideBar: FC<Props> = ({ selectedItem }) => {
     const socket = useContext(SocketContext);
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation();
@@ -68,9 +65,7 @@ export const FriendSideBar: FC<Props> = ({ selectedItem, onlineFriends, offlineF
     return (
         <div className="flex flex-col flex-none w-88 h-full border-border-conversations border-r-[1px]">
             {selectedItem === 'requests' && <FriendRequests />}
-            {selectedItem === 'friends' && (
-                <FriendLists onlineFriends={onlineFriends} offlineFriends={offlineFriends} />
-            )}
+            {selectedItem === 'friends' && <FriendLists />}
         </div>
     );
 };

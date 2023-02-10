@@ -1,13 +1,10 @@
-import { FC } from 'react';
-import { User } from '../../utils/types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import { FriendItem } from './FriendItem';
 
-type Props = {
-    onlineFriends: User[];
-    offlineFriends: User[];
-};
-
-export const FriendLists: FC<Props> = ({ onlineFriends, offlineFriends }) => {
+export const FriendLists = () => {
+    const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
+    const offlineFriends = useSelector((state: RootState) => state.friends.offlineFriends);
     return (
         <div className="flex flex-col py-6 px-1 w-full">
             <div className="flex flex-col gap-2 w-full">

@@ -54,7 +54,7 @@ export const CreateConversationModal: FC<Props> = ({ setShowModal }) => {
             <ModalContainer>
                 <ModalHeader>
                     <h1 className="text-2xl font-bold ml-2">Create a conversation</h1>
-                    <MdClose size={24} onClick={() => setShowModal(false)} />
+                    <MdClose size={24} onClick={() => setShowModal(false)} className="cursor-pointer" />
                 </ModalHeader>
                 <ConversationSelectTypeForm
                     conversationType={conversationType}
