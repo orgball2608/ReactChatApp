@@ -17,7 +17,7 @@ export const FriendPageHeader: FC<Props> = ({ selectedItem, setSelectedItem }) =
         <>
             {showModal && <AddNewFriendModal showModal={showModal} setShowModal={setShowModal} />}
             <aside className=" flex flex-none justify-between px-10 items-center bg-[#121212] h-14 text-xl border-border-conversations border-b-[1px]">
-                <div className="flex justify-start items-center">
+                <div className="flex justify-start items-center cursor-pointer">
                     {FriendHeaderItem.map((item) => (
                         <div key={item.name} onClick={() => setSelectedItem(item.path)} className="px-3">
                             <span
@@ -32,7 +32,7 @@ export const FriendPageHeader: FC<Props> = ({ selectedItem, setSelectedItem }) =
                 </div>
                 <div
                     onClick={() => setShowModal(true)}
-                    className="py-2 px-3 flex gap-2 justify-center items-center text-sm bg-blue-800 rounded-lg"
+                    className="py-2 px-3 flex gap-2 justify-center items-center text-sm bg-blue-800 rounded-lg cursor-pointer"
                 >
                     <PersonAdd size={20} />
                     <span>Add Friend</span>

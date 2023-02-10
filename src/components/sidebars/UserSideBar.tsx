@@ -34,7 +34,7 @@ export const UserSideBar = () => {
                     alt="avatar cua quang"
                 />
                 <hr className="w-full mt-2 h-[2px] text-[#3030303e] border-0" />
-                <div className="w-full flex justify-center items-center flex-col gap-3 mt-4">
+                <div className="w-full flex justify-center items-center flex-col gap-3 mt-4 cursor-pointer">
                     {SelectedPageTypes.map((page) => (
                         <div
                             key={page.page}

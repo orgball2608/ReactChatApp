@@ -53,7 +53,7 @@ export const MessageInputField: FC<Props> = ({ content, setContent, sendMessage,
                     onKeyDown={sendTypingStatus}
                 />
             </form>
-            <div className="p-2 hover:bg-[#1c1e21] rounded-full">
+            <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer">
                 <FaceHappy onClick={() => handleEmojiAction()} />
             </div>
 

@@ -1,6 +1,6 @@
 import { User } from '../../utils/types';
 import { FC, useEffect, useState } from 'react';
-import { ChevronDown, ChevronRight } from 'akar-icons';
+import { ChevronDown, ChevronRight, Plus } from 'akar-icons';
 import { RecipientItem } from './RecipientItem';
 
 type Props = {
@@ -42,7 +42,7 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
 
                         <div className="flex flex-col gap-2">
                             {onlineUsers?.map((user) => (
-                                <RecipientItem user={user} key={user.id} />
+                                <RecipientItem user={user} key={user.id} isOnline={true} />
                             ))}
                         </div>
                     </div>
@@ -53,9 +53,15 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                         </div>
                         <div className="flex flex-col gap-2">
                             {offlineUsers?.map((user) => (
-                                <RecipientItem user={user} key={user.id} />
+                                <RecipientItem user={user} key={user.id} isOnline={false} />
                             ))}
                         </div>
+                    </div>
+                    <div className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21] cursor-pointer">
+                        <div className="p-2 rounded-full text-white bg-[#373434]">
+                            <Plus size={18} />
+                        </div>
+                        <span className="text-md">Add Member</span>
                     </div>
                 </div>
             )}

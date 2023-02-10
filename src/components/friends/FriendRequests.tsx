@@ -52,7 +52,7 @@ export const FriendRequests = () => {
         <div className="flex flex-col p-6 w-full h-full gap-4">
             <div className="flex flex-col gap-2">
                 <span>Receive Requests</span>
-                <div className="flex flex-col gap-3 w-full h-full">
+                <div className="flex flex-col gap-3 w-full h-full cursor-pointer">
                     {friendReceiveRequests.length > 0 ? (
                         friendReceiveRequests.map((request: FriendRequestType) => (
                             <div key={request.id} className="flex justify-between items-center">
@@ -81,7 +81,7 @@ export const FriendRequests = () => {
 
             <div className="flex flex-col gap-2">
                 <span>Send Requests</span>
-                <div className="flex flex-col gap-3 w-full h-full">
+                <div className="flex flex-col gap-3 w-full h-full cursor-pointer">
                     {friendSendRequests.length > 0 ? (
                         friendSendRequests.map((request) => (
                             <div key={request.id} className="flex justify-between items-center">

@@ -22,7 +22,7 @@ export const ConversationSidebar = () => {
                     <div className="flex justify-between px-4 items-center h-14 w-80 border-b-[1px] border-r-[1px] border-border-conversations">
                         <h1 className="font-normal text-2xl">Conversations</h1>
                         <div
-                            className="hover:bg-[#686868] p-[6px] rounded-full flex justify-center items-center bg-[#5a5252] "
+                            className="hover:bg-[#686868] p-[6px] rounded-full flex justify-center items-center bg-[#5a5252] cursor-pointer "
                             onClick={() => setShowModal(!showModal)}
                         >
                             <Edit size={24} />
@@ -34,7 +34,7 @@ export const ConversationSidebar = () => {
                     </div>
                 </header>
 
-                <section className="mt-40 w-full">
+                <section className="mt-40 w-full cursor-pointer">
                     {selectedType === 'private'
                         ? conversations.map((conversation) => (
                               <ConversationSideBarItem conversation={conversation} key={conversation.id} />

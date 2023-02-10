@@ -13,9 +13,10 @@ import { RootState } from '../../store';
 
 type Props = {
     user: User;
+    isOnline: boolean;
 };
 
-export const RecipientItem: FC<Props> = ({ user }) => {
+export const RecipientItem: FC<Props> = ({ user, isOnline }) => {
     const [visible, setVisible] = useState(false);
     const { user: own } = useContext(AuthContext);
     const { id } = useParams();
@@ -46,12 +47,15 @@ export const RecipientItem: FC<Props> = ({ user }) => {
     return (
         <div key={user.id} className="flex justify-between items-center">
             <div className="flex justify-start items-center text-base gap-4 my-1 font-medium">
-                <LazyLoadImage
-                    src={getGroupAvatar()}
-                    alt="avatar"
-                    effect="blur"
-                    className="w-8 h-8 rounded-full object-cover"
-                />
+                <div className="w-8 h-8 rounded-full relative">
+                    <LazyLoadImage
+                        src={getGroupAvatar()}
+                        alt="avatar"
+                        effect="blur"
+                        className="w-8 h-8 rounded-full object-cover"
+                    />
+                    {isOnline && <div className="w-2 h-2 rounded-full absolute bottom-0 right-0 bg-green-500"></div>}
+                </div>
                 <div className="flex flex-col justify-center">
                     <span>{getFullName(user)}</span>
                     <span className="text-xs text-gray-400">{getDisplayRole()}</span>

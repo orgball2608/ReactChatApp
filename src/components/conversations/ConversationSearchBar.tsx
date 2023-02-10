@@ -2,7 +2,7 @@ import { Search } from 'akar-icons';
 
 export const ConversationSearchBar = () => {
     return (
-        <div className="w-80 flex justify-center items-center h-12 bg-simple-gray border-r-[1px] border-border-conversations">
+        <div className="w-80 flex justify-center items-center h-12 bg-simple-gray border-r-[1px] border-border-conversations cursor-auto">
             <div className="w-full relative mx-2 flex justify-start items-center">
                 <input
                     placeholder="Search for Conversations..."
