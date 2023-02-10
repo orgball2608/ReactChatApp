@@ -52,21 +52,25 @@ export const conversationsSlice = createSlice({
         updateDeleteMessage: (state, action) => {
             const { conversationId, messageId, selectedMessage } = action.payload;
             const conversation = state.conversations.find((c) => c.id === conversationId);
+            const index = state.conversations.findIndex((c) => c.id === conversationId);
             if (conversation) {
                 if (conversation.lastMessageSent.id === messageId) {
-                    const index = state.conversations.findIndex((c) => c.id === conversationId);
                     state.conversations[index].lastMessageSent = selectedMessage.messages[1];
                 }
+                state.conversations.splice(index, 1);
+                state.conversations.unshift(conversation);
             }
         },
         updateDeleteMessageEvent: (state, action) => {
             const { conversationId, messageId, conversation: conversationResponse } = action.payload;
             const conversation = state.conversations.find((c) => c.id === conversationId);
+            const index = state.conversations.findIndex((c) => c.id === conversationId);
             if (conversation) {
                 if (conversation.lastMessageSent.id === messageId) {
-                    const index = state.conversations.findIndex((c) => c.id === conversationId);
                     state.conversations[index].lastMessageSent = conversationResponse.lastMessageSent;
                 }
+                state.conversations.splice(index, 1);
+                state.conversations.unshift(conversationResponse);
             }
         },
     },
