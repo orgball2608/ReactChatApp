@@ -31,8 +31,11 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     const { editMessage } = useContext(MessageMenuContext);
     const conversationType = useSelector((state: RootState) => state.type.type);
     const getAvatar = () => {
-        if (conversationType === 'private') {
-            if (message.author.profile) return message.author.profile.avatar;
+        if (message.author.profile) {
+            if (message.author.profile.avatar) {
+                return message.author.profile.avatar;
+            }
+            return defaultAvatar;
         }
         return defaultAvatar;
     };
@@ -44,15 +47,11 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
         >
             <div className=" flex-col gap-3 w-full">
                 <div className={`flex gap-3 py-1  ${user?.id === message.author.id ? 'justify-end' : ''}`}>
-                    {conversationType === 'group' ? (
-                        <div className={`w-10 h-10 rounded-full bg-red-500 flex-0`}></div>
-                    ) : (
-                        <LazyLoadImage
-                            src={getAvatar() || defaultAvatar}
-                            alt="avatar"
-                            className={`w-10 h-10 rounded-full flex-0 object-cover `}
-                        />
-                    )}
+                    <LazyLoadImage
+                        src={getAvatar()}
+                        alt="avatar"
+                        className={`w-10 h-10 rounded-full flex-0 object-cover `}
+                    />
 
                     <span
                         className="text-[#6d6d6d] text-base font-bold"

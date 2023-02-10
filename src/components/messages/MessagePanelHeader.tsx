@@ -7,6 +7,9 @@ import { FiMoreHorizontal } from 'react-icons/fi';
 import { toggleSidebar } from '../../store/settingSidebarSlice';
 import { getFullName } from '../../utils/helpers';
 import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import defaultGroupAvatar from '../../__assets__/groupAvatar.png';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export const MessagePanelHeader = () => {
     const { id } = useParams();
@@ -24,10 +27,14 @@ export const MessagePanelHeader = () => {
 
     const getAvatar = () => {
         if (selectedType === 'private') {
-            if (recipientUser?.profile) return recipientUser?.profile.avatar;
+            if (recipientUser?.profile) {
+                if (recipientUser.profile.avatar) return recipientUser.profile.avatar;
+                return defaultAvatar;
+            }
             return defaultAvatar;
         } else {
-            return defaultAvatar;
+            if (selectedGroup?.avatar) return selectedGroup.avatar;
+            return defaultGroupAvatar;
         }
     };
     const handleChangeSideState = () => {
@@ -39,12 +46,12 @@ export const MessagePanelHeader = () => {
     absolute top-0 left-0 w-full h-14 text-lg rounded z-8"
         >
             <div className="flex justify-center items-center gap-2">
-                {selectedType === 'private' ? (
-                    <img src={getAvatar() || defaultAvatar} className={`w-10 h-10 rounded-full object-cover `} />
-                ) : (
-                    <div className="w-10 h-10 rounded-full bg-red-500"></div>
-                )}
-
+                <LazyLoadImage
+                    src={getAvatar()}
+                    alt="avatar"
+                    effect="blur"
+                    className={`w-10 h-10 rounded-full object-cover bg-white`}
+                />
                 <div> {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}</div>
             </div>
 

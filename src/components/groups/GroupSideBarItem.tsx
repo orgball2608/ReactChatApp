@@ -1,6 +1,7 @@
 import { Group } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
 import { FC } from 'react';
+import defaultGroupAvatar from '../../__assets__/groupAvatar.png';
 
 type Props = {
     group: Group;
@@ -33,6 +34,15 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
                 : lastMessageSent.content;
         return null;
     };
+
+    const getGroupAvatar = () => {
+        if (group.avatar) {
+            return group.avatar;
+        } else {
+            return defaultGroupAvatar;
+        }
+    };
+
     return (
         <div
             className={'mt-42 items-center w-full bg-simple-gray'}
@@ -42,7 +52,7 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
             key={group.id}
         >
             <div className="flex justify-start gap-5 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations">
-                <div className="bg-blue-500 h-12 w-12 rounded-full"></div>
+                <img src={getGroupAvatar()} alt="avatar" className=" h-12 w-12 rounded-full bg-white object-cover" />
                 <div>
                     <span className="block font-bold text-base">{getGroupTitleDisplay(group)}</span>
                     <span className="text-sm text-white">{lastMessageContent()}</span>

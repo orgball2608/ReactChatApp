@@ -8,6 +8,9 @@ import { SocketContext } from '../../contex/SocketContext';
 import { User } from '../../utils/types';
 import { CustomizeGroupOptions } from '../conversation-options/CustomizeGroupOptions';
 import { ChangeGroupTitleModal } from '../modals/ChangeGroupTitleModal';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import defaultGroupAvatar from '../../__assets__/groupAvatar.png';
 
 export const GroupSettingSideBar = () => {
     const { id } = useParams();
@@ -40,13 +43,26 @@ export const GroupSettingSideBar = () => {
         };
     }, [groupId]);
 
+    const getGroupAvatar = () => {
+        if (selectedGroup?.avatar) {
+            return selectedGroup.avatar;
+        } else {
+            return defaultGroupAvatar;
+        }
+    };
+
     return (
         <>
             {showModal && <ChangeGroupTitleModal setShowModal={setShowModal} selectedGroup={selectedGroup} />}
 
-            <aside className="w-72 flex-none bg-[#141414] px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] ">
+            <aside className="w-72 flex-none bg-[#141414] px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto ">
                 <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
-                    <div className="w-28 h-28 rounded-full bg-blue-500"></div>
+                    <LazyLoadImage
+                        src={getGroupAvatar()}
+                        alt="group_avatar"
+                        className="w-28 h-28 rounded-full bg-white object-cover"
+                        effect="blur"
+                    />
                     <div className="flex flex-col text-2xl">
                         <span className="text-center break-all">{selectedGroup?.title}</span>
                     </div>

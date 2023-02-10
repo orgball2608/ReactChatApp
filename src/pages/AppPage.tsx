@@ -7,7 +7,7 @@ import 'tippy.js/dist/tippy.css';
 
 export const AppPage = () => {
     return (
-        <div className="h-full flex flex-nowrap">
+        <div className="h-full flex flex-nowrap overflow-hidden">
             <UserSideBar />
             <Outlet />
             <ToastContainer />

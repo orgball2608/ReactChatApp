@@ -72,7 +72,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                         <span className="text-lg">Change group title</span>
                     </div>
                     <div className="rounded-md py-2 px-2 hover:bg-[#1c1e21] ">
-                        <label htmlFor="formId" className="flex justify-start gap-2 items-center">
+                        <label htmlFor="formId" className="flex justify-start gap-2 items-center cursor-pointer ">
                             <div className="p-2 rounded-full text-white bg-[#373434]">
                                 <Image size={18} />
                             </div>
