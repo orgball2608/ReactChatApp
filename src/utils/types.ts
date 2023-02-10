@@ -101,6 +101,7 @@ export type Group = {
     createdAt: number;
     lastMessageSent: MessageType;
     lastMessageSentAt: Date;
+    avatar?: string;
 };
 
 export type GroupMessageType = {
@@ -194,4 +195,9 @@ export type CreateNewFriendRequestParams = {
 export type DeleteFriendPayload = {
     userId: number;
     friend: FriendType;
+};
+
+export type UpdateGroupAvatarParams = {
+    id: number;
+    avatar: File;
 };

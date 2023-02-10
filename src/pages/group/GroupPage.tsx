@@ -9,6 +9,7 @@ import {
     deleteGroupConversations,
     editGroupConversationsTitle,
     fetchGroupsThunk,
+    updateGroupAvatarState,
     updateGroupConversations,
     updateGroupDeleteMessage,
     updateGroupEditMessage,
@@ -70,8 +71,11 @@ export const GroupPage = () => {
         });
 
         socket.on('onGroupOwnerChange', (payload) => {
-            console.log(payload);
             dispatch(updateGroupConversations(payload));
+        });
+
+        socket.on('onGroupUpdateAvatar', (payload) => {
+            dispatch(updateGroupAvatarState(payload));
         });
 
         return () => {

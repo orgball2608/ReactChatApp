@@ -1,10 +1,17 @@
-import { CreateGroupParams, EditGroupTitleParams, Group, RemoveRecentGroupParams } from '../utils/types';
+import {
+    CreateGroupParams,
+    EditGroupTitleParams,
+    Group,
+    RemoveRecentGroupParams,
+    UpdateGroupAvatarParams,
+} from '../utils/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     createGroupConversation,
     fetchGroups as fetchGroupsAPI,
     editGroupTitle as editGroupTitleAPI,
     removeRecipient,
+    updateGroupAvatarAPI,
 } from '../services/api';
 
 export interface GroupState {
@@ -29,6 +36,10 @@ export const editGroupTitleThunk = createAsyncThunk('groups/title/edit', (params
 export const removeRecentGroupThunk = createAsyncThunk(
     'groups/recipients/remove',
     ({ groupId, userId }: RemoveRecentGroupParams) => removeRecipient(groupId, userId),
+);
+
+export const updateGroupAvatar = createAsyncThunk('groups/avatar/update', (params: UpdateGroupAvatarParams) =>
+    updateGroupAvatarAPI(params),
 );
 
 const groupsSlice = createSlice({
@@ -77,6 +88,15 @@ const groupsSlice = createSlice({
                 state.groups.unshift(group);
             }
         },
+        updateGroupAvatarState: (state, action) => {
+            const { id } = action.payload;
+            const group = state.groups.find((gm) => gm.id === id);
+            if (!group) return;
+            group.avatar = action.payload.avatar;
+            const index = state.groups.findIndex((gm) => gm.id === id);
+            state.groups.splice(index, 1);
+            state.groups.unshift(group);
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -92,6 +112,9 @@ const groupsSlice = createSlice({
                 if (index < 0) return;
                 state.groups.splice(index, 1);
                 state.groups.unshift(action.payload.data);
+            })
+            .addCase(updateGroupAvatar.fulfilled, (state, action) => {
+                console.log(action.payload.data);
             });
     },
 });
@@ -103,5 +126,6 @@ export const {
     deleteGroupConversations,
     updateGroupEditMessage,
     updateGroupDeleteMessage,
+    updateGroupAvatarState,
 } = groupsSlice.actions;
 export default groupsSlice.reducer;

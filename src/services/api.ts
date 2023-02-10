@@ -18,6 +18,7 @@ import {
     Group,
     GroupMessageType,
     MessageType,
+    UpdateGroupAvatarParams,
     User,
     UserCredentialsParams,
 } from '../utils/types';
@@ -97,3 +98,9 @@ export const deleteFriendAPI = (id: number) => axiosClient.delete(`/friends/${id
 export const getUserById = (id: number) => axiosClient.get(`/user/${id}`, config);
 
 export const getFriendRequestByUserId = (id: number) => axiosClient.get(`/friend-requests/user/${id}`, config);
+
+export const updateGroupAvatarAPI = ({ id, avatar }: UpdateGroupAvatarParams) => {
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+    return axiosClient.patch<Group>(`/groups/${id}/avatar`, formData, config);
+};
