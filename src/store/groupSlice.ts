@@ -97,6 +97,21 @@ const groupsSlice = createSlice({
             state.groups.splice(index, 1);
             state.groups.unshift(group);
         },
+        updateGroupRecipientAdd: (state, action) => {
+            const { group } = action.payload;
+            console.log('updateGroupRecipientAdd');
+            const index = state.groups.findIndex((gm) => gm.id === group.id);
+            state.groups.splice(index, 1);
+            state.groups.unshift(group);
+        },
+        updateGroupAdded: (state, action) => {
+            const { group } = action.payload;
+            const index = state.groups.findIndex((gm) => gm.id === group.id);
+            if (index >= 0) {
+                state.groups.splice(index, 1);
+            }
+            state.groups.unshift(group);
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -127,5 +142,7 @@ export const {
     updateGroupEditMessage,
     updateGroupDeleteMessage,
     updateGroupAvatarState,
+    updateGroupRecipientAdd,
+    updateGroupAdded,
 } = groupsSlice.actions;
 export default groupsSlice.reducer;

@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../contex/AuthContext';
 import { changeGroupOwner } from '../../services/api';
 import { AppDispatch, RootState } from '../../store';
@@ -9,6 +9,8 @@ import { userContextMenuItems } from '../../utils/constants';
 import { getUserContextMenuIcon } from '../../utils/helpers';
 import { ContextMenuItemType, Group, User, UserContextMenuItemType } from '../../utils/types';
 import { toast } from 'react-toastify';
+import { changeType } from '../../store/typeSlice';
+import { createConversationThunk } from '../../store/coversationSlice';
 
 type Props = {
     recipient: User;
@@ -20,10 +22,18 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
     const group = useSelector((state: RootState) => state.group.groups);
     const selectedGroup = group.find((item) => item.id === parseInt(id!));
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+    const conversationType = useSelector((state: RootState) => state.type.type);
+    const conversations = useSelector((state: RootState) => state.conversation.conversations);
+    const exitsConversation = conversations.find(
+        (conversation) =>
+            (conversation.creator.id === recipient?.id && conversation.recipient.id === user?.id) ||
+            (conversation.recipient.id === recipient?.id && conversation.creator.id === user?.id),
+    );
 
     const getUserMenuContexAction = (user?: User, group?: Group) => {
         if (!user || !group) return [];
-        if (group.owner.id === user.id) {
+        if (group.owner?.id === user?.id) {
             return userContextMenuItems;
         } else {
             return userContextMenuItems.filter((item) => item.ownerOnly !== true);
@@ -58,7 +68,29 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
                     .catch((err) => toast.error(err.message));
                 break;
             case 'profile':
-                console.log('profile');
+                navigate(`/friend/profile/${recipient.id}`);
+                setVisible(false);
+                break;
+            case 'message':
+                if (exitsConversation) {
+                    if (conversationType === 'group') dispatch(changeType('private'));
+                    navigate(`/conversations/${exitsConversation.id}`);
+                    setVisible(false);
+                } else {
+                    dispatch(
+                        createConversationThunk({
+                            email: recipient?.email,
+                            message: 'test',
+                        }),
+                    )
+                        .unwrap()
+                        .then(({ data }) => {
+                            if (conversationType === 'group') dispatch(changeType('private'));
+                            navigate(`/conversations/${data.id}`);
+                        })
+                        .catch((err) => console.log(err));
+                }
+
                 break;
             default:
                 break;
@@ -67,7 +99,7 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
 
     return (
         <div className={`w-60 rounded-3xl`}>
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center cursor-pointer">
                 {getUserMenuContexAction(user, selectedGroup).map((item: ContextMenuItemType) => (
                     <div
                         onClick={() => handleMenuContextAction(item.action)}

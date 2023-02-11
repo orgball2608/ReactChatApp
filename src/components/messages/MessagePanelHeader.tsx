@@ -30,6 +30,7 @@ export const MessagePanelHeader = () => {
 
     const getAvatar = () => {
         if (selectedType === 'private') {
+            console.log('private');
             if (recipientUser?.profile) {
                 if (recipientUser.profile.avatar) return recipientUser.profile.avatar;
                 return defaultAvatar;

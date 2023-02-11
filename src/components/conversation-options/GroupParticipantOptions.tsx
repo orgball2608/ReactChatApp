@@ -1,8 +1,12 @@
 import { User } from '../../utils/types';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { ChevronDown, ChevronRight, Plus } from 'akar-icons';
 import { RecipientItem } from './RecipientItem';
 import { GroupAddMemberModal } from '../modals/GroupAddMemberModal';
+import { AuthContext } from '../../contex/AuthContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { SpinLoading } from '../commons/SpinLoading';
 
 type Props = {
     onlineUsers: User[];
@@ -13,6 +17,9 @@ type Props = {
 export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, groupId }) => {
     const [showParticipants, setShowParticipants] = useState<boolean>(false);
     const [showAddMemberModal, setShowAddMemberModal] = useState<boolean>(false);
+    const { user } = useContext(AuthContext);
+    const groups = useSelector((state: RootState) => state.group.groups);
+    const selectedGroup = groups.find((item) => item.id === groupId);
 
     useEffect(() => {
         setShowParticipants(false);
@@ -45,9 +52,13 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                {onlineUsers?.map((user) => (
-                                    <RecipientItem user={user} key={user.id} isOnline={true} />
-                                ))}
+                                {onlineUsers?.length === 0 ? (
+                                    <SpinLoading />
+                                ) : (
+                                    onlineUsers?.map((user) => (
+                                        <RecipientItem user={user} key={user.id} isOnline={true} />
+                                    ))
+                                )}
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 justify-center">
@@ -56,20 +67,28 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                                 <div className=" text-red-600 mr-2">({offlineUsers?.length})</div>
                             </div>
                             <div className="flex flex-col gap-2">
-                                {offlineUsers?.map((user) => (
-                                    <RecipientItem user={user} key={user.id} isOnline={false} />
-                                ))}
+                                {offlineUsers?.length === 0 ? (
+                                    <div className="text-base font-medium text-gray-400 flex justify-center items-center">
+                                        No offline members
+                                    </div>
+                                ) : (
+                                    offlineUsers?.map((user) => (
+                                        <RecipientItem user={user} key={user.id} isOnline={false} />
+                                    ))
+                                )}
                             </div>
                         </div>
-                        <div
-                            onClick={() => setShowAddMemberModal(true)}
-                            className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21] cursor-pointer"
-                        >
-                            <div className="p-2 rounded-full text-white bg-[#373434]">
-                                <Plus size={18} />
+                        {user?.id === selectedGroup?.owner.id && (
+                            <div
+                                onClick={() => setShowAddMemberModal(true)}
+                                className="flex justify-start gap-2 items-center rounded-md px-1 py-2 hover:bg-[#1c1e21] cursor-pointer"
+                            >
+                                <div className="p-2 rounded-full text-white bg-[#373434]">
+                                    <Plus size={18} />
+                                </div>
+                                <span className="text-md">Add Member</span>
                             </div>
-                            <span className="text-md">Add Member</span>
-                        </div>
+                        )}
                     </div>
                 )}
             </div>

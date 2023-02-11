@@ -50,4 +50,9 @@ export const userContextMenuItems: ContextMenuItemType[] = [
         action: 'profile',
         ownerOnly: false,
     },
+    {
+        label: 'Message',
+        action: 'message',
+        ownerOnly: false,
+    },
 ];

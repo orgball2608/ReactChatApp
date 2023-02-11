@@ -26,8 +26,7 @@ export const GroupSettingSideBar = () => {
 
     useEffect(() => {
         if (user) setOnlineUsers((prev) => [...prev, user]);
-        setOfflineUsers(selectedGroup?.users.filter((u) => u.id !== user?.id));
-        socket.emit('getOnlineGroupUsers', { groupId });
+        socket.emit('getOnlineGroupUsers', { groupId, userId: user?.id });
         const interval = setInterval(() => {
             socket.emit('getOnlineGroupUsers', { groupId, userId: user?.id });
         }, 10000);

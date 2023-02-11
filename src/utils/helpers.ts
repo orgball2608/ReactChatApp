@@ -30,6 +30,8 @@ export const getUserContextMenuIcon = (type: UserContextMenuItemType) => {
             return { icon: Crown };
         case 'profile':
             return { icon: Person };
+        case 'message':
+            return { icon: ChatDots };
         default:
             return { icon: PersonCross };
     }

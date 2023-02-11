@@ -9,10 +9,12 @@ import {
     deleteGroupConversations,
     editGroupConversationsTitle,
     fetchGroupsThunk,
+    updateGroupAdded,
     updateGroupAvatarState,
     updateGroupConversations,
     updateGroupDeleteMessage,
     updateGroupEditMessage,
+    updateGroupRecipientAdd,
 } from '../../store/groupSlice';
 import { socket } from '../../contex/SocketContext';
 import { addGroupMessage, editGroupMessage } from '../../store/groupMessageSlice';
@@ -78,6 +80,14 @@ export const GroupPage = () => {
             dispatch(updateGroupAvatarState(payload));
         });
 
+        socket.on('onGroupReceivedNewUser', (payload) => {
+            dispatch(updateGroupRecipientAdd(payload));
+        });
+
+        socket.on('onGroupUserAdd', (payload) => {
+            dispatch(updateGroupAdded(payload));
+        });
+
         return () => {
             socket.off('onGroupMessage');
             socket.off('onGroupCreate');
@@ -86,6 +96,7 @@ export const GroupPage = () => {
             socket.off('onEditGroupTitle');
             socket.off('onGroupRemovedUser');
             socket.off('onGroupOwnerChange');
+            socket.off('onGroupUpdateAvatar');
         };
     }, [id]);
 

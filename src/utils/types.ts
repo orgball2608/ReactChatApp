@@ -154,7 +154,7 @@ export type SelectedPageTypeData = {
     action: string;
 };
 
-export type UserContextMenuItemType = 'kick' | 'transfer_owner' | 'profile';
+export type UserContextMenuItemType = 'kick' | 'transfer_owner' | 'profile' | 'message';
 
 export type ContextMenuItemType = {
     label: string;

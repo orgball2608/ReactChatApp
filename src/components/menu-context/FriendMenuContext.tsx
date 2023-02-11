@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AppDispatch, RootState } from '../../store';
 import { createConversationThunk } from '../../store/coversationSlice';
@@ -17,7 +17,6 @@ type Props = {
 export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const navigate = useNavigate();
-    const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
     const exitsConversation = conversations.find(
         (conversation) => conversation.creator.id === friend.id || conversation.recipient.id === friend.id,
@@ -50,6 +49,7 @@ export const FriendMenuContext: FC<Props> = ({ friend, setVisible }) => {
                     )
                         .unwrap()
                         .then(({ data }) => {
+                            if (conversationType === 'group') dispatch(changeType('private'));
                             navigate(`../conversations/${data.id}`);
                         })
                         .catch((err) => console.log(err));
