@@ -201,3 +201,8 @@ export type UpdateGroupAvatarParams = {
     id: number;
     avatar: File;
 };
+
+export type AddGroupRecipientsParams = {
+    groupId: number;
+    emails: string[];
+};

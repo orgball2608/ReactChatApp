@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import {
+    AddGroupRecipientsParams,
     ChangeGroupOwnerParams,
     Conversation,
     CreateConversationParams,
@@ -104,3 +105,6 @@ export const updateGroupAvatarAPI = ({ id, avatar }: UpdateGroupAvatarParams) =>
     formData.append('avatar', avatar);
     return axiosClient.patch<Group>(`/groups/${id}/avatar`, formData, config);
 };
+
+export const addGroupRecipientsAPI = ({ groupId, emails }: AddGroupRecipientsParams) =>
+    axiosClient.post(`/groups/${groupId}/recipients/recipients`, { emails }, config);
