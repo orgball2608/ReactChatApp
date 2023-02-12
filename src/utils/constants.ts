@@ -56,3 +56,7 @@ export const userContextMenuItems: ContextMenuItemType[] = [
         ownerOnly: false,
     },
 ];
+
+export const CDN_URL = 'https://nest-chat-app.s3.ap-southeast-1.amazonaws.com/';
+export const CDN_ORIGINAL_URL = 'https://nest-chat-app.s3.ap-southeast-1.amazonaws.com/original/';
+export const CDN_PREVIEW_URL = 'https://nest-chat-app.s3.ap-southeast-1.amazonaws.com/preview/';

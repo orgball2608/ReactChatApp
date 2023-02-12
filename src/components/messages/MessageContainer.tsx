@@ -10,6 +10,7 @@ import { MenuContext } from '../menu-context/MenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
 import { changeType } from '../../store/typeSlice';
+import { AttachmentListRender } from '../attachments/AttachmentListRender';
 
 export const MessageContainer = () => {
     const { user } = useContext(AuthContext);
@@ -95,46 +96,86 @@ export const MessageContainer = () => {
                         setIsEditing={setIsEditing}
                         onEditMessageChange={onEditMessageChange}
                         isOneElement={currentMessage.author.id !== prevMessage?.author.id}
+                        nextMessage={nextMessage}
+                        prevMessage={prevMessage}
                     />
                 );
             }
             if (currentMessage.author.id === nextMessage.author.id) {
                 return (
                     <div
-                        className={`flex gap-4 items-center break-all w-5/6 group ${
-                            user?.id === m.author.id ? 'place-self-end justify-end' : 'place-self-start justify-start'
-                        }`}
                         key={m.id}
+                        className={`flex flex-col justify-end  ${
+                            m.content && m.attachments.length === 0 ? ' gap-0 ' : 'gap-1 '
+                        }`}
                     >
-                        {isEditing && m.id === editMessage?.id ? (
-                            <div className="p-0 pl-14 text-base flex justify-start items-center w-full mt-2">
-                                <EditMessageContainer
-                                    onEditMessageChange={onEditMessageChange}
-                                    editMessage={editMessage}
-                                    setIsEditing={setIsEditing}
-                                />
-                            </div>
-                        ) : (
+                        {m.content && (
                             <div
-                                className={`p-0 pl-14 text-base flex justify-start items-center mb-1 ${
-                                    user?.id === m.author.id ? 'flex-row-reverse' : ''
+                                className={`flex gap-4 items-center break-all w-5/6 group ${
+                                    user?.id === m.author.id
+                                        ? 'place-self-end justify-end'
+                                        : 'place-self-start justify-start'
                                 }`}
+                                key={m.id}
                             >
-                                <div
-                                    className={`${
-                                        (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
-                                        index === 0
-                                            ? `${user?.id === m.author.id ? 'rounded-tr-none ' : 'rounded-tl-none '}`
-                                            : `${user?.id === m.author.id ? 'rounded-r-md ' : 'rounded-l-md '}`
-                                    }bg-dark-header py-2 px-5 rounded-2xl `}
-                                >
-                                    {m.content}
-                                </div>
-                                <div className="invisible group-hover:visible">
-                                    <MessageOption message={m} handleShowMenu={handleShowMenu} />
-                                </div>
+                                {isEditing && m.id === editMessage?.id ? (
+                                    <div className="p-0 pl-14 text-base flex justify-start items-center w-full mt-2">
+                                        <EditMessageContainer
+                                            onEditMessageChange={onEditMessageChange}
+                                            editMessage={editMessage}
+                                            setIsEditing={setIsEditing}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div
+                                        className={`p-0 pl-14 text-base flex justify-start items-center w-fit ${
+                                            user?.id === m.author.id ? 'flex-row-reverse' : ''
+                                        }`}
+                                    >
+                                        <div
+                                            className={`${
+                                                (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
+                                                index === 0
+                                                    ? `${
+                                                          user?.id === m.author.id
+                                                              ? `${
+                                                                    m.attachments.length === 0
+                                                                        ? 'rounded-tr-none '
+                                                                        : 'rounded-r-md '
+                                                                }`
+                                                              : `${
+                                                                    m.attachments.length === 0
+                                                                        ? 'rounded-tl-none '
+                                                                        : 'rounded-l-md '
+                                                                }`
+                                                      }`
+                                                    : `${user?.id === m.author.id ? 'rounded-r-md ' : 'rounded-l-md '}`
+                                            }bg-dark-header py-2 px-5 rounded-2xl`}
+                                        >
+                                            <span>{m.content}</span>
+                                        </div>
+                                        <div className="invisible group-hover:visible">
+                                            <MessageOption message={m} handleShowMenu={handleShowMenu} />
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         )}
+                        <div
+                            className={`flex gap-4 items-center w-5/6 ${
+                                user?.id === m.author.id
+                                    ? 'place-self-end justify-end'
+                                    : 'place-self-start justify-start'
+                            }`}
+                        >
+                            <AttachmentListRender
+                                attachments={m.attachments}
+                                currentMessage={currentMessage}
+                                prevMessage={prevMessage}
+                                index={index}
+                                message={m}
+                            />
+                        </div>
                     </div>
                 );
             }
@@ -148,6 +189,8 @@ export const MessageContainer = () => {
                     isEditing={isEditing}
                     onEditMessageChange={onEditMessageChange}
                     setIsEditing={setIsEditing}
+                    nextMessage={nextMessage}
+                    prevMessage={prevMessage}
                 />
             );
         });
@@ -163,7 +206,7 @@ export const MessageContainer = () => {
             }}
         >
             <div
-                className="h-full box-border py-2 mt-8 flex flex-col-reverse overflow-y-scroll scrollbar-hide overflow-auto relative outline-0"
+                className="h-full box-border py-2 mt-8 flex flex-col-reverse overflow-y-scroll scrollbar-hide overflow-auto relative outline-0 gap-1"
                 onScroll={handleOnScroll}
                 onClick={handleOnClick}
                 onKeyDown={handleSubmit}

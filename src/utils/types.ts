@@ -34,12 +34,17 @@ export type Conversation = {
     lastMessageSent: MessageType;
 };
 
+export type AttachmentType = {
+    key: string;
+};
+
 export type MessageType = {
     id: number;
     content: string;
     createdAt: string;
     author: User;
     conversation: Conversation;
+    attachments: AttachmentType[];
 };
 
 export type MessageEventPayload = {
@@ -115,6 +120,7 @@ export type GroupMessageType = {
     author: User;
     createdAt: string;
     group: Group;
+    attachments: AttachmentType[];
 };
 
 export type GroupMessage = {

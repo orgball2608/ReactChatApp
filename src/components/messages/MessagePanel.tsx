@@ -29,11 +29,8 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
 
     const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!id || !content || !fileList) return;
-
-        if (fileList.length === 0) return;
+        if (!id || (!fileList && !content)) return;
         const data = new FormData();
-        console.log(fileList);
 
         fileList.forEach((file) => {
             data.append('attachments', file);

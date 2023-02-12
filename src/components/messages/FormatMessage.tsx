@@ -4,10 +4,9 @@ import moment from 'moment';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
 import defaultAvatar from '../../__assets__/default_avatar.jpg';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { AttachmentTopRender } from '../attachments/AttachmentTopRender';
 
 type FormattedMessageProps = {
     user?: User;
@@ -17,6 +16,8 @@ type FormattedMessageProps = {
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
     setIsEditing: Dispatch<SetStateAction<boolean>>;
     isOneElement?: boolean;
+    nextMessage: MessageType | GroupMessageType;
+    prevMessage: MessageType | GroupMessageType;
 };
 
 export const FormattedMessage: FC<FormattedMessageProps> = ({
@@ -27,9 +28,10 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     onEditMessageChange,
     setIsEditing,
     isOneElement,
+    nextMessage,
+    prevMessage,
 }) => {
     const { editMessage } = useContext(MessageMenuContext);
-    const conversationType = useSelector((state: RootState) => state.type.type);
     const getAvatar = () => {
         if (message.author.profile) {
             if (message.author.profile.avatar) {
@@ -41,7 +43,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     };
     return (
         <div
-            className={`flex gap-4 pt-3 pb-1 items-center w-5/6 ${
+            className={`flex gap-4 pt-3 items-center w-5/6 ${
                 user?.id === message.author.id ? 'place-self-end justify-end' : 'place-self-start'
             }`}
         >
@@ -63,34 +65,55 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                     </span>
                     <span className="font-semi-bold">{moment(message.createdAt).fromNow()}</span>
                 </div>
-                {isEditing && message.id === editMessage?.id ? (
-                    <div className="text-base flex justify-start items-center">
-                        <EditMessageContainer
-                            onEditMessageChange={onEditMessageChange}
-                            editMessage={editMessage}
-                            setIsEditing={setIsEditing}
-                        />
-                    </div>
-                ) : (
+                <div key={message.id} className={`flex flex-col justify-end`}>
+                    {isEditing && message.id === editMessage?.id ? (
+                        <div className="text-base flex justify-start items-center">
+                            <EditMessageContainer
+                                onEditMessageChange={onEditMessageChange}
+                                editMessage={editMessage}
+                                setIsEditing={setIsEditing}
+                            />
+                        </div>
+                    ) : (
+                        message.content && (
+                            <div
+                                className={`text-base flex justify-start items-center w-full group ${
+                                    user?.id === message.author.id ? 'flex-row-reverse' : ''
+                                }`}
+                            >
+                                <div
+                                    className={`bg-dark-header py-2 px-5 rounded-2xl  ${
+                                        isOneElement
+                                            ? `${
+                                                  user?.id === message.author.id
+                                                      ? 'rounded-r-2xl'
+                                                      : 'rounded-l-2xl ml-14'
+                                              }`
+                                            : `${
+                                                  user?.id === message.author.id
+                                                      ? 'rounded-br-none'
+                                                      : 'rounded-bl-none ml-14'
+                                              }`
+                                    } `}
+                                >
+                                    {message.content}
+                                </div>
+                                <div className="invisible group-hover:visible">
+                                    <MessageOption message={message} handleShowMenu={handleShowMenu} />
+                                </div>
+                            </div>
+                        )
+                    )}
                     <div
-                        className={`text-base flex justify-start items-center w-full group ${
-                            user?.id === message.author.id ? 'flex-row-reverse' : ''
-                        }`}
+                        className={`flex gap-4 items-center w-5/6 ${
+                            user?.id === message.author.id
+                                ? 'place-self-end justify-end'
+                                : 'place-self-start justify-start'
+                        } ${message.attachments.length > 0 ? 'mt-1 ' : ''}}`}
                     >
-                        <div
-                            className={`bg-dark-header py-2 px-5 rounded-2xl  ${
-                                isOneElement
-                                    ? `${user?.id === message.author.id ? 'rounded-r-2xl' : 'rounded-l-2xl ml-14'}`
-                                    : `${user?.id === message.author.id ? 'rounded-br-none' : 'rounded-bl-none ml-14'}`
-                            } `}
-                        >
-                            {message.content}
-                        </div>
-                        <div className="invisible group-hover:visible">
-                            <MessageOption message={message} handleShowMenu={handleShowMenu} />
-                        </div>
+                        <AttachmentTopRender attachments={message.attachments} message={message} />
                     </div>
-                )}
+                </div>
             </div>
         </div>
     );
