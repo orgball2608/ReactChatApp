@@ -109,7 +109,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                             user?.id === message.author.id
                                 ? 'place-self-end justify-end'
                                 : 'place-self-start justify-start'
-                        } ${message.attachments.length > 0 ? 'mt-1 ' : ''}}`}
+                        } ${message.attachments?.length > 0 ? 'mt-1 ' : ''}}`}
                     >
                         <AttachmentTopRender attachments={message.attachments} message={message} />
                     </div>

@@ -12,7 +12,7 @@ type Props = {
 export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
     const { user } = useContext(AuthContext);
     const renderAttachments = () => {
-        if (attachments.length === 0) return null;
+        if (!attachments || attachments.length === 0) return null;
         if (attachments.length === 1)
             return (
                 <LazyLoadImage

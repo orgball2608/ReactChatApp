@@ -106,7 +106,7 @@ export const MessageContainer = () => {
                     <div
                         key={m.id}
                         className={`flex flex-col justify-end  ${
-                            m.content && m.attachments.length === 0 ? ' gap-0 ' : 'gap-1 '
+                            m.content && m.attachments?.length === 0 ? ' gap-0 ' : 'gap-1 '
                         }`}
                     >
                         {m.content && (
@@ -139,12 +139,12 @@ export const MessageContainer = () => {
                                                     ? `${
                                                           user?.id === m.author.id
                                                               ? `${
-                                                                    m.attachments.length === 0
+                                                                    m.attachments?.length === 0
                                                                         ? 'rounded-tr-none '
                                                                         : 'rounded-r-md '
                                                                 }`
                                                               : `${
-                                                                    m.attachments.length === 0
+                                                                    m.attachments?.length === 0
                                                                         ? 'rounded-tl-none '
                                                                         : 'rounded-l-md '
                                                                 }`

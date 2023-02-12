@@ -49,7 +49,10 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
                 .catch((err) => console.log(err));
         else
             postGroupMessage(params)
-                .then(() => setContent(''))
+                .then(() => {
+                    setContent('');
+                    setFileList([]);
+                })
                 .catch((err) => console.log(err));
     };
 
