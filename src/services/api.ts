@@ -41,10 +41,12 @@ export const getConversations = () => axiosClient.get<Conversation[]>(`/conversa
 
 export const postNewConversation = (data: CreateConversationParams) =>
     axiosClient.post<Conversation>(`/conversations`, data, config);
+
 export const getConversationMessages = (conversationId: number) =>
     axiosClient.get<FetchMessagePayload>(`/conversations/${conversationId}/messages`, config);
-export const postNewMessage = ({ id, content }: CreateMessageParams) =>
-    axiosClient.post(`/conversations/${id}/messages`, { content }, config);
+
+export const postNewMessage = ({ id, data }: CreateMessageParams) =>
+    axiosClient.post(`/conversations/${id}/messages`, data, config);
 
 export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams) =>
     axiosClient.delete<DeleteMessageResponse>(`/conversations/${conversationId}/messages/${messageId}`, config);
@@ -56,8 +58,9 @@ export const fetchGroups = () => axiosClient.get<Group[]>(`/groups`, config);
 
 export const fetchGroupMessages = (groupId: number) => axiosClient.get(`/groups/${groupId}/messages`, config);
 
-export const postGroupMessage = ({ id, content }: CreateGroupMessageParams) =>
-    axiosClient.post(`/groups/${id}/messages`, { content }, config);
+export const postGroupMessage = ({ id, data }: CreateGroupMessageParams) =>
+    axiosClient.post(`/groups/${id}/messages`, data, config);
+
 export const searchUsers = (query: string) => axiosClient.get(`/user/search?query=${query}`, config);
 
 export const createGroupConversation = (data: CreateGroupParams) => axiosClient.post('/groups', data, config);

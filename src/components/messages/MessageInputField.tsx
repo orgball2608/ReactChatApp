@@ -5,7 +5,8 @@ import { selectType } from '../../store/typeSlice';
 import { User } from '../../utils/types';
 import { useParams } from 'react-router-dom';
 import EmojiPicker, { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
-import { FaceHappy } from 'akar-icons';
+import { Cross, FaceHappy, Image } from 'akar-icons';
+import { MdLibraryAdd } from 'react-icons/md';
 
 type Props = {
     content: string;
@@ -13,8 +14,18 @@ type Props = {
     sendMessage: (e: React.FormEvent<HTMLFormElement>) => void;
     sendTypingStatus: () => void;
     recipient: User | undefined;
+    setFileList: Dispatch<SetStateAction<File[]>>;
+    fileList: File[];
 };
-export const MessageInputField: FC<Props> = ({ content, setContent, sendMessage, sendTypingStatus, recipient }) => {
+export const MessageInputField: FC<Props> = ({
+    content,
+    setContent,
+    sendMessage,
+    sendTypingStatus,
+    recipient,
+    setFileList,
+    fileList,
+}) => {
     const conversationType = useSelector((state: RootState) => selectType(state));
     const { id } = useParams();
     const group = useSelector((state: RootState) => state.group.groups);
@@ -35,41 +46,100 @@ export const MessageInputField: FC<Props> = ({ content, setContent, sendMessage,
         setShowEmojiPicker(false);
     };
 
-    return (
-        <div
-            onKeyDown={handleSubmit}
-            className="w-full box-border bg-message-form rounded-xl pl-8 pr-6 py-1 mt-2 relative flex items-center font-poppins "
-        >
-            <form onSubmit={sendMessage} className="w-full">
-                <input
-                    type="text"
-                    className="bg-inherit outline-0 border-0 text-[#454545] py-2 font-Inter box-border text-lg  w-full p-0 resize-none break-words "
-                    value={content}
-                    ref={inputRef}
-                    placeholder={`Send message to ${
-                        conversationType === 'group' ? selectedGroup?.title || 'Group' : recipient?.firstName || 'User'
-                    }`}
-                    onChange={(e) => setContent(e.target.value)}
-                    onKeyDown={sendTypingStatus}
-                />
-            </form>
-            <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer">
-                <FaceHappy onClick={() => handleEmojiAction()} />
-            </div>
+    const handleGetFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) return;
+        if (fileList.length + [...e.target.files].length > 5) return;
+        setFileList((prev) => [...prev, ...[...e.target.files!]]);
+    };
 
-            {showEmojiPicker && (
-                <div className="absolute right-0 bottom-16">
-                    <EmojiPicker
-                        theme={Theme.DARK}
-                        emojiStyle={EmojiStyle.FACEBOOK}
-                        previewConfig={{ showPreview: false }}
-                        lazyLoadEmojis={true}
-                        onEmojiClick={(e) => onEmojiClick(e)}
-                        height={400}
-                        width="360px"
-                    />
-                </div>
+    return (
+        <div className="flex justify-center items-end mt-2 gap-1">
+            {fileList.length === 0 && (
+                <label htmlFor="formId" className="flex justify-center items-center">
+                    <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer">
+                        <Image size={22} />
+                    </div>
+                    <input onChange={handleGetFile} name="file" type="file" id="formId" className="hidden" multiple />
+                </label>
             )}
+
+            <div
+                onKeyDown={handleSubmit}
+                className={`w-full box-border bg-message-form pl-3 pr-2 relative flex flex-col items-center gap-1 font-poppins ${
+                    fileList.length > 0 ? 'rounded-xl ' : 'rounded-full '
+                }`}
+            >
+                <div className={`mt-2 w-full flex gap-2 ${fileList.length === 0 ? 'hidden ' : ''}`}>
+                    {fileList && fileList.length > 0 && (
+                        <>
+                            <label className="w-12 h-12 bg-[#1c1e21] rounded-md flex justify-center items-center cursor-pointer ">
+                                <MdLibraryAdd size={30} />
+                                <input
+                                    onChange={handleGetFile}
+                                    name="file"
+                                    type="file"
+                                    id="formId"
+                                    className="hidden"
+                                    multiple
+                                />
+                            </label>
+                            <div className="flex flex-wrap gap-2 justify-start">
+                                {fileList.map((file, index) => (
+                                    <div key={index} className="flex items-center gap-2 ">
+                                        <div className="w-12 h-12 bg-[#1c1e21] rounded-md relative">
+                                            <img
+                                                src={URL.createObjectURL(file)}
+                                                alt="attachments"
+                                                className="w-12 h-12 rounded-md"
+                                            />
+                                            <div
+                                                onClick={() => setFileList((prev) => prev.filter((f) => f !== file))}
+                                                className="p-[1px] bg-white absolute top-0 right-0 rounded-full cursor-pointer "
+                                            >
+                                                <Cross size={14} className="text-dark-light" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </div>
+                <div className="relative flex items-center w-full">
+                    <form onSubmit={sendMessage} className="w-full">
+                        <input
+                            type="text"
+                            className={`bg-inherit outline-0 border-0 text-[#454545] py-2  font-Inter box-border text-lg  w-full p-0 break-words`}
+                            value={content}
+                            ref={inputRef}
+                            placeholder={`Send message to ${
+                                conversationType === 'group'
+                                    ? selectedGroup?.title || 'Group'
+                                    : recipient?.firstName || 'User'
+                            }`}
+                            onChange={(e) => setContent(e.target.value)}
+                            onKeyDown={sendTypingStatus}
+                        />
+                    </form>
+                    <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer">
+                        <FaceHappy onClick={() => handleEmojiAction()} />
+                    </div>
+
+                    {showEmojiPicker && (
+                        <div className="absolute right-0 bottom-16">
+                            <EmojiPicker
+                                theme={Theme.DARK}
+                                emojiStyle={EmojiStyle.FACEBOOK}
+                                previewConfig={{ showPreview: false }}
+                                lazyLoadEmojis={true}
+                                onEmojiClick={(e) => onEmojiClick(e)}
+                                height={400}
+                                width="360px"
+                            />
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };

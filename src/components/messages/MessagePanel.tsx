@@ -20,6 +20,7 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
     const { id } = useParams();
     const { user } = useContext(AuthContext);
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
+    const [fileList, setFileList] = useState<File[]>([]);
     const conversation = conversations.find((conversation) => conversation.id === parseInt(id!));
 
     const recipient = getRecipientFromConversation(conversation, user);
@@ -27,14 +28,27 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
     const selectedType = useSelector((state: RootState) => state.type.type);
 
     const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
-        console.log('submit');
         e.preventDefault();
-        if (!id || !content) return;
+        if (!id || !content || !fileList) return;
+
+        if (fileList.length === 0) return;
+        const data = new FormData();
+        console.log(fileList);
+
+        fileList.forEach((file) => {
+            data.append('attachments', file);
+        });
+
+        data.append('content', content);
+
         const Id = parseInt(id);
-        const params = { id: Id, content };
+        const params = { id: Id, data };
         if (selectedType === 'private')
             postNewMessage(params)
-                .then(() => setContent(''))
+                .then(() => {
+                    setContent('');
+                    setFileList([]);
+                })
                 .catch((err) => console.log(err));
         else
             postGroupMessage(params)
@@ -60,6 +74,8 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
                             sendMessage={sendMessage}
                             sendTypingStatus={sendTypingStatus}
                             recipient={recipient}
+                            setFileList={setFileList}
+                            fileList={fileList}
                         />
                     </div>
                 </MessagePanelBody>

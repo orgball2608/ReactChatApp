@@ -47,9 +47,14 @@ export type MessageEventPayload = {
     message: MessageType;
 };
 
+export type CreateMessageFromParams = {
+    content: string;
+    attachments: File[];
+};
+
 export type CreateMessageParams = {
     id: number;
-    content: string;
+    data: FormData;
 };
 
 export type CreateConversationParams = {
@@ -119,7 +124,7 @@ export type GroupMessage = {
 
 export type CreateGroupMessageParams = {
     id: number;
-    content: string;
+    data: FormData;
 };
 
 export type GroupMessageEventPayload = {
