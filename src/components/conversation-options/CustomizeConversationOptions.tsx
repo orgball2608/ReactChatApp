@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronRight, Pencil } from 'akar-icons';
+import { ChevronDown, ChevronRight, File, Pencil } from 'akar-icons';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 

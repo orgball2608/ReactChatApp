@@ -28,10 +28,19 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
 
     const lastMessageContent = () => {
         const { lastMessageSent } = group;
-        if (lastMessageSent)
+        if (lastMessageSent) {
+            if (
+                lastMessageSent.content === '' ||
+                (lastMessageSent.attachments && lastMessageSent.attachments?.length > 0)
+            ) {
+                return `Just sent ${
+                    lastMessageSent.attachments?.length > 1 ? `${lastMessageSent.attachments.length}` : 'a'
+                } photo`;
+            }
             return lastMessageSent.content.length > MAX_MESSAGE_LENGTH
                 ? lastMessageSent.content.slice(0, MAX_MESSAGE_LENGTH).concat('...')
                 : lastMessageSent.content;
+        }
         return null;
     };
 

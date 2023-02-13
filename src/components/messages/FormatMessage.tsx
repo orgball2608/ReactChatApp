@@ -16,8 +16,6 @@ type FormattedMessageProps = {
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
     setIsEditing: Dispatch<SetStateAction<boolean>>;
     isOneElement?: boolean;
-    nextMessage: MessageType | GroupMessageType;
-    prevMessage: MessageType | GroupMessageType;
 };
 
 export const FormattedMessage: FC<FormattedMessageProps> = ({
@@ -28,8 +26,6 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     onEditMessageChange,
     setIsEditing,
     isOneElement,
-    nextMessage,
-    prevMessage,
 }) => {
     const { editMessage } = useContext(MessageMenuContext);
     const getAvatar = () => {

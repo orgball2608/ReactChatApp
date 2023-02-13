@@ -1,6 +1,7 @@
 import { FC, useContext } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { AuthContext } from '../../contex/AuthContext';
+import { ImagePreviewModalContext } from '../../contex/ImagePreviewModalContext';
 import { CDN_PREVIEW_URL } from '../../utils/constants';
 import { AttachmentType, GroupMessageType, MessageType } from '../../utils/types';
 
@@ -14,11 +15,18 @@ type Props = {
 
 export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, prevMessage, message, index }) => {
     const { user } = useContext(AuthContext);
+    const { setShowModal, setAttachment } = useContext(ImagePreviewModalContext);
+
+    const handleShowAttachments = (i: number) => {
+        setAttachment(attachments[i]);
+        setShowModal(true);
+    };
     const renderAttachments = () => {
         if (!attachments || attachments.length === 0) return null;
         if (attachments.length === 1)
             return (
                 <LazyLoadImage
+                    onClick={() => handleShowAttachments(0)}
                     src={CDN_PREVIEW_URL + attachments[0].key}
                     alt="attachment"
                     effect="blur"
@@ -38,9 +46,10 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                             : `${user?.id === message.author.id ? 'rounded-r-md ' : 'rounded-l-md  '}`
                     } `}
                 >
-                    {attachments.map((attachment: AttachmentType) => {
+                    {attachments.map((attachment: AttachmentType, index) => {
                         return (
                             <LazyLoadImage
+                                onClick={() => handleShowAttachments(index)}
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
@@ -61,9 +70,10 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                             : `${user?.id === message.author.id ? 'rounded-r-md ' : 'rounded-l-md  '}`
                     } `}
                 >
-                    {attachments.map((attachment: AttachmentType) => {
+                    {attachments.map((attachment: AttachmentType, index) => {
                         return (
                             <LazyLoadImage
+                                onClick={() => handleShowAttachments(index)}
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
@@ -92,9 +102,10 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                               }`
                     } `}
                 >
-                    {attachments.map((attachment: AttachmentType) => {
+                    {attachments.map((attachment: AttachmentType, index) => {
                         return (
                             <LazyLoadImage
+                                onClick={() => handleShowAttachments(index)}
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
@@ -126,6 +137,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                         {attachments.slice(0, 2).map((attachment: AttachmentType) => {
                             return (
                                 <LazyLoadImage
+                                    onClick={() => handleShowAttachments(index)}
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
@@ -153,6 +165,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                         {attachments.slice(2, 5).map((attachment: AttachmentType) => {
                             return (
                                 <LazyLoadImage
+                                    onClick={() => handleShowAttachments(index)}
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
@@ -168,7 +181,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
     };
     return (
         <div
-            className={`p-0 pl-14 text-base flex justify-start items-center w-fit ${
+            className={`p-0 pl-14 text-base flex justify-start items-center w-fit cursor-pointer ${
                 user?.id === message.author.id ? 'flex-row-reverse' : ''
             }`}
         >

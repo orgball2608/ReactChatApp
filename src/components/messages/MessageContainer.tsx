@@ -96,8 +96,6 @@ export const MessageContainer = () => {
                         setIsEditing={setIsEditing}
                         onEditMessageChange={onEditMessageChange}
                         isOneElement={currentMessage.author.id !== prevMessage?.author.id}
-                        nextMessage={nextMessage}
-                        prevMessage={prevMessage}
                     />
                 );
             }
@@ -189,8 +187,6 @@ export const MessageContainer = () => {
                     isEditing={isEditing}
                     onEditMessageChange={onEditMessageChange}
                     setIsEditing={setIsEditing}
-                    nextMessage={nextMessage}
-                    prevMessage={prevMessage}
                 />
             );
         });
