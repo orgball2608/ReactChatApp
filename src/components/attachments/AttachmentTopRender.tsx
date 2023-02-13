@@ -15,7 +15,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
     const { setShowModal, setAttachment } = useContext(ImagePreviewModalContext);
 
     const handleShowAttachments = (i: number) => {
-        setAttachment(attachments[0]);
+        setAttachment(attachments[i]);
         setShowModal(true);
     };
 
@@ -73,8 +73,8 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                     {attachments.map((attachment: AttachmentType, index) => {
                         return (
                             <LazyLoadImage
-                                onClick={() => handleShowAttachments(index)}
                                 key={attachment.key}
+                                onClick={() => handleShowAttachments(index)}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
                                 effect="blur"

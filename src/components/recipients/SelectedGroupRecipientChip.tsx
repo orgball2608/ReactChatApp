@@ -1,6 +1,7 @@
 import { User } from '../../utils/types';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import { CircleX } from 'akar-icons';
+import { getDisplayName } from '../../utils/helpers';
 
 type Props = {
     selectedUser: User | undefined;
@@ -15,7 +16,7 @@ export const SelectedGroupRecipientChip: FC<Props> = ({ selectedUser, setSelecte
     return (
         <div>
             <div className="flex justify-start gap-2 items-center">
-                <span>{selectedUser?.email}</span>
+                <span>{getDisplayName(selectedUser!)}</span>
                 <div>
                     <CircleX size={18} onClick={handleRemoveSelectedUser} />
                 </div>

@@ -9,6 +9,7 @@ import { getUserSideBarIcon } from '../../utils/helpers';
 import { FC, useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import defaultAvatar from '../../__assets__/default_avatar.jpg';
 export const UserSideBar = () => {
     const navigate = useNavigate();
     const selectedPage = useSelector((state: RootState) => state.selectedPage.page);
@@ -25,11 +26,16 @@ export const UserSideBar = () => {
         return <MyIcon size={26} />;
     };
 
+    const getAvatar = () => {
+        if (profile?.avatar) return profile?.avatar;
+        return defaultAvatar;
+    };
+
     return (
         <div className="w-16 flex-none h-full flex flex-col items-center justify-between bg-[#121212] border-r-[1px] border-solid border-border-conversations">
             <div className=" w-full flex justify-center items-center flex-col box-border mt-3">
                 <LazyLoadImage
-                    src={profile?.avatar}
+                    src={getAvatar()}
                     className="w-10 h-10 rounded-full object-cover"
                     alt="avatar cua quang"
                 />

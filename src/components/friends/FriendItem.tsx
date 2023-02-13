@@ -17,7 +17,7 @@ export const FriendItem: FC<Props> = ({ friend, isOnline }) => {
     const [visible, setVisible] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
-    const avatar = friend.profile.avatar ? friend.profile.avatar : defaultAvatar;
+    const avatar = friend.profile?.avatar ? friend.profile?.avatar : defaultAvatar;
 
     const onProfileClick = () => {
         if (parseInt(id!) === friend.id) setVisible(false);

@@ -7,7 +7,7 @@ import { AppDispatch, RootState } from '../../store';
 import { removeRecentGroupThunk } from '../../store/groupSlice';
 import { userContextMenuItems } from '../../utils/constants';
 import { getUserContextMenuIcon } from '../../utils/helpers';
-import { ContextMenuItemType, Group, User, UserContextMenuItemType } from '../../utils/types';
+import { ContextMenuItemType, Conversation, Group, User, UserContextMenuItemType } from '../../utils/types';
 import { toast } from 'react-toastify';
 import { changeType } from '../../store/typeSlice';
 import { createConversationThunk } from '../../store/coversationSlice';
@@ -26,7 +26,7 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
     const conversationType = useSelector((state: RootState) => state.type.type);
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const exitsConversation = conversations.find(
-        (conversation) =>
+        (conversation: Conversation) =>
             (conversation.creator.id === recipient?.id && conversation.recipient.id === user?.id) ||
             (conversation.recipient.id === recipient?.id && conversation.creator.id === user?.id),
     );

@@ -134,7 +134,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                   }`
                         }`}
                     >
-                        {attachments.slice(0, 2).map((attachment: AttachmentType) => {
+                        {attachments.slice(0, 2).map((attachment: AttachmentType,index) => {
                             return (
                                 <LazyLoadImage
                                     onClick={() => handleShowAttachments(index)}
@@ -162,7 +162,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                   }`
                         }`}
                     >
-                        {attachments.slice(2, 5).map((attachment: AttachmentType) => {
+                        {attachments.slice(2, 5).map((attachment: AttachmentType,index) => {
                             return (
                                 <LazyLoadImage
                                     onClick={() => handleShowAttachments(index)}

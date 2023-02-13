@@ -9,7 +9,7 @@ import { SocketContext } from '../contex/SocketContext';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contex/AuthContext';
 import { fetchConversationsThunk } from '../store/coversationSlice';
-import { updateOfflineFriends, updateOnlineFriends } from '../store/friendSlice';
+import { getFriends, updateOfflineFriends, updateOnlineFriends } from '../store/friendSlice';
 import { ImagePreviewModalContext } from '../contex/ImagePreviewModalContext';
 import { ImagePreviewModal } from '../components/modals/ImagePreviewModal';
 import { AttachmentType } from '../utils/types';
@@ -31,6 +31,7 @@ export const AppPage = () => {
             dispatch(updateOfflineFriends(payload.offlineFriends));
             dispatch(updateOnlineFriends(payload.onlineFriends));
         });
+        dispatch(getFriends());
         return () => {
             clearInterval(interval);
             socket.off('getStatusFriends');

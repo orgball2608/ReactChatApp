@@ -1,6 +1,7 @@
 import { User } from '../../utils/types';
 import React, { Dispatch, FC, useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
+import { getDisplayName } from '../../utils/helpers';
 
 type Props = {
     userResults: User[];
@@ -39,7 +40,7 @@ export const SearchGroupRecipientModalResults: FC<Props> = ({
                                     className="hover:cursor-pointer hover:bg-[#0c0c0c] box-border px-4 py-1 rounded-lg"
                                     onClick={() => handleMultiSelectedUser(u)}
                                 >
-                                    <span>{u.email}</span>
+                                    <span>{getDisplayName(u)}</span>
                                 </div>
                             )}
                         </>

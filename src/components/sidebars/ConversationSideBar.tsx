@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CreateConversationModal } from '../modals/CreateConversationModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -7,12 +7,40 @@ import { ConversationSideBarItem } from '../conversations/ConversationSideBarIte
 import { GroupSideBarItem } from '../groups/GroupSideBarItem';
 import { ConversationSearchBar } from '../conversations/ConversationSearchBar';
 import { Edit } from 'akar-icons';
+import { useDebounce } from '../../hooks/useDebounce';
+// import { searchUsers } from '../../services/api';
+import { SearchUserResults } from '../searchs/SearchUserResults';
+import { User } from '../../utils/types';
+import { AuthContext } from '../../contex/AuthContext';
+import { searchFriends, getFriends } from '../../utils/helpers';
 
 export const ConversationSidebar = () => {
     const [showModal, setShowModal] = useState(false);
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groups = useSelector((state: RootState) => state.group.groups);
+    const [isSeaching, setIsSearching] = useState(false);
+    const [query, setQuery] = useState('');
+    const [userResults, setUserResults] = useState<User[]>([]);
+    const friends = useSelector((state: RootState) => state.friends.friends);
+    const { user } = useContext(AuthContext);
+
+    const debouncedSearchTerm = useDebounce(query, 1000);
+
+    useEffect(() => {
+        if (debouncedSearchTerm) {
+            setIsSearching(true);
+            const results = getFriends(searchFriends(query, friends, user!), user!);
+            setUserResults(results);
+            setIsSearching(false);
+            // searchUsers(query)
+            //     .then(({ data }) => {
+            //         setUserResults(data);
+            //     })
+            //     .catch((err) => console.log(err))
+            //     .finally(() => setIsSearching(false));
+        }
+    }, [debouncedSearchTerm]);
 
     return (
         <>
@@ -30,17 +58,28 @@ export const ConversationSidebar = () => {
                     </div>
                     <div className="w-80 flex flex-col border-b-[1px] border-border-conversations">
                         <ConversationSelected />
-                        <ConversationSearchBar />
+                        <ConversationSearchBar
+                            setIsSearching={setIsSearching}
+                            setQuery={setQuery}
+                            query={query}
+                            userResults={userResults}
+                            setUserResults={setUserResults}
+                        />
                     </div>
                 </header>
-
-                <section className="mt-40 w-full cursor-pointer">
-                    {selectedType === 'private'
-                        ? conversations.map((conversation) => (
-                              <ConversationSideBarItem conversation={conversation} key={conversation.id} />
-                          ))
-                        : groups.map((group) => <GroupSideBarItem group={group} key={group.id} />)}
-                </section>
+                {userResults.length > 0 || query !== '' ? (
+                    <section className="mt-40 w-full cursor-pointer">
+                        <SearchUserResults userResults={userResults} isSeaching={isSeaching} />
+                    </section>
+                ) : (
+                    <section className="mt-40 w-full cursor-pointer">
+                        {selectedType === 'private'
+                            ? conversations.map((conversation) => (
+                                  <ConversationSideBarItem conversation={conversation} key={conversation.id} />
+                              ))
+                            : groups.map((group) => <GroupSideBarItem group={group} key={group.id} />)}
+                    </section>
+                )}
             </aside>
         </>
     );
