@@ -14,8 +14,13 @@ export const ConversationSelected = () => {
     const firstGroup = useSelector((state: RootState) => state.group.groups)[0];
     const handleChangeType = (chat: ConversationTypeData) => {
         dispatch(changeType(chat.type));
-        if (chat.type === 'group') navigate(`/groups/${firstGroup.id}`);
-        else navigate(`/conversations/${firstConversation.id}`);
+        if (chat.type === 'group') {
+            if (firstGroup) navigate(`/groups/${firstGroup.id}`);
+            else navigate('/groups');
+        } else {
+            if (firstConversation) navigate(`/conversations/${firstConversation.id}`);
+            else navigate('/conversations');
+        }
     };
 
     return (

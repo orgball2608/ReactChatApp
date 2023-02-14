@@ -1,4 +1,4 @@
-import { SignOut } from 'akar-icons';
+import { BiLogOutCircle } from 'react-icons/bi';
 import { SelectedPageTypes } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import { FC, useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { logoutUser } from '../../services/api';
 export const UserSideBar = () => {
     const navigate = useNavigate();
     const selectedPage = useSelector((state: RootState) => state.selectedPage.page);
@@ -29,6 +30,12 @@ export const UserSideBar = () => {
     const getAvatar = () => {
         if (profile?.avatar) return profile?.avatar;
         return defaultAvatar;
+    };
+
+    const onLogOut = () => {
+        logoutUser().finally(() => {
+            navigate('/login');
+        });
     };
 
     return (
@@ -59,8 +66,8 @@ export const UserSideBar = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex justify-center items-center flex-col mb-8">
-                <SignOut size={24} />
+            <div onClick={onLogOut} className="flex justify-center items-center flex-col mb-8">
+                <BiLogOutCircle size={28} />
             </div>
         </div>
     );

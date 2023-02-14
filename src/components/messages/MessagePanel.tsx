@@ -21,6 +21,7 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
     const { user } = useContext(AuthContext);
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const [fileList, setFileList] = useState<File[]>([]);
+    const [isSending, setIsSending] = useState(false);
     const conversation = conversations.find((conversation) => conversation.id === parseInt(id!));
 
     const recipient = getRecipientFromConversation(conversation, user);
@@ -40,18 +41,19 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
 
         const Id = parseInt(id);
         const params = { id: Id, data };
+        setIsSending(true);
+        setContent('');
+        setFileList([]);
         if (selectedType === 'private')
             postNewMessage(params)
                 .then(() => {
-                    setContent('');
-                    setFileList([]);
+                    setIsSending(false);
                 })
                 .catch((err) => console.log(err));
         else
             postGroupMessage(params)
                 .then(() => {
-                    setContent('');
-                    setFileList([]);
+                    setIsSending(false);
                 })
                 .catch((err) => console.log(err));
     };
@@ -76,6 +78,7 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
                             recipient={recipient}
                             setFileList={setFileList}
                             fileList={fileList}
+                            isSending={isSending}
                         />
                     </div>
                 </MessagePanelBody>

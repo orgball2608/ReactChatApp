@@ -63,7 +63,7 @@ export const searchFriends = (searchText: string, friends: FriendType[], user: U
     });
 };
 
-const getRecipient = (conversation: Conversation, user: User) => {
+export const getRecipient = (conversation: Conversation, user: User) => {
     return user.id === conversation.creator.id ? conversation.recipient : conversation.creator;
 };
 

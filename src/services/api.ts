@@ -111,3 +111,5 @@ export const updateGroupAvatarAPI = ({ id, avatar }: UpdateGroupAvatarParams) =>
 
 export const addGroupRecipientsAPI = ({ groupId, emails }: AddGroupRecipientsParams) =>
     axiosClient.post(`/groups/${groupId}/recipients/recipients`, { emails }, config);
+
+export const logoutUser = () => axiosClient.post(`/auth/logout`, {}, config);

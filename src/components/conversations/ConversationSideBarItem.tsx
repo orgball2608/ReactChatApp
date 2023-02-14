@@ -6,6 +6,7 @@ import defaultAvatar from '../../__assets__/default_avatar.jpg';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { getRecipient } from '../../utils/helpers';
 
 type Props = {
     conversation: Conversation;
@@ -14,9 +15,6 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     const { user } = useContext(AuthContext);
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
     const MAX_MESSAGE_LENGTH = 30;
-    const getDisplayUser = (conversation: Conversation) => {
-        return conversation.creator.id === user?.id ? conversation.recipient : conversation.creator;
-    };
 
     const recipientUser = conversation?.recipient.id !== user?.id ? conversation?.recipient : conversation?.creator;
     const { profile } = recipientUser;
@@ -64,9 +62,13 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
 
                 <div className="flex flex-col flex-nowrap flex-1 break-all">
                     <span className="block font-bold text-base ">
-                        {` ${getDisplayUser(conversation).lastName} ${getDisplayUser(conversation).firstName}`}
+                        {` ${getRecipient(conversation, user!).lastName} ${
+                            getRecipient(conversation, user!).firstName
+                        }`}
                     </span>
-                    <span className="text-sm text-white">{lastMessageContent()}</span>
+                    <div>
+                        <span className="text-sm text-white">{lastMessageContent()}</span>
+                    </div>
                 </div>
             </div>
         </div>

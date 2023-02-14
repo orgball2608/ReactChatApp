@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import EmojiPicker, { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
 import { Cross, FaceHappy, Image } from 'akar-icons';
 import { MdLibraryAdd } from 'react-icons/md';
+import { AiOutlineSend } from 'react-icons/ai';
+import { SpinLoading } from '../commons/SpinLoading';
 
 type Props = {
     content: string;
@@ -16,6 +18,7 @@ type Props = {
     recipient: User | undefined;
     setFileList: Dispatch<SetStateAction<File[]>>;
     fileList: File[];
+    isSending: boolean;
 };
 export const MessageInputField: FC<Props> = ({
     content,
@@ -25,6 +28,7 @@ export const MessageInputField: FC<Props> = ({
     recipient,
     setFileList,
     fileList,
+    isSending,
 }) => {
     const conversationType = useSelector((state: RootState) => selectType(state));
     const { id } = useParams();
@@ -52,8 +56,23 @@ export const MessageInputField: FC<Props> = ({
         setFileList((prev) => [...prev, ...[...e.target.files!]]);
     };
 
+    const onDropFile = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        if (!e.dataTransfer.files) return;
+        if (e.dataTransfer.files[0].size > 1024 * 1024 * 5) return;
+        if (fileList.length + [...e.dataTransfer.files].length > 5) return;
+        setFileList((prev) => [...prev, ...[...e.dataTransfer.files]]);
+    };
+
+    const onPaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+        if (!e.clipboardData) return;
+        if (e.clipboardData.files[0].size > 1024 * 1024 * 5) return;
+        if (fileList.length + [...e.clipboardData.files].length > 5) return;
+        setFileList((prev) => [...prev, ...[...e.clipboardData.files]]);
+    };
+
     return (
-        <div className="flex justify-center items-end mt-2 gap-1">
+        <div className="flex justify-center items-center mt-2 gap-2">
             {fileList.length === 0 && (
                 <label htmlFor="formId" className="flex justify-center items-center">
                     <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer">
@@ -119,6 +138,8 @@ export const MessageInputField: FC<Props> = ({
                             }`}
                             onChange={(e) => setContent(e.target.value)}
                             onKeyDown={sendTypingStatus}
+                            onDrop={onDropFile}
+                            onPaste={onPaste}
                         />
                     </form>
                     <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer">
@@ -140,6 +161,13 @@ export const MessageInputField: FC<Props> = ({
                     )}
                 </div>
             </div>
+            {isSending ? (
+                <SpinLoading />
+            ) : (
+                <div className="flex justify-center items-center cursor-pointer">
+                    <AiOutlineSend size={26} />
+                </div>
+            )}
         </div>
     );
 };
