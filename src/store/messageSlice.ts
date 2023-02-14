@@ -57,6 +57,14 @@ const messagesSlice = createSlice({
             const messageIndex = conversationMessage.messages.findIndex((message) => message.id === id);
             conversationMessage.messages[messageIndex].content = content;
         },
+        reactMessage: (state, action) => {
+            console.log('Inside reactMessage reducer');
+            const { conversation, message } = action.payload;
+            const conversationMessage = state.messages.find((cm) => cm.id === conversation.id);
+            if (!conversationMessage) return;
+            const messageIndex = conversationMessage.messages.findIndex((m) => m.id === message.id);
+            conversationMessage.messages[messageIndex] = message;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -90,6 +98,6 @@ const messagesSlice = createSlice({
             });
     },
 });
-export const { addMessage, deleteMessage, editMessage } = messagesSlice.actions;
+export const { addMessage, deleteMessage, editMessage, reactMessage } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

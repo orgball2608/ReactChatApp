@@ -34,7 +34,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                         (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
                             ? `${user?.id === message.author.id ? 'rounded-tr-none ' : 'rounded-tl-none '}`
                             : `${user?.id === message.author.id ? 'rounded-r-md ' : 'rounded-l-md  '}`
-                    } w-52 h-52 rounded-xl object-cover`}
+                    } w-52 h-fit rounded-xl object-cover`}
                 />
             );
         if (attachments.length === 2)
@@ -134,7 +134,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                   }`
                         }`}
                     >
-                        {attachments.slice(0, 2).map((attachment: AttachmentType,index) => {
+                        {attachments.slice(0, 2).map((attachment: AttachmentType, index) => {
                             return (
                                 <LazyLoadImage
                                     onClick={() => handleShowAttachments(index)}
@@ -162,7 +162,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                   }`
                         }`}
                     >
-                        {attachments.slice(2, 5).map((attachment: AttachmentType,index) => {
+                        {attachments.slice(2, 5).map((attachment: AttachmentType, index) => {
                             return (
                                 <LazyLoadImage
                                     onClick={() => handleShowAttachments(index)}

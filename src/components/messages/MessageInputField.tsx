@@ -164,9 +164,11 @@ export const MessageInputField: FC<Props> = ({
             {isSending ? (
                 <SpinLoading />
             ) : (
-                <div className="flex justify-center items-center cursor-pointer">
-                    <AiOutlineSend size={26} />
-                </div>
+                (content.length > 0 || fileList.length > 0) && (
+                    <div className="flex justify-center items-center cursor-pointer">
+                        <AiOutlineSend size={26} />
+                    </div>
+                )
             )}
         </div>
     );

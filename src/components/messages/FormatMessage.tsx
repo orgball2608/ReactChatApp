@@ -7,6 +7,8 @@ import { MessageOption } from './MessageOption';
 import defaultAvatar from '../../__assets__/default_avatar.jpg';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { AttachmentTopRender } from '../attachments/AttachmentTopRender';
+import { MessageReaction } from '../reactions/MessageReaction';
+import ReactionStatus from '../reactions/ReactionStatus';
 
 type FormattedMessageProps = {
     user?: User;
@@ -73,12 +75,14 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                     ) : (
                         message.content && (
                             <div
-                                className={`text-base flex justify-start items-center w-full group ${
+                                className={`text-base flex justify-start items-center w-full group gap-2 ${
                                     user?.id === message.author.id ? 'flex-row-reverse' : ''
                                 }`}
                             >
                                 <div
-                                    className={`bg-dark-header py-2 px-5 rounded-2xl  ${
+                                    className={`bg-dark-header py-2 px-5 rounded-2xl relative ${
+                                        message.reacts?.length > 0 ? 'mb-2' : ''
+                                    } ${
                                         isOneElement
                                             ? `${
                                                   user?.id === message.author.id
@@ -93,8 +97,14 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                     } `}
                                 >
                                     {message.content}
+                                    {message.reacts?.length !== 0 && <ReactionStatus message={message} />}
                                 </div>
-                                <div className="invisible group-hover:visible">
+                                <div
+                                    className={`invisible group-hover:visible flex ${
+                                        user?.id === message.author.id ? 'flex-row-reverse' : ''
+                                    }`}
+                                >
+                                    <MessageReaction message={message} />
                                     <MessageOption message={message} handleShowMenu={handleShowMenu} />
                                 </div>
                             </div>

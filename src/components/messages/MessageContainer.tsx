@@ -11,6 +11,8 @@ import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
 import { changeType } from '../../store/typeSlice';
 import { AttachmentListRender } from '../attachments/AttachmentListRender';
+import { MessageReaction } from '../reactions/MessageReaction';
+import ReactionStatus from '../reactions/ReactionStatus';
 
 export const MessageContainer = () => {
     const { user } = useContext(AuthContext);
@@ -126,12 +128,12 @@ export const MessageContainer = () => {
                                     </div>
                                 ) : (
                                     <div
-                                        className={`p-0 pl-14 text-base flex justify-start items-center w-fit ${
+                                        className={`p-0 pl-14 text-base flex justify-start items-center w-fit gap-2 ${
                                             user?.id === m.author.id ? 'flex-row-reverse' : ''
                                         }`}
                                     >
                                         <div
-                                            className={`${
+                                            className={`relative ${m.reacts?.length > 0 ? 'mb-2' : ''} ${
                                                 (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
                                                 index === 0
                                                     ? `${
@@ -150,9 +152,15 @@ export const MessageContainer = () => {
                                                     : `${user?.id === m.author.id ? 'rounded-r-md ' : 'rounded-l-md '}`
                                             }bg-dark-header py-2 px-5 rounded-2xl`}
                                         >
-                                            <span>{m.content}</span>
+                                            {m.content}
+                                            {m.reacts?.length > 0 && <ReactionStatus message={m} />}
                                         </div>
-                                        <div className="invisible group-hover:visible">
+                                        <div
+                                            className={`invisible group-hover:visible flex  ${
+                                                user?.id === m.author.id ? 'flex-row-reverse' : ''
+                                            }`}
+                                        >
+                                            <MessageReaction message={m} />
                                             <MessageOption message={m} handleShowMenu={handleShowMenu} />
                                         </div>
                                     </div>

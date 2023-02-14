@@ -45,6 +45,7 @@ export type MessageType = {
     author: User;
     conversation: Conversation;
     attachments: AttachmentType[];
+    reacts: ReactionMessageType[];
 };
 
 export type MessageEventPayload = {
@@ -121,6 +122,7 @@ export type GroupMessageType = {
     createdAt: string;
     group: Group;
     attachments: AttachmentType[];
+    reacts: ReactionMessageType[];
 };
 
 export type GroupMessage = {
@@ -216,4 +218,11 @@ export type UpdateGroupAvatarParams = {
 export type AddGroupRecipientsParams = {
     groupId: number;
     emails: string[];
+};
+
+export type ReactionMessageType = {
+    id: number;
+    type: string;
+    message: MessageType;
+    author: User;
 };

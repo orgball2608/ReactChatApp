@@ -13,7 +13,7 @@ import { fetchGroupsThunk } from '../../store/groupSlice';
 import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
 import { SocketContext } from '../../contex/SocketContext';
 import { MessageEventPayload } from '../../utils/types';
-import { addMessage, deleteMessage, editMessage } from '../../store/messageSlice';
+import { addMessage, deleteMessage, editMessage, reactMessage } from '../../store/messageSlice';
 
 export const ConversationPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -52,11 +52,18 @@ export const ConversationPage = () => {
                 }),
             );
         });
+
+        socket.on('onReactMessage', (payload) => {
+            console.log('onReactMessage', payload);
+            dispatch(reactMessage(payload));
+        });
+
         return () => {
             socket.off('connected');
             socket.off('onMessage');
             socket.off('onMessageDelete');
             socket.off('onMessageUpdate');
+            socket.off('onReactMessage');
         };
     }, []);
 

@@ -60,3 +60,39 @@ export const userContextMenuItems: ContextMenuItemType[] = [
 export const CDN_URL = 'https://nest-chat-app.s3.ap-southeast-1.amazonaws.com/';
 export const CDN_ORIGINAL_URL = 'https://nest-chat-app.s3.ap-southeast-1.amazonaws.com/orginal/';
 export const CDN_PREVIEW_URL = 'https://nest-chat-app.s3.ap-southeast-1.amazonaws.com/preview/';
+
+export const REACTIONS_UI: {
+    [key: string]: {
+        icon: string;
+        gif: string;
+    };
+} = {
+    like: {
+        icon: '/reactions-icon/like.svg',
+        gif: '/reactions/like.gif',
+    },
+    love: {
+        icon: '/reactions-icon/love.svg',
+        gif: '/reactions/love.gif',
+    },
+    care: {
+        icon: '/reactions-icon/care.svg',
+        gif: '/reactions/care.gif',
+    },
+    haha: {
+        icon: '/reactions-icon/haha.svg',
+        gif: '/reactions/haha.gif',
+    },
+    wow: {
+        icon: '/reactions-icon/wow.svg',
+        gif: '/reactions/wow.gif',
+    },
+    sad: {
+        icon: '/reactions-icon/sad.svg',
+        gif: '/reactions/sad.gif',
+    },
+    angry: {
+        icon: '/reactions-icon/angry.svg',
+        gif: '/reactions/angry.gif',
+    },
+};

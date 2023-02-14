@@ -28,7 +28,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                     src={CDN_PREVIEW_URL + attachments[0].key}
                     alt="attachment"
                     effect="blur"
-                    className={`w-52 h-52 rounded-xl object-cover`}
+                    className={`w-52 h-fit rounded-xl object-cover`}
                 />
             );
         if (attachments.length === 2)

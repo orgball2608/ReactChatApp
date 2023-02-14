@@ -113,3 +113,6 @@ export const addGroupRecipientsAPI = ({ groupId, emails }: AddGroupRecipientsPar
     axiosClient.post(`/groups/${groupId}/recipients/recipients`, { emails }, config);
 
 export const logoutUser = () => axiosClient.post(`/auth/logout`, {}, config);
+
+export const reactionMessageAPI = (conversationId: number, messageId: number, reaction: string) =>
+    axiosClient.post(`conversations/${conversationId}/messages/${messageId}/reacts`, { type: reaction }, config);
