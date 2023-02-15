@@ -1,7 +1,9 @@
 import { Dispatch, FC, useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../contex/AuthContext';
-import { reactionMessageAPI } from '../../services/api';
+import { reactionGroupMessageAPI, reactionMessageAPI } from '../../services/api';
+import { RootState } from '../../store';
 import { REACTIONS_UI } from '../../utils/constants';
 import { GroupMessageType, MessageType, ReactionMessageType } from '../../utils/types';
 
@@ -13,6 +15,7 @@ type Props = {
 export const ReactionPopup: FC<Props> = ({ message, setVisible }) => {
     const { user } = useContext(AuthContext);
     const { id } = useParams();
+    const conversationType = useSelector((state: RootState) => state.type.type);
 
     const handleReactionClick = (key: string) => {
         if (!user?.id) return;
@@ -20,6 +23,14 @@ export const ReactionPopup: FC<Props> = ({ message, setVisible }) => {
         if (reaction?.type === key) {
             return;
         }
+
+        if (conversationType === 'group') {
+            reactionGroupMessageAPI(parseInt(id!), message?.id, key).then(() => {
+                setVisible(false);
+            });
+            return;
+        }
+
         reactionMessageAPI(parseInt(id!), message?.id, key).then(() => {
             setVisible(false);
         });

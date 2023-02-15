@@ -32,6 +32,7 @@ export type Conversation = {
     recipient: User;
     createdAt: string;
     lastMessageSent: MessageType;
+    lastMessageSentAt: string;
 };
 
 export type AttachmentType = {

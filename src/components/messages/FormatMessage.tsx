@@ -97,7 +97,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                     } `}
                                 >
                                     {message.content}
-                                    {message.reacts?.length !== 0 && <ReactionStatus message={message} />}
+                                    {message.reacts?.length > 0 && <ReactionStatus message={message} />}
                                 </div>
                                 <div
                                     className={`invisible group-hover:visible flex ${

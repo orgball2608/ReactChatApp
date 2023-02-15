@@ -13,7 +13,7 @@ const ReactionStatus: FC<Props> = ({ message }) => {
     };
     return (
         <div
-            className={`absolute top-full -translate-y-1/2 right-0 bg-dark-lighten px-2 rounded-lg py-[1px] text-sm flex items-center gap-[2px] border border-dark-lighten
+            className={`absolute top-full -translate-y-1/2 right-0 bg-dark-lighten px-1 rounded-lg py-[1px] text-sm flex items-center gap-[2px] border border-dark-lighten bg-[#121212]
       `}
         >
             {reacts?.map((react) => (

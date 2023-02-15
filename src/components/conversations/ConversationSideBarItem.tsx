@@ -6,17 +6,17 @@ import defaultAvatar from '../../__assets__/default_avatar.jpg';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import moment from 'moment';
 import { getRecipient } from '../../utils/helpers';
-
 type Props = {
     conversation: Conversation;
 };
 export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     const { user } = useContext(AuthContext);
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
-    const MAX_MESSAGE_LENGTH = 30;
+    const MAX_MESSAGE_LENGTH = 25;
 
-    const recipientUser = conversation?.recipient.id !== user?.id ? conversation?.recipient : conversation?.creator;
+    const recipientUser = getRecipient(conversation, user!);
     const { profile } = recipientUser;
 
     const isOnline = onlineFriends.find((friend) => friend.id === recipientUser.id) ? true : false;
@@ -66,8 +66,11 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                             getRecipient(conversation, user!).firstName
                         }`}
                     </span>
-                    <div>
-                        <span className="text-sm text-white">{lastMessageContent()}</span>
+                    <div className="flex justify-start items-center">
+                        <span className="text-md text-white">{lastMessageContent()}</span>
+                        <span className="text-sm text-white ml-3">
+                            {moment(conversation?.lastMessageSentAt).fromNow(true)}
+                        </span>
                     </div>
                 </div>
             </div>

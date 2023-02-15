@@ -17,7 +17,7 @@ import {
     updateGroupRecipientAdd,
 } from '../../store/groupSlice';
 import { socket } from '../../contex/SocketContext';
-import { addGroupMessage, editGroupMessage } from '../../store/groupMessageSlice';
+import { addGroupMessage, editGroupMessage, reactGroupMessage } from '../../store/groupMessageSlice';
 import { GroupMessageEventPayload } from '../../utils/types';
 import { deleteGroupMessage } from '../../store/groupMessageSlice';
 import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
@@ -86,6 +86,10 @@ export const GroupPage = () => {
 
         socket.on('onGroupUserAdd', (payload) => {
             dispatch(updateGroupAdded(payload));
+        });
+
+        socket.on('onReactGroupMessage', (payload) => {
+            dispatch(reactGroupMessage(payload));
         });
 
         return () => {

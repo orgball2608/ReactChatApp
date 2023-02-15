@@ -116,3 +116,6 @@ export const logoutUser = () => axiosClient.post(`/auth/logout`, {}, config);
 
 export const reactionMessageAPI = (conversationId: number, messageId: number, reaction: string) =>
     axiosClient.post(`conversations/${conversationId}/messages/${messageId}/reacts`, { type: reaction }, config);
+
+export const reactionGroupMessageAPI = (groupId: number, messageId: number, reaction: string) =>
+    axiosClient.post(`groups/${groupId}/messages/${messageId}/reacts`, { type: reaction }, config);
