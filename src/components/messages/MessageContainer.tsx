@@ -19,42 +19,18 @@ export const MessageContainer = () => {
     const { id } = useParams();
     const { pathname } = useLocation();
     const dispatch = useDispatch<AppDispatch>();
-    const [showMenu, setShowMenu] = useState(false);
-    const [points, setPoints] = useState({ x: 0, y: 0 });
-    const [selectedMessage, setSelectedMessage] = useState<MessageType | GroupMessageType | null>(null);
     const conversationMessages = useSelector((state: RootState) => state.messages.messages);
     const [editMessage, setEditMessage] = useState<MessageType | GroupMessageType | null>(null);
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groupMessages = useSelector((state: RootState) => state.groupMessage.messages);
-    const handleOnScroll = () => {
-        setShowMenu(false);
-    };
 
     useEffect(() => {
         return () => {
-            setEditMessage(null);
-            setSelectedMessage(null);
             setIsEditing(false);
+            setEditMessage(null);
         };
     }, [id]);
-
-    const handleOnClick = () => {
-        if (points.x > 0 && points.y > 0) {
-            setPoints({ x: 0, y: 0 });
-            setShowMenu(false);
-        }
-    };
-
-    const handleShowMenu = (
-        e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-        message: MessageType | GroupMessageType,
-    ) => {
-        e.preventDefault();
-        setShowMenu(true);
-        setPoints({ x: e.pageX, y: e.pageY });
-        setSelectedMessage(message);
-    };
 
     const handleSubmit = (event: React.KeyboardEvent<HTMLImageElement>) => {
         if (event.key === 'Escape') setIsEditing(false);
@@ -93,7 +69,6 @@ export const MessageContainer = () => {
                         user={user}
                         message={m}
                         key={m.id}
-                        handleShowMenu={handleShowMenu}
                         isEditing={isEditing}
                         setIsEditing={setIsEditing}
                         onEditMessageChange={onEditMessageChange}
@@ -161,7 +136,7 @@ export const MessageContainer = () => {
                                             }`}
                                         >
                                             <MessageReaction message={m} />
-                                            <MessageOption message={m} handleShowMenu={handleShowMenu} />
+                                            <MessageOption message={m} setIsEditing={setIsEditing} />
                                         </div>
                                     </div>
                                 )}
@@ -191,7 +166,6 @@ export const MessageContainer = () => {
                     user={user}
                     message={m}
                     key={m.id}
-                    handleShowMenu={handleShowMenu}
                     isEditing={isEditing}
                     onEditMessageChange={onEditMessageChange}
                     setIsEditing={setIsEditing}
@@ -203,21 +177,16 @@ export const MessageContainer = () => {
     return (
         <MessageMenuContext.Provider
             value={{
-                message: selectedMessage,
-                setMessage: setSelectedMessage,
                 editMessage: editMessage,
                 setEditMessage: setEditMessage,
             }}
         >
             <div
                 className="h-full box-border py-2 mt-8 flex flex-col-reverse overflow-y-scroll scrollbar-hide overflow-auto relative outline-0 gap-1"
-                onScroll={handleOnScroll}
-                onClick={handleOnClick}
                 onKeyDown={handleSubmit}
                 tabIndex={0}
             >
                 <>{formatMessages()}</>
-                {showMenu && <MenuContext points={points} setShowMenu={setShowMenu} setIsEditing={setIsEditing} />}
             </div>
         </MessageMenuContext.Provider>
     );

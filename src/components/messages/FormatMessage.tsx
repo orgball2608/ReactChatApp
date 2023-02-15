@@ -1,5 +1,5 @@
 import { GroupMessageType, MessageType, User } from '../../utils/types';
-import React, { ChangeEvent, Dispatch, FC, SetStateAction, useContext } from 'react';
+import  { ChangeEvent, Dispatch, FC, SetStateAction, useContext } from 'react';
 import moment from 'moment';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
@@ -13,7 +13,6 @@ import ReactionStatus from '../reactions/ReactionStatus';
 type FormattedMessageProps = {
     user?: User;
     message: MessageType | GroupMessageType;
-    handleShowMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, message: MessageType | GroupMessageType) => void;
     isEditing: boolean;
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
     setIsEditing: Dispatch<SetStateAction<boolean>>;
@@ -23,7 +22,6 @@ type FormattedMessageProps = {
 export const FormattedMessage: FC<FormattedMessageProps> = ({
     user,
     message,
-    handleShowMenu,
     isEditing,
     onEditMessageChange,
     setIsEditing,
@@ -105,7 +103,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                     }`}
                                 >
                                     <MessageReaction message={message} />
-                                    <MessageOption message={message} handleShowMenu={handleShowMenu} />
+                                    <MessageOption message={message} setIsEditing={setIsEditing} />
                                 </div>
                             </div>
                         )

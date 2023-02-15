@@ -9,19 +9,15 @@ import { selectType } from '../../store/typeSlice';
 import { deleteGroupMessageThunk } from '../../store/groupMessageSlice';
 import { updateDeleteMessage } from '../../store/coversationSlice';
 import { updateGroupDeleteMessage } from '../../store/groupSlice';
+import { GroupMessageType, MessageType } from '../../utils/types';
 
 type Props = {
-    points: { x: number; y: number };
-    setShowMenu: Dispatch<SetStateAction<boolean>>;
     setIsEditing: Dispatch<SetStateAction<boolean>>;
+    message: MessageType | GroupMessageType;
+    setVisible: Dispatch<SetStateAction<boolean>>;
 };
-export const MenuContext: FC<Props> = ({ points, setShowMenu, setIsEditing }) => {
-    const { x, y } = points;
-    const styleMenu = {
-        left: x,
-        top: y,
-    };
-    const { message, setEditMessage } = useContext(MessageMenuContext);
+export const MenuContext: FC<Props> = ({ setIsEditing, message, setVisible }) => {
+    const { setEditMessage } = useContext(MessageMenuContext);
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
@@ -31,7 +27,7 @@ export const MenuContext: FC<Props> = ({ points, setShowMenu, setIsEditing }) =>
     const handleDeleteMessage = () => {
         const Id = parseInt(id!);
         if (!message) return;
-        setShowMenu(false);
+        setVisible(false);
         if (conversationType === 'private') {
             dispatch(deleteMessageThunk({ conversationId: Id, messageId: message.id }))
                 .unwrap()
@@ -52,21 +48,28 @@ export const MenuContext: FC<Props> = ({ points, setShowMenu, setIsEditing }) =>
 
     const handleEditMessage = () => {
         setIsEditing(true);
-        setEditMessage(message);
+        setEditMessage(message!);
     };
     return (
-        <div className={`bg-[#252525] box-border w-20 fixed z-10 px-3 rounded-md rounded-tl-none`} style={styleMenu}>
-            <ul className="list-none m-0">
+        <div className={`box-border text-base w-full`}>
+            <ul className="list-none m-0 w-full">
                 {message?.author.id === user?.id && (
-                    <li onClick={handleDeleteMessage} className="px-3 py-1 hover:cursor-pointer rounded-md">
+                    <li
+                        onClick={handleDeleteMessage}
+                        className="px-3 py-[2px] w-full hover:cursor-pointer rounded-md hover:bg-[#5f5d5d] pr-12"
+                    >
                         Delete
                     </li>
                 )}
                 {message?.author.id === user?.id && (
-                    <li className="px-3 py-1 hover:cursor-pointer rounded-md" onClick={handleEditMessage}>
+                    <li
+                        className="px-3 py-[2px] hover:cursor-pointer rounded-md hover:bg-[#5f5d5d] pr-12"
+                        onClick={handleEditMessage}
+                    >
                         Edit
                     </li>
                 )}
+                <li className="px-3 py-1 hover:cursor-pointer rounded-md hover:bg-[#5f5d5d] pr-12">Forward</li>
             </ul>
         </div>
     );
