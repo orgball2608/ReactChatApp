@@ -48,7 +48,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
             }}
             key={conversation.id}
         >
-            <div className="flex justify-start gap-5 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations">
+            <div className="flex justify-start gap-2 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations">
                 <div className="h-12 w-12 rounded-full relative">
                     <LazyLoadImage
                         src={profile?.avatar || defaultAvatar}
@@ -60,7 +60,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                     )}
                 </div>
 
-                <div className="flex flex-col flex-nowrap flex-1 break-all">
+                <div className="flex flex-col flex-nowrap flex-1 break-all justify-center">
                     <span className="block font-bold text-base ">
                         {` ${getRecipient(conversation, user!).lastName} ${
                             getRecipient(conversation, user!).firstName
@@ -68,7 +68,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                     </span>
                     <div className="flex justify-start items-center">
                         <span className="text-md text-white">{lastMessageContent()}</span>
-                        <span className="text-sm text-white ml-3">
+                        <span className="text-sm text-[#65676b] ml-3 font-semibold">
                             {moment(conversation?.lastMessageSentAt).fromNow(true)}
                         </span>
                     </div>

@@ -11,6 +11,7 @@ import {
     DeleteGroupMessageParams,
     DeleteMessageParams,
     DeleteMessageResponse,
+    DeleteReactionMessageParams,
     EditGroupTitleParams,
     EditMessageParams,
     FetchMessagePayload,
@@ -119,3 +120,9 @@ export const reactionMessageAPI = (conversationId: number, messageId: number, re
 
 export const reactionGroupMessageAPI = (groupId: number, messageId: number, reaction: string) =>
     axiosClient.post(`groups/${groupId}/messages/${messageId}/reacts`, { type: reaction }, config);
+
+export const deleteReactionMessageAPI = ({ id, messageId, reactionId }: DeleteReactionMessageParams) =>
+    axiosClient.delete(`conversations/${id}/messages/${messageId}/reacts/${reactionId}/remove`, config);
+
+export const deleteReactionGroupMessageAPI = ({ id, messageId, reactionId }: DeleteReactionMessageParams) =>
+    axiosClient.delete(`groups/${id}/messages/${messageId}/reacts/${reactionId}/remove`, config);

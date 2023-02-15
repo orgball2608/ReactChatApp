@@ -92,6 +92,11 @@ export const GroupPage = () => {
             dispatch(reactGroupMessage(payload));
         });
 
+        socket.on('onReactGroupMessageRemove', (payload) => {
+            console.log('onReactGroupMessageRemove');
+            dispatch(reactGroupMessage(payload));
+        });
+
         return () => {
             socket.off('onGroupMessage');
             socket.off('onGroupCreate');
@@ -101,6 +106,10 @@ export const GroupPage = () => {
             socket.off('onGroupRemovedUser');
             socket.off('onGroupOwnerChange');
             socket.off('onGroupUpdateAvatar');
+            socket.off('onGroupReceivedNewUser');
+            socket.off('onGroupUserAdd');
+            socket.off('onReactGroupMessage');
+            socket.off('onReactGroupMessageRemove');
         };
     }, [id]);
 

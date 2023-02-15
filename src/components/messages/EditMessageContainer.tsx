@@ -58,6 +58,7 @@ export const EditMessageContainer: FC<Props> = ({ onEditMessageChange, editMessa
                     className="bg-[#222] w-full py-1 outline-0 border-0 rounded box-border font-Inter px-2"
                     onChange={onEditMessageChange}
                     defaultValue={editMessage?.content}
+                    autoFocus
                 />
             </form>
             <div className="text-sm text-[1d77ff] text-end">

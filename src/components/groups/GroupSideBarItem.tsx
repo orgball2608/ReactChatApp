@@ -2,6 +2,7 @@ import { Group } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
 import { FC } from 'react';
 import defaultGroupAvatar from '../../__assets__/groupAvatar.png';
+import moment from 'moment';
 
 type Props = {
     group: Group;
@@ -60,11 +61,16 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
             }}
             key={group.id}
         >
-            <div className="flex justify-start gap-5 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations">
+            <div className="flex justify-start gap-2 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations">
                 <img src={getGroupAvatar()} alt="avatar" className=" h-12 w-12 rounded-full bg-white object-cover" />
-                <div>
+                <div className="flex flex-col flex-nowrap flex-1 break-all justify-center">
                     <span className="block font-bold text-base">{getGroupTitleDisplay(group)}</span>
-                    <span className="text-sm text-white">{lastMessageContent()}</span>
+                    <div className="flex justify-start items-center">
+                        <span className="text-sm text-white">{lastMessageContent()}</span>
+                        <span className="text-sm text-[#65676b] ml-3 font-semibold">
+                            {moment(group?.lastMessageSentAt).fromNow(true)}
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

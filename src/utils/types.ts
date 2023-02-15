@@ -227,3 +227,9 @@ export type ReactionMessageType = {
     message: MessageType;
     author: User;
 };
+
+export type DeleteReactionMessageParams = {
+    messageId: number;
+    reactionId: number;
+    id: number;
+};

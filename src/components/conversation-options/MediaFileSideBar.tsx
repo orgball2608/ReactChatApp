@@ -44,16 +44,16 @@ export const MediaFileSideBar: FC<Props> = ({ setShowFileSideBar }) => {
     }
 
     return (
-        <aside className="w-72 h-full flex-none bg-[#141414] px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] overflow-y-scroll ">
+        <aside className="w-72 h-full flex-none bg-[#141414] px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] overflow-y-scroll justify-center ">
             <div className="h-14 flex gap-4 w-full justify-start items-center">
                 <div
                     onClick={() => setShowFileSideBar(false)}
-                    className="cursor-pointer p-2 h-full flex justify-center items-center rounded-full"
+                    className="cursor-pointer p-2 flex justify-center items-center rounded-full hover:bg-[#1c1e21]"
                 >
                     <ArrowLeft size={20} />
                 </div>
-                <span className="text-lg h-full">
-                    <h1>Media, Links, and Docs</h1>
+                <span className="text-base h-full flex justify-center items-center font-semibold font-poppins">
+                    <span>Media, Links, and Docs</span>
                 </span>
             </div>
             <div className="w-full h-full p-1">

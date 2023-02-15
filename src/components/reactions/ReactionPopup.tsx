@@ -2,7 +2,12 @@ import { Dispatch, FC, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../contex/AuthContext';
-import { reactionGroupMessageAPI, reactionMessageAPI } from '../../services/api';
+import {
+    reactionGroupMessageAPI,
+    reactionMessageAPI,
+    deleteReactionMessageAPI,
+    deleteReactionGroupMessageAPI,
+} from '../../services/api';
 import { RootState } from '../../store';
 import { REACTIONS_UI } from '../../utils/constants';
 import { GroupMessageType, MessageType, ReactionMessageType } from '../../utils/types';
@@ -20,20 +25,38 @@ export const ReactionPopup: FC<Props> = ({ message, setVisible }) => {
     const handleReactionClick = (key: string) => {
         if (!user?.id) return;
         const reaction = message?.reacts?.find((reaction: ReactionMessageType) => reaction?.author?.id === user?.id);
-        if (reaction?.type === key) {
-            return;
-        }
 
         if (conversationType === 'group') {
+            console.log(reaction?.type, key);
+            if (reaction?.type === key) {
+                deleteReactionGroupMessageAPI({
+                    id: parseInt(id!),
+                    messageId: message?.id,
+                    reactionId: reaction?.id,
+                }).then(() => {
+                    setVisible(false);
+                    return;
+                });
+            }
             reactionGroupMessageAPI(parseInt(id!), message?.id, key).then(() => {
                 setVisible(false);
             });
-            return;
+        } else {
+            if (reaction?.type === key) {
+                console.log(reaction?.type, key);
+                deleteReactionMessageAPI({
+                    id: parseInt(id!),
+                    messageId: message?.id,
+                    reactionId: reaction?.id,
+                }).then(() => {
+                    setVisible(false);
+                    return;
+                });
+            }
+            reactionMessageAPI(parseInt(id!), message?.id, key).then(() => {
+                setVisible(false);
+            });
         }
-
-        reactionMessageAPI(parseInt(id!), message?.id, key).then(() => {
-            setVisible(false);
-        });
     };
     const getMyReaction = () => {
         if (!user?.id) return;

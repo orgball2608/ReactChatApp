@@ -20,7 +20,6 @@ export const ConversationPage = () => {
     const { id } = useParams();
     const socket = useContext(SocketContext);
     useEffect(() => {
-        console.log('Fetching Conversations in ConversationPage');
         dispatch(fetchConversationsThunk());
         dispatch(fetchGroupsThunk());
     }, []);
@@ -54,7 +53,10 @@ export const ConversationPage = () => {
         });
 
         socket.on('onReactMessage', (payload) => {
-            console.log('onReactMessage', payload);
+            dispatch(reactMessage(payload));
+        });
+
+        socket.on('onReactMessageRemove', (payload) => {
             dispatch(reactMessage(payload));
         });
 
@@ -64,6 +66,7 @@ export const ConversationPage = () => {
             socket.off('onMessageDelete');
             socket.off('onMessageUpdate');
             socket.off('onReactMessage');
+            socket.off('onReactMessageRemove');
         };
     }, []);
 
