@@ -1,4 +1,6 @@
 import { ContextMenuItemType, ConversationTypeData, SelectedPageTypeData } from './types';
+import defaultAvatarSrc from '../__assets__/default_avatar.jpg';
+import defaultGroupAvatarSrc from '../__assets__/groupAvatar.png';
 
 export const ConversationTypes: ConversationTypeData[] = [
     {
@@ -96,3 +98,7 @@ export const REACTIONS_UI: {
         gif: '/reactions/angry.gif',
     },
 };
+
+export const defaultAvatar = defaultAvatarSrc;
+
+export const defaultGroupAvatar = defaultGroupAvatarSrc;

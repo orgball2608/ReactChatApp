@@ -3,7 +3,7 @@ import { FC, useContext, useState } from 'react';
 import { FriendRequestType, FriendType } from '../../utils/types';
 import { FriendRequestMenuContext } from '../menu-context/FriendRequestMenuContext';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { defaultAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { AuthContext } from '../../contex/AuthContext';
 

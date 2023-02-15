@@ -29,7 +29,6 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                     onClick={() => handleShowAttachments(0)}
                     src={CDN_PREVIEW_URL + attachments[0].key}
                     alt="attachment"
-                    effect="blur"
                     className={`${
                         (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
                             ? `${user?.id === message.author.id ? 'rounded-tr-none ' : 'rounded-tl-none '}`
@@ -53,7 +52,6 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                effect="blur"
                                 className="w-40 h-40 rounded-lg object-cover "
                             />
                         );
@@ -77,7 +75,6 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                effect="blur"
                                 className="w-32 h-32 rounded-xl object-cover "
                             />
                         );
@@ -109,7 +106,6 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                effect="blur"
                                 className="w-40 h-40 rounded-lg object-cover "
                             />
                         );
@@ -141,7 +137,6 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    effect="blur"
                                     className="w-48 h-48 rounded-lg "
                                 />
                             );
@@ -169,7 +164,6 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    effect="blur"
                                     className="w-32 h-32 rounded-lg "
                                 />
                             );

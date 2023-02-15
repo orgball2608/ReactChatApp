@@ -16,7 +16,7 @@ export const ConversationSearchBar: FC<Props> = ({ setIsSearching, setQuery, use
     };
 
     return (
-        <div className="w-80 flex justify-center items-center h-12 bg-simple-gray border-r-[1px] border-border-conversations cursor-auto">
+        <div className="w-80 flex justify-center items-center h-12 border-r-[1px] border-border-conversations cursor-auto">
             <div className="w-full relative mx-2 flex justify-start items-center">
                 {(userResults.length > 0 || query !== '') && (
                     <div

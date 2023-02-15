@@ -1,14 +1,15 @@
-import React, { Dispatch, FC, SetStateAction, useRef, useState } from 'react';
+import React, { Dispatch, FC, lazy, SetStateAction, Suspense, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { selectType } from '../../store/typeSlice';
 import { User } from '../../utils/types';
 import { useParams } from 'react-router-dom';
-import EmojiPicker, { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
+import { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
 import { Cross, FaceHappy, Image } from 'akar-icons';
 import { MdLibraryAdd } from 'react-icons/md';
 import { AiOutlineSend } from 'react-icons/ai';
 import { SpinLoading } from '../commons/SpinLoading';
+const EmojiPicker = lazy(() => import('emoji-picker-react'));
 
 type Props = {
     content: string;
@@ -72,7 +73,7 @@ export const MessageInputField: FC<Props> = ({
     };
 
     return (
-        <div className="flex justify-center items-center mt-2 gap-2">
+        <div className="flex justify-center items-center mt-2 gap-2 px-4">
             {fileList.length === 0 && (
                 <label htmlFor="formId" className="flex justify-center items-center">
                     <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer">
@@ -148,15 +149,23 @@ export const MessageInputField: FC<Props> = ({
 
                     {showEmojiPicker && (
                         <div className="absolute right-0 bottom-16">
-                            <EmojiPicker
-                                theme={Theme.DARK}
-                                emojiStyle={EmojiStyle.FACEBOOK}
-                                previewConfig={{ showPreview: false }}
-                                lazyLoadEmojis={true}
-                                onEmojiClick={(e) => onEmojiClick(e)}
-                                height={400}
-                                width="360px"
-                            />
+                            <Suspense
+                                fallback={
+                                    <div className="w-[348px] h-[357px] flex justify-center items-center">
+                                        <SpinLoading />
+                                    </div>
+                                }
+                            >
+                                <EmojiPicker
+                                    theme={Theme.DARK}
+                                    emojiStyle={EmojiStyle.FACEBOOK}
+                                    previewConfig={{ showPreview: false }}
+                                    lazyLoadEmojis={true}
+                                    onEmojiClick={(e) => onEmojiClick(e)}
+                                    height={400}
+                                    width="360px"
+                                />
+                            </Suspense>
                         </div>
                     )}
                 </div>

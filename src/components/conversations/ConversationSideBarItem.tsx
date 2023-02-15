@@ -1,8 +1,8 @@
 import { Conversation } from '../../utils/types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FC, useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { defaultAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -13,6 +13,7 @@ type Props = {
 };
 export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     const { user } = useContext(AuthContext);
+    const { id } = useParams();
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
     const MAX_MESSAGE_LENGTH = 25;
 
@@ -42,13 +43,17 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     const navigate = useNavigate();
     return (
         <div
-            className={'mt-42 items-center w-full bg-simple-gray'}
+            className={'mt-42 items-center w-full px-1'}
             onClick={() => {
                 navigate(`/conversations/${conversation.id}`);
             }}
             key={conversation.id}
         >
-            <div className="flex justify-start gap-2 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations">
+            <div
+                className={`flex justify-start gap-2 py-2 px-4 rounded-lg  ${
+                    conversation.id === parseInt(id!) ? '!bg-[#29323d]' : ''
+                } hover:bg-[#1a1a1b] `}
+            >
                 <div className="h-12 w-12 rounded-full relative">
                     <LazyLoadImage
                         src={profile?.avatar || defaultAvatar}

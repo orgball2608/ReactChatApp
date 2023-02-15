@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from '../../store';
 import { User } from '../../utils/types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { getDisplayName } from '../../utils/helpers';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { defaultAvatar } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { createConversationThunk } from '../../store/coversationSlice';
 import { changeType } from '../../store/typeSlice';
@@ -66,7 +66,7 @@ export const SearchUserResultItem: FC<Props> = ({ user }) => {
     return (
         <div
             onClick={handleNavigateToConversation}
-            className="flex justify-start gap-5 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations"
+            className="flex justify-start gap-5 mx-6 py-3 box-border hover:bg-[#1a1a1b] "
         >
             <div className="h-12 w-12 rounded-full relative">
                 <LazyLoadImage

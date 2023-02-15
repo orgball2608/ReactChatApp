@@ -20,12 +20,12 @@ export const MediaListFile: FC<Props> = ({ setShowFileSideBar }) => {
     };
 
     return (
-        <div className="flex flex-col justify-center ml-2 cursor-pointer ">
+        <div className="flex flex-col justify-center ml-2 cursor-pointer font-medium">
             <div
                 onClick={handleShowCustomizeConversation}
-                className="text-lg flex items-center justify-between font-medium py-2 px-2 my-1 hover:bg-[#1c1e21] rounded-md"
+                className="text-lg flex items-center justify-between font-medium py-2 px-2 my-1 hover:bg-[#1c1e21] rounded-md "
             >
-                <span>File Media</span>
+                <span className="font-semibold">File Media</span>
                 <div className="px-1">{showFileMedia ? <ChevronDown size={20} /> : <ChevronRight size={20} />}</div>
             </div>
             {showFileMedia && (

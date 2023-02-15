@@ -9,7 +9,7 @@ import { getUserSideBarIcon } from '../../utils/helpers';
 import { FC, useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { defaultAvatar } from '../../utils/constants';
 import { logoutUser } from '../../services/api';
 export const UserSideBar = () => {
     const navigate = useNavigate();
@@ -39,7 +39,7 @@ export const UserSideBar = () => {
     };
 
     return (
-        <div className="w-16 flex-none h-full flex flex-col items-center justify-between bg-[#121212] border-r-[1px] border-solid border-border-conversations">
+        <div className="w-16 flex-none h-full flex flex-col items-center justify-between bg-dark-light border-r-[1px] border-solid border-border-conversations">
             <div className=" w-full flex justify-center items-center flex-col box-border mt-3">
                 <LazyLoadImage
                     src={getAvatar()}

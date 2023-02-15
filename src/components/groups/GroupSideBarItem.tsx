@@ -1,7 +1,7 @@
 import { Group } from '../../utils/types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FC } from 'react';
-import defaultGroupAvatar from '../../__assets__/groupAvatar.png';
+import {defaultGroupAvatar} from '../../utils/constants';
 import moment from 'moment';
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
 };
 export const GroupSideBarItem: FC<Props> = ({ group }) => {
     const navigate = useNavigate();
+    const { id } = useParams();
     const MAX_LENGTH_OF_TITLE = 23;
     const MAX_MESSAGE_LENGTH = 20;
     const getGroupTitleDisplay = (group: Group) => {
@@ -55,13 +56,17 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
 
     return (
         <div
-            className={'mt-42 items-center w-full bg-simple-gray'}
+            className={'mt-42 items-center w-full px-1'}
             onClick={() => {
                 navigate(`/groups/${group.id}`);
             }}
             key={group.id}
         >
-            <div className="flex justify-start gap-2 mx-6 py-3 box-border border-b-[1px] border-solid border-border-conversations">
+            <div
+                className={`flex justify-start gap-2 py-2 px-4 rounded-lg box-border ${
+                    group.id === parseInt(id!) ? '!bg-[#252F3C]' : ''
+                } hover:bg-[#1a1a1b] `}
+            >
                 <img src={getGroupAvatar()} alt="avatar" className=" h-12 w-12 rounded-full bg-white object-cover" />
                 <div className="flex flex-col flex-nowrap flex-1 break-all justify-center">
                     <span className="block font-bold text-base">{getGroupTitleDisplay(group)}</span>

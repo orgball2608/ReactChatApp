@@ -45,8 +45,8 @@ export const ConversationSidebar = () => {
     return (
         <>
             {showModal && <CreateConversationModal setShowModal={setShowModal} />}
-            <aside className="h-full flex-none bg-dark-light w-80 border-solid border-r-[1px] border-border-conversations overflow-y-scroll scrollbar-hide overflow-auto">
-                <header className="fixed top-0 left-16 w-80 flex flex-col justify-between items-center px-8 bg-dark-header">
+            <aside className="h-full flex-none bg-dark-light w-80 border-solid border-r-[1px] border-border-conversations">
+                <header className="absolute top-0 left-16 w-80 flex flex-col justify-between items-center px-8 ">
                     <div className="flex justify-between px-4 items-center h-14 w-80 border-b-[1px] border-r-[1px] border-border-conversations">
                         <h1 className="font-normal text-2xl">Conversations</h1>
                         <div
@@ -56,7 +56,7 @@ export const ConversationSidebar = () => {
                             <Edit size={24} />
                         </div>
                     </div>
-                    <div className="w-80 flex flex-col border-b-[1px] border-border-conversations">
+                    <div className="w-80 flex flex-col bg-dark-light">
                         <ConversationSelected />
                         <ConversationSearchBar
                             setIsSearching={setIsSearching}
@@ -67,19 +67,21 @@ export const ConversationSidebar = () => {
                         />
                     </div>
                 </header>
-                {userResults.length > 0 || query !== '' ? (
-                    <section className="mt-40 w-full cursor-pointer">
-                        <SearchUserResults userResults={userResults} isSeaching={isSeaching} />
-                    </section>
-                ) : (
-                    <section className="mt-40 w-full cursor-pointer">
-                        {selectedType === 'private'
-                            ? conversations.map((conversation) => (
-                                  <ConversationSideBarItem conversation={conversation} key={conversation.id} />
-                              ))
-                            : groups.map((group) => <GroupSideBarItem group={group} key={group.id} />)}
-                    </section>
-                )}
+                <div className="w-full h-full pt-40 overflow-y-auto overflow-auto">
+                    {userResults.length > 0 || query !== '' ? (
+                        <section className=" w-full cursor-pointer">
+                            <SearchUserResults userResults={userResults} isSeaching={isSeaching} />
+                        </section>
+                    ) : (
+                        <section className="w-full h-full flex flex-col gap-1 cursor-pointer overflow-y-auto overflow-auto">
+                            {selectedType === 'private'
+                                ? conversations.map((conversation) => (
+                                      <ConversationSideBarItem conversation={conversation} key={conversation.id} />
+                                  ))
+                                : groups.map((group) => <GroupSideBarItem group={group} key={group.id} />)}
+                        </section>
+                    )}
+                </div>
             </aside>
         </>
     );

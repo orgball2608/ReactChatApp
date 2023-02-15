@@ -13,7 +13,7 @@ const ReactionStatus: FC<Props> = ({ message }) => {
     };
     return (
         <div
-            className={`absolute top-full -translate-y-1/2 right-0 bg-dark-lighten px-1 rounded-lg py-[1px] text-sm flex items-center gap-[2px] border border-dark-lighten bg-[#121212]
+            className={`absolute top-full -translate-y-1/2 right-0 bg-dark-lighten px-1 rounded-lg py-[1px] text-xs flex items-center gap-[2px] border border-dark-lighten bg-dark-light cursor-pointer
       `}
         >
             {reacts?.map((react) => (
@@ -21,6 +21,8 @@ const ReactionStatus: FC<Props> = ({ message }) => {
                     <img className="w-3 h-3" src={getIcon(react.type)} alt="" />
                 </div>
             ))}
+
+            {reacts?.length > 0 && <p>{reacts?.length}</p>}
         </div>
     );
 };

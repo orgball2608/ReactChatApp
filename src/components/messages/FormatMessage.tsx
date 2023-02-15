@@ -1,14 +1,16 @@
 import { GroupMessageType, MessageType, User } from '../../utils/types';
-import  { ChangeEvent, Dispatch, FC, SetStateAction, useContext } from 'react';
+import { ChangeEvent, Dispatch, FC, SetStateAction, useContext } from 'react';
 import moment from 'moment';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { defaultAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { AttachmentTopRender } from '../attachments/AttachmentTopRender';
 import { MessageReaction } from '../reactions/MessageReaction';
 import ReactionStatus from '../reactions/ReactionStatus';
+import { formatDate } from '../../utils/helpers';
+import { getDisplayName } from '../../utils/helpers';
 
 type FormattedMessageProps = {
     user?: User;
@@ -44,23 +46,28 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
             }`}
         >
             <div className=" flex-col gap-3 w-full">
-                <div className={`flex gap-3 py-1  ${user?.id === message.author.id ? 'justify-end' : ''}`}>
-                    <LazyLoadImage
-                        src={getAvatar()}
-                        alt="avatar"
-                        className={`w-10 h-10 rounded-full flex-0 object-cover `}
-                    />
-
-                    <span
-                        className="text-[#6d6d6d] text-base font-bold"
-                        style={{
-                            color: user?.id === message.author.id ? '#989898' : '#5E8BFF',
-                        }}
+                {message.author.id !== user?.id && (
+                    <div
+                        title={getDisplayName(message.author)}
+                        className={`flex gap-3 py-1  ${user?.id === message.author.id ? 'justify-end' : ''}`}
                     >
-                        {message.author.lastName} {message.author.firstName}
-                    </span>
-                    <span className="font-semi-bold">{moment(message.createdAt).fromNow()}</span>
-                </div>
+                        <LazyLoadImage
+                            src={getAvatar()}
+                            alt="avatar"
+                            className={`w-10 h-10 rounded-full flex-0 object-cover `}
+                        />
+                        <span
+                            className="text-[#6d6d6d] text-base font-bold"
+                            style={{
+                                color: user?.id === message.author.id ? '#989898' : '#5E8BFF',
+                            }}
+                        >
+                            {getDisplayName(message.author)}
+                        </span>
+                        <span className="font-semi-bold">{moment(message.createdAt).fromNow()}</span>
+                    </div>
+                )}
+
                 <div key={message.id} className={`flex flex-col justify-end`}>
                     {isEditing && message.id === editMessage?.id ? (
                         <div className="text-base flex justify-start items-center">
@@ -78,6 +85,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                 }`}
                             >
                                 <div
+                                    title={formatDate(message.createdAt)}
                                     className={`bg-dark-header py-2 px-5 rounded-2xl relative ${
                                         message.reacts?.length > 0 ? 'mb-2' : ''
                                     } ${

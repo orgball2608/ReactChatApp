@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 import { User } from '../../utils/types';
 import { FriendMenuContext } from '../menu-context/FriendMenuContext';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { defaultAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate, useParams } from 'react-router-dom';
 

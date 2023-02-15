@@ -5,7 +5,7 @@ import { AuthContext } from '../../contex/AuthContext';
 import { RootState } from '../../store';
 import { getFullName } from '../../utils/helpers';
 import { CustomizeConversationOptions } from '../conversation-options/CustomizeConversationOptions';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { defaultAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { MediaListFile } from '../conversation-options/MediaListFile';
 import { MediaFileSideBar } from '../conversation-options/MediaFileSideBar';
@@ -36,7 +36,7 @@ export const ConversationSettingSideBar = () => {
             {showFileSideBar ? (
                 <MediaFileSideBar setShowFileSideBar={setShowFileSideBar} />
             ) : (
-                <aside className="w-72 flex-none bg-[#141414] px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] ">
+                <aside className="w-72 flex-none px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] ">
                     <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
                         <LazyLoadImage
                             src={getAvatar() || defaultAvatar}
@@ -44,7 +44,7 @@ export const ConversationSettingSideBar = () => {
                             className="w-28 h-28 rounded-full object-cover "
                         />
                         <div className="flex flex-col items-center">
-                            <span className="text-center break-all text-xl">
+                            <span className="text-center break-all text-xl font-semibold">
                                 {getFullName(user, selectedConversation)}
                             </span>
                             {isOnline && <span className="text-base text-gray-400">Online</span>}

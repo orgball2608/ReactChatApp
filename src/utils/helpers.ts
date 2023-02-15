@@ -1,5 +1,6 @@
 import { ArrowCycle, ChatDots, Crown, Gear, Person, PersonCross, Ribbon } from 'akar-icons';
 import { Conversation, FriendType, SelectedPageType, User, UserContextMenuItemType } from './types';
+import moment from 'moment';
 
 export const getRecipientFromConversation = (conversation?: Conversation, user?: User) => {
     return user?.id === conversation?.creator.id ? conversation?.recipient : conversation?.creator;
@@ -72,4 +73,15 @@ export const searchConversation = (searchText: string, conversations: Conversati
         const fullName = `${getRecipient(conversation, user).firstName} ${getRecipient(conversation, user).lastName}`;
         return fullName.toLowerCase().includes(searchText.toLowerCase());
     });
+};
+
+export const formatDate = (date: Date) => {
+    if (moment(date).isSame(moment(), 'day')) {
+        return moment(date).format('H:mm A');
+    }
+
+    if (moment(date).isSame(moment(), 'week')) {
+        return moment(date).format('dddd H:mm A');
+    }
+    return moment(date).format('DD/MM/YYYY H:mm A');
 };

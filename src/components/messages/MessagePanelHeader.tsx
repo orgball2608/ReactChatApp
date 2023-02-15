@@ -6,8 +6,8 @@ import { AuthContext } from '../../contex/AuthContext';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { toggleSidebar } from '../../store/settingSidebarSlice';
 import { getFullName } from '../../utils/helpers';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
-import defaultGroupAvatar from '../../__assets__/groupAvatar.png';
+import { defaultAvatar } from '../../utils/constants';
+import { defaultGroupAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -53,7 +53,7 @@ export const MessagePanelHeader = () => {
 
     return (
         <header
-            className="bg-dark-header border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-6 box-border
+            className=" border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-6 box-border
     absolute top-0 left-0 w-full h-14 text-lg rounded z-8"
         >
             <div

@@ -30,9 +30,9 @@ export type Conversation = {
     id: number;
     creator: User;
     recipient: User;
-    createdAt: string;
+    createdAt: Date;
     lastMessageSent: MessageType;
-    lastMessageSentAt: string;
+    lastMessageSentAt: Date;
 };
 
 export type AttachmentType = {
@@ -42,7 +42,7 @@ export type AttachmentType = {
 export type MessageType = {
     id: number;
     content: string;
-    createdAt: string;
+    createdAt: Date;
     author: User;
     conversation: Conversation;
     attachments: AttachmentType[];
@@ -110,7 +110,7 @@ export type Group = {
     owner: User;
     creator: User;
     messages: GroupMessageType[];
-    createdAt: number;
+    createdAt: Date;
     lastMessageSent: MessageType;
     lastMessageSentAt: Date;
     avatar?: string;
@@ -120,7 +120,7 @@ export type GroupMessageType = {
     id: number;
     content: string;
     author: User;
-    createdAt: string;
+    createdAt: Date;
     group: Group;
     attachments: AttachmentType[];
     reacts: ReactionMessageType[];

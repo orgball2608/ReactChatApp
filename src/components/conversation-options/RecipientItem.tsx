@@ -4,7 +4,7 @@ import { User } from '../../utils/types';
 import Tippy from '@tippyjs/react';
 import { RecipientOptionMenuContext } from '../menu-context/RecipientOptionMenuContex';
 import { AuthContext } from '../../contex/AuthContext';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { defaultAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useParams } from 'react-router-dom';

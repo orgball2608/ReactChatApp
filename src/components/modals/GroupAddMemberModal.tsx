@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useDebounce } from '../../hooks/useDebounce';
 import { addGroupRecipientsAPI, searchUsers } from '../../services/api';
 import { FriendType, User } from '../../utils/types';
-import defaultAvatar from '../../__assets__/default_avatar.jpg';
+import { defaultAvatar } from '../../utils/constants';
 import { ResultMemberList } from '../members/ResultMemberList';
 
 type Props = {

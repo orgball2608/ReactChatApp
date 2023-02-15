@@ -27,7 +27,6 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                     onClick={() => handleShowAttachments(0)}
                     src={CDN_PREVIEW_URL + attachments[0].key}
                     alt="attachment"
-                    effect="blur"
                     className={`w-52 h-fit rounded-xl object-cover`}
                 />
             );
@@ -41,7 +40,6 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                effect="blur"
                                 className="w-40 h-40 rounded-lg object-cover "
                             />
                         );
@@ -59,7 +57,6 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                effect="blur"
                                 className="w-32 h-32 rounded-xl object-cover "
                             />
                         );
@@ -77,7 +74,6 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                 onClick={() => handleShowAttachments(index)}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                effect="blur"
                                 className="w-40 h-40 rounded-lg object-cover "
                             />
                         );
@@ -95,7 +91,6 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    effect="blur"
                                     className="w-48 h-48 rounded-lg "
                                 />
                             );
@@ -109,7 +104,6 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    effect="blur"
                                     className="w-32 h-32 rounded-lg "
                                 />
                             );

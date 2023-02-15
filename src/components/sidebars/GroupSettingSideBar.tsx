@@ -10,7 +10,7 @@ import { CustomizeGroupOptions } from '../conversation-options/CustomizeGroupOpt
 import { ChangeGroupTitleModal } from '../modals/ChangeGroupTitleModal';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import defaultGroupAvatar from '../../__assets__/groupAvatar.png';
+import { defaultGroupAvatar } from '../../utils/constants';
 import { MediaListFile } from '../conversation-options/MediaListFile';
 import { MediaFileSideBar } from '../conversation-options/MediaFileSideBar';
 
@@ -60,7 +60,7 @@ export const GroupSettingSideBar = () => {
             {showFileSideBar ? (
                 <MediaFileSideBar setShowFileSideBar={setShowFileSideBar} />
             ) : (
-                <aside className="w-72 flex-none bg-[#141414] px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto ">
+                <aside className="w-72 flex-none px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto ">
                     <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
                         <LazyLoadImage
                             src={getGroupAvatar()}
@@ -68,7 +68,7 @@ export const GroupSettingSideBar = () => {
                             className="w-28 h-28 rounded-full bg-white object-cover"
                             effect="blur"
                         />
-                        <div className="flex flex-col text-2xl">
+                        <div className="flex flex-col text-xl font-semibold">
                             <span className="text-center break-all">{selectedGroup?.title}</span>
                         </div>
                     </div>

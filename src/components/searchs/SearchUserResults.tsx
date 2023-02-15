@@ -10,7 +10,7 @@ type Props = {
 
 export const SearchUserResults: FC<Props> = ({ userResults, isSeaching }) => {
     return (
-        <div className="flex flex-col bg-[#121212]">
+        <div className="flex flex-col w-full h-full">
             {userResults.length === 0 ? (
                 isSeaching ? (
                     <Loader />
