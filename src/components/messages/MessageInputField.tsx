@@ -12,6 +12,7 @@ import { postGroupMessage, postNewMessage } from '../../services/api';
 import { SocketContext } from '../../contex/SocketContext';
 import { AuthContext } from '../../contex/AuthContext';
 import { ImageList } from '../inputs/ImageList';
+import { EMOJI_REPLACEMENT } from '../../utils/constants';
 const EmojiPicker = lazy(() => import('emoji-picker-react'));
 
 type Props = {
@@ -169,6 +170,23 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
                 .catch((err) => console.log(err));
     };
 
+    const handleReplaceEmoji = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+            const lastWord = content.split(' ').pop();
+            if (lastWord?.length === 0) return;
+            Object.entries(EMOJI_REPLACEMENT).map(([key, value]) => {
+                value.forEach((emoji) => {
+                    if (emoji === lastWord) {
+                        const splitted = content.split('');
+                        splitted.splice(inputRef.current?.selectionStart! - lastWord.length, lastWord.length, key);
+                        setContent(splitted.join(''));
+                        inputRef.current!.value = splitted.join('');
+                    }
+                });
+            });
+        }
+    };
+
     return (
         <div className="flex justify-center items-center mt-2 gap-2 px-4">
             {fileList.length === 0 && (
@@ -202,7 +220,10 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
                                     ? selectedGroup?.title || 'Group'
                                     : recipient?.firstName || 'User'
                             }`}
-                            onKeyDown={sendTypingStatus}
+                            onKeyDown={(e) => {
+                                handleReplaceEmoji(e);
+                                sendTypingStatus();
+                            }}
                             onDrop={onDropFile}
                             onPaste={onPaste}
                         />
