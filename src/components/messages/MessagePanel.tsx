@@ -37,8 +37,30 @@ export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping })
             data.append('attachments', file);
         });
 
-        data.append('content', content);
+        // If there is content and attachments, send the content first, then send the attachments
+        if (content.length > 0 && fileList.length > 0) {
+            const contentData = new FormData();
+            contentData.append('content', content);
+            setIsSending(true);
+            setContent('');
+            setFileList([]);
+            if (selectedType === 'private')
+                await postNewMessage({ id: parseInt(id), data: contentData }).then(() => {
+                    postNewMessage({ id: parseInt(id), data }).then(() => {
+                        setIsSending(false);
+                    });
+                });
+            else
+                await postGroupMessage({ id: parseInt(id), data: contentData }).then(() => {
+                    postGroupMessage({ id: parseInt(id), data }).then(() => {
+                        setIsSending(false);
+                    });
+                });
 
+            return;
+        }
+
+        data.append('content', content);
         const Id = parseInt(id);
         const params = { id: Id, data };
         setIsSending(true);

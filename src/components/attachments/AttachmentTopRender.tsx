@@ -113,13 +113,5 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
             );
         }
     };
-    return (
-        <div
-            className={`p-0 pl-14 text-base flex justify-start items-center w-fit cursor-pointer ${
-                user?.id === message.author.id ? 'flex-row-reverse' : ''
-            }`}
-        >
-            {renderAttachments()}
-        </div>
-    );
+    return renderAttachments();
 };

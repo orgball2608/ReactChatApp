@@ -1,7 +1,7 @@
 import { Group } from '../../utils/types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FC } from 'react';
-import {defaultGroupAvatar} from '../../utils/constants';
+import { defaultGroupAvatar } from '../../utils/constants';
 import moment from 'moment';
 
 type Props = {
@@ -23,7 +23,7 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
                 if (user) return user.firstName;
             })
             .join(', ');
-        return usersToString.length > MAX_LENGTH_OF_TITLE
+        return usersToString?.length > MAX_LENGTH_OF_TITLE
             ? usersToString.slice(0, MAX_LENGTH_OF_TITLE).concat('...')
             : usersToString;
     };
@@ -39,7 +39,7 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
                     lastMessageSent.attachments?.length > 1 ? `${lastMessageSent.attachments.length}` : 'a'
                 } photo`;
             }
-            return lastMessageSent.content.length > MAX_MESSAGE_LENGTH
+            return lastMessageSent.content?.length > MAX_MESSAGE_LENGTH
                 ? lastMessageSent.content.slice(0, MAX_MESSAGE_LENGTH).concat('...')
                 : lastMessageSent.content;
         }

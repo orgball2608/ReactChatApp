@@ -39,17 +39,18 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
         }
         return defaultAvatar;
     };
+    const isAuthor = user?.id === message.author.id;
     return (
         <div
             className={`flex gap-4 pt-3 items-center w-5/6 ${
-                user?.id === message.author.id ? 'place-self-end justify-end' : 'place-self-start'
+                isAuthor ? 'place-self-end justify-end' : 'place-self-start'
             }`}
         >
             <div className=" flex-col gap-3 w-full">
-                {message.author.id !== user?.id && (
+                {!isAuthor && (
                     <div
                         title={getDisplayName(message.author)}
-                        className={`flex gap-3 py-1  ${user?.id === message.author.id ? 'justify-end' : ''}`}
+                        className={`flex gap-3 py-1  ${isAuthor ? 'justify-end' : ''}`}
                     >
                         <LazyLoadImage
                             src={getAvatar()}
@@ -59,7 +60,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                         <span
                             className="text-[#6d6d6d] text-base font-bold"
                             style={{
-                                color: user?.id === message.author.id ? '#989898' : '#5E8BFF',
+                                color: isAuthor ? '#989898' : '#5E8BFF',
                             }}
                         >
                             {getDisplayName(message.author)}
@@ -81,7 +82,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                         message.content && (
                             <div
                                 className={`text-base flex justify-start items-center w-full group gap-2 ${
-                                    user?.id === message.author.id ? 'flex-row-reverse' : ''
+                                    isAuthor ? 'flex-row-reverse' : ''
                                 }`}
                             >
                                 <div
@@ -90,16 +91,8 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                         message.reacts?.length > 0 ? 'mb-2' : ''
                                     } ${
                                         isOneElement
-                                            ? `${
-                                                  user?.id === message.author.id
-                                                      ? 'rounded-r-2xl'
-                                                      : 'rounded-l-2xl ml-14'
-                                              }`
-                                            : `${
-                                                  user?.id === message.author.id
-                                                      ? 'rounded-br-none'
-                                                      : 'rounded-bl-none ml-14'
-                                              }`
+                                            ? `${isAuthor ? 'rounded-r-2xl' : 'rounded-l-2xl ml-14'}`
+                                            : `${isAuthor ? 'rounded-br-none' : 'rounded-bl-none ml-14'}`
                                     } `}
                                 >
                                     {message.content}
@@ -107,7 +100,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                 </div>
                                 <div
                                     className={`invisible group-hover:visible flex ${
-                                        user?.id === message.author.id ? 'flex-row-reverse' : ''
+                                        isAuthor ? 'flex-row-reverse' : ''
                                     }`}
                                 >
                                     <MessageReaction message={message} />
@@ -116,15 +109,36 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                             </div>
                         )
                     )}
-                    <div
-                        className={`flex gap-4 items-center w-5/6 ${
-                            user?.id === message.author.id
-                                ? 'place-self-end justify-end'
-                                : 'place-self-start justify-start'
-                        } ${message.attachments?.length > 0 ? 'mt-1 ' : ''}}`}
-                    >
-                        <AttachmentTopRender attachments={message.attachments} message={message} />
-                    </div>
+                    {message.attachments?.length > 0 && (
+                        <div
+                            className={`flex gap-4 items-center w-5/6 ${
+                                isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
+                            } ${message.attachments?.length > 0 ? 'mt-1 ' : ''}}`}
+                        >
+                            <div
+                                className={`p-0 text-base flex justify-start items-center w-fit gap-2 cursor-pointer ${
+                                    isAuthor ? 'flex-row-reverse' : ''
+                                }`}
+                            >
+                                <div
+                                    className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
+                                        isAuthor ? 'flex-row-reverse' : 'pl-14'
+                                    }`}
+                                >
+                                    <AttachmentTopRender attachments={message.attachments} message={message} />
+                                    {message.reacts?.length > 0 && <ReactionStatus message={message} />}
+                                </div>
+                                <div
+                                    className={`invisible group-hover:visible flex  ${
+                                        isAuthor ? 'flex-row-reverse' : ''
+                                    }`}
+                                >
+                                    <MessageReaction message={message} />
+                                    <MessageOption message={message} setIsEditing={setIsEditing} />
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

@@ -30,10 +30,10 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                 (lastMessageSent.attachments && lastMessageSent.attachments?.length > 0)
             ) {
                 return `Just sent ${
-                    lastMessageSent.attachments?.length > 1 ? `${lastMessageSent.attachments.length}` : 'a'
+                    lastMessageSent.attachments?.length > 1 ? `${lastMessageSent.attachments?.length}` : 'a'
                 } photo`;
             }
-            return lastMessageSent.content.length > MAX_MESSAGE_LENGTH
+            return lastMessageSent.content?.length > MAX_MESSAGE_LENGTH
                 ? lastMessageSent.content.slice(0, MAX_MESSAGE_LENGTH).concat('...')
                 : lastMessageSent.content;
         }
@@ -52,7 +52,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
             <div
                 className={`flex justify-start gap-2 py-2 px-4 rounded-lg  ${
                     conversation.id === parseInt(id!) ? '!bg-[#29323d]' : ''
-                } hover:bg-[#1a1a1b] `}
+                } hover:bg-[#1a1a1b]`}
             >
                 <div className="h-12 w-12 rounded-full relative">
                     <LazyLoadImage

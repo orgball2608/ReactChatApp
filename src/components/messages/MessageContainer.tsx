@@ -75,6 +75,7 @@ export const MessageContainer = () => {
                 return (
                     <MessageItem
                         m={m}
+                        key={m.id}
                         isEditing={isEditing}
                         setIsEditing={setIsEditing}
                         onEditMessageChange={onEditMessageChange}
