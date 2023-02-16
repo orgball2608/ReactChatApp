@@ -1,110 +1,42 @@
-import React, { FC, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { MessagePanelHeader } from './MessagePanelHeader';
 import { MessageContainer } from './MessageContainer';
 import { MessagePanelBody } from './MessagePanelBody';
 import { MessageInputField } from './MessageInputField';
 import { useParams } from 'react-router-dom';
-import { postGroupMessage, postNewMessage } from '../../services/api';
 import { AuthContext } from '../../contex/AuthContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { getRecipientFromConversation } from '../../utils/helpers';
+import { getDisplayName, getRecipientFromConversation } from '../../utils/helpers';
+import { defaultAvatar } from '../../utils/constants';
 
-type Props = {
-    sendTypingStatus: () => void;
-    recipientIsTyping: boolean;
-};
-
-export const MessagePanel: FC<Props> = ({ sendTypingStatus, recipientIsTyping }) => {
-    const [content, setContent] = useState('');
+export const MessagePanel = () => {
     const { id } = useParams();
     const { user } = useContext(AuthContext);
+
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
-    const [fileList, setFileList] = useState<File[]>([]);
-    const [isSending, setIsSending] = useState(false);
     const conversation = conversations.find((conversation) => conversation.id === parseInt(id!));
+    const [isRecipientTyping, setIsRecipientTyping] = useState(false);
 
     const recipient = getRecipientFromConversation(conversation, user);
 
-    const selectedType = useSelector((state: RootState) => state.type.type);
-
-    const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!id || (!fileList && !content)) return;
-        const data = new FormData();
-
-        fileList.forEach((file) => {
-            data.append('attachments', file);
-        });
-
-        // If there is content and attachments, send the content first, then send the attachments
-        if (content.length > 0 && fileList.length > 0) {
-            const contentData = new FormData();
-            contentData.append('content', content);
-            setIsSending(true);
-            setContent('');
-            setFileList([]);
-            if (selectedType === 'private')
-                await postNewMessage({ id: parseInt(id), data: contentData }).then(() => {
-                    postNewMessage({ id: parseInt(id), data }).then(() => {
-                        setIsSending(false);
-                    });
-                });
-            else
-                await postGroupMessage({ id: parseInt(id), data: contentData }).then(() => {
-                    postGroupMessage({ id: parseInt(id), data }).then(() => {
-                        setIsSending(false);
-                    });
-                });
-
-            return;
-        }
-
-        data.append('content', content);
-        const Id = parseInt(id);
-        const params = { id: Id, data };
-        setIsSending(true);
-        setContent('');
-        setFileList([]);
-        if (selectedType === 'private')
-            postNewMessage(params)
-                .then(() => {
-                    setIsSending(false);
-                })
-                .catch((err) => console.log(err));
-        else
-            postGroupMessage(params)
-                .then(() => {
-                    setIsSending(false);
-                })
-                .catch((err) => console.log(err));
-    };
-
     return (
-        <>
-            <div className="bg-inherit h-full w-full box-border relative">
-                <MessagePanelHeader />
-                <MessagePanelBody>
-                    <MessageContainer />
-                    <div>
-                        {recipientIsTyping && (
-                            <div className="w-full text-base text-[#adadad] box-border h-4 mt-2">
-                                {recipientIsTyping ? `${recipient?.firstName} is typing...` : ''}
-                            </div>
-                        )}
-                        <MessageInputField
-                            content={content}
-                            setContent={setContent}
-                            sendMessage={sendMessage}
-                            sendTypingStatus={sendTypingStatus}
-                            recipient={recipient}
-                            setFileList={setFileList}
-                            fileList={fileList}
-                            isSending={isSending}
-                        />
-                    </div>
-                </MessagePanelBody>
-            </div>
-        </>
+        <div className="bg-inherit h-full w-full box-border relative">
+            <MessagePanelHeader />
+            <MessagePanelBody>
+                <MessageContainer />
+                <div>
+                    {isRecipientTyping && (
+                        <div className="w-full px-6 flex gap-2 items-center">
+                            <img src={recipient?.profile.avatar || defaultAvatar} className="w-8 h-8 rounded-full" />
+                            <span className="text-gray-400 text-sm ml-2">
+                                {getDisplayName(recipient!)} is typing...
+                            </span>
+                        </div>
+                    )}
+                    <MessageInputField recipient={recipient} setIsRecipientTyping={setIsRecipientTyping} />
+                </div>
+            </MessagePanelBody>
+        </div>
     );
 };

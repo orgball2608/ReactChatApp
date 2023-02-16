@@ -1,47 +1,91 @@
-import React, { Dispatch, FC, lazy, SetStateAction, Suspense, useRef, useState } from 'react';
+import React, { FC, lazy, Suspense, useContext, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { selectType } from '../../store/typeSlice';
 import { User } from '../../utils/types';
 import { useParams } from 'react-router-dom';
 import { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
-import { Cross, FaceHappy, Image } from 'akar-icons';
-import { MdLibraryAdd } from 'react-icons/md';
+import { FaceHappy, Image } from 'akar-icons';
 import { AiOutlineSend } from 'react-icons/ai';
 import { SpinLoading } from '../commons/SpinLoading';
+import { postGroupMessage, postNewMessage } from '../../services/api';
+import { SocketContext } from '../../contex/SocketContext';
+import { AuthContext } from '../../contex/AuthContext';
+import { ImageList } from '../inputs/ImageList';
 const EmojiPicker = lazy(() => import('emoji-picker-react'));
 
 type Props = {
-    content: string;
-    setContent: Dispatch<SetStateAction<string>>;
-    sendMessage: (e: React.FormEvent<HTMLFormElement>) => void;
-    sendTypingStatus: () => void;
     recipient: User | undefined;
-    setFileList: Dispatch<SetStateAction<File[]>>;
-    fileList: File[];
-    isSending: boolean;
+    setIsRecipientTyping: React.Dispatch<React.SetStateAction<boolean>>;
 };
-export const MessageInputField: FC<Props> = ({
-    content,
-    setContent,
-    sendMessage,
-    sendTypingStatus,
-    recipient,
-    setFileList,
-    fileList,
-    isSending,
-}) => {
+export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }) => {
     const conversationType = useSelector((state: RootState) => selectType(state));
+    const [content, setContent] = useState('');
     const { id } = useParams();
     const group = useSelector((state: RootState) => state.group.groups);
     const selectedGroup = group.find((group) => group.id === parseInt(id!));
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+    const [fileList, setFileList] = useState<File[]>([]);
+    const [isSending, setIsSending] = useState(false);
+    const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>();
+    const [isTyping, setIsTyping] = useState(false);
+
+    const socket = useContext(SocketContext);
+    const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        setIsRecipientTyping(false);
+    }, [id]);
+
+    useEffect(() => {
+        const onChanged = () => {
+            const { value } = inputRef.current!;
+            setContent(value);
+        };
+        document.addEventListener('input', onChanged);
+        return () => {
+            document.removeEventListener('input', onChanged);
+        };
+    }, []);
+
+    useEffect(() => {
+        socket.on('onTypingStart', () => {
+            setIsRecipientTyping(true);
+        });
+
+        socket.on('onTypingStop', () => {
+            setIsRecipientTyping(false);
+        });
+
+        return () => {
+            socket.off('onTypingStart');
+            socket.off('onTypingStop');
+        };
+    }, [id]);
+
+    const sendTypingStatus = () => {
+        if (isTyping) {
+            clearTimeout(timer);
+            setTimer(
+                setTimeout(() => {
+                    socket.emit('onTypingStop', { conversationId: id, userId: user?.id });
+                    setIsTyping(false);
+                }, 4000),
+            );
+        } else {
+            setIsTyping(true);
+            socket.emit('onTypingStart', { conversationId: id, userId: user?.id });
+        }
+    };
+
     const onEmojiClick = (emojiObject: EmojiClickData) => {
-        const { selectionStart, selectionEnd } = inputRef.current!;
-        const newVal = content.slice(0, selectionStart) + emojiObject.emoji + content.slice(selectionEnd);
+        const { selectionStart, selectionEnd, value } = inputRef.current!;
+        const newVal = value.slice(0, selectionStart!) + emojiObject.emoji + value.slice(selectionEnd!);
+        inputRef.current!.value = newVal;
         setContent(newVal);
     };
+
     const handleEmojiAction = () => {
         if (showEmojiPicker) setShowEmojiPicker(false);
         else setShowEmojiPicker(true);
@@ -72,6 +116,59 @@ export const MessageInputField: FC<Props> = ({
         setFileList((prev) => [...prev, ...[...e.clipboardData.files]]);
     };
 
+    const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        inputRef.current!.value = '';
+        if (!id || (!fileList && !content)) return;
+        const data = new FormData();
+
+        fileList.forEach((file) => {
+            data.append('attachments', file);
+        });
+
+        // If there is content and attachments, send the content first, then send the attachments
+        if (content.length > 0 && fileList.length > 0) {
+            const contentData = new FormData();
+            contentData.append('content', content);
+            setIsSending(true);
+            setContent('');
+            setFileList([]);
+            if (conversationType === 'private')
+                await postNewMessage({ id: parseInt(id), data: contentData }).then(() => {
+                    postNewMessage({ id: parseInt(id), data }).then(() => {
+                        setIsSending(false);
+                    });
+                });
+            else
+                await postGroupMessage({ id: parseInt(id), data: contentData }).then(() => {
+                    postGroupMessage({ id: parseInt(id), data }).then(() => {
+                        setIsSending(false);
+                    });
+                });
+
+            return;
+        }
+
+        data.append('content', content);
+        const Id = parseInt(id);
+        const params = { id: Id, data };
+        setIsSending(true);
+        setContent('');
+        setFileList([]);
+        if (conversationType === 'private')
+            postNewMessage(params)
+                .then(() => {
+                    setIsSending(false);
+                })
+                .catch((err) => console.log(err));
+        else
+            postGroupMessage(params)
+                .then(() => {
+                    setIsSending(false);
+                })
+                .catch((err) => console.log(err));
+    };
+
     return (
         <div className="flex justify-center items-center mt-2 gap-2 px-4">
             {fileList.length === 0 && (
@@ -91,38 +188,7 @@ export const MessageInputField: FC<Props> = ({
             >
                 <div className={`mt-2 w-full flex gap-2 ${fileList.length === 0 ? 'hidden ' : ''}`}>
                     {fileList && fileList.length > 0 && (
-                        <>
-                            <label className="w-12 h-12 bg-[#1c1e21] rounded-md flex justify-center items-center cursor-pointer ">
-                                <MdLibraryAdd size={30} />
-                                <input
-                                    onChange={handleGetFile}
-                                    name="file"
-                                    type="file"
-                                    id="formId"
-                                    className="hidden"
-                                    multiple
-                                />
-                            </label>
-                            <div className="flex flex-wrap gap-2 justify-start">
-                                {fileList.map((file, index) => (
-                                    <div key={index} className="flex items-center gap-2 ">
-                                        <div className="w-12 h-12 bg-[#1c1e21] rounded-md relative">
-                                            <img
-                                                src={URL.createObjectURL(file)}
-                                                alt="attachments"
-                                                className="w-12 h-12 rounded-md"
-                                            />
-                                            <div
-                                                onClick={() => setFileList((prev) => prev.filter((f) => f !== file))}
-                                                className="p-[1px] bg-white absolute top-0 right-0 rounded-full cursor-pointer "
-                                            >
-                                                <Cross size={14} className="text-dark-light" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </>
+                        <ImageList fileList={fileList} setFileList={setFileList} handleGetFile={handleGetFile} />
                     )}
                 </div>
                 <div className="relative flex items-center w-full">
@@ -130,14 +196,12 @@ export const MessageInputField: FC<Props> = ({
                         <input
                             type="text"
                             className={`bg-inherit outline-0 border-0 text-[#454545] py-2  font-Inter box-border text-lg  w-full p-0 break-words`}
-                            value={content}
                             ref={inputRef}
                             placeholder={`Send message to ${
                                 conversationType === 'group'
                                     ? selectedGroup?.title || 'Group'
                                     : recipient?.firstName || 'User'
                             }`}
-                            onChange={(e) => setContent(e.target.value)}
                             onKeyDown={sendTypingStatus}
                             onDrop={onDropFile}
                             onPaste={onPaste}
