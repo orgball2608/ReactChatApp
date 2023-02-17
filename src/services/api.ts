@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { STICKERS_URL } from '../utils/constants';
 import {
     AddGroupRecipientsParams,
     ChangeGroupOwnerParams,
@@ -8,6 +9,7 @@ import {
     CreateGroupMessageParams,
     CreateGroupParams,
     CreateMessageParams,
+    CreateStickerMessageParams,
     CreateUserParams,
     DeleteGroupMessageParams,
     DeleteMessageParams,
@@ -141,5 +143,13 @@ export const searchGiphy = (query: string) =>
 export const CreateGifMessageAPI = ({ id, gif }: CreateGifMessageParams) =>
     axiosClient.post(`/conversations/${id}/messages/gif`, { gif }, config);
 
+export const CreateStickerMessageAPI = ({ id, sticker }: CreateStickerMessageParams) =>
+    axiosClient.post(`/conversations/${id}/messages/sticker`, { sticker }, config);
+
 export const CreateGroupGifMessageAPI = ({ id, gif }: CreateGifMessageParams) =>
     axiosClient.post(`/groups/${id}/messages/gif`, { gif }, config);
+
+export const CreateGroupStickerMessageAPI = ({ id, sticker }: CreateStickerMessageParams) =>
+    axiosClient.post(`/groups/${id}/messages/sticker`, { sticker }, config);
+
+export const GetStickers = () => axios.get(`${STICKERS_URL}`);

@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { User } from '../../utils/types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { getDisplayName } from '../../utils/helpers';
+import { getDisplayName, lastMessageContent } from '../../utils/helpers';
 import { defaultAvatar } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { createConversationThunk } from '../../store/coversationSlice';
 import { changeType } from '../../store/typeSlice';
+import moment from 'moment';
 
 type Props = {
     user: User;
@@ -15,7 +16,6 @@ type Props = {
 
 export const SearchUserResultItem: FC<Props> = ({ user }) => {
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
-    const MAX_MESSAGE_LENGTH = 30;
     const isOnline = onlineFriends.find((friend) => friend.id === user.id) ? true : false;
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
@@ -26,24 +26,6 @@ export const SearchUserResultItem: FC<Props> = ({ user }) => {
     const conversation = conversations.find(
         (conversation) => conversation.creator.id === user.id || conversation.recipient.id === user.id,
     );
-
-    const lastMessageContent = () => {
-        const { lastMessageSent } = conversation!;
-        if (lastMessageSent) {
-            if (
-                lastMessageSent.content === '' ||
-                (lastMessageSent.attachments && lastMessageSent.attachments?.length > 0)
-            ) {
-                return `Just sent ${
-                    lastMessageSent.attachments?.length > 1 ? `${lastMessageSent.attachments.length}` : 'a'
-                } photo`;
-            }
-            return lastMessageSent.content.length > MAX_MESSAGE_LENGTH
-                ? lastMessageSent.content.slice(0, MAX_MESSAGE_LENGTH).concat('...')
-                : lastMessageSent.content;
-        }
-        return null;
-    };
 
     const handleNavigateToConversation = () => {
         if (conversation) navigate(`/conversations/${conversation.id}`);
@@ -66,9 +48,9 @@ export const SearchUserResultItem: FC<Props> = ({ user }) => {
     return (
         <div
             onClick={handleNavigateToConversation}
-            className="flex justify-start gap-5 mx-6 py-3 box-border hover:bg-[#1a1a1b] "
+            className="flex justify-start gap-1 mx-2 py-2 box-border hover:bg-[#28282b] rounded-md "
         >
-            <div className="h-12 w-12 rounded-full relative">
+            <div className=" mx-2 h-12 w-12 rounded-full relative">
                 <LazyLoadImage
                     src={profile?.avatar || defaultAvatar}
                     alt={'profile'}
@@ -80,7 +62,12 @@ export const SearchUserResultItem: FC<Props> = ({ user }) => {
             </div>
             <div className="flex flex-col flex-nowrap flex-1 break-all">
                 <span className="block font-bold text-base ">{` ${getDisplayName(user)}`}</span>
-                <span className="text-sm text-white">{conversation && lastMessageContent()}</span>
+                <div className="flex items-center">
+                    <span className="text-sm text-white">{conversation && lastMessageContent(conversation)}</span>
+                    <span className="text-sm text-[#65676b] ml-3 font-semibold">
+                        {moment(conversation?.lastMessageSentAt).format('H:mm')}
+                    </span>
+                </div>
             </div>
         </div>
     );

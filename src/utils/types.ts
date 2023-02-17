@@ -48,6 +48,7 @@ export type MessageType = {
     attachments: AttachmentType[];
     reacts: ReactionMessageType[];
     gif: string;
+    sticker: string;
 };
 
 export type MessageEventPayload = {
@@ -126,6 +127,7 @@ export type GroupMessageType = {
     attachments: AttachmentType[];
     reacts: ReactionMessageType[];
     gif: string;
+    sticker: string;
 };
 
 export type GroupMessage = {
@@ -239,4 +241,20 @@ export type DeleteReactionMessageParams = {
 export type CreateGifMessageParams = {
     id: number;
     gif: string;
+};
+
+export type CreateStickerMessageParams = {
+    id: number;
+    sticker: string;
+};
+
+export type StickerCollection = {
+    name: string;
+    thumbnail: string;
+    icon: string;
+    id: string;
+    stickers: {
+        id: string;
+        spriteURL: string;
+    }[];
 };

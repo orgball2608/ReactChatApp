@@ -55,7 +55,7 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
                     <div className="flex justify-start items-center">
                         <span className="text-sm text-white">{lastMessageContent(group)}</span>
                         <span className="text-sm text-[#65676b] ml-3 font-semibold">
-                            {moment(group?.lastMessageSentAt).fromNow(true)}
+                            {moment(group?.lastMessageSentAt).format('H:mm')}
                         </span>
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 import { GroupMessageType, MessageType, User } from '../../utils/types';
 import { ChangeEvent, Dispatch, FC, SetStateAction, useContext } from 'react';
-import moment from 'moment';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
@@ -11,6 +10,7 @@ import { MessageReaction } from '../reactions/MessageReaction';
 import ReactionStatus from '../reactions/ReactionStatus';
 import { formatDate } from '../../utils/helpers';
 import { getDisplayName } from '../../utils/helpers';
+import SpriteRenderer from '../inputs/SpriteRenderer';
 
 type FormattedMessageProps = {
     user?: User;
@@ -65,7 +65,6 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                         >
                             {getDisplayName(message.author)}
                         </span>
-                        <span className="font-semi-bold">{moment(message.createdAt).fromNow()}</span>
                     </div>
                 )}
 
@@ -109,7 +108,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                             </div>
                         )
                     )}
-                    {(message.attachments?.length > 0 || message.gif) && (
+                    {(message.attachments?.length > 0 || message.gif || message.sticker) && (
                         <div
                             className={`flex gap-4 items-center w-5/6 ${
                                 isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
@@ -128,20 +127,24 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                 >
                                     {
                                         // if message has attachments
-                                        message.attachments?.length > 0 ? (
+                                        message.attachments?.length > 0 && (
                                             <AttachmentTopRender attachments={message.attachments} message={message} />
-                                        ) : (
-                                            <LazyLoadImage
-                                                src={message.gif}
-                                                className={` ${
-                                                    isOneElement
-                                                        ? `${isAuthor ? 'rounded-r-2xl' : 'rounded-l-2xl'}`
-                                                        : `${isAuthor ? 'rounded-br-none' : 'rounded-bl-none'}`
-                                                } 
-                                                w-52 h-fit rounded-md object- cursor-default`}
-                                            />
                                         )
                                     }
+
+                                    {message.sticker && <SpriteRenderer size={120} src={message.sticker} />}
+                                    {message.gif && (
+                                        <LazyLoadImage
+                                            src={message.gif}
+                                            className={` ${
+                                                isOneElement
+                                                    ? `${isAuthor ? 'rounded-r-2xl' : 'rounded-l-2xl'}`
+                                                    : `${isAuthor ? 'rounded-br-none' : 'rounded-bl-none'}`
+                                            } 
+                                                w-52 h-fit rounded-md object- cursor-default`}
+                                        />
+                                    )}
+
                                     {message.reacts?.length > 0 && <ReactionStatus message={message} />}
                                 </div>
                                 <div

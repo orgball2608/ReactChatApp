@@ -1,0 +1,23 @@
+import Tippy from '@tippyjs/react';
+import { useState } from 'react';
+import StickerIcon from '../icons/StickerIcon';
+import StickerPicker from './StickerPicker';
+
+export const StickerInput = () => {
+    const [visible, setVisible] = useState(false);
+    return (
+        <Tippy
+            visible={visible}
+            onClickOutside={() => setVisible(false)}
+            content={visible && <StickerPicker setVisible={setVisible} />}
+            placement="top-start"
+            interactive={true}
+            animation="fade"
+            theme="giphy"
+        >
+            <div onClick={() => setVisible((prev) => !prev)}>
+                <StickerIcon className=" hover:bg-[#1c1e21] rounded-full" />
+            </div>
+        </Tippy>
+    );
+};

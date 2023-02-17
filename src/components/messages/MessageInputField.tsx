@@ -14,11 +14,9 @@ import { SocketContext } from '../../contex/SocketContext';
 import { AuthContext } from '../../contex/AuthContext';
 import { ImageList } from '../inputs/ImageList';
 import { EMOJI_REPLACEMENT } from '../../utils/constants';
-import GifIcon from '../icons/GifIcon';
-import StickerIcon from '../icons/StickerIcon';
 import { GrAttachment } from 'react-icons/gr';
-import { GifPicker } from '../inputs/GifPicker';
-import Tippy from '@tippyjs/react';
+import { StickerInput } from '../inputs/StickerInput';
+import { GifInput } from '../inputs/GifInput';
 const EmojiPicker = lazy(() => import('emoji-picker-react'));
 
 type Props = {
@@ -214,20 +212,8 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
                     {content.length === 0 && (
                         <div className="flex gap-1 justify-center items-center cursor-pointer relative">
                             <GrAttachment size={20} className="text-primary hover:bg-[#1c1e21] rounded-full" />
-                            <StickerIcon className=" hover:bg-[#1c1e21] rounded-full" />
-                            <Tippy
-                                visible={visible}
-                                onClickOutside={() => setVisible(false)}
-                                content={visible && <GifPicker setVisible={setVisible} visible={visible} />}
-                                placement="top"
-                                interactive={true}
-                                animation="fade"
-                                theme="giphy"
-                            >
-                                <div onClick={() => setVisible((prev) => !prev)}>
-                                    <GifIcon className=" hover:bg-[#1c1e21] rounded-full" />
-                                </div>
-                            </Tippy>
+                            <StickerInput />
+                            <GifInput />
                         </div>
                     )}
                 </>

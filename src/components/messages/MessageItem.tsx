@@ -5,6 +5,7 @@ import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { formatDate } from '../../utils/helpers';
 import { GroupMessageType, MessageType } from '../../utils/types';
 import { AttachmentListRender } from '../attachments/AttachmentListRender';
+import SpriteRenderer from '../inputs/SpriteRenderer';
 import { MessageReaction } from '../reactions/MessageReaction';
 import ReactionStatus from '../reactions/ReactionStatus';
 import { EditMessageContainer } from './EditMessageContainer';
@@ -94,7 +95,7 @@ export const MessageItem: FC<Props> = ({
             )}
             {
                 // if message has attachments
-                (m.attachments?.length > 0 || m.gif) && (
+                (m.attachments?.length > 0 || m.gif || m.sticker) && (
                     <div
                         className={`flex gap-4 items-center w-5/6 group ${
                             isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
@@ -113,7 +114,7 @@ export const MessageItem: FC<Props> = ({
                             >
                                 {
                                     // if message has attachments
-                                    m.attachments?.length > 0 ? (
+                                    m.attachments?.length > 0 && (
                                         <AttachmentListRender
                                             attachments={m.attachments}
                                             currentMessage={currentMessage}
@@ -121,22 +122,22 @@ export const MessageItem: FC<Props> = ({
                                             index={index}
                                             message={m}
                                         />
-                                    ) : (
-                                        <LazyLoadImage
-                                            src={m.gif}
-                                            className={`${
-                                                (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
-                                                index === 0
-                                                    ? `${
-                                                          user?.id === m.author.id
-                                                              ? 'rounded-tr-none '
-                                                              : 'rounded-tl-none '
-                                                      }`
-                                                    : `${user?.id === m.author.id ? 'rounded-r-md ' : 'rounded-l-md  '}`
-                                            } w-52 h-fit rounded-xl object-cover cursor-default`}
-                                        />
                                     )
                                 }
+                                {m.sticker && <SpriteRenderer size={120} src={m.sticker} />}
+                                {m.gif && (
+                                    <LazyLoadImage
+                                        src={m.gif}
+                                        className={`${
+                                            (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
+                                            index === 0
+                                                ? `${
+                                                      user?.id === m.author.id ? 'rounded-tr-none ' : 'rounded-tl-none '
+                                                  }`
+                                                : `${user?.id === m.author.id ? 'rounded-r-md ' : 'rounded-l-md  '}`
+                                        } w-52 h-fit rounded-xl object-cover cursor-default`}
+                                    />
+                                )}
 
                                 {m.reacts?.length > 0 && <ReactionStatus message={m} />}
                             </div>

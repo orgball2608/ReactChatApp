@@ -15,7 +15,6 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
-    const MAX_MESSAGE_LENGTH = 25;
 
     const recipientUser = getRecipient(conversation, user!);
     const { profile } = recipientUser;
@@ -56,7 +55,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                     <div className="flex justify-start items-center">
                         <span className="text-md text-white">{lastMessageContent(conversation)}</span>
                         <span className="text-sm text-[#65676b] ml-3 font-semibold">
-                            {moment(conversation?.lastMessageSentAt).fromNow(true)}
+                            {moment(conversation?.lastMessageSentAt).format('H:mm')}
                         </span>
                     </div>
                 </div>

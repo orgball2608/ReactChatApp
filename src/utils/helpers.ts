@@ -88,17 +88,20 @@ export const formatDate = (date: Date) => {
 
 export const lastMessageContent = (conversation: Group | Conversation) => {
     const { lastMessageSent } = conversation;
-    const MAX_MESSAGE_LENGTH = 20;
+    const MAX_MESSAGE_LENGTH = 15;
     if (lastMessageSent) {
+        const name = lastMessageSent?.author.lastName;
         if (
             lastMessageSent.content === '' ||
             (lastMessageSent.attachments && lastMessageSent.attachments?.length > 0)
         ) {
-            return `Just sent ${
+            return `${name}: Just sent ${
                 lastMessageSent.attachments?.length > 1 ? `${lastMessageSent.attachments.length}` : 'a'
             } photo`;
         } else if (lastMessageSent?.gif) {
-            return `Just sent a gif`;
+            return `${name}: Just sent a gif`;
+        } else if (lastMessageSent?.sticker) {
+            return `${name}: Just sent a sticker`;
         }
         return lastMessageSent.content?.length > MAX_MESSAGE_LENGTH
             ? lastMessageSent.content.slice(0, MAX_MESSAGE_LENGTH).concat('...')
