@@ -91,8 +91,8 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                         message.reacts?.length > 0 ? 'mb-2' : ''
                                     } ${
                                         isOneElement
-                                            ? `${isAuthor ? 'rounded-r-2xl' : 'rounded-l-2xl ml-14'}`
-                                            : `${isAuthor ? 'rounded-br-none' : 'rounded-bl-none ml-14'}`
+                                            ? `${isAuthor ? 'rounded-r-2xl bg-primary' : 'rounded-l-2xl ml-14'}`
+                                            : `${isAuthor ? 'rounded-br-none bg-primary' : 'rounded-bl-none ml-14'}`
                                     } `}
                                 >
                                     {message.content}
@@ -109,23 +109,39 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                             </div>
                         )
                     )}
-                    {message.attachments?.length > 0 && (
+                    {(message.attachments?.length > 0 || message.gif) && (
                         <div
                             className={`flex gap-4 items-center w-5/6 ${
                                 isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
                             } ${message.attachments?.length > 0 ? 'mt-1 ' : ''}}`}
                         >
                             <div
-                                className={`p-0 text-base flex justify-start items-center w-fit gap-2 cursor-pointer ${
+                                className={`p-0 text-base group flex justify-start items-center w-fit gap-2 cursor-pointer ${
                                     isAuthor ? 'flex-row-reverse' : ''
                                 }`}
                             >
                                 <div
+                                    title={formatDate(message.createdAt)}
                                     className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
                                         isAuthor ? 'flex-row-reverse' : 'pl-14'
-                                    }`}
+                                    } ${message.reacts?.length > 0 ? 'mb-2' : ''}`}
                                 >
-                                    <AttachmentTopRender attachments={message.attachments} message={message} />
+                                    {
+                                        // if message has attachments
+                                        message.attachments?.length > 0 ? (
+                                            <AttachmentTopRender attachments={message.attachments} message={message} />
+                                        ) : (
+                                            <LazyLoadImage
+                                                src={message.gif}
+                                                className={` ${
+                                                    isOneElement
+                                                        ? `${isAuthor ? 'rounded-r-2xl' : 'rounded-l-2xl'}`
+                                                        : `${isAuthor ? 'rounded-br-none' : 'rounded-bl-none'}`
+                                                } 
+                                                w-52 h-fit rounded-md object- cursor-default`}
+                                            />
+                                        )
+                                    }
                                     {message.reacts?.length > 0 && <ReactionStatus message={message} />}
                                 </div>
                                 <div

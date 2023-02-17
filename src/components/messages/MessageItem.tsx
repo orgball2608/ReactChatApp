@@ -1,4 +1,5 @@
 import { Dispatch, FC, useContext } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { AuthContext } from '../../contex/AuthContext';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { formatDate } from '../../utils/helpers';
@@ -33,7 +34,9 @@ export const MessageItem: FC<Props> = ({
     return (
         <div
             key={m.id}
-            className={`flex flex-col justify-end  ${m.content && m.attachments?.length === 0 ? ' gap-0 ' : 'gap-1 '}`}
+            className={`flex flex-col justify-end  ${
+                m.content && m.attachments?.length === 0 && m.gif ? ' gap-0 ' : 'gap-1 '
+            }`}
         >
             {m.content && (
                 <div
@@ -58,14 +61,14 @@ export const MessageItem: FC<Props> = ({
                         >
                             <div
                                 title={formatDate(m.createdAt)}
-                                className={`relative ${m.reacts?.length > 0 ? 'mb-2' : ''} ${
+                                className={`relative bg-dark-header ${m.reacts?.length > 0 ? 'mb-2' : ''} ${
                                     (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
                                         ? `${
                                               isAuthor
                                                   ? `${
                                                         m.attachments?.length === 0
-                                                            ? 'rounded-tr-none '
-                                                            : 'rounded-r-md '
+                                                            ? 'rounded-tr-none bg-primary'
+                                                            : 'rounded-r-md bg-primary '
                                                     }`
                                                   : `${
                                                         m.attachments?.length === 0
@@ -73,8 +76,8 @@ export const MessageItem: FC<Props> = ({
                                                             : 'rounded-l-md '
                                                     }`
                                           }`
-                                        : `${isAuthor ? 'rounded-r-md ' : 'rounded-l-md '}`
-                                }bg-dark-header py-2 px-5 rounded-2xl`}
+                                        : `${isAuthor ? 'rounded-r-md bg-primary' : 'rounded-l-md '}`
+                                } py-2 px-5 rounded-2xl`}
                             >
                                 {m.content}
                                 {m.reacts?.length > 0 && <ReactionStatus message={m} />}
@@ -91,7 +94,7 @@ export const MessageItem: FC<Props> = ({
             )}
             {
                 // if message has attachments
-                m.attachments?.length > 0 && (
+                (m.attachments?.length > 0 || m.gif) && (
                     <div
                         className={`flex gap-4 items-center w-5/6 group ${
                             isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
@@ -103,17 +106,38 @@ export const MessageItem: FC<Props> = ({
                             }`}
                         >
                             <div
+                                title={formatDate(m.createdAt)}
                                 className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
                                     isAuthor ? 'flex-row-reverse' : 'pl-14'
-                                }`}
+                                } ${m.reacts?.length > 0 ? 'mb-2' : ''}`}
                             >
-                                <AttachmentListRender
-                                    attachments={m.attachments}
-                                    currentMessage={currentMessage}
-                                    prevMessage={prevMessage}
-                                    index={index}
-                                    message={m}
-                                />
+                                {
+                                    // if message has attachments
+                                    m.attachments?.length > 0 ? (
+                                        <AttachmentListRender
+                                            attachments={m.attachments}
+                                            currentMessage={currentMessage}
+                                            prevMessage={prevMessage}
+                                            index={index}
+                                            message={m}
+                                        />
+                                    ) : (
+                                        <LazyLoadImage
+                                            src={m.gif}
+                                            className={`${
+                                                (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
+                                                index === 0
+                                                    ? `${
+                                                          user?.id === m.author.id
+                                                              ? 'rounded-tr-none '
+                                                              : 'rounded-tl-none '
+                                                      }`
+                                                    : `${user?.id === m.author.id ? 'rounded-r-md ' : 'rounded-l-md  '}`
+                                            } w-52 h-fit rounded-xl object-cover cursor-default`}
+                                        />
+                                    )
+                                }
+
                                 {m.reacts?.length > 0 && <ReactionStatus message={m} />}
                             </div>
                             <div

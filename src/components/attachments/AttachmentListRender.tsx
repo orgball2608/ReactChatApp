@@ -33,7 +33,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                         (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
                             ? `${user?.id === message.author.id ? 'rounded-tr-none ' : 'rounded-tl-none '}`
                             : `${user?.id === message.author.id ? 'rounded-r-md ' : 'rounded-l-md  '}`
-                    } w-52 h-fit rounded-xl object-cover`}
+                    } w-52 h-fit rounded-xl object-cover transition duration-300 hover:brightness-[85%]`}
                 />
             );
         if (attachments.length === 2)
@@ -52,7 +52,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                className="w-40 h-40 rounded-lg object-cover "
+                                className="w-40 h-40 rounded-lg object-cover transition duration-300 hover:brightness-[85%] "
                             />
                         );
                     })}
@@ -75,7 +75,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                className="w-32 h-32 rounded-xl object-cover "
+                                className="w-32 h-32 rounded-xl object-cover transition duration-300 hover:brightness-[85%] "
                             />
                         );
                     })}
@@ -106,7 +106,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                className="w-40 h-40 rounded-lg object-cover "
+                                className="w-40 h-40 rounded-lg object-cover transition duration-300 hover:brightness-[85%] "
                             />
                         );
                     })}
@@ -137,7 +137,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    className="w-48 h-48 rounded-lg "
+                                    className="w-48 h-48 rounded-lg transition duration-300 hover:brightness-[85%] "
                                 />
                             );
                         })}
@@ -164,7 +164,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    className="w-32 h-32 rounded-lg "
+                                    className="w-32 h-32 rounded-lg transition duration-300 hover:brightness-[85%] "
                                 />
                             );
                         })}

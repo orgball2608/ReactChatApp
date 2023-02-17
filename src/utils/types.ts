@@ -47,6 +47,7 @@ export type MessageType = {
     conversation: Conversation;
     attachments: AttachmentType[];
     reacts: ReactionMessageType[];
+    gif: string;
 };
 
 export type MessageEventPayload = {
@@ -124,6 +125,7 @@ export type GroupMessageType = {
     group: Group;
     attachments: AttachmentType[];
     reacts: ReactionMessageType[];
+    gif: string;
 };
 
 export type GroupMessage = {
@@ -232,4 +234,9 @@ export type DeleteReactionMessageParams = {
     messageId: number;
     reactionId: number;
     id: number;
+};
+
+export type CreateGifMessageParams = {
+    id: number;
+    gif: string;
 };

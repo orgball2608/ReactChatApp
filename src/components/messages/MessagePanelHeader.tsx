@@ -82,7 +82,7 @@ export const MessagePanelHeader = () => {
                 onClick={handleChangeSideState}
                 className={`w-fit h-fit p-2 hover:bg-[#2d3133] rounded-full cursor-pointer`}
             >
-                <div className={`rounded-full p-[1px] ${showSidebar ? 'bg-white' : ''}`}>
+                <div className={`rounded-full p-[1px] ${showSidebar ? 'bg-primary' : ''}`}>
                     <FiMoreHorizontal size={16} className={` ${showSidebar ? 'text-black' : 'text-white'}`} />
                 </div>
             </div>

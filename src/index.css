@@ -26,6 +26,11 @@ h1 {
     margin: 0;
 }
 
+.tippy-box[data-theme~='giphy'] .tippy-content {
+    padding: 0;
+    border-radius: 8px;
+}
+
 .tippy-box[data-theme~='message_option'] {
     background-color: #3a3b3c;
     border-radius: 0.75rem;

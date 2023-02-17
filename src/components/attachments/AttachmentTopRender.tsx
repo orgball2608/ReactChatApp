@@ -27,7 +27,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                     onClick={() => handleShowAttachments(0)}
                     src={CDN_PREVIEW_URL + attachments[0].key}
                     alt="attachment"
-                    className={`w-52 h-fit rounded-xl object-cover`}
+                    className={`w-52 h-fit rounded-xl object-cover transition duration-300 hover:brightness-[85%]`}
                 />
             );
         if (attachments.length === 2)
@@ -40,7 +40,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                className="w-40 h-40 rounded-lg object-cover "
+                                className="w-40 h-40 rounded-lg object-cover transition duration-300 hover:brightness-[85%] "
                             />
                         );
                     })}
@@ -57,7 +57,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                className="w-32 h-32 rounded-xl object-cover "
+                                className="w-32 h-32 rounded-xl object-cover transition duration-300 hover:brightness-[85%] "
                             />
                         );
                     })}
@@ -74,7 +74,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                 onClick={() => handleShowAttachments(index)}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                className="w-40 h-40 rounded-lg object-cover "
+                                className="w-40 h-40 rounded-lg object-cover transition duration-300 hover:brightness-[85%] "
                             />
                         );
                     })}
@@ -91,7 +91,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    className="w-48 h-48 rounded-lg "
+                                    className="w-48 h-48 rounded-lg transition duration-300 hover:brightness-[85%] "
                                 />
                             );
                         })}
@@ -104,7 +104,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    className="w-32 h-32 rounded-lg "
+                                    className="w-32 h-32 rounded-lg transition duration-300 hover:brightness-[85%]"
                                 />
                             );
                         })}

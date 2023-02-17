@@ -1,5 +1,5 @@
 import { ArrowCycle, ChatDots, Crown, Gear, Person, PersonCross, Ribbon } from 'akar-icons';
-import { Conversation, FriendType, SelectedPageType, User, UserContextMenuItemType } from './types';
+import { Conversation, FriendType, Group, SelectedPageType, User, UserContextMenuItemType } from './types';
 import moment from 'moment';
 
 export const getRecipientFromConversation = (conversation?: Conversation, user?: User) => {
@@ -84,4 +84,25 @@ export const formatDate = (date: Date) => {
         return moment(date).format('dddd H:mm A');
     }
     return moment(date).format('DD/MM/YYYY H:mm A');
+};
+
+export const lastMessageContent = (conversation: Group | Conversation) => {
+    const { lastMessageSent } = conversation;
+    const MAX_MESSAGE_LENGTH = 20;
+    if (lastMessageSent) {
+        if (
+            lastMessageSent.content === '' ||
+            (lastMessageSent.attachments && lastMessageSent.attachments?.length > 0)
+        ) {
+            return `Just sent ${
+                lastMessageSent.attachments?.length > 1 ? `${lastMessageSent.attachments.length}` : 'a'
+            } photo`;
+        } else if (lastMessageSent?.gif) {
+            return `Just sent a gif`;
+        }
+        return lastMessageSent.content?.length > MAX_MESSAGE_LENGTH
+            ? lastMessageSent.content.slice(0, MAX_MESSAGE_LENGTH).concat('...')
+            : lastMessageSent.content;
+    }
+    return null;
 };

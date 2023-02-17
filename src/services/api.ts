@@ -4,6 +4,7 @@ import {
     ChangeGroupOwnerParams,
     Conversation,
     CreateConversationParams,
+    CreateGifMessageParams,
     CreateGroupMessageParams,
     CreateGroupParams,
     CreateMessageParams,
@@ -126,3 +127,19 @@ export const deleteReactionMessageAPI = ({ id, messageId, reactionId }: DeleteRe
 
 export const deleteReactionGroupMessageAPI = ({ id, messageId, reactionId }: DeleteReactionMessageParams) =>
     axiosClient.delete(`groups/${id}/messages/${messageId}/reacts/${reactionId}/remove`, config);
+
+export const getTrendingGiphy = () =>
+    axiosClient.get(
+        `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&limit=30&rating=g`,
+    );
+
+export const searchGiphy = (query: string) =>
+    axiosClient.get(
+        `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${query}&limit=15`,
+    );
+
+export const CreateGifMessageAPI = ({ id, gif }: CreateGifMessageParams) =>
+    axiosClient.post(`/conversations/${id}/messages/gif`, { gif }, config);
+
+export const CreateGroupGifMessageAPI = ({ id, gif }: CreateGifMessageParams) =>
+    axiosClient.post(`/groups/${id}/messages/gif`, { gif }, config);

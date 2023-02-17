@@ -5,14 +5,20 @@ import { selectType } from '../../store/typeSlice';
 import { User } from '../../utils/types';
 import { useParams } from 'react-router-dom';
 import { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
-import { FaceHappy, Image } from 'akar-icons';
+import { Image } from 'akar-icons';
 import { AiOutlineSend } from 'react-icons/ai';
+import { HiFaceSmile } from 'react-icons/hi2';
 import { SpinLoading } from '../commons/SpinLoading';
 import { postGroupMessage, postNewMessage } from '../../services/api';
 import { SocketContext } from '../../contex/SocketContext';
 import { AuthContext } from '../../contex/AuthContext';
 import { ImageList } from '../inputs/ImageList';
 import { EMOJI_REPLACEMENT } from '../../utils/constants';
+import GifIcon from '../icons/GifIcon';
+import StickerIcon from '../icons/StickerIcon';
+import { GrAttachment } from 'react-icons/gr';
+import { GifPicker } from '../inputs/GifPicker';
+import Tippy from '@tippyjs/react';
 const EmojiPicker = lazy(() => import('emoji-picker-react'));
 
 type Props = {
@@ -31,6 +37,7 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
     const [isSending, setIsSending] = useState(false);
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>();
     const [isTyping, setIsTyping] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     const socket = useContext(SocketContext);
     const { user } = useContext(AuthContext);
@@ -188,19 +195,47 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
     };
 
     return (
-        <div className="flex justify-center items-center mt-2 gap-2 px-4">
+        <div className="flex justify-center items-center mt-2 gap-1 px-4">
             {fileList.length === 0 && (
-                <label htmlFor="formId" className="flex justify-center items-center">
-                    <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer">
-                        <Image size={22} />
-                    </div>
-                    <input onChange={handleGetFile} name="file" type="file" id="formId" className="hidden" multiple />
-                </label>
+                <>
+                    <label htmlFor="formId" className="flex justify-center items-center">
+                        <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer text-primary">
+                            <Image size={20} />
+                        </div>
+                        <input
+                            onChange={handleGetFile}
+                            name="file"
+                            type="file"
+                            id="formId"
+                            className="hidden"
+                            multiple
+                        />
+                    </label>
+                    {content.length === 0 && (
+                        <div className="flex gap-1 justify-center items-center cursor-pointer relative">
+                            <GrAttachment size={20} className="text-primary hover:bg-[#1c1e21] rounded-full" />
+                            <StickerIcon className=" hover:bg-[#1c1e21] rounded-full" />
+                            <Tippy
+                                visible={visible}
+                                onClickOutside={() => setVisible(false)}
+                                content={visible && <GifPicker setVisible={setVisible} visible={visible} />}
+                                placement="top"
+                                interactive={true}
+                                animation="fade"
+                                theme="giphy"
+                            >
+                                <div onClick={() => setVisible((prev) => !prev)}>
+                                    <GifIcon className=" hover:bg-[#1c1e21] rounded-full" />
+                                </div>
+                            </Tippy>
+                        </div>
+                    )}
+                </>
             )}
 
             <div
                 onKeyDown={handleSubmit}
-                className={`w-full box-border bg-message-form pl-3 pr-2 relative flex flex-col items-center gap-1 font-poppins ${
+                className={`w-full box-border bg-message-form pl-3 relative flex flex-col items-center gap-1 font-poppins ${
                     fileList.length > 0 ? 'rounded-xl ' : 'rounded-full '
                 }`}
             >
@@ -209,11 +244,11 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
                         <ImageList fileList={fileList} setFileList={setFileList} handleGetFile={handleGetFile} />
                     )}
                 </div>
-                <div className="relative flex items-center w-full">
+                <div className="relative flex items-center justify-between w-full">
                     <form onSubmit={sendMessage} className="w-full">
                         <input
                             type="text"
-                            className={`bg-inherit outline-0 border-0 text-[#454545] py-2  font-Inter box-border text-lg  w-full p-0 break-words`}
+                            className={`bg-inherit outline-0 border-0 text-[#454545] py-1  font-Inter box-border text-lg  w-full p-0 break-words`}
                             ref={inputRef}
                             placeholder={`Send message to ${
                                 conversationType === 'group'
@@ -228,8 +263,11 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
                             onPaste={onPaste}
                         />
                     </form>
-                    <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer">
-                        <FaceHappy onClick={() => handleEmojiAction()} />
+                    <div
+                        onClick={() => handleEmojiAction()}
+                        className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer "
+                    >
+                        <HiFaceSmile size={20} className=" text-primary rounded-full" />
                     </div>
 
                     {showEmojiPicker && (
@@ -260,7 +298,7 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
             ) : (
                 (content.length > 0 || fileList.length > 0) && (
                     <div className="flex justify-center items-center cursor-pointer">
-                        <AiOutlineSend size={26} />
+                        <AiOutlineSend size={26} className="text-primary" />
                     </div>
                 )
             )}

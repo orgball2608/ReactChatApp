@@ -9,7 +9,7 @@ type Props = {
 const ReactionStatus: FC<Props> = ({ message }) => {
     const { reacts } = message;
     const getIcon = (key: string) => {
-        return REACTIONS_UI[key].icon;
+        return REACTIONS_UI[key]?.icon;
     };
     return (
         <div
