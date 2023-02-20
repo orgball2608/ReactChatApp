@@ -47,7 +47,7 @@ const messagesSlice = createSlice({
             const conversationMessages = state.messages.find((cm) => cm.id === payload.conversationId);
             if (!conversationMessages) return;
             const messageIndex = conversationMessages.messages.findIndex((m) => m.id === payload.messageId);
-            conversationMessages.messages.splice(messageIndex, 1);
+            conversationMessages.messages[messageIndex].deletedAt = new Date();
         },
         editMessage: (state, action) => {
             console.log('Inside Update Message reducer');
@@ -83,7 +83,7 @@ const messagesSlice = createSlice({
                 const conversationMessages = state.messages.find((cm) => cm.id === conversationId);
                 if (!conversationMessages) return;
                 const messageIndex = conversationMessages.messages.findIndex((m) => m.id === messageId);
-                conversationMessages.messages.splice(messageIndex, 1);
+                conversationMessages.messages[messageIndex].deletedAt = new Date();
             })
             .addCase(editMessageThunk.fulfilled, (state, action) => {
                 const {

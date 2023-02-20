@@ -44,7 +44,7 @@ export const groupMessagesSlice = createSlice({
             const groupMessages = state.messages.find((cm) => cm.id === groupId);
             if (!groupMessages) return;
             const messageIndex = groupMessages.messages.findIndex((m) => m.id === messageId);
-            groupMessages.messages.splice(messageIndex, 1);
+            groupMessages.messages[messageIndex].deletedAt = new Date();
         },
         editGroupMessage: (state, action: PayloadAction<GroupMessageType>) => {
             console.log('Inside Update Group Message reducer');
@@ -74,8 +74,8 @@ export const groupMessagesSlice = createSlice({
                 const { groupId, messageId } = action.payload.data;
                 const groupMessages = state.messages.find((gm) => gm.id === groupId);
                 if (!groupMessages) return;
-                const index = groupMessages.messages.findIndex((message) => message.id === messageId);
-                groupMessages.messages.splice(index, 1);
+                const messageIndex = groupMessages.messages.findIndex((message) => message.id === messageId);
+                groupMessages.messages[messageIndex].deletedAt = new Date();
             })
             .addCase(editGroupMessageThunk.fulfilled, (state, action) => {
                 const {

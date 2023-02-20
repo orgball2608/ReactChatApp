@@ -50,6 +50,7 @@ export type MessageType = {
     gif: string;
     sticker: string;
     reply: MessageType;
+    deletedAt: Date;
 };
 
 export type MessageEventPayload = {
@@ -130,6 +131,7 @@ export type GroupMessageType = {
     gif: string;
     sticker: string;
     reply: GroupMessageType;
+    deletedAt: Date;
 };
 
 export type GroupMessage = {

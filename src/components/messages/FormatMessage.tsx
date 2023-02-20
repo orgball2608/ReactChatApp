@@ -13,6 +13,7 @@ import { getDisplayName } from '../../utils/helpers';
 import SpriteRenderer from '../inputs/SpriteRenderer';
 import { MessageReplyIcon } from './MessageReplyIcon';
 import { MessageReplyBadge } from './MessageReplyBadge';
+import { DeletedMessage } from './DeletedMessage';
 
 type FormattedMessageProps = {
     user?: User;
@@ -72,17 +73,41 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                     </div>
                 )}
 
-                <div key={message.id} className={`flex flex-col justify-end`}>
-                    {isEditing && message.id === editMessage?.id ? (
-                        <div className="text-base flex justify-start items-center">
-                            <EditMessageContainer
-                                onEditMessageChange={onEditMessageChange}
-                                editMessage={editMessage}
-                                setIsEditing={setIsEditing}
-                            />
+                {message.deletedAt ? (
+                    <div key={message.id} className="flex flex-col justify-end">
+                        <div
+                            className={`flex gap-4 items-center w-5/6 group ${
+                                isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
+                            }`}
+                        >
+                            <div
+                                className={`p-0 text-base flex justify-start items-center w-fit gap-2 cursor-pointer ${
+                                    isAuthor ? 'flex-row-reverse' : ' ml-14 '
+                                }`}
+                            >
+                                <div
+                                    id={'message-' + message.id}
+                                    title={formatDate(message.createdAt)}
+                                    className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
+                                        isAuthor ? 'flex-row-reverse' : 'pl-14'
+                                    } ${message.reacts?.length > 0 ? 'mb-2' : ''}`}
+                                >
+                                    <DeletedMessage />
+                                </div>
+                            </div>
                         </div>
-                    ) : (
-                        message.content && (
+                    </div>
+                ) : message.content ? (
+                    <div key={message.id} className={`flex flex-col justify-end`}>
+                        {isEditing && message.id === editMessage?.id ? (
+                            <div className="text-base flex justify-start items-center">
+                                <EditMessageContainer
+                                    onEditMessageChange={onEditMessageChange}
+                                    editMessage={editMessage}
+                                    setIsEditing={setIsEditing}
+                                />
+                            </div>
+                        ) : (
                             <div
                                 className={`text-base flex flex-col w-full group  ${
                                     isAuthor ? 'flex-row-reverse' : ''
@@ -127,61 +152,67 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                     </div>
                                 </div>
                             </div>
-                        )
-                    )}
-                    {(message.attachments?.length > 0 || message.gif || message.sticker) && (
-                        <div
-                            className={`flex gap-4 items-center w-5/6 ${
-                                isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
-                            } ${message.attachments?.length > 0 ? 'mt-1 ' : ''}}`}
-                        >
+                        )}
+                    </div>
+                ) : (
+                    (message.attachments?.length > 0 || message.gif || message.sticker) && (
+                        <div key={message.id} className="flex flex-col justify-end">
                             <div
-                                className={`p-0 text-base group flex justify-start items-center w-fit gap-2 cursor-pointer ${
-                                    isAuthor ? 'flex-row-reverse' : ''
-                                }`}
+                                className={`flex gap-4 items-center w-5/6 ${
+                                    isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
+                                } ${message.attachments?.length > 0 ? 'mt-1 ' : ''}}`}
                             >
                                 <div
-                                    id={'message-' + message.id}
-                                    title={formatDate(message.createdAt)}
-                                    className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
-                                        isAuthor ? 'flex-row-reverse' : 'pl-14'
-                                    } ${message.reacts?.length > 0 ? 'mb-2' : ''}`}
-                                >
-                                    {
-                                        // if message has attachments
-                                        message.attachments?.length > 0 && (
-                                            <AttachmentTopRender attachments={message.attachments} message={message} />
-                                        )
-                                    }
-
-                                    {message.sticker && <SpriteRenderer size={120} src={message.sticker} />}
-                                    {message.gif && (
-                                        <LazyLoadImage
-                                            src={message.gif}
-                                            className={` ${
-                                                isOneElement
-                                                    ? `${isAuthor ? 'rounded-r-2xl' : 'rounded-l-2xl'}`
-                                                    : `${isAuthor ? 'rounded-br-none' : 'rounded-bl-none'}`
-                                            } 
-                                                w-52 h-fit rounded-md object- cursor-default`}
-                                        />
-                                    )}
-
-                                    {message.reacts?.length > 0 && <ReactionStatus message={message} />}
-                                </div>
-                                <div
-                                    className={`invisible group-hover:visible flex  ${
+                                    className={`p-0 text-base group flex justify-start items-center w-fit gap-2 cursor-pointer ${
                                         isAuthor ? 'flex-row-reverse' : ''
                                     }`}
                                 >
-                                    <MessageReaction message={message} />
-                                    <MessageReplyIcon setReplyInfo={setReplyInfo} message={message} />
-                                    <MessageOption message={message} setIsEditing={setIsEditing} />
+                                    <div
+                                        id={'message-' + message.id}
+                                        title={formatDate(message.createdAt)}
+                                        className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
+                                            isAuthor ? 'flex-row-reverse' : 'pl-14'
+                                        } ${message.reacts?.length > 0 ? 'mb-2' : ''}`}
+                                    >
+                                        {
+                                            // if message has attachments
+                                            message.attachments?.length > 0 && (
+                                                <AttachmentTopRender
+                                                    attachments={message.attachments}
+                                                    message={message}
+                                                />
+                                            )
+                                        }
+
+                                        {message.sticker && <SpriteRenderer size={120} src={message.sticker} />}
+                                        {message.gif && (
+                                            <LazyLoadImage
+                                                src={message.gif}
+                                                className={` ${
+                                                    isOneElement
+                                                        ? `${isAuthor ? 'rounded-r-2xl' : 'rounded-l-2xl'}`
+                                                        : `${isAuthor ? 'rounded-br-none' : 'rounded-bl-none'}`
+                                                } 
+                                                    w-52 h-fit rounded-md object- cursor-default`}
+                                            />
+                                        )}
+
+                                        {message.reacts?.length > 0 && <ReactionStatus message={message} />}
+                                    </div>
+                                    <div
+                                        className={`invisible group-hover:visible flex  ${
+                                            isAuthor ? 'flex-row-reverse' : ''
+                                        }`}
+                                    >
+                                        <MessageReaction message={message} />
+                                        <MessageReplyIcon setReplyInfo={setReplyInfo} message={message} />
+                                        <MessageOption message={message} setIsEditing={setIsEditing} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    )}
-                </div>
+                    )
+                )}
             </div>
         </div>
     );

@@ -8,6 +8,7 @@ import { AttachmentListRender } from '../attachments/AttachmentListRender';
 import SpriteRenderer from '../inputs/SpriteRenderer';
 import { MessageReaction } from '../reactions/MessageReaction';
 import ReactionStatus from '../reactions/ReactionStatus';
+import { DeletedMessage } from './DeletedMessage';
 import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
 import { MessageReplyBadge } from './MessageReplyBadge';
@@ -44,7 +45,29 @@ export const MessageItem: FC<Props> = ({
                 m.content && m.attachments?.length === 0 && m.gif ? ' gap-0 ' : 'gap-1 '
             }`}
         >
-            {m.content && (
+            {m.deletedAt ? (
+                <div
+                    className={`flex gap-4 items-center w-5/6 group ${
+                        isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
+                    }`}
+                >
+                    <div
+                        className={`p-0 text-base flex justify-start items-center w-fit gap-2 cursor-pointer ${
+                            isAuthor ? 'flex-row-reverse' : ''
+                        }`}
+                    >
+                        <div
+                            id={'message-' + m.id}
+                            title={formatDate(m.createdAt)}
+                            className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
+                                isAuthor ? 'flex-row-reverse' : 'pl-14'
+                            } ${m.reacts?.length > 0 ? 'mb-2' : ''}`}
+                        >
+                            <DeletedMessage />
+                        </div>
+                    </div>
+                </div>
+            ) : m.content ? (
                 <div
                     className={`flex gap-4 items-center break-all w-5/6 group ${
                         isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
@@ -118,8 +141,7 @@ export const MessageItem: FC<Props> = ({
                         </div>
                     )}
                 </div>
-            )}
-            {
+            ) : (
                 // if message has attachments
                 (m.attachments?.length > 0 || m.gif || m.sticker) && (
                     <div
@@ -180,7 +202,7 @@ export const MessageItem: FC<Props> = ({
                         </div>
                     </div>
                 )
-            }
+            )}
         </div>
     );
 };

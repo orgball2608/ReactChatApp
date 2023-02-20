@@ -23,7 +23,9 @@ export const MessageReplyBadge: FC<MessageReplyBadgeProps> = ({ message }) => {
             }}
             className="bg-[#4E4F50] opacity-60 rounded-xl px-5 py-2 cursor-pointer"
         >
-            {message.content ? (
+            {message.deletedAt ? (
+                <p>Message has been removed</p>
+            ) : message.content ? (
                 <p>{message.content}</p>
             ) : message.attachments && message.attachments.length > 0 ? (
                 <p>Attachment</p>
