@@ -2,14 +2,19 @@ import React, { FC, lazy, Suspense, useContext, useEffect, useRef, useState } fr
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { selectType } from '../../store/typeSlice';
-import { User } from '../../utils/types';
+import { Group, GroupMessageType, MessageType, User } from '../../utils/types';
 import { useParams } from 'react-router-dom';
 import { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
-import { Image } from 'akar-icons';
+import { Cross, Image } from 'akar-icons';
 import { AiOutlineSend } from 'react-icons/ai';
 import { HiFaceSmile } from 'react-icons/hi2';
 import { SpinLoading } from '../commons/SpinLoading';
-import { postGroupMessage, postNewMessage } from '../../services/api';
+import {
+    CreateReplyGroupMessageAPI,
+    CreateReplyMessageAPI,
+    postGroupMessage,
+    postNewMessage,
+} from '../../services/api';
 import { SocketContext } from '../../contex/SocketContext';
 import { AuthContext } from '../../contex/AuthContext';
 import { ImageList } from '../inputs/ImageList';
@@ -22,20 +27,21 @@ const EmojiPicker = lazy(() => import('emoji-picker-react'));
 type Props = {
     recipient: User | undefined;
     setIsRecipientTyping: React.Dispatch<React.SetStateAction<boolean>>;
+    replyInfo: MessageType | GroupMessageType | undefined;
+    setReplyInfo: React.Dispatch<React.SetStateAction<MessageType | GroupMessageType | undefined>>;
 };
-export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }) => {
+export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, replyInfo, setReplyInfo }) => {
     const conversationType = useSelector((state: RootState) => selectType(state));
     const [content, setContent] = useState('');
     const { id } = useParams();
     const group = useSelector((state: RootState) => state.group.groups);
-    const selectedGroup = group.find((group) => group.id === parseInt(id!));
+    const selectedGroup = group.find((group: Group) => group.id === parseInt(id!));
     const inputRef = useRef<HTMLInputElement>(null);
     const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
     const [fileList, setFileList] = useState<File[]>([]);
     const [isSending, setIsSending] = useState(false);
     const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>();
     const [isTyping, setIsTyping] = useState(false);
-    const [visible, setVisible] = useState(false);
 
     const socket = useContext(SocketContext);
     const { user } = useContext(AuthContext);
@@ -155,6 +161,38 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
             return;
         }
 
+        if (!content) return;
+
+        if (replyInfo) {
+            if (conversationType === 'private') {
+                CreateReplyMessageAPI({
+                    id: parseInt(id),
+                    content,
+                    messageId: replyInfo.id,
+                })
+                    .then(() => {
+                        setReplyInfo(undefined);
+                        setIsSending(false);
+                        setContent('');
+                    })
+                    .catch(() => console.log('error'));
+            } else {
+                CreateReplyGroupMessageAPI({
+                    id: parseInt(id),
+                    content,
+                    messageId: replyInfo.id,
+                })
+                    .then(() => {
+                        setReplyInfo(undefined);
+                        setIsSending(false);
+                        setContent('');
+                    })
+                    .catch(() => console.log('error'));
+            }
+
+            return;
+        }
+
         data.append('content', content);
         const Id = parseInt(id);
         const params = { id: Id, data };
@@ -193,101 +231,137 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping }
     };
 
     return (
-        <div className="flex justify-center items-center mt-2 gap-1 px-4">
-            {fileList.length === 0 && (
-                <>
-                    <label htmlFor="formId" className="flex justify-center items-center">
-                        <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer text-primary">
-                            <Image size={20} />
-                        </div>
-                        <input
-                            onChange={handleGetFile}
-                            name="file"
-                            type="file"
-                            id="formId"
-                            className="hidden"
-                            multiple
-                        />
-                    </label>
-                    {content.length === 0 && (
-                        <div className="flex gap-1 justify-center items-center cursor-pointer relative">
-                            <GrAttachment size={20} className="text-primary hover:bg-[#1c1e21] rounded-full" />
-                            <StickerInput />
-                            <GifInput />
-                        </div>
-                    )}
-                </>
-            )}
-
-            <div
-                onKeyDown={handleSubmit}
-                className={`w-full box-border bg-message-form pl-3 relative flex flex-col items-center gap-1 font-poppins ${
-                    fileList.length > 0 ? 'rounded-xl ' : 'rounded-full '
-                }`}
-            >
-                <div className={`mt-2 w-full flex gap-2 ${fileList.length === 0 ? 'hidden ' : ''}`}>
-                    {fileList && fileList.length > 0 && (
-                        <ImageList fileList={fileList} setFileList={setFileList} handleGetFile={handleGetFile} />
-                    )}
-                </div>
-                <div className="relative flex items-center justify-between w-full">
-                    <form onSubmit={sendMessage} className="w-full">
-                        <input
-                            type="text"
-                            className={`bg-inherit outline-0 border-0 text-[#454545] py-1  font-Inter box-border text-lg  w-full p-0 break-words`}
-                            ref={inputRef}
-                            placeholder={`Send message to ${
-                                conversationType === 'group'
-                                    ? selectedGroup?.title || 'Group'
-                                    : recipient?.firstName || 'User'
-                            }`}
-                            onKeyDown={(e) => {
-                                handleReplaceEmoji(e);
-                                sendTypingStatus();
-                            }}
-                            onDrop={onDropFile}
-                            onPaste={onPaste}
-                        />
-                    </form>
-                    <div
-                        onClick={() => handleEmojiAction()}
-                        className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer "
+        <div className="w-full h-full">
+            {replyInfo && (
+                <div className=" relative h-12 border-t border-[#2f3237] px-6 flex justify-between items-center py-auto">
+                    <div className="flex flex-col justify-center items-start">
+                        <p>
+                            Replying to
+                            {replyInfo?.author.id === user?.id ? (
+                                ' yourself'
+                            ) : (
+                                <span className="font-semibold">{` ${replyInfo?.author.lastName}`}</span>
+                            )}
+                        </p>
+                        {replyInfo?.content ? (
+                            <p className="overflow-hidden whitespace-nowrap text-ellipsis max-w-[calc(100vw-65px)] md:max-w-[calc(100vw-420px)]">
+                                {replyInfo?.content}
+                            </p>
+                        ) : replyInfo?.attachments?.length > 0 ? (
+                            <p>
+                                {replyInfo?.attachments?.length} {replyInfo?.attachments?.length > 1 ? 'files' : 'file'}
+                            </p>
+                        ) : replyInfo?.gif ? (
+                            <p>GIF</p>
+                        ) : replyInfo?.sticker ? (
+                            <p>Sticker</p>
+                        ) : null}
+                    </div>
+                    <button
+                        className="p-2 rounded-full hover:bg-[#1c1e21] absolute right-2 top-0"
+                        onClick={() => setReplyInfo && setReplyInfo(undefined)}
                     >
-                        <HiFaceSmile size={20} className=" text-primary rounded-full" />
-                    </div>
-
-                    {showEmojiPicker && (
-                        <div className="absolute right-0 bottom-16">
-                            <Suspense
-                                fallback={
-                                    <div className="w-[348px] h-[357px] flex justify-center items-center">
-                                        <SpinLoading />
-                                    </div>
-                                }
-                            >
-                                <EmojiPicker
-                                    theme={Theme.DARK}
-                                    emojiStyle={EmojiStyle.FACEBOOK}
-                                    previewConfig={{ showPreview: false }}
-                                    lazyLoadEmojis={true}
-                                    onEmojiClick={(e) => onEmojiClick(e)}
-                                    height={400}
-                                    width="360px"
-                                />
-                            </Suspense>
-                        </div>
-                    )}
+                        <Cross size={14} />
+                    </button>
                 </div>
-            </div>
-            {isSending ? (
-                <SpinLoading />
-            ) : (
-                (content.length > 0 || fileList.length > 0) && (
-                    <div className="flex justify-center items-center cursor-pointer">
-                        <AiOutlineSend size={26} className="text-primary" />
-                    </div>
-                )
             )}
+
+            <div className="flex justify-center items-center mt-2 gap-1 px-4">
+                {fileList.length === 0 && (
+                    <>
+                        <label htmlFor="formId" className="flex justify-center items-center">
+                            <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer text-primary">
+                                <Image size={20} />
+                            </div>
+                            <input
+                                onChange={handleGetFile}
+                                name="file"
+                                type="file"
+                                id="formId"
+                                className="hidden"
+                                multiple
+                            />
+                        </label>
+                        {content.length === 0 && (
+                            <div className="flex gap-1 justify-center items-center cursor-pointer relative">
+                                <GrAttachment size={20} className="text-primary hover:bg-[#1c1e21] rounded-full" />
+                                <StickerInput />
+                                <GifInput />
+                            </div>
+                        )}
+                    </>
+                )}
+
+                <div
+                    onKeyDown={handleSubmit}
+                    className={`w-full box-border bg-message-form pl-3 relative flex flex-col items-center gap-1 font-poppins ${
+                        fileList.length > 0 ? 'rounded-xl ' : 'rounded-full '
+                    }`}
+                >
+                    <div className={`mt-2 w-full flex gap-2 ${fileList.length === 0 ? 'hidden ' : ''}`}>
+                        {fileList && fileList.length > 0 && (
+                            <ImageList fileList={fileList} setFileList={setFileList} handleGetFile={handleGetFile} />
+                        )}
+                    </div>
+                    <div className="relative flex items-center justify-between w-full">
+                        <form onSubmit={sendMessage} className="w-full">
+                            <input
+                                type="text"
+                                className={`bg-inherit outline-0 border-0 text-[#454545] py-1  font-Inter box-border text-lg  w-full p-0 break-words`}
+                                ref={inputRef}
+                                placeholder={`Send message to ${
+                                    conversationType === 'group'
+                                        ? selectedGroup?.title || 'Group'
+                                        : recipient?.firstName || 'User'
+                                }`}
+                                onKeyDown={(e) => {
+                                    handleReplaceEmoji(e);
+                                    sendTypingStatus();
+                                }}
+                                onDrop={onDropFile}
+                                onPaste={onPaste}
+                            />
+                        </form>
+                        <div
+                            onClick={() => handleEmojiAction()}
+                            className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer "
+                        >
+                            <HiFaceSmile size={20} className=" text-primary rounded-full" />
+                        </div>
+
+                        {showEmojiPicker && (
+                            <div className="absolute right-0 bottom-16">
+                                <Suspense
+                                    fallback={
+                                        <div className="w-[348px] h-[357px] flex justify-center items-center">
+                                            <SpinLoading />
+                                        </div>
+                                    }
+                                >
+                                    <EmojiPicker
+                                        theme={Theme.DARK}
+                                        emojiStyle={EmojiStyle.FACEBOOK}
+                                        previewConfig={{ showPreview: false }}
+                                        lazyLoadEmojis={true}
+                                        onEmojiClick={(e) => onEmojiClick(e)}
+                                        height={400}
+                                        width="360px"
+                                    />
+                                </Suspense>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                {isSending ? (
+                    <SpinLoading />
+                ) : (
+                    (content.length > 0 || fileList.length > 0) && (
+                        <div className="flex justify-center items-center cursor-pointer">
+                            <AiOutlineSend size={26} className="text-primary" />
+                        </div>
+                    )
+                )}
+            </div>
         </div>
     );
 };

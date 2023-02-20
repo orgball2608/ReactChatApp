@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FormattedMessage } from './FormatMessage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,11 @@ import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { changeType } from '../../store/typeSlice';
 import { MessageItem } from './MessageItem';
 
-export const MessageContainer = () => {
+type Props = {
+    setReplyInfo: React.Dispatch<React.SetStateAction<MessageType | GroupMessageType | undefined>>;
+};
+
+export const MessageContainer: FC<Props> = ({ setReplyInfo }) => {
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const { pathname } = useLocation();
@@ -68,6 +72,7 @@ export const MessageContainer = () => {
                         setIsEditing={setIsEditing}
                         onEditMessageChange={onEditMessageChange}
                         isOneElement={currentMessage.author.id !== prevMessage?.author.id}
+                        setReplyInfo={setReplyInfo}
                     />
                 );
             }
@@ -82,6 +87,7 @@ export const MessageContainer = () => {
                         currentMessage={currentMessage}
                         prevMessage={prevMessage}
                         index={index}
+                        setReplyInfo={setReplyInfo}
                     />
                 );
             }
@@ -94,6 +100,7 @@ export const MessageContainer = () => {
                     isEditing={isEditing}
                     onEditMessageChange={onEditMessageChange}
                     setIsEditing={setIsEditing}
+                    setReplyInfo={setReplyInfo}
                 />
             );
         });
@@ -107,7 +114,7 @@ export const MessageContainer = () => {
             }}
         >
             <div
-                className="h-full box-border py-2 px-6 mt-8 flex flex-col-reverse overflow-y-auto overflow-auto relative outline-0 gap-1"
+                className="h-full box-border py-2 px-6 mt-8 flex flex-col-reverse overflow-y-auto overflow-auto relative outline-0 gap-1 "
                 onKeyDown={handleSubmit}
                 tabIndex={0}
             >

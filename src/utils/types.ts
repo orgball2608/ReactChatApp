@@ -49,6 +49,7 @@ export type MessageType = {
     reacts: ReactionMessageType[];
     gif: string;
     sticker: string;
+    reply: MessageType;
 };
 
 export type MessageEventPayload = {
@@ -128,6 +129,7 @@ export type GroupMessageType = {
     reacts: ReactionMessageType[];
     gif: string;
     sticker: string;
+    reply: GroupMessageType;
 };
 
 export type GroupMessage = {
@@ -257,4 +259,10 @@ export type StickerCollection = {
         id: string;
         spriteURL: string;
     }[];
+};
+
+export type CreateReplyMessageParams = {
+    id: number;
+    content: string;
+    messageId: number;
 };

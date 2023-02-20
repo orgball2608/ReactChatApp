@@ -9,6 +9,7 @@ import {
     CreateGroupMessageParams,
     CreateGroupParams,
     CreateMessageParams,
+    CreateReplyMessageParams,
     CreateStickerMessageParams,
     CreateUserParams,
     DeleteGroupMessageParams,
@@ -153,3 +154,9 @@ export const CreateGroupStickerMessageAPI = ({ id, sticker }: CreateStickerMessa
     axiosClient.post(`/groups/${id}/messages/sticker`, { sticker }, config);
 
 export const GetStickers = () => axios.get(`${STICKERS_URL}`);
+
+export const CreateReplyMessageAPI = ({ id, content, messageId }: CreateReplyMessageParams) =>
+    axiosClient.post(`/conversations/${id}/messages/${messageId}/reply`, { content }, config);
+
+export const CreateReplyGroupMessageAPI = ({ id, content, messageId }: CreateReplyMessageParams) =>
+    axiosClient.post(`/groups/${id}/messages/${messageId}/reply`, { content }, config);

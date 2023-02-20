@@ -22,11 +22,11 @@ export const MessageReaction: FC<Props> = ({ message }) => {
         >
             <div
                 onClick={() => setVisible(!visible)}
-                className={`w-fit h-fit p-1 hover:bg-[#686868] hover:rounded-full cursor-pointer  ${
+                className={`w-fit h-fit p-1 hover:bg-[#8f8888] hover:rounded-full cursor-pointer  ${
                     visible ? 'visible' : ''
                 }`}
             >
-                <RxFace size={18} className="text-white font-bold" />
+                <RxFace size={18} className="text-white hover:opacity-100 font-bold" />
             </div>
         </Tippy>
     );

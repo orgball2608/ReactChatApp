@@ -9,10 +9,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { getDisplayName, getRecipientFromConversation } from '../../utils/helpers';
 import { defaultAvatar } from '../../utils/constants';
+import { GroupMessageType, MessageType } from '../../utils/types';
 
 export const MessagePanel = () => {
     const { id } = useParams();
     const { user } = useContext(AuthContext);
+    const [replyInfo, setReplyInfo] = useState<MessageType | GroupMessageType>();
 
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const conversation = conversations.find((conversation) => conversation.id === parseInt(id!));
@@ -24,7 +26,7 @@ export const MessagePanel = () => {
         <div className="bg-inherit h-full w-full box-border relative">
             <MessagePanelHeader />
             <MessagePanelBody>
-                <MessageContainer />
+                <MessageContainer setReplyInfo={setReplyInfo} />
                 <div>
                     {isRecipientTyping && (
                         <div className="w-full px-6 flex gap-2 items-center">
@@ -34,7 +36,12 @@ export const MessagePanel = () => {
                             </span>
                         </div>
                     )}
-                    <MessageInputField recipient={recipient} setIsRecipientTyping={setIsRecipientTyping} />
+                    <MessageInputField
+                        recipient={recipient}
+                        setIsRecipientTyping={setIsRecipientTyping}
+                        replyInfo={replyInfo}
+                        setReplyInfo={setReplyInfo}
+                    />
                 </div>
             </MessagePanelBody>
         </div>

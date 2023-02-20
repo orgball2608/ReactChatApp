@@ -29,9 +29,9 @@ export const MessageOption: FC<Props> = ({ message, setIsEditing }) => {
         >
             <div
                 onScroll={() => handleScroll()}
-                className={`w-fit h-fit px-1 py-1 hover:bg-[#686868] hover:rounded-full cursor-pointer ${
-                    user?.id === message.author.id ? 'mr-1' : 'ml-1'
-                }  ${visible ? 'visible' : ''}`}
+                className={`w-fit h-fit px-1 py-1 hover:bg-[#8f8888] hover:rounded-full cursor-pointer ${
+                    visible ? 'visible' : ''
+                }`}
                 onClick={() => setVisible((prev) => !prev)}
             >
                 <FiMoreVertical size={16} className="text-white" />

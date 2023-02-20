@@ -10,6 +10,9 @@ import { MessageReaction } from '../reactions/MessageReaction';
 import ReactionStatus from '../reactions/ReactionStatus';
 import { EditMessageContainer } from './EditMessageContainer';
 import { MessageOption } from './MessageOption';
+import { MessageReplyBadge } from './MessageReplyBadge';
+import { MessageReplyIcon } from './MessageReplyIcon';
+
 type Props = {
     m: MessageType | GroupMessageType;
     currentMessage: MessageType | GroupMessageType;
@@ -18,6 +21,7 @@ type Props = {
     isEditing: boolean;
     setIsEditing: Dispatch<React.SetStateAction<boolean>>;
     onEditMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    setReplyInfo: React.Dispatch<React.SetStateAction<MessageType | GroupMessageType | undefined>>;
 };
 
 export const MessageItem: FC<Props> = ({
@@ -28,6 +32,7 @@ export const MessageItem: FC<Props> = ({
     isEditing,
     setIsEditing,
     onEditMessageChange,
+    setReplyInfo,
 }) => {
     const { user } = useContext(AuthContext);
     const { editMessage } = useContext(MessageMenuContext);
@@ -56,38 +61,59 @@ export const MessageItem: FC<Props> = ({
                         </div>
                     ) : (
                         <div
-                            className={`p-0 pl-14 text-base flex justify-start items-center w-fit gap-2 ${
+                            className={`p-0 pl-14 text-base flex flex-col  w-fit ${
                                 isAuthor ? 'flex-row-reverse' : ''
-                            }`}
+                            }   `}
                         >
+                            {m.reply && (
+                                <div
+                                    className={`-mb-2 w-full flex items-center justify-start ${
+                                        isAuthor ? 'flex-row-reverse' : ''
+                                    } `}
+                                >
+                                    <MessageReplyBadge message={m.reply} />
+                                </div>
+                            )}
                             <div
-                                title={formatDate(m.createdAt)}
-                                className={`relative bg-dark-header ${m.reacts?.length > 0 ? 'mb-2' : ''} ${
-                                    (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
-                                        ? `${
-                                              isAuthor
-                                                  ? `${
-                                                        m.attachments?.length === 0
-                                                            ? 'rounded-tr-none bg-primary'
-                                                            : 'rounded-r-md bg-primary '
-                                                    }`
-                                                  : `${
-                                                        m.attachments?.length === 0
-                                                            ? 'rounded-tl-none '
-                                                            : 'rounded-l-md '
-                                                    }`
-                                          }`
-                                        : `${isAuthor ? 'rounded-r-md bg-primary' : 'rounded-l-md '}`
-                                } py-2 px-5 rounded-2xl`}
+                                className={`flex gap-2 justify-start items-center ${
+                                    isAuthor ? 'flex-row-reverse' : ''
+                                } `}
                             >
-                                {m.content}
-                                {m.reacts?.length > 0 && <ReactionStatus message={m} />}
-                            </div>
-                            <div
-                                className={`invisible group-hover:visible flex  ${isAuthor ? 'flex-row-reverse' : ''}`}
-                            >
-                                <MessageReaction message={m} />
-                                <MessageOption message={m} setIsEditing={setIsEditing} />
+                                <div
+                                    id={'message-' + m.id}
+                                    title={formatDate(m.createdAt)}
+                                    className={`relative w-fit bg-dark-header ${m.reacts?.length > 0 ? 'mb-2' : ''} ${
+                                        (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
+                                        index === 0
+                                            ? `${
+                                                  isAuthor
+                                                      ? `${
+                                                            m.attachments?.length === 0
+                                                                ? 'rounded-tr-none bg-primary'
+                                                                : 'rounded-r-md bg-primary '
+                                                        }`
+                                                      : `${
+                                                            m.attachments?.length === 0
+                                                                ? 'rounded-tl-none '
+                                                                : 'rounded-l-md '
+                                                        }`
+                                              }`
+                                            : `${isAuthor ? 'rounded-r-md bg-primary' : 'rounded-l-md '}`
+                                    } py-2 px-5 rounded-2xl`}
+                                >
+                                    <p>{m.content}</p>
+
+                                    {m.reacts?.length > 0 && <ReactionStatus message={m} />}
+                                </div>
+                                <div
+                                    className={`invisible group-hover:visible flex  ${
+                                        isAuthor ? 'flex-row-reverse' : ''
+                                    }`}
+                                >
+                                    <MessageReaction message={m} />
+                                    <MessageReplyIcon setReplyInfo={setReplyInfo} message={m} />
+                                    <MessageOption message={m} setIsEditing={setIsEditing} />
+                                </div>
                             </div>
                         </div>
                     )}
@@ -107,6 +133,7 @@ export const MessageItem: FC<Props> = ({
                             }`}
                         >
                             <div
+                                id={'message-' + m.id}
                                 title={formatDate(m.createdAt)}
                                 className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
                                     isAuthor ? 'flex-row-reverse' : 'pl-14'
@@ -142,9 +169,12 @@ export const MessageItem: FC<Props> = ({
                                 {m.reacts?.length > 0 && <ReactionStatus message={m} />}
                             </div>
                             <div
-                                className={`invisible group-hover:visible flex  ${isAuthor ? 'flex-row-reverse' : ''}`}
+                                className={`invisible group-hover:visible flex gap-1 ${
+                                    isAuthor ? 'flex-row-reverse' : ''
+                                }`}
                             >
                                 <MessageReaction message={m} />
+                                <MessageReplyIcon setReplyInfo={setReplyInfo} message={m} />
                                 <MessageOption message={m} setIsEditing={setIsEditing} />
                             </div>
                         </div>

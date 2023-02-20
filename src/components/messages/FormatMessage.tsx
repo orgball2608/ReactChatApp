@@ -11,6 +11,8 @@ import ReactionStatus from '../reactions/ReactionStatus';
 import { formatDate } from '../../utils/helpers';
 import { getDisplayName } from '../../utils/helpers';
 import SpriteRenderer from '../inputs/SpriteRenderer';
+import { MessageReplyIcon } from './MessageReplyIcon';
+import { MessageReplyBadge } from './MessageReplyBadge';
 
 type FormattedMessageProps = {
     user?: User;
@@ -19,6 +21,7 @@ type FormattedMessageProps = {
     onEditMessageChange: (e: ChangeEvent<HTMLInputElement>) => void;
     setIsEditing: Dispatch<SetStateAction<boolean>>;
     isOneElement?: boolean;
+    setReplyInfo: React.Dispatch<React.SetStateAction<MessageType | GroupMessageType | undefined>>;
 };
 
 export const FormattedMessage: FC<FormattedMessageProps> = ({
@@ -28,6 +31,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
     onEditMessageChange,
     setIsEditing,
     isOneElement,
+    setReplyInfo,
 }) => {
     const { editMessage } = useContext(MessageMenuContext);
     const getAvatar = () => {
@@ -80,30 +84,47 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                     ) : (
                         message.content && (
                             <div
-                                className={`text-base flex justify-start items-center w-full group gap-2 ${
+                                className={`text-base flex flex-col w-full group  ${
                                     isAuthor ? 'flex-row-reverse' : ''
                                 }`}
                             >
+                                {message.reply && (
+                                    <div
+                                        className={`${!isAuthor && 'ml-14'} -mb-2 ${
+                                            isAuthor ? 'flex-row-reverse' : ''
+                                        } flex justify-start `}
+                                    >
+                                        <MessageReplyBadge message={message.reply} />
+                                    </div>
+                                )}
                                 <div
-                                    title={formatDate(message.createdAt)}
-                                    className={`bg-dark-header py-2 px-5 rounded-2xl relative ${
-                                        message.reacts?.length > 0 ? 'mb-2' : ''
-                                    } ${
-                                        isOneElement
-                                            ? `${isAuthor ? 'rounded-r-2xl bg-primary' : 'rounded-l-2xl ml-14'}`
-                                            : `${isAuthor ? 'rounded-br-none bg-primary' : 'rounded-bl-none ml-14'}`
-                                    } `}
+                                    className={`flex justify-start items-center gap-2 ${
+                                        isAuthor ? 'items-end' : 'items-start'
+                                    } ${isAuthor ? 'flex-row-reverse' : ''}`}
                                 >
-                                    {message.content}
-                                    {message.reacts?.length > 0 && <ReactionStatus message={message} />}
-                                </div>
-                                <div
-                                    className={`invisible group-hover:visible flex ${
-                                        isAuthor ? 'flex-row-reverse' : ''
-                                    }`}
-                                >
-                                    <MessageReaction message={message} />
-                                    <MessageOption message={message} setIsEditing={setIsEditing} />
+                                    <div
+                                        id={'message-' + message.id}
+                                        title={formatDate(message.createdAt)}
+                                        className={`bg-dark-header py-2 px-5 rounded-2xl relative ${
+                                            message.reacts?.length > 0 ? 'mb-2' : ''
+                                        } ${
+                                            isOneElement
+                                                ? `${isAuthor ? 'rounded-r-2xl bg-primary' : 'rounded-l-2xl ml-14'}`
+                                                : `${isAuthor ? 'rounded-br-none bg-primary' : 'rounded-bl-none ml-14'}`
+                                        } `}
+                                    >
+                                        {message.content}
+                                        {message.reacts?.length > 0 && <ReactionStatus message={message} />}
+                                    </div>
+                                    <div
+                                        className={`invisible group-hover:visible flex ${
+                                            isAuthor ? 'flex-row-reverse' : ''
+                                        }`}
+                                    >
+                                        <MessageReaction message={message} />
+                                        <MessageReplyIcon setReplyInfo={setReplyInfo} message={message} />
+                                        <MessageOption message={message} setIsEditing={setIsEditing} />
+                                    </div>
                                 </div>
                             </div>
                         )
@@ -120,6 +141,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                 }`}
                             >
                                 <div
+                                    id={'message-' + message.id}
                                     title={formatDate(message.createdAt)}
                                     className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
                                         isAuthor ? 'flex-row-reverse' : 'pl-14'
@@ -153,6 +175,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                     }`}
                                 >
                                     <MessageReaction message={message} />
+                                    <MessageReplyIcon setReplyInfo={setReplyInfo} message={message} />
                                     <MessageOption message={message} setIsEditing={setIsEditing} />
                                 </div>
                             </div>
