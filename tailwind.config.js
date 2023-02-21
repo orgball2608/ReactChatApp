@@ -27,6 +27,15 @@ module.exports = {
                 88: '22rem',
                 42: '10.5rem',
             },
+            keyframes: {
+                'fade-in': {
+                    from: { opacity: 0 },
+                    to: { opacity: 1 },
+                },
+            },
+            animation: {
+                'fade-in': 'fade-in 0.3s forwards',
+            },
         },
     },
     plugins: [require('tailwind-scrollbar-hide')],

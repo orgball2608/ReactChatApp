@@ -27,7 +27,6 @@ export const ReactionPopup: FC<Props> = ({ message, setVisible }) => {
         const reaction = message?.reacts?.find((reaction: ReactionMessageType) => reaction?.author?.id === user?.id);
 
         if (conversationType === 'group') {
-            console.log(reaction?.type, key);
             if (reaction?.type === key) {
                 deleteReactionGroupMessageAPI({
                     id: parseInt(id!),
@@ -43,7 +42,6 @@ export const ReactionPopup: FC<Props> = ({ message, setVisible }) => {
             });
         } else {
             if (reaction?.type === key) {
-                console.log(reaction?.type, key);
                 deleteReactionMessageAPI({
                     id: parseInt(id!),
                     messageId: message?.id,

@@ -23,6 +23,7 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo }) => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groupMessages = useSelector((state: RootState) => state.groupMessage.messages);
+    
 
     useEffect(() => {
         return () => {
