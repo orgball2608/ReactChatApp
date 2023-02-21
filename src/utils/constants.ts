@@ -38,6 +38,16 @@ export const SelectedPageTypes: SelectedPageTypeData[] = [
 
 export const userContextMenuItems: ContextMenuItemType[] = [
     {
+        label: 'Profile',
+        action: 'profile',
+        ownerOnly: false,
+    },
+    {
+        label: 'Message',
+        action: 'message',
+        ownerOnly: false,
+    },
+    {
         label: 'Kick User',
         action: 'kick',
         ownerOnly: true,
@@ -46,16 +56,6 @@ export const userContextMenuItems: ContextMenuItemType[] = [
         label: 'Transfer Owner',
         action: 'transfer_owner',
         ownerOnly: true,
-    },
-    {
-        label: 'Proifle',
-        action: 'profile',
-        ownerOnly: false,
-    },
-    {
-        label: 'Message',
-        action: 'message',
-        ownerOnly: false,
     },
 ];
 

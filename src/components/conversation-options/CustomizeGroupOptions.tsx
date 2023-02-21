@@ -1,9 +1,11 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
-import { ChevronDown, ChevronRight, Image, Pencil } from 'akar-icons';
+import { ChevronDown, ChevronRight } from 'akar-icons';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { updateGroupAvatar } from '../../store/groupSlice';
 import { toast } from 'react-toastify';
+import PencilIcon from '../icons/PenciIcon';
+import ImageIcon from '../icons/ImageIcon';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -66,15 +68,15 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                         onClick={handleShowModal}
                         className="flex justify-start gap-2 items-center rounded-md py-2 px-2 hover:bg-[#1c1e21] "
                     >
-                        <div className="p-2 rounded-full text-white bg-[#373434]">
-                            <Pencil size={18} />
+                        <div className="p-1 rounded-full text-white bg-[#373434]">
+                            <PencilIcon className="w-6 h-6" />
                         </div>
                         <span className="text-lg">Change group title</span>
                     </div>
                     <div className="rounded-md py-2 px-2 hover:bg-[#1c1e21] ">
                         <label htmlFor="groupAvatar" className="flex justify-start gap-2 items-center cursor-pointer ">
-                            <div className="p-2 rounded-full text-white bg-[#373434]">
-                                <Image size={18} />
+                            <div className="p-1 rounded-full text-white bg-[#373434]">
+                                <ImageIcon className="w-6 h-6" />
                             </div>
                             <span className="text-lg">Change group avatar</span>
                             <input

@@ -50,7 +50,7 @@ export const ConversationSettingSideBar = () => {
                             {isOnline && <span className="text-base text-gray-400">Online</span>}
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2 justify-center">
+                    <div className="flex flex-col justify-center">
                         <CustomizeConversationOptions />
                         <MediaListFile setShowFileSideBar={setShowFileSideBar} />
                     </div>

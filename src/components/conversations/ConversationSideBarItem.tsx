@@ -7,7 +7,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import moment from 'moment';
-import { getRecipient, lastMessageContent } from '../../utils/helpers';
+import { getFullName, getRecipient, lastMessageContent } from '../../utils/helpers';
 type Props = {
     conversation: Conversation;
 };
@@ -46,12 +46,8 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                     )}
                 </div>
 
-                <div className="flex flex-col flex-nowrap flex-1 break-all justify-center">
-                    <span className="block font-bold text-base ">
-                        {` ${getRecipient(conversation, user!).lastName} ${
-                            getRecipient(conversation, user!).firstName
-                        }`}
-                    </span>
+                <div className="flex flex-col flex-nowrap flex-1 font-normal break-all justify-center">
+                    <span className="block font-semibold text-base">{getFullName(user, conversation)}</span>
                     <div className="flex justify-start items-center">
                         <span className="text-md text-white">{lastMessageContent(conversation)}</span>
                         <span className="text-sm text-[#65676b] ml-3 font-semibold">

@@ -2,7 +2,7 @@ import { User } from '../../utils/types';
 import { FC, useContext, useEffect, useState } from 'react';
 import { ChevronDown, ChevronRight, Plus } from 'akar-icons';
 import { RecipientItem } from './RecipientItem';
-import { GroupAddMemberModal } from '../modals/GroupAddMemberModal';
+import { GroupAddMemberModal } from '../modals/members/GroupAddMemberModal';
 import { AuthContext } from '../../contex/AuthContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';

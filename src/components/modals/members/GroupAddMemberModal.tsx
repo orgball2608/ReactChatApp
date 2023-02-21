@@ -3,11 +3,11 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useDebounce } from '../../hooks/useDebounce';
-import { addGroupRecipientsAPI, searchUsers } from '../../services/api';
-import { FriendType, User } from '../../utils/types';
-import { defaultAvatar } from '../../utils/constants';
-import { ResultMemberList } from '../members/ResultMemberList';
+import { useDebounce } from '../../../hooks/useDebounce';
+import { addGroupRecipientsAPI, searchUsers } from '../../../services/api';
+import { FriendType, User } from '../../../utils/types';
+import { defaultAvatar } from '../../../utils/constants';
+import { ResultMemberList } from '../../members/ResultMemberList';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;

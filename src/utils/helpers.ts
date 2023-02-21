@@ -1,6 +1,8 @@
 import { ArrowCycle, ChatDots, Crown, Gear, Person, PersonCross, Ribbon } from 'akar-icons';
 import { Conversation, FriendType, Group, SelectedPageType, User, UserContextMenuItemType } from './types';
 import moment from 'moment';
+import { BsFillPersonFill, BsMessenger } from 'react-icons/bs';
+import { BiMessageRoundedMinus } from 'react-icons/bi';
 
 export const getRecipientFromConversation = (conversation?: Conversation, user?: User) => {
     return user?.id === conversation?.creator.id ? conversation?.recipient : conversation?.creator;
@@ -26,15 +28,15 @@ export const getUserSideBarIcon = (page: SelectedPageType) => {
 export const getUserContextMenuIcon = (type: UserContextMenuItemType) => {
     switch (type) {
         case 'kick':
-            return { icon: PersonCross };
+            return { icon: BiMessageRoundedMinus };
         case 'transfer_owner':
             return { icon: Crown };
         case 'profile':
-            return { icon: Person };
+            return { icon: BsFillPersonFill };
         case 'message':
-            return { icon: ChatDots };
+            return { icon: BsMessenger };
         default:
-            return { icon: PersonCross };
+            return { icon: BsMessenger };
     }
 };
 
@@ -44,7 +46,7 @@ export const getFullName = (user: User | undefined, conversation: Conversation |
         : `${conversation?.recipient.lastName} ${conversation?.recipient.firstName}`;
 
 export const getDisplayName = (user: User) => {
-    if (user.firstName && user.lastName) {
+    if (user && user.firstName && user.lastName) {
         return `${user.firstName} ${user.lastName}`;
     }
 };

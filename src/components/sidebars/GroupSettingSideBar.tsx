@@ -72,7 +72,7 @@ export const GroupSettingSideBar = () => {
                             <span className="text-center break-all">{selectedGroup?.title}</span>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2 justify-center">
+                    <div className="flex flex-col justify-center">
                         <CustomizeGroupOptions setShowModal={setShowModal} groupId={groupId} />
                         <GroupParticipantOptions
                             onlineUsers={onlineUsers}

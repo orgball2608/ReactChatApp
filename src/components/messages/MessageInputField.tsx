@@ -269,7 +269,7 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
             <div className="flex justify-center items-center mt-2 gap-1 px-4">
                 {fileList.length === 0 && (
                     <>
-                        <label htmlFor="formId" className="flex justify-center items-center">
+                        <label htmlFor="formId" className="flex justify-center items-center animate-fade-in">
                             <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer text-primary">
                                 <Image size={20} />
                             </div>
@@ -283,7 +283,7 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
                             />
                         </label>
                         {content.length === 0 && (
-                            <div className="flex gap-1 justify-center items-center cursor-pointer relative">
+                            <div className="flex gap-1 justify-center items-center cursor-pointer relative animate-fade-in">
                                 <GrAttachment size={20} className="text-primary hover:bg-[#1c1e21] rounded-full" />
                                 <StickerInput />
                                 <GifInput />
@@ -356,7 +356,7 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
                     <SpinLoading />
                 ) : (
                     (content.length > 0 || fileList.length > 0) && (
-                        <div className="flex justify-center items-center cursor-pointer">
+                        <div className="flex justify-center items-center cursor-pointer animate-fade-in">
                             <AiOutlineSend size={26} className="text-primary" />
                         </div>
                     )

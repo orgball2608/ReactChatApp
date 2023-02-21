@@ -1,6 +1,7 @@
-import { ChevronDown, ChevronRight, File } from 'akar-icons';
+import { ChevronDown, ChevronRight } from 'akar-icons';
 import { Dispatch, FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import FileMediaIcon from '../icons/FileMediaIcon';
 
 type Props = {
     setShowFileSideBar: Dispatch<React.SetStateAction<boolean>>;
@@ -34,8 +35,8 @@ export const MediaListFile: FC<Props> = ({ setShowFileSideBar }) => {
                         onClick={() => setShowFileSideBar(true)}
                         className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
                     >
-                        <div className="p-2 rounded-full text-white bg-[#373434]">
-                            <File size={18} />
+                        <div className="p-1 rounded-full text-white bg-[#373434]">
+                            <FileMediaIcon className="w-7 h-7" />
                         </div>
                         <span className="text-lg">File Medida</span>
                     </div>

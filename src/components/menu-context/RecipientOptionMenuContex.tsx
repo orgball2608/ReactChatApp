@@ -33,7 +33,9 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
 
     const getUserMenuContexAction = (user?: User, group?: Group) => {
         if (!user || !group) return [];
-        if (group.owner?.id === user?.id) {
+        if (user?.id === recipient.id && group.owner.id === recipient.id) {
+            return userContextMenuItems.filter((item) => item.label === 'Profile');
+        } else if (group.owner?.id === user?.id) {
             return userContextMenuItems;
         } else {
             return userContextMenuItems.filter((item) => item.ownerOnly !== true);
@@ -45,7 +47,7 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
     };
     const CustomIcon: FC<CustomIconProps> = ({ action }) => {
         const { icon: MyIcon } = getUserContextMenuIcon(action);
-        return <MyIcon size={26} />;
+        return <MyIcon size={24} />;
     };
 
     const handleMenuContextAction = (action: UserContextMenuItemType) => {
@@ -99,14 +101,14 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
 
     return (
         <div className={`w-60 rounded-3xl`}>
-            <div className="flex flex-col justify-center cursor-pointer">
+            <div className="flex flex-col justify-center gap-1 cursor-pointer">
                 {getUserMenuContexAction(user, selectedGroup).map((item: ContextMenuItemType) => (
                     <div
                         onClick={() => handleMenuContextAction(item.action)}
                         key={item.label}
-                        className="text-white flex p-1 justify-start gap-4 text-base hover:bg-[#959292] rounded-md  "
+                        className="text-white flex p-1 justify-start gap-6 text-base hover:bg-[#555454] rounded-md  py-2 "
                     >
-                        <div className="">
+                        <div className="w-4 h-4 rounded-full">
                             <CustomIcon action={item.action} />
                         </div>
                         <span>{item.label}</span>

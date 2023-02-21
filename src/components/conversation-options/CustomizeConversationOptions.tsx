@@ -1,6 +1,7 @@
-import { ChevronDown, ChevronRight, File, Pencil } from 'akar-icons';
+import { ChevronDown, ChevronRight } from 'akar-icons';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import LikeIcon from '../icons/LikeIcon';
 
 export const CustomizeConversationOptions = () => {
     const { id } = useParams();
@@ -31,7 +32,7 @@ export const CustomizeConversationOptions = () => {
                 <div className="flex flex-col justify-center gap-2 overflow-y-scroll scrollbar-hide overflow-auto">
                     <div className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]">
                         <div className="p-2 rounded-full text-white bg-[#373434]">
-                            <Pencil size={18} />
+                            <LikeIcon className="w-5 h-5" />
                         </div>
                         <span className="text-lg">Change Emoji Icon</span>
                     </div>

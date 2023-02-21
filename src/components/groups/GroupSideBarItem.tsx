@@ -50,8 +50,8 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
                 } `}
             >
                 <img src={getGroupAvatar()} alt="avatar" className=" h-12 w-12 rounded-full bg-white object-cover" />
-                <div className="flex flex-col flex-nowrap flex-1 break-all justify-center">
-                    <span className="block font-bold text-base">{getGroupTitleDisplay(group)}</span>
+                <div className="flex flex-col flex-nowrap font-normal flex-1 break-all justify-center">
+                    <span className="block font-semibold text-base">{getGroupTitleDisplay(group)}</span>
                     <div className="flex justify-start items-center">
                         <span className="text-sm text-white">{lastMessageContent(group)}</span>
                         <span className="text-sm text-[#65676b] ml-3 font-semibold">
