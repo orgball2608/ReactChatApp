@@ -32,7 +32,7 @@ export const ImagePreviewModal = () => {
         });
     } else {
         selectedMessages?.messages.forEach((message) => {
-            if (message.attachments.length > 0) {
+            if (message.attachments.length > 0 && message.attachments[0].type === 'image') {
                 message.attachments.forEach((attachment) => {
                     attachments.push(attachment);
                 });

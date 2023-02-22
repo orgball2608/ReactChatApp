@@ -27,7 +27,7 @@ export const MediaFileSideBar: FC<Props> = ({ setShowFileSideBar }) => {
 
     if (conversationType === 'group') {
         selectedGroupMessages?.messages.forEach((message) => {
-            if (message.attachments.length > 0) {
+            if (message.attachments.length > 0 && message.attachments[0].type === 'image') {
                 message.attachments.forEach((attachment) => {
                     attachments.push(attachment);
                 });
@@ -35,7 +35,7 @@ export const MediaFileSideBar: FC<Props> = ({ setShowFileSideBar }) => {
         });
     } else {
         selectedMessages?.messages.forEach((message) => {
-            if (message.attachments.length > 0) {
+            if (message.attachments.length > 0 && message.attachments[0].type === 'image') {
                 message.attachments.forEach((attachment) => {
                     attachments.push(attachment);
                 });

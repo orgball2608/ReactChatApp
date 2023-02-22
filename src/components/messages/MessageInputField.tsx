@@ -18,7 +18,6 @@ import { AuthContext } from '../../contex/AuthContext';
 import { ImageList } from '../inputs/ImageList';
 import { FileList } from '../inputs/FileList';
 import { EMOJI_REPLACEMENT } from '../../utils/constants';
-import { GrAttachment } from 'react-icons/gr';
 import { StickerInput } from '../inputs/StickerInput';
 import { GifInput } from '../inputs/GifInput';
 import SendMessageIcon from '../icons/SendMessageIcon';
@@ -369,7 +368,6 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
                         </label>
                         {content.length === 0 && (
                             <div className="flex gap-1 justify-center items-center cursor-pointer relative animate-fade-in">
-                                <GrAttachment size={20} className="text-primary hover:bg-[#1c1e21] rounded-full" />
                                 <StickerInput />
                                 <GifInput />
                             </div>

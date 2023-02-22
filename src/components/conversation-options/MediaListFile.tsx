@@ -38,7 +38,7 @@ export const MediaListFile: FC<Props> = ({ setShowFileSideBar }) => {
                         <div className="p-1 w-fit h-fit rounded-full text-white bg-[#373434]">
                             <FileMediaIcon className="w-6 h-6" />
                         </div>
-                        <span className="text-lg">File Medida</span>
+                        <span className="text-lg">File Media</span>
                     </div>
                 </div>
             )}
