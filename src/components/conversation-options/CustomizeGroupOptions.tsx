@@ -6,6 +6,8 @@ import { updateGroupAvatar } from '../../store/groupSlice';
 import { toast } from 'react-toastify';
 import PencilIcon from '../icons/PenciIcon';
 import ImageIcon from '../icons/ImageIcon';
+import { EmojiSelectModal } from '../modals/EmojiSelectModal';
+import LikeIcon from '../icons/LikeIcon';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -14,6 +16,7 @@ type Props = {
 
 export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
     const [showCustomizeConversation, setShowCustomizeConversation] = useState<boolean>(false);
+    const [showChangeEmojiModal, setShowChangeEmojiModal] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
         setShowCustomizeConversation(false);
@@ -52,44 +55,59 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
     };
 
     return (
-        <div className="flex flex-col justify-center ml-2 cursor-pointer">
-            <div
-                onClick={handleShowCustomizeConversation}
-                className="text-lg flex items-center justify-between font-medium py-2 px-2 my-1 hover:bg-[#1c1e21] rounded-md"
-            >
-                <span className="font-semibold">Customize Conversation</span>
-                <div className="px-1 py-1">
-                    {showCustomizeConversation ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-                </div>
-            </div>
-            {showCustomizeConversation && (
-                <div className="flex flex-col justify-center gap-2 overflow-y-scroll scrollbar-hide overflow-auto cursor-pointer">
-                    <div
-                        onClick={handleShowModal}
-                        className="flex justify-start gap-2 items-center rounded-md py-2 px-2 hover:bg-[#1c1e21] "
-                    >
-                        <div className="p-1 rounded-full text-white bg-[#373434]">
-                            <PencilIcon className="w-6 h-6" />
-                        </div>
-                        <span className="text-lg">Change group title</span>
+        <>
+            {showChangeEmojiModal && <EmojiSelectModal setShowModal={setShowChangeEmojiModal} />}
+            <div className="flex flex-col justify-center ml-2 cursor-pointer">
+                <div
+                    onClick={handleShowCustomizeConversation}
+                    className="text-lg flex items-center justify-between font-medium py-2 px-2 my-1 hover:bg-[#1c1e21] rounded-md"
+                >
+                    <span className="font-semibold">Customize Conversation</span>
+                    <div className="px-1 py-1">
+                        {showCustomizeConversation ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
                     </div>
-                    <div className="rounded-md py-2 px-2 hover:bg-[#1c1e21] ">
-                        <label htmlFor="groupAvatar" className="flex justify-start gap-2 items-center cursor-pointer ">
+                </div>
+                {showCustomizeConversation && (
+                    <div className="flex flex-col justify-center overflow-y-scroll scrollbar-hide overflow-auto cursor-pointer">
+                        <div
+                            onClick={handleShowModal}
+                            className="flex justify-start gap-2 items-center rounded-md py-2 px-2 hover:bg-[#1c1e21] "
+                        >
                             <div className="p-1 rounded-full text-white bg-[#373434]">
-                                <ImageIcon className="w-6 h-6" />
+                                <PencilIcon className="w-6 h-6" />
                             </div>
-                            <span className="text-lg">Change group avatar</span>
-                            <input
-                                onChange={(e) => handleGetFile(e)}
-                                name="file"
-                                type="file"
-                                id="groupAvatar"
-                                className="hidden"
-                            />
-                        </label>
+                            <span className="text-lg">Change group title</span>
+                        </div>
+                        <div className="rounded-md py-2 px-2 hover:bg-[#1c1e21] ">
+                            <label
+                                htmlFor="groupAvatar"
+                                className="flex justify-start gap-2 items-center cursor-pointer "
+                            >
+                                <div className="p-1 rounded-full text-white bg-[#373434]">
+                                    <ImageIcon className="w-6 h-6" />
+                                </div>
+                                <span className="text-lg">Change group avatar</span>
+                                <input
+                                    onChange={(e) => handleGetFile(e)}
+                                    name="file"
+                                    type="file"
+                                    id="groupAvatar"
+                                    className="hidden"
+                                />
+                            </label>
+                        </div>
+                        <div
+                            onClick={() => setShowChangeEmojiModal(true)}
+                            className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
+                        >
+                            <div className="p-2 rounded-full text-white bg-[#373434]">
+                                <LikeIcon className="w-4 h-4" />
+                            </div>
+                            <span className="text-lg">Change Emoji Icon</span>
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )}
+            </div>
+        </>
     );
 };

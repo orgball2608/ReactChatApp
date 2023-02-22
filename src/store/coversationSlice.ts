@@ -73,6 +73,13 @@ export const conversationsSlice = createSlice({
                 state.conversations.unshift(conversationResponse);
             }
         },
+        changeConversationEmoji: (state, action) => {
+            const { id, emoji } = action.payload;
+            const conversation = state.conversations.find((c) => c.id === id);
+            if (conversation) {
+                conversation.emoji = emoji;
+            }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -94,6 +101,12 @@ export const conversationsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addConversation, updateConversation, updateEditMessage, updateDeleteMessage, updateDeleteMessageEvent } =
-    conversationsSlice.actions;
+export const {
+    addConversation,
+    updateConversation,
+    updateEditMessage,
+    updateDeleteMessage,
+    updateDeleteMessageEvent,
+    changeConversationEmoji,
+} = conversationsSlice.actions;
 export default conversationsSlice.reducer;

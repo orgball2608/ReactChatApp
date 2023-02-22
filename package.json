@@ -3,6 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@emoji-mart/data": "^1.1.2",
+        "@emoji-mart/react": "^1.1.1",
         "@reduxjs/toolkit": "^1.9.1",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
@@ -18,7 +20,7 @@
         "akar-icons": "^1.9.22",
         "animejs": "^3.2.1",
         "axios": "^1.2.1",
-        "emoji-picker-react": "^4.4.7",
+        "emoji-mart": "^5.5.2",
         "follow-redirects": "^1.15.2",
         "form-data": "^4.0.0",
         "moment": "^2.29.4",

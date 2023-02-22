@@ -3,6 +3,7 @@ import { ConversationPanel } from '../../components/conversations/ConversationPa
 import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
+    changeConversationEmoji,
     fetchConversationsThunk,
     updateConversation,
     updateDeleteMessageEvent,
@@ -60,6 +61,10 @@ export const ConversationPage = () => {
             dispatch(reactMessage(payload));
         });
 
+        socket.on('onChangeConversationEmoji', (payload) => {
+            dispatch(changeConversationEmoji(payload));
+        });
+
         return () => {
             socket.off('connected');
             socket.off('onMessage');
@@ -67,6 +72,7 @@ export const ConversationPage = () => {
             socket.off('onMessageUpdate');
             socket.off('onReactMessage');
             socket.off('onReactMessageRemove');
+            socket.off('onChangeConversationEmoji');
         };
     }, []);
 

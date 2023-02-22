@@ -33,6 +33,7 @@ export type Conversation = {
     createdAt: Date;
     lastMessageSent: MessageType;
     lastMessageSentAt: Date;
+    emoji: string;
 };
 
 export type AttachmentType = {
@@ -118,6 +119,7 @@ export type Group = {
     lastMessageSent: MessageType;
     lastMessageSentAt: Date;
     avatar?: string;
+    emoji: string;
 };
 
 export type GroupMessageType = {
@@ -267,4 +269,9 @@ export type CreateReplyMessageParams = {
     id: number;
     content: string;
     messageId: number;
+};
+
+export type ChangeEmojiIconParams = {
+    id: number;
+    emoji: string;
 };

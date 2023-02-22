@@ -6,6 +6,7 @@ import { fetchConversationsThunk } from '../../store/coversationSlice';
 import { AppDispatch } from '../../store';
 import {
     addGroupConversations,
+    changeGroupEmoji,
     deleteGroupConversations,
     editGroupConversationsTitle,
     fetchGroupsThunk,
@@ -93,8 +94,11 @@ export const GroupPage = () => {
         });
 
         socket.on('onReactGroupMessageRemove', (payload) => {
-            console.log('onReactGroupMessageRemove');
             dispatch(reactGroupMessage(payload));
+        });
+
+        socket.on('onChangeGroupEmoji', (payload) => {
+            dispatch(changeGroupEmoji(payload));
         });
 
         return () => {
@@ -110,6 +114,7 @@ export const GroupPage = () => {
             socket.off('onGroupUserAdd');
             socket.off('onReactGroupMessage');
             socket.off('onReactGroupMessageRemove');
+            socket.off('onChangeGroupEmoji');
         };
     }, [id]);
 

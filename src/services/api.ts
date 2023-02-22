@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { STICKERS_URL } from '../utils/constants';
 import {
     AddGroupRecipientsParams,
+    ChangeEmojiIconParams,
     ChangeGroupOwnerParams,
     Conversation,
     CreateConversationParams,
@@ -160,3 +161,9 @@ export const CreateReplyMessageAPI = ({ id, content, messageId }: CreateReplyMes
 
 export const CreateReplyGroupMessageAPI = ({ id, content, messageId }: CreateReplyMessageParams) =>
     axiosClient.post(`/groups/${id}/messages/${messageId}/reply`, { content }, config);
+
+export const ChangeEmojiIcon = ({ id, emoji }: ChangeEmojiIconParams) =>
+    axiosClient.post(`/conversations/${id}/emoji`, { emoji }, config);
+
+export const ChangeGroupEmojiIcon = ({ id, emoji }: ChangeEmojiIconParams) =>
+    axiosClient.post(`/groups/${id}/emoji`, { emoji }, config);

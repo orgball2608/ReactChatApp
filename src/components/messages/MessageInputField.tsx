@@ -4,7 +4,6 @@ import { RootState } from '../../store';
 import { selectType } from '../../store/typeSlice';
 import { Group, GroupMessageType, MessageType, User } from '../../utils/types';
 import { useParams } from 'react-router-dom';
-import { EmojiClickData, Theme, EmojiStyle } from 'emoji-picker-react';
 import { Cross, Image } from 'akar-icons';
 import { AiOutlineSend } from 'react-icons/ai';
 import { HiFaceSmile } from 'react-icons/hi2';
@@ -22,7 +21,9 @@ import { EMOJI_REPLACEMENT } from '../../utils/constants';
 import { GrAttachment } from 'react-icons/gr';
 import { StickerInput } from '../inputs/StickerInput';
 import { GifInput } from '../inputs/GifInput';
-const EmojiPicker = lazy(() => import('emoji-picker-react'));
+import SendMessageIcon from '../icons/SendMessageIcon';
+import ImageIcon from '../icons/ImageIcon';
+const Picker = lazy(() => import('@emoji-mart/react'));
 
 type Props = {
     recipient: User | undefined;
@@ -36,6 +37,8 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
     const { id } = useParams();
     const group = useSelector((state: RootState) => state.group.groups);
     const selectedGroup = group.find((group: Group) => group.id === parseInt(id!));
+    const conversations = useSelector((state: RootState) => state.conversation.conversations);
+    const selectedConversation = conversations.find((conversation) => conversation.id === parseInt(id!));
     const inputRef = useRef<HTMLInputElement>(null);
     const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
     const [fileList, setFileList] = useState<File[]>([]);
@@ -91,9 +94,9 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
         }
     };
 
-    const onEmojiClick = (emojiObject: EmojiClickData) => {
+    const onEmojiClick = (emoji: string) => {
         const { selectionStart, selectionEnd, value } = inputRef.current!;
-        const newVal = value.slice(0, selectionStart!) + emojiObject.emoji + value.slice(selectionEnd!);
+        const newVal = value.slice(0, selectionStart!) + emoji + value.slice(selectionEnd!);
         inputRef.current!.value = newVal;
         setContent(newVal);
     };
@@ -196,20 +199,15 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
         data.append('content', content);
         const Id = parseInt(id);
         const params = { id: Id, data };
-        setIsSending(true);
         setContent('');
         setFileList([]);
         if (conversationType === 'private')
             postNewMessage(params)
-                .then(() => {
-                    setIsSending(false);
-                })
+                .then(() => {})
                 .catch((err) => console.log(err));
         else
             postGroupMessage(params)
-                .then(() => {
-                    setIsSending(false);
-                })
+                .then(() => {})
                 .catch((err) => console.log(err));
     };
 
@@ -228,6 +226,32 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
                 });
             });
         }
+    };
+
+    const getEmoji = () => {
+        if (conversationType === 'private' && selectedConversation && selectedConversation.emoji !== null) {
+            return selectedConversation.emoji;
+        } else if (conversationType === 'group' && selectedGroup && selectedGroup.emoji !== null) {
+            return selectedGroup.emoji;
+        } else {
+            return '👍🏽';
+        }
+    };
+
+    const onSendEmojiMessage = (emoji: string) => {
+        if (!id) return;
+        const data = new FormData();
+        data.append('content', emoji);
+        const Id = parseInt(id);
+        const params = { id: Id, data };
+        if (conversationType === 'private')
+            postNewMessage(params)
+                .then(() => {})
+                .catch((err) => console.log(err));
+        else
+            postGroupMessage(params)
+                .then(() => {})
+                .catch((err) => console.log(err));
     };
 
     return (
@@ -270,8 +294,8 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
                 {fileList.length === 0 && (
                     <>
                         <label htmlFor="formId" className="flex justify-center items-center animate-fade-in">
-                            <div className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer text-primary">
-                                <Image size={20} />
+                            <div className="p-1 hover:bg-[#1c1e21] rounded-full cursor-pointer text-primary">
+                                <ImageIcon className="w-7 h-7" />
                             </div>
                             <input
                                 onChange={handleGetFile}
@@ -338,14 +362,19 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
                                         </div>
                                     }
                                 >
-                                    <EmojiPicker
-                                        theme={Theme.DARK}
-                                        emojiStyle={EmojiStyle.FACEBOOK}
-                                        previewConfig={{ showPreview: false }}
-                                        lazyLoadEmojis={true}
-                                        onEmojiClick={(e) => onEmojiClick(e)}
-                                        height={400}
-                                        width="360px"
+                                    <Picker
+                                        set="facebook"
+                                        enableFrequentEmojiSort
+                                        onEmojiSelect={(e: any) => onEmojiClick(e.native)}
+                                        theme="dark"
+                                        showPreview={false}
+                                        showSkinTones={false}
+                                        emojiTooltip
+                                        defaultSkin={1}
+                                        color="#0F8FF3"
+                                        navPosition="bottom"
+                                        locale="vi"
+                                        previewPosition="none"
                                     />
                                 </Suspense>
                             </div>
@@ -354,12 +383,17 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
                 </div>
                 {isSending ? (
                     <SpinLoading />
+                ) : content.length > 0 || fileList.length > 0 ? (
+                    <div className="flex justify-center items-center cursor-pointer animate-fade-in hover:bg-[#1c1e21] rounded-full p-1">
+                        <SendMessageIcon className="text-primary" color="#0084ff" />
+                    </div>
                 ) : (
-                    (content.length > 0 || fileList.length > 0) && (
-                        <div className="flex justify-center items-center cursor-pointer animate-fade-in">
-                            <AiOutlineSend size={26} className="text-primary" />
-                        </div>
-                    )
+                    <div
+                        onClick={() => onSendEmojiMessage(getEmoji())}
+                        className=" flex-none w-fit h-fit rounded-full p-1 hover:bg-[#1c1e21] cursor-pointer"
+                    >
+                        <button className="text-xl w-6 h-6 text-center">{getEmoji()}</button>
+                    </div>
                 )}
             </div>
         </div>

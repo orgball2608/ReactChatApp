@@ -112,6 +112,13 @@ const groupsSlice = createSlice({
             }
             state.groups.unshift(group);
         },
+        changeGroupEmoji: (state, action) => {
+            console.log('changeGroupEmoji');
+            const { id, emoji } = action.payload;
+            const group = state.groups.find((gm) => gm.id === id);
+            if (!group) return;
+            group.emoji = emoji;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -144,5 +151,6 @@ export const {
     updateGroupAvatarState,
     updateGroupRecipientAdd,
     updateGroupAdded,
+    changeGroupEmoji,
 } = groupsSlice.actions;
 export default groupsSlice.reducer;
