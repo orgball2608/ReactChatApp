@@ -11,6 +11,7 @@ import { MessageReaction } from '../reactions/MessageReaction';
 import ReactionStatus from '../reactions/ReactionStatus';
 import { DeletedMessage } from './DeletedMessage';
 import { EditMessageContainer } from './EditMessageContainer';
+import { MessageFileRender } from './MessageFileRender';
 import { MessageOption } from './MessageOption';
 import { MessageReplyBadge } from './MessageReplyBadge';
 import { MessageReplyIcon } from './MessageReplyIcon';
@@ -171,7 +172,7 @@ export const MessageItem: FC<Props> = ({
                                 >
                                     {
                                         // if message has attachments
-                                        m.attachments?.length > 0 && (
+                                        m.attachments?.length > 0 && m.attachments[0].type === 'image' ? (
                                             <AttachmentListRender
                                                 attachments={m.attachments}
                                                 currentMessage={currentMessage}
@@ -179,6 +180,11 @@ export const MessageItem: FC<Props> = ({
                                                 index={index}
                                                 message={m}
                                             />
+                                        ) : (
+                                            m.attachments?.length > 0 &&
+                                            m.attachments[0].type === 'file' && (
+                                                <MessageFileRender attachments={m.attachments} />
+                                            )
                                         )
                                     }
                                     {m.sticker && <SpriteRenderer size={120} src={m.sticker} />}

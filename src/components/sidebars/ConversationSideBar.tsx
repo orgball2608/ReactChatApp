@@ -13,6 +13,7 @@ import { SearchUserResults } from '../searchs/SearchUserResults';
 import { User } from '../../utils/types';
 import { AuthContext } from '../../contex/AuthContext';
 import { searchFriends, getFriends } from '../../utils/helpers';
+import CreateConversationIcon from '../icons/CreateConversationIcon';
 
 export const ConversationSidebar = () => {
     const [showModal, setShowModal] = useState(false);
@@ -50,10 +51,10 @@ export const ConversationSidebar = () => {
                     <div className="flex justify-between px-4 items-center h-14 w-80 border-b-[1px] border-r-[1px] border-border-conversations">
                         <h1 className="font-normal text-2xl">Conversations</h1>
                         <div
-                            className="hover:bg-[#686868] p-[6px] rounded-full flex justify-center items-center bg-[#5a5252] cursor-pointer "
+                            className="hover:bg-[#686868] p-1 rounded-full flex justify-center items-center bg-[#5a5252] cursor-pointer "
                             onClick={() => setShowModal(!showModal)}
                         >
-                            <Edit size={24} />
+                            <CreateConversationIcon className="w-7 h-7" color="#ffffff" />
                         </div>
                     </div>
                     <div className="w-80 flex flex-col bg-dark-light">

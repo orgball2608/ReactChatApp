@@ -94,8 +94,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                     <div
                                         id={'message-' + message.id}
                                         title={formatDate(message.createdAt)}
-                                        className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
-                                            isAuthor ? 'flex-row-reverse' : 'pl-14'
+                                        className={`p-0 relative text-base flex justify-end items-center w-fit cursor-pointer 
                                         } ${message.reacts?.length > 0 ? 'mb-2' : ''}`}
                                     >
                                         <DeletedMessage />
@@ -129,7 +128,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                         </div>
                                     )}
                                     <div
-                                        className={`flex justify-start items-center gap-2 ${
+                                        className={`flex justify-start gap-2 ${
                                             isAuthor ? 'items-end' : 'items-start'
                                         } ${isAuthor ? 'flex-row-reverse' : ''}`}
                                     >
@@ -186,7 +185,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                             id={'message-' + message.id}
                                             title={formatDate(message.createdAt)}
                                             className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
-                                                isAuthor ? 'flex-row-reverse' : 'pl-14'
+                                                isAuthor ? '' : 'pl-14'
                                             } ${message.reacts?.length > 0 ? 'mb-2' : ''}`}
                                         >
                                             {

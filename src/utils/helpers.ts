@@ -92,7 +92,7 @@ export const lastMessageContent = (conversation: Group | Conversation) => {
     const { lastMessageSent } = conversation;
     const MAX_MESSAGE_LENGTH = 15;
     if (lastMessageSent) {
-        const name = lastMessageSent?.author.lastName;
+        const name = lastMessageSent?.author?.lastName;
         if (
             lastMessageSent.content === '' ||
             (lastMessageSent.attachments && lastMessageSent.attachments?.length > 0)

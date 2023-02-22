@@ -35,8 +35,8 @@ export const MediaListFile: FC<Props> = ({ setShowFileSideBar }) => {
                         onClick={() => setShowFileSideBar(true)}
                         className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
                     >
-                        <div className="p-1 rounded-full text-white bg-[#373434]">
-                            <FileMediaIcon className="w-7 h-7" />
+                        <div className="p-1 w-fit h-fit rounded-full text-white bg-[#373434]">
+                            <FileMediaIcon className="w-6 h-6" />
                         </div>
                         <span className="text-lg">File Medida</span>
                     </div>

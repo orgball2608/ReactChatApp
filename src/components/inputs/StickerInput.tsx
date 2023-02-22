@@ -19,7 +19,7 @@ export const StickerInput = () => {
                 className="p-1 hover:bg-[#1c1e21] rounded-full cursor-pointer"
                 onClick={() => setVisible((prev) => !prev)}
             >
-                <StickerIcon className=" hover:bg-[#1c1e21] rounded-full" />
+                <StickerIcon className=" hover:bg-[#1c1e21] rounded-full" color="#0084ff" />
             </div>
         </Tippy>
     );

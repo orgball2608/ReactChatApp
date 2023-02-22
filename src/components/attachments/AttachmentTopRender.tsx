@@ -1,6 +1,5 @@
 import { FC, useContext } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { AuthContext } from '../../contex/AuthContext';
 import { ImagePreviewModalContext } from '../../contex/ImagePreviewModalContext';
 import { CDN_PREVIEW_URL } from '../../utils/constants';
 import { AttachmentType, GroupMessageType, MessageType } from '../../utils/types';
@@ -11,7 +10,6 @@ type Props = {
 };
 
 export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
-    const { user } = useContext(AuthContext);
     const { setShowModal, setAttachment } = useContext(ImagePreviewModalContext);
 
     const handleShowAttachments = (i: number) => {

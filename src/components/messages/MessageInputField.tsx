@@ -4,8 +4,7 @@ import { RootState } from '../../store';
 import { selectType } from '../../store/typeSlice';
 import { Group, GroupMessageType, MessageType, User } from '../../utils/types';
 import { useParams } from 'react-router-dom';
-import { Cross, Image } from 'akar-icons';
-import { AiOutlineSend } from 'react-icons/ai';
+import { Cross } from 'akar-icons';
 import { HiFaceSmile } from 'react-icons/hi2';
 import { SpinLoading } from '../commons/SpinLoading';
 import {
@@ -17,6 +16,7 @@ import {
 import { SocketContext } from '../../contex/SocketContext';
 import { AuthContext } from '../../contex/AuthContext';
 import { ImageList } from '../inputs/ImageList';
+import { FileList } from '../inputs/FileList';
 import { EMOJI_REPLACEMENT } from '../../utils/constants';
 import { GrAttachment } from 'react-icons/gr';
 import { StickerInput } from '../inputs/StickerInput';
@@ -110,9 +110,23 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
         setShowEmojiPicker(false);
     };
 
+    const getFileType = (file: File) => {
+        if (file.type.includes('image')) return 'image';
+        return 'file';
+    };
+
     const handleGetFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
         if (fileList.length + [...e.target.files].length > 5) return;
+        if (fileList.length > 0) {
+            for (let i = 0; i < e.target.files.length; i++) {
+                if (getFileType(e.target.files[i]) !== getFileType(fileList[0])) return;
+            }
+        } else {
+            for (let i = 0; i < e.target.files.length; i++) {
+                if (getFileType(e.target.files[i]) !== getFileType(e.target.files[0])) return;
+            }
+        }
         setFileList((prev) => [...prev, ...[...e.target.files!]]);
     };
 
@@ -121,6 +135,15 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
         if (!e.dataTransfer.files) return;
         if (e.dataTransfer.files[0].size > 1024 * 1024 * 5) return;
         if (fileList.length + [...e.dataTransfer.files].length > 5) return;
+        if (fileList.length > 0) {
+            for (let i = 0; i < e.dataTransfer.files.length; i++) {
+                if (getFileType(e.dataTransfer.files[i]) !== getFileType(fileList[0])) return;
+            }
+        } else {
+            for (let i = 0; i < e.dataTransfer.files.length; i++) {
+                if (getFileType(e.dataTransfer.files[i]) !== getFileType(e.dataTransfer.files[0])) return;
+            }
+        }
         setFileList((prev) => [...prev, ...[...e.dataTransfer.files]]);
     };
 
@@ -128,6 +151,15 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
         if (!e.clipboardData) return;
         if (e.clipboardData.files[0].size > 1024 * 1024 * 5) return;
         if (fileList.length + [...e.clipboardData.files].length > 5) return;
+        if (fileList.length > 0) {
+            for (let i = 0; i < e.clipboardData.files.length; i++) {
+                if (getFileType(e.clipboardData.files[i]) !== getFileType(fileList[0])) return;
+            }
+        } else {
+            for (let i = 0; i < e.clipboardData.files.length; i++) {
+                if (getFileType(e.clipboardData.files[i]) !== getFileType(e.clipboardData.files[0])) return;
+            }
+        }
         setFileList((prev) => [...prev, ...[...e.clipboardData.files]]);
     };
 
@@ -136,35 +168,9 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
         inputRef.current!.value = '';
         if (!id || (!fileList && !content)) return;
         const data = new FormData();
-
         fileList.forEach((file) => {
             data.append('attachments', file);
         });
-
-        // If there is content and attachments, send the content first, then send the attachments
-        if (content.length > 0 && fileList.length > 0) {
-            const contentData = new FormData();
-            contentData.append('content', content);
-            setIsSending(true);
-            setContent('');
-            setFileList([]);
-            if (conversationType === 'private')
-                await postNewMessage({ id: parseInt(id), data: contentData }).then(() => {
-                    postNewMessage({ id: parseInt(id), data }).then(() => {
-                        setIsSending(false);
-                    });
-                });
-            else
-                await postGroupMessage({ id: parseInt(id), data: contentData }).then(() => {
-                    postGroupMessage({ id: parseInt(id), data }).then(() => {
-                        setIsSending(false);
-                    });
-                });
-
-            return;
-        }
-
-        if (!content) return;
 
         if (replyInfo) {
             if (conversationType === 'private') {
@@ -196,19 +202,74 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
             return;
         }
 
-        data.append('content', content);
-        const Id = parseInt(id);
-        const params = { id: Id, data };
-        setContent('');
-        setFileList([]);
-        if (conversationType === 'private')
-            postNewMessage(params)
-                .then(() => {})
-                .catch((err) => console.log(err));
-        else
-            postGroupMessage(params)
-                .then(() => {})
-                .catch((err) => console.log(err));
+        if (content.length > 0) {
+            const contentData = new FormData();
+            contentData.append('content', content);
+            const Id = parseInt(id);
+            const params = { id: Id, data: contentData };
+            if (conversationType === 'private')
+                postNewMessage(params)
+                    .then(() => {})
+                    .catch((err) => console.log(err));
+            else
+                postGroupMessage(params)
+                    .then(() => {})
+                    .catch((err) => console.log(err));
+
+            if (fileList.length === 0) {
+                setContent('');
+                setFileList([]);
+                return;
+            }
+        }
+
+        // If there is content and attachments, send the content first, then send the attachments
+        if (fileList.length > 0) {
+            if (fileList[0].type.includes('image')) {
+                data.append('type', 'image');
+                setIsSending(true);
+                setContent('');
+                setFileList([]);
+                if (conversationType === 'private')
+                    postNewMessage({ id: parseInt(id), data }).then(() => {
+                        setIsSending(false);
+                    });
+                else
+                    postGroupMessage({ id: parseInt(id), data }).then(() => {
+                        setIsSending(false);
+                    });
+
+                return;
+            } else {
+                setIsSending(true);
+                if (conversationType === 'private') {
+                    for (let i = 0; i < fileList.length; i++) {
+                        const fileData = new FormData();
+                        fileData.append('attachments', fileList[i]);
+                        fileData.append('type', 'file');
+
+                        postNewMessage({ id: parseInt(id), data: fileData }).then(() => {
+                            setIsSending(false);
+                        });
+                    }
+                } else {
+                    for (let i = 0; i < fileList.length; i++) {
+                        const fileData = new FormData();
+                        fileData.append('attachments', fileList[i]);
+                        fileData.append('type', 'file');
+
+                        postGroupMessage({ id: parseInt(id), data: fileData }).then(() => {
+                            setIsSending(false);
+                        });
+                    }
+                }
+                setContent('');
+                setFileList([]);
+                return;
+            }
+        }
+
+        if (!content) return;
     };
 
     const handleReplaceEmoji = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -323,21 +384,20 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
                     }`}
                 >
                     <div className={`mt-2 w-full flex gap-2 ${fileList.length === 0 ? 'hidden ' : ''}`}>
-                        {fileList && fileList.length > 0 && (
+                        {fileList && fileList.length > 0 && fileList[0].type.includes('image') ? (
                             <ImageList fileList={fileList} setFileList={setFileList} handleGetFile={handleGetFile} />
+                        ) : (
+                            <FileList fileList={fileList} setFileList={setFileList} handleGetFile={handleGetFile} />
                         )}
                     </div>
                     <div className="relative flex items-center justify-between w-full">
                         <form onSubmit={sendMessage} className="w-full">
                             <input
                                 type="text"
-                                className={`bg-inherit outline-0 border-0 text-[#454545] py-1  font-Inter box-border text-lg  w-full p-0 break-words`}
+                                className={`bg-inherit outline-0 border-0 text-[#454545] py-1 font-Inter box-border text-lg  w-full p-0 break-words font-normal`}
                                 ref={inputRef}
-                                placeholder={`Send message to ${
-                                    conversationType === 'group'
-                                        ? selectedGroup?.title || 'Group'
-                                        : recipient?.firstName || 'User'
-                                }`}
+                                placeholder="Send message..."
+                                maxLength={1000}
                                 onKeyDown={(e) => {
                                     handleReplaceEmoji(e);
                                     sendTypingStatus();
@@ -390,9 +450,9 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
                 ) : (
                     <div
                         onClick={() => onSendEmojiMessage(getEmoji())}
-                        className=" flex-none w-fit h-fit rounded-full p-1 hover:bg-[#1c1e21] cursor-pointer"
+                        className=" flex-none rounded-full p-1 hover:bg-[#1c1e21] cursor-pointer flex justify-center items-center"
                     >
-                        <button className="text-xl w-6 h-6 text-center">{getEmoji()}</button>
+                        <button className="text-xl w-6 h-6">{getEmoji()}</button>
                     </div>
                 )}
             </div>
