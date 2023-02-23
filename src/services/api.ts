@@ -22,6 +22,7 @@ import {
     FetchMessagePayload,
     FriendRequestType,
     FriendType,
+    GetConversationMessageWithLimitParams,
     Group,
     GroupMessageType,
     MessageType,
@@ -167,3 +168,14 @@ export const ChangeEmojiIcon = ({ id, emoji }: ChangeEmojiIconParams) =>
 
 export const ChangeGroupEmojiIcon = ({ id, emoji }: ChangeEmojiIconParams) =>
     axiosClient.post(`/groups/${id}/emoji`, { emoji }, config);
+
+export const GetConversationMessageWithLimit = ({ id, limit, offset }: GetConversationMessageWithLimitParams) =>
+    axiosClient.get(`/conversations/${id}/messages/limit/${limit}/offset/${offset}`, config);
+
+export const GetGroupMessagesWithLimit = ({ id, limit, offset }: GetConversationMessageWithLimitParams) =>
+    axiosClient.get(`/groups/${id}/messages/limit/${limit}/offset/${offset}`, config);
+
+export const GetConversationMessagesLength = (id: number) =>
+    axiosClient.get(`/conversations/${id}/messages/length`, config);
+
+export const GetGroupMessagesLength = (id: number) => axiosClient.get(`/groups/${id}/messages/length`, config);

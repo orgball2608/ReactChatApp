@@ -278,3 +278,9 @@ export type ChangeEmojiIconParams = {
     id: number;
     emoji: string;
 };
+
+export type GetConversationMessageWithLimitParams = {
+    id: number;
+    limit: number;
+    offset: number;
+};

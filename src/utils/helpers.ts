@@ -1,4 +1,4 @@
-import { ArrowCycle, ChatDots, Crown, Gear, Person, PersonCross, Ribbon } from 'akar-icons';
+import { ArrowCycle, ChatDots, Crown, Gear, Person, Ribbon } from 'akar-icons';
 import { Conversation, FriendType, Group, SelectedPageType, User, UserContextMenuItemType } from './types';
 import moment from 'moment';
 import { BsFillPersonFill, BsMessenger } from 'react-icons/bs';

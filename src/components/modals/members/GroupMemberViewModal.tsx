@@ -14,12 +14,6 @@ export const GroupMemberViewModal: FC<GroupMemberProps> = ({ setShowModal, group
         if (type === 'all') return group?.users;
         return new Array(group?.owner);
     };
-    const getMemberRole = (user: User) => {
-        if (user.id === group?.owner.id && user.id === group?.owner.id) return 'Admin & Creator';
-        if (user.id === group?.owner.id) return 'Admin';
-        else if (user.id === group?.creator.id) return 'Creator';
-        else return 'Member';
-    };
     return (
         <div
             className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in"

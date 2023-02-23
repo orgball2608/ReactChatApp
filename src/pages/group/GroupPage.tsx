@@ -2,14 +2,12 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { ConversationPanel } from '../../components/conversations/ConversationPanel';
 import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchConversationsThunk } from '../../store/coversationSlice';
 import { AppDispatch } from '../../store';
 import {
     addGroupConversations,
     changeGroupEmoji,
     deleteGroupConversations,
     editGroupConversationsTitle,
-    fetchGroupsThunk,
     updateGroupAdded,
     updateGroupAvatarState,
     updateGroupConversations,
@@ -29,10 +27,6 @@ export const GroupPage = () => {
     const { id } = useParams();
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-    useEffect(() => {
-        dispatch(fetchConversationsThunk());
-        dispatch(fetchGroupsThunk());
-    }, []);
 
     useEffect(() => {
         socket.on('onGroupMessage', (payload: GroupMessageEventPayload) => {

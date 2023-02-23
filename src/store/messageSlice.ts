@@ -3,12 +3,14 @@ import {
     deleteMessage as deleteMessageApi,
     editMessage as editMessageAPI,
     getConversationMessages,
+    GetConversationMessageWithLimit,
 } from '../services/api';
 import {
     ConversationMessage,
     DeleteMessageParams,
     DeleteMessageResponse,
     EditMessageParams,
+    GetConversationMessageWithLimitParams,
     MessageEventPayload,
 } from '../utils/types';
 
@@ -31,6 +33,17 @@ export const deleteMessageThunk = createAsyncThunk('messages/delete', (params: D
 export const editMessageThunk = createAsyncThunk('messages/edit', (params: EditMessageParams) => {
     return editMessageAPI(params);
 });
+
+export const loadMoreMessagesThunk = createAsyncThunk(
+    'messages/loadMore',
+    ({ id, limit, offset }: GetConversationMessageWithLimitParams) => {
+        return GetConversationMessageWithLimit({
+            id,
+            limit,
+            offset,
+        });
+    },
+);
 
 const messagesSlice = createSlice({
     name: 'messages',
@@ -95,6 +108,12 @@ const messagesSlice = createSlice({
                 if (!conversationMessages) return;
                 const messageIndex = conversationMessages.messages.findIndex((message) => message.id === messageId);
                 if (messageIndex > -1) conversationMessages.messages[messageIndex].content = content;
+            })
+            .addCase(loadMoreMessagesThunk.fulfilled, (state, action) => {
+                const { messages, id } = action.payload.data;
+                const conversationMessages = state.messages.find((cm) => cm.id === id);
+                if (!conversationMessages) return;
+                conversationMessages.messages.push(...messages);
             });
     },
 });

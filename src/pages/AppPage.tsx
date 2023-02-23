@@ -13,6 +13,7 @@ import { getFriends, updateOfflineFriends, updateOnlineFriends } from '../store/
 import { ImagePreviewModalContext } from '../contex/ImagePreviewModalContext';
 import { ImagePreviewModal } from '../components/modals/ImagePreviewModal';
 import { AttachmentType } from '../utils/types';
+import { fetchGroupsThunk } from '../store/groupSlice';
 
 export const AppPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -23,6 +24,10 @@ export const AppPage = () => {
 
     useEffect(() => {
         dispatch(fetchConversationsThunk());
+        dispatch(fetchGroupsThunk());
+    }, []);
+
+    useEffect(() => {
         socket.emit('getOnlineFriends', { user });
         const interval = setInterval(() => {
             socket.emit('getOnlineFriends', { user });

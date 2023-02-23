@@ -4,13 +4,11 @@ import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
     changeConversationEmoji,
-    fetchConversationsThunk,
     updateConversation,
     updateDeleteMessageEvent,
     updateEditMessage,
 } from '../../store/coversationSlice';
 import { AppDispatch } from '../../store';
-import { fetchGroupsThunk } from '../../store/groupSlice';
 import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
 import { SocketContext } from '../../contex/SocketContext';
 import { MessageEventPayload } from '../../utils/types';
@@ -20,11 +18,6 @@ export const ConversationPage = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { id } = useParams();
     const socket = useContext(SocketContext);
-    useEffect(() => {
-        dispatch(fetchConversationsThunk());
-        dispatch(fetchGroupsThunk());
-    }, []);
-
     useEffect(() => {
         socket.on('onMessage', (payload: MessageEventPayload) => {
             const { conversation } = payload;

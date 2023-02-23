@@ -6,7 +6,6 @@ import { ConversationSelected } from '../conversations/ConversationSelected';
 import { ConversationSideBarItem } from '../conversations/ConversationSideBarItem';
 import { GroupSideBarItem } from '../groups/GroupSideBarItem';
 import { ConversationSearchBar } from '../conversations/ConversationSearchBar';
-import { Edit } from 'akar-icons';
 import { useDebounce } from '../../hooks/useDebounce';
 // import { searchUsers } from '../../services/api';
 import { SearchUserResults } from '../searchs/SearchUserResults';

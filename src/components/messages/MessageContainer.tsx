@@ -8,6 +8,11 @@ import { GroupMessageType, MessageType } from '../../utils/types';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { changeType } from '../../store/typeSlice';
 import { MessageItem } from './MessageItem';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { SpinLoading } from '../commons/SpinLoading';
+import { loadMoreMessagesThunk } from '../../store/messageSlice';
+import { loadMoreGroupMessagesThunk } from '../../store/groupMessageSlice';
+import { GetConversationMessagesLength, GetGroupMessagesLength } from '../../services/api';
 
 type Props = {
     setReplyInfo: React.Dispatch<React.SetStateAction<MessageType | GroupMessageType | undefined>>;
@@ -23,14 +28,35 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo }) => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groupMessages = useSelector((state: RootState) => state.groupMessage.messages);
-    
+    const [limitCount, setLimitCount] = useState(10);
+    const [messageLength, setMessageLength] = useState(0);
+    const [groupMessageLength, setGroupMessageLength] = useState(0);
 
     useEffect(() => {
         return () => {
             setIsEditing(false);
             setEditMessage(null);
+            setLimitCount(10);
         };
     }, [id]);
+
+    useEffect(() => {
+        if (selectedType === 'private') {
+            GetConversationMessagesLength(parseInt(id!)).then((res) => {
+                setMessageLength(res.data);
+            });
+        } else {
+            GetGroupMessagesLength(parseInt(id!)).then((res) => {
+                setGroupMessageLength(res.data);
+            });
+        }
+    }, [selectedType, id]);
+
+    useEffect(() => {
+        if (selectedType === 'private')
+            dispatch(loadMoreMessagesThunk({ id: parseInt(id!), limit: 10, offset: limitCount }));
+        else dispatch(loadMoreGroupMessagesThunk({ id: parseInt(id!), limit: 10, offset: limitCount }));
+    }, [limitCount]);
 
     const handleSubmit = (event: React.KeyboardEvent<HTMLImageElement>) => {
         if (event.key === 'Escape') setIsEditing(false);
@@ -47,16 +73,23 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo }) => {
         );
     };
 
+    const conversationPathNameType = pathname.split('/')[1];
+    if (selectedType === 'private' && conversationPathNameType === 'groups') dispatch(changeType('group'));
+
+    const msgs =
+        selectedType === 'private'
+            ? conversationMessages.find((cm) => cm.id === parseInt(id!))
+            : groupMessages.find((gm) => gm.id === parseInt(id!));
+
+    const messages = msgs?.messages || [];
+
+    const getMessagesLength = () => {
+        if (selectedType === 'private') return messageLength;
+        else return groupMessageLength;
+    };
+
     const formatMessages = () => {
-        const conversationPathNameType = pathname.split('/')[1];
-        if (selectedType === 'private' && conversationPathNameType === 'groups') dispatch(changeType('group'));
-
-        const msgs =
-            selectedType === 'private'
-                ? conversationMessages.find((cm) => cm.id === parseInt(id!))
-                : groupMessages.find((gm) => gm.id === parseInt(id!));
         if (!msgs) return [];
-
         return msgs?.messages.map((m, index, arr) => {
             const nextIndex = index + 1;
             const currentMessage = arr[index];
@@ -114,12 +147,29 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo }) => {
                 setEditMessage: setEditMessage,
             }}
         >
-            <div
-                className="h-full box-border py-2 px-6 mt-8 flex flex-col-reverse overflow-y-auto overflow-auto relative outline-0 gap-1 "
-                onKeyDown={handleSubmit}
-                tabIndex={0}
-            >
-                <>{formatMessages()}</>
+            <div className="h-full box-border relative" onKeyDown={handleSubmit} tabIndex={0}>
+                <InfiniteScroll
+                    dataLength={messages?.length as number}
+                    next={() => setLimitCount((prev) => prev + 10)}
+                    inverse
+                    hasMore={getMessagesLength() > limitCount}
+                    loader={
+                        <div className="flex justify-center py-16">
+                            <SpinLoading />
+                        </div>
+                    }
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column-reverse',
+                        padding: '0.5rem  1.5rem ',
+                        marginTop: '2rem',
+                        gap: '0.25rem',
+                        outline: 'none',
+                    }}
+                    height="calc(100vh - 120px)"
+                >
+                    <>{formatMessages()}</>
+                </InfiniteScroll>
             </div>
         </MessageMenuContext.Provider>
     );
