@@ -15,6 +15,7 @@ import { MessageReplyIcon } from './MessageReplyIcon';
 import { MessageReplyBadge } from './MessageReplyBadge';
 import { DeletedMessage } from './DeletedMessage';
 import { ReactionStatusModal } from '../modals/ReactionStatusModal';
+import { MessageFileRender } from './MessageFileRender';
 
 type FormattedMessageProps = {
     user?: User;
@@ -190,11 +191,17 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                         >
                                             {
                                                 // if message has attachments
-                                                message.attachments?.length > 0 && (
+                                                message.attachments?.length > 0 &&
+                                                message.attachments[0].type === 'image' ? (
                                                     <AttachmentTopRender
                                                         attachments={message.attachments}
                                                         message={message}
                                                     />
+                                                ) : (
+                                                    message.attachments?.length > 0 &&
+                                                    message.attachments[0].type === 'file' && (
+                                                        <MessageFileRender attachments={message.attachments} />
+                                                    )
                                                 )
                                             }
 

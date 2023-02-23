@@ -111,3 +111,11 @@ export const lastMessageContent = (conversation: Group | Conversation) => {
     }
     return null;
 };
+
+export const getFileSize = (size: number) => {
+    const fileSize = size / 1024;
+    if (fileSize < 1024) {
+        return `${fileSize.toFixed(2)} KB`;
+    }
+    return `${(fileSize / 1024).toFixed(2)} MB`;
+};

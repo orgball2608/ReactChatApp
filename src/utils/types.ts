@@ -39,6 +39,8 @@ export type Conversation = {
 export type AttachmentType = {
     key: string;
     type: string;
+    name: string;
+    size: number;
 };
 
 export type MessageType = {
