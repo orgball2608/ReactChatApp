@@ -8,7 +8,7 @@ import { CustomizeConversationOptions } from '../conversation-options/CustomizeC
 import { defaultAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { MediaListFile } from '../conversation-options/MediaListFile';
-import { MediaFileSideBar } from '../conversation-options/MediaFileSideBar';
+import { FileSideBar } from '../conversation-options/FileSideBar';
 
 export const ConversationSettingSideBar = () => {
     const { id } = useParams();
@@ -16,6 +16,7 @@ export const ConversationSettingSideBar = () => {
     const conversationId = parseInt(id!);
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
+    const [showMediaFileSideBar, setShowMediaFileSideBar] = useState<boolean>(false);
     const [showFileSideBar, setShowFileSideBar] = useState<boolean>(false);
 
     const selectedConversation = conversations.find((group) => group.id === conversationId);
@@ -33,10 +34,15 @@ export const ConversationSettingSideBar = () => {
 
     return (
         <>
-            {showFileSideBar ? (
-                <MediaFileSideBar setShowFileSideBar={setShowFileSideBar} />
+            {showMediaFileSideBar || showFileSideBar ? (
+                <FileSideBar
+                    setShowFileSideBar={setShowFileSideBar}
+                    setShowMediaFileSideBar={setShowMediaFileSideBar}
+                    showFileSideBar={showFileSideBar}
+                    showMediaFileSideBar={showMediaFileSideBar}
+                />
             ) : (
-                <aside className="w-72 flex-none px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] ">
+                <aside className="w-72 flex-none px-2 gap-4 flex flex-col border-border-conversations border-l-[1px]">
                     <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
                         <LazyLoadImage
                             src={getAvatar() || defaultAvatar}
@@ -52,7 +58,10 @@ export const ConversationSettingSideBar = () => {
                     </div>
                     <div className="flex flex-col justify-center">
                         <CustomizeConversationOptions />
-                        <MediaListFile setShowFileSideBar={setShowFileSideBar} />
+                        <MediaListFile
+                            setShowMediaFileSideBar={setShowMediaFileSideBar}
+                            setShowFileSideBar={setShowFileSideBar}
+                        />
                     </div>
                 </aside>
             )}

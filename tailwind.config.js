@@ -32,9 +32,19 @@ module.exports = {
                     from: { opacity: 0 },
                     to: { opacity: 1 },
                 },
+                'side-out': {
+                    from: { transform: 'translateX(100%)' },
+                    to: { transform: 'translateX(0)' },
+                },
+                'side-in': {
+                    from: { transform: 'translateX(50%)' },
+                    to: { transform: 'translateX(0)' },
+                },
             },
             animation: {
                 'fade-in': 'fade-in 0.3s forwards',
+                'side-out': 'side-out 0.2s forwards',
+                'side-in': 'side-in 0.2s forwards',
             },
         },
     },

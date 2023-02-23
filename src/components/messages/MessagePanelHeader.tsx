@@ -77,7 +77,7 @@ export const MessagePanelHeader = () => {
                         )}
                     </div>
                     <div className="flex flex-col justify-center">
-                        <span>
+                        <span className="text-md font-semibold ">
                             {' '}
                             {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}
                         </span>

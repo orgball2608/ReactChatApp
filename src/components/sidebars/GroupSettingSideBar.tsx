@@ -12,7 +12,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { defaultGroupAvatar } from '../../utils/constants';
 import { MediaListFile } from '../conversation-options/MediaListFile';
-import { MediaFileSideBar } from '../conversation-options/MediaFileSideBar';
+import { FileSideBar } from '../conversation-options/FileSideBar';
 
 export const GroupSettingSideBar = () => {
     const { id } = useParams();
@@ -25,6 +25,7 @@ export const GroupSettingSideBar = () => {
     const socket = useContext(SocketContext);
     const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
     const [offlineUsers, setOfflineUsers] = useState<User[] | undefined>([]);
+    const [showMediaFileSideBar, setShowMediaFileSideBar] = useState<boolean>(false);
     const [showFileSideBar, setShowFileSideBar] = useState<boolean>(false);
 
     useEffect(() => {
@@ -57,8 +58,13 @@ export const GroupSettingSideBar = () => {
         <>
             {showModal && <ChangeGroupTitleModal setShowModal={setShowModal} selectedGroup={selectedGroup} />}
 
-            {showFileSideBar ? (
-                <MediaFileSideBar setShowFileSideBar={setShowFileSideBar} />
+            {showMediaFileSideBar || showFileSideBar ? (
+                <FileSideBar
+                    setShowFileSideBar={setShowFileSideBar}
+                    setShowMediaFileSideBar={setShowMediaFileSideBar}
+                    showFileSideBar={showFileSideBar}
+                    showMediaFileSideBar={showMediaFileSideBar}
+                />
             ) : (
                 <aside className="w-72 flex-none px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto ">
                     <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
@@ -79,7 +85,10 @@ export const GroupSettingSideBar = () => {
                             offlineUsers={offlineUsers}
                             groupId={groupId}
                         />
-                        <MediaListFile setShowFileSideBar={setShowFileSideBar} />
+                        <MediaListFile
+                            setShowFileSideBar={setShowFileSideBar}
+                            setShowMediaFileSideBar={setShowMediaFileSideBar}
+                        />
                     </div>
                 </aside>
             )}
