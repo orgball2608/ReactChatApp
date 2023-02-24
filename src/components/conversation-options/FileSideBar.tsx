@@ -103,13 +103,13 @@ export const FileSideBar: FC<Props> = ({
                 showMediaFileSideBar={showMediaFileSideBar}
             />
             {showFileSideBar ? (
-                <div className="w-full h-full p-1 flex-none">
+                <div className="w-full h-fit p-1 flex-none">
                     {files.length === 0 ? (
                         <div className="w-full h-full flex justify-center items-center">
                             <span className="text-lg">No media, links, or docs</span>
                         </div>
                     ) : (
-                        <div className="flex flex-col justify-center gap-1 cursor-pointer ">
+                        <div className="flex flex-col h-fit justify-center gap-1 cursor-pointer ">
                             {files.map((attachment) => (
                                 <a
                                     key={attachment.key}
@@ -136,13 +136,13 @@ export const FileSideBar: FC<Props> = ({
                     )}
                 </div>
             ) : (
-                <div className="w-full h-full p-1 flex-none">
+                <div className="w-full h-fit p-1 flex-none">
                     {attachments.length === 0 ? (
                         <div className="w-full h-full flex justify-center items-center">
                             <span className="text-lg">No media, links, or docs</span>
                         </div>
                     ) : (
-                        <div className="flex flex-wrap gap-1 cursor-pointer ">
+                        <div className=" h-fit flex flex-wrap gap-1 cursor-pointer ">
                             {attachments.map((attachment) => (
                                 <div
                                     key={attachment.key}

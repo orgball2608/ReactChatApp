@@ -43,6 +43,7 @@ module.exports = {
             },
             animation: {
                 'fade-in': 'fade-in 0.3s forwards',
+                'fade-in-slow': 'fade-in 0.5s forwards',
                 'side-out': 'side-out 0.2s forwards',
                 'side-in': 'side-in 0.2s forwards',
             },

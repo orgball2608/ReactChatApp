@@ -164,7 +164,6 @@ export const MessageItem: FC<Props> = ({
                                 }`}
                             >
                                 <div
-                                    id={'message-' + m.id}
                                     title={formatDate(m.createdAt)}
                                     className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
                                         isAuthor ? 'flex-row-reverse' : 'pl-14'
@@ -183,13 +182,19 @@ export const MessageItem: FC<Props> = ({
                                         ) : (
                                             m.attachments?.length > 0 &&
                                             m.attachments[0].type === 'file' && (
-                                                <MessageFileRender attachments={m.attachments} />
+                                                <MessageFileRender attachments={m.attachments} message={m} />
                                             )
                                         )
                                     }
-                                    {m.sticker && <SpriteRenderer size={120} src={m.sticker} />}
+                                    {m.sticker && (
+                                        <div id={'message-' + m.id}>
+                                            <SpriteRenderer size={120} src={m.sticker} />
+                                        </div>
+                                    )}
+
                                     {m.gif && (
                                         <LazyLoadImage
+                                            id={'message-' + m.id}
                                             src={m.gif}
                                             className={`${
                                                 (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||

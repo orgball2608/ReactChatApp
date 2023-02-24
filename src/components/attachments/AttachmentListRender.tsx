@@ -26,6 +26,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
         if (attachments.length === 1)
             return (
                 <LazyLoadImage
+                    id={'message-' + message.id}
                     onClick={() => handleShowAttachments(0)}
                     src={CDN_PREVIEW_URL + attachments[0].key}
                     alt="attachment"
@@ -39,6 +40,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
         if (attachments.length === 2)
             return (
                 <div
+                    id={'message-' + message.id}
                     className={`w-full flex flex-wrap gap-[3px] justify-end ${
                         (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
                             ? `${user?.id === message.author.id ? 'rounded-tr-none ' : 'rounded-tl-none '}`
@@ -62,6 +64,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
         if (attachments.length === 3)
             return (
                 <div
+                    id={'message-' + message.id}
                     className={`w-full flex flex-wrap gap-[3px] justify-end rounded-2xl ${
                         (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
                             ? `${user?.id === message.author.id ? 'rounded-tr-none ' : 'rounded-tl-none '}`
@@ -85,6 +88,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
         if (attachments.length === 4)
             return (
                 <div
+                    id={'message-' + message.id}
                     className={`w-fit flex flex-wrap gap-[3px] ${
                         (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
                             ? `${
@@ -114,7 +118,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
             );
         else {
             return (
-                <div className="w-full flex flex-col flex-wrap gap-[3px] justify-end ">
+                <div id={'message-' + message.id} className="w-full flex flex-col flex-wrap gap-[3px] justify-end ">
                     <div
                         className={`flex gap-[4px] justify-end ${
                             (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0

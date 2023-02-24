@@ -183,7 +183,6 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                         }`}
                                     >
                                         <div
-                                            id={'message-' + message.id}
                                             title={formatDate(message.createdAt)}
                                             className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
                                                 isAuthor ? '' : 'pl-14'
@@ -200,14 +199,23 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                                 ) : (
                                                     message.attachments?.length > 0 &&
                                                     message.attachments[0].type === 'file' && (
-                                                        <MessageFileRender attachments={message.attachments} />
+                                                        <MessageFileRender
+                                                            attachments={message.attachments}
+                                                            message={message}
+                                                        />
                                                     )
                                                 )
                                             }
 
-                                            {message.sticker && <SpriteRenderer size={120} src={message.sticker} />}
+                                            {message.sticker && (
+                                                <div id={'message-' + message.id}>
+                                                    <SpriteRenderer size={120} src={message.sticker} />
+                                                </div>
+                                            )}
+
                                             {message.gif && (
                                                 <LazyLoadImage
+                                                    id={'message-' + message.id}
                                                     src={message.gif}
                                                     className={` ${
                                                         isOneElement

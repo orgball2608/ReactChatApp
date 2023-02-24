@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { toast } from 'react-toastify';
 import { GroupMessageType, MessageType } from '../../utils/types';
 
 type MessageReplyBadgeProps = {
@@ -17,8 +18,11 @@ export const MessageReplyBadge: FC<MessageReplyBadgeProps> = ({ message }) => {
                         selected.classList.remove('select-message');
                     }
                     el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-                    el.style.border = '2px solid #4E4F50';
+                    el.style.border = '2px solid #c5c8cb';
                     el.classList.add('select-message');
+                } else {
+                    toast.clearWaitingQueue();
+                    toast.success('Cannot find your message. Try to scroll up to load more');
                 }
             }}
             className="bg-[#4E4F50] opacity-60 rounded-xl px-5 py-2 cursor-pointer"

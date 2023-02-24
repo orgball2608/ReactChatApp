@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MessagePanelHeader } from './MessagePanelHeader';
 import { MessageContainer } from './MessageContainer';
 import { MessagePanelBody } from './MessagePanelBody';
@@ -19,17 +19,26 @@ export const MessagePanel = () => {
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const conversation = conversations.find((conversation) => conversation.id === parseInt(id!));
     const [isRecipientTyping, setIsRecipientTyping] = useState(false);
+    const [inputSectionOffset, setInputSectionOffset] = useState(0);
 
     const recipient = getRecipientFromConversation(conversation, user);
+
+    useEffect(() => {
+        setInputSectionOffset(0);
+    }, [id]);
+
+    useEffect(() => {
+        if (isRecipientTyping) setInputSectionOffset(1.5);
+    }, [isRecipientTyping]);
 
     return (
         <div className="bg-inherit h-full w-full box-border relative">
             <MessagePanelHeader />
             <MessagePanelBody>
-                <MessageContainer setReplyInfo={setReplyInfo} />
-                <div>
+                <MessageContainer setReplyInfo={setReplyInfo} inputSectionOffset={inputSectionOffset} />
+                <div className="flex-none w-full">
                     {isRecipientTyping && (
-                        <div className="w-full px-6 flex gap-2 items-center">
+                        <div className="w-full px-6 flex gap-2 items-center animate-fade-in">
                             <img src={recipient?.profile.avatar || defaultAvatar} className="w-8 h-8 rounded-full" />
                             <span className="text-gray-400 text-sm ml-2">
                                 {getDisplayName(recipient!)} is typing...
@@ -37,10 +46,10 @@ export const MessagePanel = () => {
                         </div>
                     )}
                     <MessageInputField
-                        recipient={recipient}
                         setIsRecipientTyping={setIsRecipientTyping}
                         replyInfo={replyInfo}
                         setReplyInfo={setReplyInfo}
+                        setInputSectionOffset={setInputSectionOffset}
                     />
                 </div>
             </MessagePanelBody>

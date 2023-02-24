@@ -22,6 +22,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
         if (attachments.length === 1)
             return (
                 <LazyLoadImage
+                    id={'message-' + message.id}
                     onClick={() => handleShowAttachments(0)}
                     src={CDN_PREVIEW_URL + attachments[0].key}
                     alt="attachment"
@@ -30,7 +31,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
             );
         if (attachments.length === 2)
             return (
-                <div className={`w-full flex flex-wrap gap-[3px] justify-end`}>
+                <div id={'message-' + message.id} className={`w-full flex flex-wrap gap-[3px] justify-end`}>
                     {attachments.map((attachment: AttachmentType, index) => {
                         return (
                             <LazyLoadImage
@@ -47,7 +48,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
 
         if (attachments.length === 3)
             return (
-                <div className={`w-full flex flex-wrap gap-[3px] justify-end rounded-2xl`}>
+                <div id={'message-' + message.id} className={`w-full flex flex-wrap gap-[3px] justify-end rounded-2xl`}>
                     {attachments.map((attachment: AttachmentType, index) => {
                         return (
                             <LazyLoadImage
@@ -64,7 +65,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
 
         if (attachments.length === 4)
             return (
-                <div className={`w-fit flex flex-wrap gap-[3px] justify-end`}>
+                <div id={'message-' + message.id} className={`w-fit flex flex-wrap gap-[3px] justify-end`}>
                     {attachments.map((attachment: AttachmentType, index) => {
                         return (
                             <LazyLoadImage
@@ -80,7 +81,7 @@ export const AttachmentTopRender: FC<Props> = ({ attachments, message }) => {
             );
         else {
             return (
-                <div className="w-full flex flex-col flex-wrap gap-[3px] justify-end ">
+                <div id={'message-' + message.id} className="w-full flex flex-col flex-wrap gap-[3px] justify-end ">
                     <div className={`flex gap-[4px] justify-end`}>
                         {attachments.slice(0, 2).map((attachment: AttachmentType, index) => {
                             return (

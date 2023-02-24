@@ -25,12 +25,17 @@ import ImageIcon from '../icons/ImageIcon';
 const Picker = lazy(() => import('@emoji-mart/react'));
 
 type Props = {
-    recipient: User | undefined;
     setIsRecipientTyping: React.Dispatch<React.SetStateAction<boolean>>;
     replyInfo: MessageType | GroupMessageType | undefined;
     setReplyInfo: React.Dispatch<React.SetStateAction<MessageType | GroupMessageType | undefined>>;
+    setInputSectionOffset: React.Dispatch<React.SetStateAction<number>>;
 };
-export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, replyInfo, setReplyInfo }) => {
+export const MessageInputField: FC<Props> = ({
+    setIsRecipientTyping,
+    replyInfo,
+    setReplyInfo,
+    setInputSectionOffset,
+}) => {
     const conversationType = useSelector((state: RootState) => selectType(state));
     const [content, setContent] = useState('');
     const { id } = useParams();
@@ -51,6 +56,13 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
     useEffect(() => {
         setIsRecipientTyping(false);
     }, [id]);
+
+    useEffect(() => {
+        if (fileList.length === 0) setInputSectionOffset(0);
+        if (fileList.length > 0) setInputSectionOffset(3);
+        if (replyInfo) setInputSectionOffset(3);
+        if (!replyInfo && fileList.length === 0) setInputSectionOffset(0);
+    }, [fileList, replyInfo]);
 
     useEffect(() => {
         const onChanged = () => {
@@ -117,6 +129,7 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
     const handleGetFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
         if (fileList.length + [...e.target.files].length > 5) return;
+
         if (fileList.length > 0) {
             for (let i = 0; i < e.target.files.length; i++) {
                 if (getFileType(e.target.files[i]) !== getFileType(fileList[0])) return;
@@ -150,6 +163,7 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
         if (!e.clipboardData) return;
         if (e.clipboardData.files[0].size > 1024 * 1024 * 5) return;
         if (fileList.length + [...e.clipboardData.files].length > 5) return;
+
         if (fileList.length > 0) {
             for (let i = 0; i < e.clipboardData.files.length; i++) {
                 if (getFileType(e.clipboardData.files[i]) !== getFileType(fileList[0])) return;
@@ -317,7 +331,7 @@ export const MessageInputField: FC<Props> = ({ recipient, setIsRecipientTyping, 
     return (
         <div className="w-full h-full">
             {replyInfo && (
-                <div className=" relative h-12 border-t border-[#2f3237] px-6 flex justify-between items-center py-auto">
+                <div className=" relative h-12 border-t border-[#2f3237] px-6 flex justify-between items-center py-auto animate-fade-in-slow">
                     <div className="flex flex-col justify-center items-start">
                         <p>
                             Replying to

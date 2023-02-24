@@ -16,9 +16,10 @@ import { GetConversationMessagesLength, GetGroupMessagesLength } from '../../ser
 
 type Props = {
     setReplyInfo: React.Dispatch<React.SetStateAction<MessageType | GroupMessageType | undefined>>;
+    inputSectionOffset: number;
 };
 
-export const MessageContainer: FC<Props> = ({ setReplyInfo }) => {
+export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }) => {
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const { pathname } = useLocation();
@@ -166,7 +167,7 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo }) => {
                         gap: '0.25rem',
                         outline: 'none',
                     }}
-                    height="calc(100vh - 120px)"
+                    height={`calc(100vh - ${124 + inputSectionOffset * 16}px)`}
                 >
                     <>{formatMessages()}</>
                 </InfiniteScroll>
