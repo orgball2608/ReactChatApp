@@ -26,6 +26,8 @@ module.exports = {
                 86: '21.5rem',
                 88: '22rem',
                 42: '10.5rem',
+                18: '4.5rem',
+                26: '6.5rem',
             },
             keyframes: {
                 'fade-in': {

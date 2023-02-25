@@ -48,13 +48,15 @@ export const CreateConversationModal: FC<Props> = ({ setShowModal }) => {
     return (
         <div
             ref={ref}
-            className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-10"
+            className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-10 animate-fade-in"
             onClick={handleOverlayClick}
         >
             <ModalContainer>
                 <ModalHeader>
-                    <h1 className="text-2xl font-bold ml-2">Create a conversation</h1>
-                    <MdClose size={24} onClick={() => setShowModal(false)} className="cursor-pointer" />
+                    <h1 className="text-2xl font-bold">Create a conversation</h1>
+                    <div className="p-1 rounded-full bg-[#383636] hover:bg-[#494747]">
+                        <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
+                    </div>
                 </ModalHeader>
                 <ConversationSelectTypeForm
                     conversationType={conversationType}

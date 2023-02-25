@@ -13,7 +13,7 @@ export const MessageFileRender: FC<Props> = ({ attachments, message }) => {
     return (
         <div
             id={'message-' + message.id}
-            className="flex bg-[#464648] w-fit rounded-xl px-5 py-2 items-center gap-2  overflow-hidden"
+            className="flex bg-[#3a3b3c] w-fit rounded-xl px-5 py-2 items-center gap-2  overflow-hidden"
         >
             <div className="p-1 rounded-full bg-[#727070]">
                 <FileIcon color="#050505" />

@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FormattedMessage } from './FormatMessage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,8 +38,10 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }
             setIsEditing(false);
             setEditMessage(null);
             setLimitCount(10);
+            setMessageLength(0);
+            setGroupMessageLength(0);
         };
-    }, [id]);
+    }, [id, selectedType]);
 
     useEffect(() => {
         if (selectedType === 'private') {
@@ -151,14 +153,17 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }
             <div className="h-full box-border relative" onKeyDown={handleSubmit} tabIndex={0}>
                 <InfiniteScroll
                     dataLength={messages?.length as number}
-                    next={() => setLimitCount((prev) => prev + 10)}
-                    inverse
+                    next={() => {
+                        setLimitCount((prev) => prev + 10);
+                    }}
+                    inverse={true}
                     hasMore={getMessagesLength() > limitCount}
                     loader={
                         <div className="flex justify-center py-16">
                             <SpinLoading />
                         </div>
                     }
+                    scrollableTarget="scrollableDiv"
                     style={{
                         display: 'flex',
                         flexDirection: 'column-reverse',

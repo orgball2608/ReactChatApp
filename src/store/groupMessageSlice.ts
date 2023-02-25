@@ -75,6 +75,9 @@ export const groupMessagesSlice = createSlice({
             const messageIndex = groupMessages.messages.findIndex((m) => m.id === message.id);
             groupMessages.messages[messageIndex] = message;
         },
+        resetGroupMessages: (state) => {
+            state.messages = [];
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -105,12 +108,20 @@ export const groupMessagesSlice = createSlice({
             .addCase(loadMoreGroupMessagesThunk.fulfilled, (state, action) => {
                 const { id, messages } = action.payload.data;
                 const groupMessages = state.messages.find((gm) => gm.id === id);
-                if (!groupMessages) return;
-                groupMessages.messages = [...groupMessages.messages, ...messages];
+                if (!groupMessages) {
+                    state.messages.push(action.payload.data);
+                    return;
+                }
+                messages.forEach((message: GroupMessageType) => {
+                    if (!groupMessages.messages.find((m) => m.id === message.id)) {
+                        groupMessages.messages.push(message);
+                    }
+                });
             });
     },
 });
 
-export const { addGroupMessage, deleteGroupMessage, editGroupMessage, reactGroupMessage } = groupMessagesSlice.actions;
+export const { addGroupMessage, deleteGroupMessage, editGroupMessage, reactGroupMessage, resetGroupMessages } =
+    groupMessagesSlice.actions;
 
 export default groupMessagesSlice.reducer;

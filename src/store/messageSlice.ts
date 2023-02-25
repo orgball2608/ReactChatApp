@@ -12,6 +12,7 @@ import {
     EditMessageParams,
     GetConversationMessageWithLimitParams,
     MessageEventPayload,
+    MessageType,
 } from '../utils/types';
 
 export interface MessagesState {
@@ -78,6 +79,9 @@ const messagesSlice = createSlice({
             const messageIndex = conversationMessage.messages.findIndex((m) => m.id === message.id);
             conversationMessage.messages[messageIndex] = message;
         },
+        resetMessages: (state) => {
+            state.messages = [];
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -112,11 +116,18 @@ const messagesSlice = createSlice({
             .addCase(loadMoreMessagesThunk.fulfilled, (state, action) => {
                 const { messages, id } = action.payload.data;
                 const conversationMessages = state.messages.find((cm) => cm.id === id);
-                if (!conversationMessages) return;
-                conversationMessages.messages.push(...messages);
+                if (!conversationMessages) {
+                    state.messages.push(action.payload.data);
+                    return;
+                }
+                messages.forEach((message: MessageType) => {
+                    if (!conversationMessages.messages.find((m) => m.id === message.id)) {
+                        conversationMessages.messages.push(message);
+                    }
+                });
             });
     },
 });
-export const { addMessage, deleteMessage, editMessage, reactMessage } = messagesSlice.actions;
+export const { addMessage, deleteMessage, editMessage, reactMessage, resetMessages } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

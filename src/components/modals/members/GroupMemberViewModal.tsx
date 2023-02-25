@@ -25,7 +25,7 @@ export const GroupMemberViewModal: FC<GroupMemberProps> = ({ setShowModal, group
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
                     <span className="text-lg font-medium">Group Member</span>
-                    <div className="ml-auto bg-[#5c5858] hover:bg-[#a09d9d] p-1 rounded-full ">
+                    <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full ">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>
                 </div>
