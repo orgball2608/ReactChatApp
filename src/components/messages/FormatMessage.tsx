@@ -1,4 +1,4 @@
-import { GroupMessageType, MessageType, User } from '../../utils/types';
+import { Conversation, Group, GroupMessageType, MessageType, User } from '../../utils/types';
 import { ChangeEvent, Dispatch, FC, SetStateAction, useContext, useState } from 'react';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import { EditMessageContainer } from './EditMessageContainer';
@@ -16,6 +16,9 @@ import { MessageReplyBadge } from './MessageReplyBadge';
 import { DeletedMessage } from './DeletedMessage';
 import { ReactionStatusModal } from '../modals/ReactionStatusModal';
 import { MessageFileRender } from './MessageFileRender';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { useParams } from 'react-router-dom';
 
 type FormattedMessageProps = {
     user?: User;
@@ -38,6 +41,31 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
 }) => {
     const { editMessage } = useContext(MessageMenuContext);
     const [showReactionStatusModal, setShowReactionStatusModal] = useState<boolean>(false);
+    const { id } = useParams<{ id: string }>();
+    const conversationType = useSelector((state: RootState) => state.type.type);
+    const conversations = useSelector((state: RootState) => state.conversation.conversations);
+    const selectedConversation = conversations.find((conversation: Conversation) => conversation.id === parseInt(id!));
+    const groups = useSelector((state: RootState) => state.group.groups);
+    const selectedGroup = groups.find((group: Group) => group.id === parseInt(id!));
+
+    const getNickname = () => {
+        if (conversationType === 'private') {
+            const nickname = selectedConversation?.nicknames.find((nickname) => nickname.user.id === message.author.id);
+            if (nickname) return nickname.nickname;
+        } else {
+            const nickname = selectedGroup?.nicknames.find((nickname) => nickname.user?.id === message.author.id);
+            if (nickname) return nickname.nickname;
+        }
+    };
+
+    const getNicknameOrName = () => {
+        const displayName = getDisplayName(message.author);
+        if (getNickname()) {
+            return getNickname();
+        }
+        return displayName;
+    };
+
     const getAvatar = () => {
         if (message.author.profile) {
             if (message.author.profile.avatar) {
@@ -75,7 +103,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                     color: isAuthor ? '#989898' : '#5E8BFF',
                                 }}
                             >
-                                {getDisplayName(message.author)}
+                                {getNicknameOrName()}
                             </span>
                         </div>
                     )}

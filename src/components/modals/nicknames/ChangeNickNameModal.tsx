@@ -18,7 +18,6 @@ export const ChangeNickNameModal: FC<Props> = ({ setShowModal }) => {
     const groups = useSelector((state: RootState) => state.group.groups);
     const selectedGroup = groups.find((group: Group) => group.id === parseInt(id!));
     const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
-    const conversation = useSelector((state: RootState) => state.conversation.conversations);
 
     const getMember = () => {
         if (conversationType === 'group') {

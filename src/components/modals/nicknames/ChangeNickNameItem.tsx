@@ -7,6 +7,7 @@ import { RootState } from '../../../store';
 import { defaultAvatar } from '../../../utils/constants';
 import { getDisplayName } from '../../../utils/helpers';
 import { Conversation, Group, User } from '../../../utils/types';
+import PencilIcon from '../../icons/PenciIcon';
 
 type Props = {
     member: User;
@@ -123,7 +124,7 @@ rounded-md w-full p-2 hover:bg-[#1a1a1c]"
                             <Check strokeWidth={2} size={21} />
                         </button>
                     ) : (
-                        <Pencil strokeWidth={2} size={21} />
+                        <PencilIcon />
                     )}
                 </div>
             </div>
