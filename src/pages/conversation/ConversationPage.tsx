@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
     changeConversationEmoji,
+    changeConversationNickname,
     updateConversation,
     updateDeleteMessageEvent,
     updateEditMessage,
@@ -58,6 +59,10 @@ export const ConversationPage = () => {
             dispatch(changeConversationEmoji(payload));
         });
 
+        socket.on('onChangeConversationNickname', (payload) => {
+            dispatch(changeConversationNickname(payload));
+        });
+
         return () => {
             socket.off('connected');
             socket.off('onMessage');
@@ -66,6 +71,7 @@ export const ConversationPage = () => {
             socket.off('onReactMessage');
             socket.off('onReactMessageRemove');
             socket.off('onChangeConversationEmoji');
+            socket.off('onChangeConversationNickname');
         };
     }, []);
 

@@ -26,6 +26,13 @@ export type User = {
     profile: ProfileType;
 };
 
+export type ConversationNickname = {
+    id: number;
+    user: User;
+    conversation: Conversation;
+    nickname: string;
+};
+
 export type Conversation = {
     id: number;
     creator: User;
@@ -34,6 +41,7 @@ export type Conversation = {
     lastMessageSent: MessageType;
     lastMessageSentAt: Date;
     emoji: string;
+    nicknames: ConversationNickname[];
 };
 
 export type AttachmentType = {
@@ -111,6 +119,13 @@ export type ConversationTypeData = {
     label: string;
 };
 
+export type GroupNickname = {
+    id: number;
+    user: User;
+    conversation: Conversation;
+    nickname: string;
+};
+
 export type Group = {
     id: number;
     title?: string;
@@ -123,6 +138,7 @@ export type Group = {
     lastMessageSentAt: Date;
     avatar?: string;
     emoji: string;
+    nicknames: GroupNickname[];
 };
 
 export type GroupMessageType = {
@@ -283,4 +299,10 @@ export type GetConversationMessageWithLimitParams = {
     id: number;
     limit: number;
     offset: number;
+};
+
+export type ChangeConversationNickNameParams = {
+    email: string;
+    id: number;
+    nickname: string;
 };

@@ -80,6 +80,13 @@ export const conversationsSlice = createSlice({
                 conversation.emoji = emoji;
             }
         },
+        changeConversationNickname: (state, action) => {
+            const { id, nicknames } = action.payload;
+            const conversation = state.conversations.find((c) => c.id === id);
+            if (conversation) {
+                conversation.nicknames = nicknames;
+            }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -108,5 +115,6 @@ export const {
     updateDeleteMessage,
     updateDeleteMessageEvent,
     changeConversationEmoji,
+    changeConversationNickname,
 } = conversationsSlice.actions;
 export default conversationsSlice.reducer;

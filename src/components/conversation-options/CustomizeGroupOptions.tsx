@@ -8,6 +8,8 @@ import PencilIcon from '../icons/PenciIcon';
 import ImageIcon from '../icons/ImageIcon';
 import { EmojiSelectModal } from '../modals/EmojiSelectModal';
 import LikeIcon from '../icons/LikeIcon';
+import { ChangeNickNameModal } from '../modals/nicknames/ChangeNickNameModal';
+import ChangeNickNameIcon from '../icons/ChangeNickNameIcon';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -16,6 +18,7 @@ type Props = {
 
 export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
     const [showCustomizeConversation, setShowCustomizeConversation] = useState<boolean>(false);
+    const [showChangeNickNameModal, setShowChangeNickNameModal] = useState(false);
     const [showChangeEmojiModal, setShowChangeEmojiModal] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
@@ -57,6 +60,8 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
     return (
         <>
             {showChangeEmojiModal && <EmojiSelectModal setShowModal={setShowChangeEmojiModal} />}
+
+            {showChangeNickNameModal && <ChangeNickNameModal setShowModal={setShowChangeNickNameModal} />}
             <div className="flex flex-col justify-center ml-2 cursor-pointer">
                 <div
                     onClick={handleShowCustomizeConversation}
@@ -104,6 +109,15 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                                 <LikeIcon className="w-4 h-4" />
                             </div>
                             <span className="text-lg">Change Emoji Icon</span>
+                        </div>
+                        <div
+                            onClick={() => setShowChangeNickNameModal(true)}
+                            className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
+                        >
+                            <div className="p-1 rounded-full text-white bg-[#373434]">
+                                <ChangeNickNameIcon className="w-6 h-6 font-bold" />
+                            </div>
+                            <span className="text-lg">Change NickName</span>
                         </div>
                     </div>
                 )}

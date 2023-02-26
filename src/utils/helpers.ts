@@ -48,6 +48,8 @@ export const getFullName = (user: User | undefined, conversation: Conversation |
 export const getDisplayName = (user: User) => {
     if (user && user.firstName && user.lastName) {
         return `${user.firstName} ${user.lastName}`;
+    } else {
+        return 'Unknown User';
     }
 };
 

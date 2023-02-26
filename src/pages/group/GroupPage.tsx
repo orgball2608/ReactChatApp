@@ -6,6 +6,7 @@ import { AppDispatch } from '../../store';
 import {
     addGroupConversations,
     changeGroupEmoji,
+    changeGroupNickName,
     deleteGroupConversations,
     editGroupConversationsTitle,
     updateGroupAdded,
@@ -95,6 +96,10 @@ export const GroupPage = () => {
             dispatch(changeGroupEmoji(payload));
         });
 
+        socket.on('onChangeGroupNickname', (payload) => {
+            dispatch(changeGroupNickName(payload));
+        });
+
         return () => {
             socket.off('onGroupMessage');
             socket.off('onGroupCreate');
@@ -109,6 +114,7 @@ export const GroupPage = () => {
             socket.off('onReactGroupMessage');
             socket.off('onReactGroupMessageRemove');
             socket.off('onChangeGroupEmoji');
+            socket.off('onChangeGroupNickname');
         };
     }, [id]);
 

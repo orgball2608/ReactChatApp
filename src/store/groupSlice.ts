@@ -119,6 +119,13 @@ const groupsSlice = createSlice({
             if (!group) return;
             group.emoji = emoji;
         },
+        changeGroupNickName: (state, action) => {
+            console.log('changeGroup Nickname');
+            const { id, nicknames } = action.payload;
+            const group = state.groups.find((gm) => gm.id === id);
+            if (!group) return;
+            group.nicknames = nicknames;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -152,5 +159,6 @@ export const {
     updateGroupRecipientAdd,
     updateGroupAdded,
     changeGroupEmoji,
+    changeGroupNickName,
 } = groupsSlice.actions;
 export default groupsSlice.reducer;

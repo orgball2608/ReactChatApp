@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { STICKERS_URL } from '../utils/constants';
 import {
     AddGroupRecipientsParams,
+    ChangeConversationNickNameParams,
     ChangeEmojiIconParams,
     ChangeGroupOwnerParams,
     Conversation,
@@ -179,3 +180,23 @@ export const GetConversationMessagesLength = (id: number) =>
     axiosClient.get(`/conversations/${id}/messages/length`, config);
 
 export const GetGroupMessagesLength = (id: number) => axiosClient.get(`/groups/${id}/messages/length`, config);
+
+export const ChangeConversationNickName = ({ id, nickname, email }: ChangeConversationNickNameParams) =>
+    axiosClient.post(
+        `/conversations/${id}/nickname`,
+        {
+            nickname,
+            email,
+        },
+        config,
+    );
+
+export const ChangeGroupNickName = ({ id, nickname, email }: ChangeConversationNickNameParams) =>
+    axiosClient.post(
+        `/groups/${id}/nickname`,
+        {
+            nickname,
+            email,
+        },
+        config,
+    );
