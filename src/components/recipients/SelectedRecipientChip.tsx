@@ -15,9 +15,9 @@ export const SelectedRecipientChip: FC<Props> = ({ setSelectedUser, selectedUser
 
     return (
         <div>
-            <div className="flex justify-start gap-2 items-center">
+            <div className="flex justify-start gap-2 items-center border-[1px] border-border-conversations rounded-full px-2 bg-[#292828]">
                 <span>{getDisplayName(selectedUser!)}</span>
-                <div>
+                <div className="cursor-pointer">
                     <CircleX size={18} onClick={handleRemoveSelectedUser} />
                 </div>
             </div>

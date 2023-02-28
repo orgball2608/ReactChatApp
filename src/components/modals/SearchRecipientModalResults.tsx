@@ -27,16 +27,16 @@ export const SearchRecipientModalResults: FC<Props> = ({
     return (
         <>
             {!isSearching && userResults.length > 0 && (
-                <div className="absolute b-0 left-0 bg-[#161616] border-border-conversations border-[1px] h-36 w-full outline-0 rounded-lg transition-colors z-20 overflow-y-scroll">
+                <div className="absolute b-0 left-0 bg-[#161616] border-border-conversations border-[1px] h-36 w-full outline-none rounded-lg transition-colors z-20 overflow-y-auto">
                     {userResults.map((u) => (
                         <>
                             {u.id !== user?.id && (
                                 <div
                                     key={u.id}
-                                    className="hover:cursor-pointer hover:bg-[#0c0c0c] box-border px-4 py-1 rounded-lg"
+                                    className="hover:cursor-pointer hover:bg-[#484545] box-border px-4 py-1 rounded-md"
                                     onClick={() => handleSelectedUser(u)}
                                 >
-                                    <span>{getDisplayName(u)}</span>
+                                    <span className="text-white">{getDisplayName(u)}</span>
                                 </div>
                             )}
                         </>

@@ -53,7 +53,7 @@ export const CreateConversationModal: FC<Props> = ({ setShowModal }) => {
         >
             <ModalContainer>
                 <ModalHeader>
-                    <h1 className="text-2xl font-bold">Create a conversation</h1>
+                    <span className="text-2xl font-semibold">Create a conversation</span>
                     <div className="p-1 rounded-full bg-[#383636] hover:bg-[#494747]">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
                     </div>

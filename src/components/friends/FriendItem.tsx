@@ -48,6 +48,7 @@ export const FriendItem: FC<Props> = ({ friend, isOnline }) => {
                 placement="bottom-end"
                 interactive={true}
                 animation="fade"
+                theme="friend_option"
             >
                 <div
                     onClick={() => setVisible((prevState) => !prevState)}

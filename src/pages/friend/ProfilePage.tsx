@@ -7,6 +7,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import avatar from '../../__assets__/default_avatar.jpg';
 import banner from '../../__assets__/banner.jpg';
 import { ProfileAction } from '../../components/profiles/ProfileAction';
+import { SpinLoading } from '../../components/commons/SpinLoading';
 
 export const ProfilePage = () => {
     const { id } = useParams();
@@ -22,7 +23,12 @@ export const ProfilePage = () => {
             });
     }, [id]);
 
-    if (!user) return <div className="flex justify-center items-center">Loading...</div>;
+    if (!user)
+        return (
+            <div className="flex justify-center items-center w-full h-full">
+                <SpinLoading />
+            </div>
+        );
 
     const profile = user?.profile;
     const getFullName = () => {

@@ -152,13 +152,14 @@ export const ProfileAction = () => {
                             handleRejectFriendRequest={handleRejectFriendRequest}
                         />
                     }
-                    placement="top-start"
+                    placement="top"
                     interactive={true}
                     animation="fade"
+                    theme="profile_option"
                 >
                     <div
                         onClick={() => setVisible((prevState) => !prevState)}
-                        className="flex justify-center gap-2 items-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-80 hover:cursor-pointer"
+                        className="flex justify-center gap-2 items-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-80 hover:cursor-pointer  transform active:scale-125 transition-all duration-300"
                     >
                         <div>
                             <BsFillPersonCheckFill size={20} />
@@ -171,7 +172,7 @@ export const ProfileAction = () => {
             return (
                 <div
                     onClick={handleCancelRequest}
-                    className="flex justify-center gap-2 items-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold z-20 hover:opacity-80 hover:cursor-pointer"
+                    className="flex justify-center gap-2 items-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold z-20 hover:opacity-80 hover:cursor-pointer  transform active:scale-125 transition-all duration-300"
                 >
                     <div>
                         <BsFillPersonXFill size={20} />
@@ -183,7 +184,7 @@ export const ProfileAction = () => {
             return (
                 <div
                     onClick={handleAddFriend}
-                    className="flex justify-center gap-2 items-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-80 hover:cursor-pointer"
+                    className="flex justify-center gap-2 items-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-80 hover:cursor-pointer  transform active:scale-125 transition-all duration-300"
                 >
                     <div>
                         <BsPersonPlusFill size={20} />
@@ -203,10 +204,11 @@ export const ProfileAction = () => {
                     placement="top-start"
                     interactive={true}
                     animation="fade"
+                    theme="profile_option"
                 >
                     <div
                         onClick={() => setVisible((prevState) => !prevState)}
-                        className="flex justify-center gap-2 items-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-80 hover:cursor-pointer"
+                        className="flex justify-center gap-2 items-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-80 hover:cursor-pointer transform active:scale-125 transition-all duration-300"
                     >
                         <div>
                             <BsFillPersonCheckFill size={20} />
@@ -220,7 +222,7 @@ export const ProfileAction = () => {
             {isFriend && (
                 <div
                     onClick={handleSendMessage}
-                    className="flex justify-center gap-2 items-center bg-[#8f8787] text-white px-4 py-2 rounded-lg font-semibold hover:opacity-80 hover:cursor-pointer"
+                    className="flex justify-center gap-2 items-center bg-[#8f8787] text-white px-4 py-2 rounded-lg font-semibold hover:opacity-80 hover:cursor-pointer  transform active:scale-125 transition-all duration-300"
                 >
                     <div>
                         <BsMessenger size={18} />

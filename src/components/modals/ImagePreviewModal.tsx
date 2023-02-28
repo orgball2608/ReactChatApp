@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Cross } from 'akar-icons';
+import { ChevronLeft, ChevronRight, CloudDownload, Cross } from 'akar-icons';
 import React from 'react';
 import { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -63,17 +63,33 @@ export const ImagePreviewModal = () => {
 
     return (
         <div
-            // style={{ backgroundImage: `url(${CDN_ORIGINAL_URL + attachment?.key})` }}
-            className="w-full h-full fixed left-0 top-0 flex flex-col justify-center items-start z-50 bg-cover bg-modal-background"
+            style={{
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url(${
+                    CDN_ORIGINAL_URL + currentAttachment?.key
+                })`,
+            }}
+            className="w-full h-full fixed left-0 top-0 flex flex-col justify-center items-start z-50 bg-cover bg-modal-background animate-fade-in backdrop-filter backdrop-blur-[100px] opacity-10"
             tabIndex={-1}
             onKeyDown={handleKeyDown}
         >
             <div
                 onClick={() => setShowModal(false)}
-                className="flex justify-center items-center cursor-pointer absolute top-4 left-4 p-2 rounded-full bg-white z-30"
+                className="flex justify-center items-center cursor-pointer absolute top-4 left-4 p-2 rounded-full bg-white z-50"
             >
                 <Cross size={20} className="text-dark-light" />
             </div>
+
+            <div className="flex justify-center items-center cursor-pointer absolute top-4 right-4 rounded-ful z-50">
+                <a
+                    href={CDN_ORIGINAL_URL + currentAttachment?.key}
+                    download
+                    target={'_blank'}
+                    className="flex justify-center items-center p-2 bg-[#1c1e21] hover:bg-[#4a4c4e] rounded-full "
+                >
+                    <CloudDownload strokeWidth={2} size={24} />
+                </a>
+            </div>
+
             <div className={`w-full h-full bg-cover bg-center`}>
                 <img
                     src={CDN_ORIGINAL_URL + currentAttachment?.key}
@@ -84,20 +100,22 @@ export const ImagePreviewModal = () => {
             {prevIndex < 0 ? null : (
                 <div
                     onClick={() => setCurrentAttachment(prevAttachment)}
-                    className="absolute top-0 left-0 h-full px-3 bg-[#1c1e21] flex justify-center items-center cursor-pointer"
+                    className="absolute top-1/2 transform -translate-y-1/2 left-0 bg-[#1c1e21] hover:bg-[#4a4c4e] transition-colors duration-300 z-30 h-full px-3 flex justify-end items-center cursor-pointer  group"
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.35)' }}
                 >
-                    <div className="flex justify-center items-center p-1 bg-white rounded-full ">
-                        <ChevronLeft size={30} className="text-dark-light" />
+                    <div className="flex justify-center items-center p-2 bg-[#1c1e21] hover:bg-[#4a4c4e] rounded-full transition duration-500 ease-in-out transform group-hover:-translate-x-2">
+                        <ChevronLeft size={30} className="text-white" />
                     </div>
                 </div>
             )}
             {nextIndex >= attachments.length ? null : (
                 <div
                     onClick={() => setCurrentAttachment(nextAttachment)}
-                    className="absolute top-0 right-0 h-full px-3 bg-[#1c1e21] flex justify-center items-center cursor-pointer "
+                    className="absolute top-1/2 transform -translate-y-1/2 right-0 bg-[#1c1e21] hover:bg-[#4a4c4e] transition-colors duration-300 z-30 h-full px-3 flex justify-start items-center cursor-pointer group"
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.35)' }}
                 >
-                    <div className="flex justify-center items-center p-1 bg-white rounded-full cursor-pointer ">
-                        <ChevronRight size={30} className="text-dark-light" />
+                    <div className="flex justify-center items-center p-2 bg-[#1c1e21] hover:bg-[#4a4c4e] rounded-full transition duration-500 ease-in-out transform group-hover:translate-x-2">
+                        <ChevronRight size={30} className="text-white" />
                     </div>
                 </div>
             )}

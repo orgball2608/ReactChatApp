@@ -10,6 +10,7 @@ type Props = {
     userResults: User[];
     isSearching: boolean;
     setUserResults: Dispatch<React.SetStateAction<User[]>>;
+    title: string;
 };
 
 export const RecipientSearchField: FC<Props> = ({
@@ -19,6 +20,7 @@ export const RecipientSearchField: FC<Props> = ({
     setUserResults,
     isSearching,
     setQuery,
+    title,
 }) => {
     const renderRecipients = () => {
         if (!selectedUser)
@@ -38,7 +40,7 @@ export const RecipientSearchField: FC<Props> = ({
         <section className="relative">
             <div className="bg-conversation-form py-2 px-4 rounded-[10px] w-full border-box">
                 <label htmlFor="email" className="block text-label-white text-sm">
-                    Recipient
+                    {title}
                 </label>
                 <div className="flex gap-2 flex-wrap">{renderRecipients()}</div>
             </div>

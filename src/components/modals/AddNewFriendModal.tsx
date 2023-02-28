@@ -73,8 +73,8 @@ export const AddNewFriendModal: FC<Props> = ({ showModal, setShowModal }) => {
                 ref={ref}
                 className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50"
             >
-                <div className="bg-modal-background w-2/5 box-border rounded-lg">
-                    <div className=" box-border flex justify-between mx-6 items-center mt-6">
+                <div className="bg-modal-background w-2/5 box-border rounded-lg animate-fade-in">
+                    <div className=" box-border flex justify-between mx-6 items-center mt-6 cursor-pointer">
                         <h1 className="text-2xl font-bold">Add Friend</h1>
                         <MdClose size={24} onClick={() => setShowModal(false)} />
                     </div>
@@ -89,6 +89,7 @@ export const AddNewFriendModal: FC<Props> = ({ showModal, setShowModal }) => {
                                     userResults={userResults}
                                     isSearching={isSearching}
                                     setUserResults={setUserResults}
+                                    title="User"
                                 />
                             </section>
                             <div className="flex justify-center">

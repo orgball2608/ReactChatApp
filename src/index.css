@@ -26,6 +26,39 @@ h1 {
     margin: 0;
 }
 
+.tippy-box[data-theme~='friend_option'] {
+    background-color: #3a3b3c;
+    border-radius: 0.5rem;
+    padding: 0;
+}
+
+.tippy-box[data-theme~='friend_option'] .tippy-content {
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.tippy-box[data-theme~='profile_option'] {
+    background-color: #3a3b3c;
+    border-radius: 0.5rem;
+    padding: 0;
+}
+
+.tippy-box[data-theme~='profile_option'] .tippy-content {
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.tippy-box[data-theme~='request_option'] {
+    background-color: #3a3b3c;
+    border-radius: 0.5rem;
+    padding: 0;
+}
+
+.tippy-box[data-theme~='request_option'] .tippy-content {
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
 .tippy-box[data-theme~='giphy'] .tippy-content {
     padding: 0;
     border-radius: 8px;
@@ -35,6 +68,11 @@ h1 {
     background-color: #3a3b3c;
     border-radius: 0.75rem;
     padding: 0;
+}
+
+.tippy-box[data-theme~='message_option'] .tippy-content {
+    padding: 0.25rem;
+    border-radius: 8px;
 }
 
 .tippy-box[data-theme~='dark'] {

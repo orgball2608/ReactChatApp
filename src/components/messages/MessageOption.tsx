@@ -1,7 +1,6 @@
 import { FiMoreVertical } from 'react-icons/fi';
-import React, { Dispatch, FC, SetStateAction, useContext, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { GroupMessageType, MessageType } from '../../utils/types';
-import { AuthContext } from '../../contex/AuthContext';
 import Tippy from '@tippyjs/react';
 import { MenuContext } from '../menu-context/MenuContext';
 
@@ -12,7 +11,6 @@ type Props = {
 
 export const MessageOption: FC<Props> = ({ message, setIsEditing }) => {
     const [visible, setVisible] = useState(false);
-    const { user } = useContext(AuthContext);
     const handleScroll = () => {
         console.log('scroll');
         setVisible(false);

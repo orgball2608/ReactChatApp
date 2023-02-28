@@ -27,6 +27,7 @@ export const FriendRequestItem: FC<Props> = ({ friend }) => {
             placement="bottom-end"
             interactive={true}
             animation="fade"
+            theme="request_option"
         >
             <div
                 onClick={() => setVisible((prevState) => !prevState)}

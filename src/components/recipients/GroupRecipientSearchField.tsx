@@ -11,6 +11,7 @@ type Props = {
     setSelectedUsers: Dispatch<React.SetStateAction<User[]>>;
     selectedUsers: User[];
     query: string;
+    title: string;
 };
 
 export const GroupRecipientSearchField: FC<Props> = ({
@@ -21,6 +22,7 @@ export const GroupRecipientSearchField: FC<Props> = ({
     setSelectedUsers,
     selectedUsers,
     query,
+    title,
 }) => {
     const renderRecipients = () => {
         if (selectedUsers && selectedUsers.length === 0)
@@ -33,7 +35,7 @@ export const GroupRecipientSearchField: FC<Props> = ({
             );
 
         return (
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap gap-2">
                 {selectedUsers.map((user) => (
                     <SelectedGroupRecipientChip key={user.id} selectedUser={user} setSelectedUsers={setSelectedUsers} />
                 ))}
@@ -54,7 +56,7 @@ export const GroupRecipientSearchField: FC<Props> = ({
         <section className="relative">
             <div className="bg-conversation-form py-2 px-4 rounded-[10px] w-full border-box">
                 <label htmlFor="email" className="block text-label-white text-sm">
-                    Recipient
+                    {title}
                 </label>
                 <div className="flex gap-2 flex-wrap">{renderRecipients()}</div>
             </div>
