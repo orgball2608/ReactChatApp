@@ -2,10 +2,9 @@ import React, { FC, lazy, Suspense, useContext, useEffect, useRef, useState } fr
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { selectType } from '../../store/typeSlice';
-import { Group, GroupMessageType, MessageType, User } from '../../utils/types';
+import { Group, GroupMessageType, MessageType } from '../../utils/types';
 import { useParams } from 'react-router-dom';
 import { Cross } from 'akar-icons';
-import { HiFaceSmile } from 'react-icons/hi2';
 import { SpinLoading } from '../commons/SpinLoading';
 import {
     CreateReplyGroupMessageAPI,
@@ -22,6 +21,7 @@ import { StickerInput } from '../inputs/StickerInput';
 import { GifInput } from '../inputs/GifInput';
 import SendMessageIcon from '../icons/SendMessageIcon';
 import ImageIcon from '../icons/ImageIcon';
+import FaceIcon from '../icons/FaceIcon';
 const Picker = lazy(() => import('@emoji-mart/react'));
 
 type Props = {
@@ -391,7 +391,7 @@ export const MessageInputField: FC<Props> = ({
 
                 <div
                     onKeyDown={handleSubmit}
-                    className={`w-full box-border bg-message-form pl-3 relative flex flex-col items-center gap-1 font-poppins ${
+                    className={`w-full box-border bg-[#3e3b3b] pl-3 relative flex flex-col items-center gap-1 font-poppins ${
                         fileList.length > 0 ? 'rounded-xl ' : 'rounded-full '
                     }`}
                 >
@@ -406,7 +406,7 @@ export const MessageInputField: FC<Props> = ({
                         <form onSubmit={sendMessage} className="w-full">
                             <input
                                 type="text"
-                                className={`bg-inherit outline-0 border-0 text-[#454545] py-1 font-Inter box-border text-lg  w-full p-0 break-words font-normal`}
+                                className={`bg-inherit outline-0 border-0 text-white py-1 box-border text-md w-full p-0 break-words font-normal`}
                                 ref={inputRef}
                                 placeholder="Send message..."
                                 maxLength={1000}
@@ -420,9 +420,9 @@ export const MessageInputField: FC<Props> = ({
                         </form>
                         <div
                             onClick={() => handleEmojiAction()}
-                            className="p-2 hover:bg-[#1c1e21] rounded-full cursor-pointer "
+                            className="p-1 hover:bg-[#1c1e21] rounded-full cursor-pointer "
                         >
-                            <HiFaceSmile size={20} className=" text-primary rounded-full" />
+                            <FaceIcon className="text-primary rounded-full w-7 h-7" />
                         </div>
 
                         {showEmojiPicker && (

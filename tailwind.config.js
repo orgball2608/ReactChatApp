@@ -7,6 +7,7 @@ module.exports = {
                 primary: '#1E90FF',
                 'simple-gray': '#131313',
                 'dark-light': '#1a1a1a',
+                'sidebar-background': '#121212',
                 'label-white': '#8f8f8f',
                 'blue-button': '#2b09ff',
                 'dark-header': '#151515',
@@ -15,6 +16,7 @@ module.exports = {
                 'overlay-background': '#000000c4',
                 'conversation-form': '#161616',
                 'message-form': '#101010',
+                elevation_background: '#1c1c1c',
             },
             fontFamily: {
                 poppins: ['Poppins', 'sans-serif'],

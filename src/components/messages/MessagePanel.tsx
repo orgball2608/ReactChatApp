@@ -39,7 +39,7 @@ export const MessagePanel = () => {
                 <div className="flex-none w-full">
                     {isRecipientTyping && (
                         <div className="w-full px-6 flex gap-2 items-center animate-fade-in">
-                            <img src={recipient?.profile.avatar || defaultAvatar} className="w-8 h-8 rounded-full" />
+                            <img src={recipient?.profile?.avatar || defaultAvatar} className="w-8 h-8 rounded-full" />
                             <span className="text-gray-400 text-sm ml-2">
                                 {getDisplayName(recipient!)} is typing...
                             </span>

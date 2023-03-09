@@ -46,7 +46,7 @@ export const ConversationSidebar = () => {
         <>
             {showModal && <CreateConversationModal setShowModal={setShowModal} />}
             <aside className="h-full flex-none bg-dark-light w-80 border-solid border-r-[1px] border-border-conversations">
-                <header className="absolute top-0 left-16 w-80 flex flex-col justify-between items-center px-8 ">
+                <header className="absolute top-0 left-16 w-80 flex flex-col justify-between items-center px-8">
                     <div className="flex justify-between px-4 items-center h-14 w-80 border-b-[1px] border-r-[1px] border-border-conversations">
                         <h1 className="font-normal text-2xl">Conversations</h1>
                         <div

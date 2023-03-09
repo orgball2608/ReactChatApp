@@ -12,7 +12,6 @@ type Props = {
 export const MessageOption: FC<Props> = ({ message, setIsEditing }) => {
     const [visible, setVisible] = useState(false);
     const handleScroll = () => {
-        console.log('scroll');
         setVisible(false);
     };
     return (
@@ -27,12 +26,12 @@ export const MessageOption: FC<Props> = ({ message, setIsEditing }) => {
         >
             <div
                 onScroll={() => handleScroll()}
-                className={`w-fit h-fit px-1 py-1 hover:bg-[#8f8888] hover:rounded-full cursor-pointer ${
+                className={`w-fit h-fit px-1 py-1 hover:bg-[#8f8888] hover:rounded-full cursor-pointer flex justify-center items-center ${
                     visible ? 'visible' : ''
                 }`}
                 onClick={() => setVisible((prev) => !prev)}
             >
-                <FiMoreVertical size={16} className="text-white" />
+                <FiMoreVertical size={18} className="text-white" />
             </div>
         </Tippy>
     );

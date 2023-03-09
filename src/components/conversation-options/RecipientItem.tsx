@@ -69,6 +69,7 @@ export const RecipientItem: FC<Props> = ({ user, isOnline }) => {
                     placement="bottom-start"
                     interactive={true}
                     animation="fade"
+                    theme="group_member"
                 >
                     <div
                         onClick={() => setVisible((prevState) => !prevState)}

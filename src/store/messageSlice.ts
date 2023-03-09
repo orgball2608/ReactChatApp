@@ -17,11 +17,9 @@ import {
 
 export interface MessagesState {
     messages: ConversationMessage[];
-    loading: boolean;
 }
 const initialState: MessagesState = {
     messages: [],
-    loading: false,
 };
 export const fetchMessagesThunk = createAsyncThunk('messages/fetch', (conversationId: number) => {
     return getConversationMessages(conversationId);

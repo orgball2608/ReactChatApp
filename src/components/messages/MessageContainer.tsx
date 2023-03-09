@@ -13,6 +13,7 @@ import { SpinLoading } from '../commons/SpinLoading';
 import { loadMoreMessagesThunk } from '../../store/messageSlice';
 import { loadMoreGroupMessagesThunk } from '../../store/groupMessageSlice';
 import { GetConversationMessagesLength, GetGroupMessagesLength } from '../../services/api';
+import { ForwardMessageModal } from '../modals/ForwardMessageModal';
 
 type Props = {
     setReplyInfo: React.Dispatch<React.SetStateAction<MessageType | GroupMessageType | undefined>>;
@@ -29,18 +30,19 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groupMessages = useSelector((state: RootState) => state.groupMessage.messages);
-    const [limitCount, setLimitCount] = useState(10);
+    const [limitCount, setLimitCount] = useState(0);
     const [messageLength, setMessageLength] = useState(0);
     const [groupMessageLength, setGroupMessageLength] = useState(0);
+    const scrollRef = useRef<InfiniteScroll>(null);
+    const [isForwardding, setIsForwardding] = useState<boolean>(false);
+    const [forwardMessage, setForwardMessage] = useState<MessageType | GroupMessageType | null>(null);
 
     useEffect(() => {
-        return () => {
-            setIsEditing(false);
-            setEditMessage(null);
-            setLimitCount(10);
-            setMessageLength(0);
-            setGroupMessageLength(0);
-        };
+        setIsEditing(false);
+        setEditMessage(null);
+        setLimitCount(0);
+        setMessageLength(0);
+        setGroupMessageLength(0);
     }, [id, selectedType]);
 
     useEffect(() => {
@@ -59,7 +61,7 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }
         if (selectedType === 'private')
             dispatch(loadMoreMessagesThunk({ id: parseInt(id!), limit: 10, offset: limitCount }));
         else dispatch(loadMoreGroupMessagesThunk({ id: parseInt(id!), limit: 10, offset: limitCount }));
-    }, [limitCount]);
+    }, [limitCount, id]);
 
     const handleSubmit = (event: React.KeyboardEvent<HTMLImageElement>) => {
         if (event.key === 'Escape') setIsEditing(false);
@@ -148,16 +150,21 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }
             value={{
                 editMessage: editMessage,
                 setEditMessage: setEditMessage,
+                isForwardding: isForwardding,
+                setIsForwardding: setIsForwardding,
+                forwardMessage: forwardMessage,
+                setForwardMessage: setForwardMessage,
             }}
         >
-            <div className="h-full box-border relative" onKeyDown={handleSubmit} tabIndex={0}>
+            {isForwardding && <ForwardMessageModal setShowModal={setIsForwardding} />}
+            <div id="scrollableDiv" className="h-full box-border relative" onKeyDown={handleSubmit} tabIndex={0}>
                 <InfiniteScroll
                     dataLength={messages?.length as number}
                     next={() => {
                         setLimitCount((prev) => prev + 10);
                     }}
                     inverse={true}
-                    hasMore={getMessagesLength() > limitCount}
+                    hasMore={getMessagesLength() > limitCount && getMessagesLength() > 10}
                     loader={
                         <div className="flex justify-center py-16">
                             <SpinLoading />
@@ -173,6 +180,7 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }
                         outline: 'none',
                     }}
                     height={`calc(100vh - ${124 + inputSectionOffset * 16}px)`}
+                    ref={scrollRef}
                 >
                     <>{formatMessages()}</>
                 </InfiniteScroll>

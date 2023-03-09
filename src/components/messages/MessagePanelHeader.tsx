@@ -58,7 +58,7 @@ export const MessagePanelHeader = () => {
         <>
             {showGroupMember && <GroupMemberViewModal setShowModal={setShowGroupMember} group={selectedGroup} />}
             <header
-                className=" border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-6 box-border
+                className="border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-6 box-border
     absolute top-0 left-0 w-full h-14 text-lg rounded z-10"
             >
                 <div

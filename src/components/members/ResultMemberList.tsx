@@ -68,11 +68,6 @@ export const ResultMemberList: FC<Props> = ({
                 }
             });
         });
-
-    const getDisplayName = (friend: User) => {
-        return friend.firstName + ' ' + friend.lastName;
-    };
-
     return (
         <>
             {!searchValue ? (

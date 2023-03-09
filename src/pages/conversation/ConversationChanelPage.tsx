@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { MessagePanel } from '../../components/messages/MessagePanel';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
-import { loadMoreMessagesThunk, resetMessages } from '../../store/messageSlice';
+import { resetMessages } from '../../store/messageSlice';
 import { ConversationSettingSideBar } from '../../components/sidebars/ConversationSettingSideBar';
 
 export const ConversationChannelPage = () => {
@@ -13,8 +13,6 @@ export const ConversationChannelPage = () => {
 
     useEffect(() => {
         dispatch(resetMessages());
-        const conversationId = parseInt(id!);
-        dispatch(loadMoreMessagesThunk({ id: conversationId, limit: 10, offset: 0 }));
     }, [id]);
 
     return (

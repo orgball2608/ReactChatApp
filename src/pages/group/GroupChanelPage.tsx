@@ -4,7 +4,7 @@ import { MessagePanel } from '../../components/messages/MessagePanel';
 import { SocketContext } from '../../contex/SocketContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
-import { loadMoreGroupMessagesThunk, resetGroupMessages } from '../../store/groupMessageSlice';
+import { resetGroupMessages } from '../../store/groupMessageSlice';
 import { GroupSettingSideBar } from '../../components/sidebars/GroupSettingSideBar';
 
 export const GroupChannelPage = () => {
@@ -15,8 +15,6 @@ export const GroupChannelPage = () => {
 
     useEffect(() => {
         dispatch(resetGroupMessages());
-        const groupId = parseInt(id!);
-        dispatch(loadMoreGroupMessagesThunk({ id: groupId, limit: 10, offset: 0 }));
     }, [id]);
 
     useEffect(() => {

@@ -39,7 +39,7 @@ export const UserSideBar = () => {
     };
 
     return (
-        <div className="w-16 flex-none h-full flex flex-col items-center justify-between bg-dark-light border-r-[1px] border-solid border-border-conversations">
+        <div className="w-16 flex-none h-full flex flex-col items-center justify-between bg-sidebar-background border-r-[1px] border-solid border-border-conversations">
             <div className=" w-full flex justify-center items-center flex-col box-border mt-3">
                 <LazyLoadImage
                     src={getAvatar()}
@@ -53,7 +53,7 @@ export const UserSideBar = () => {
                             key={page.page}
                             className={`w-full p-2 flex justify-center items-center ${
                                 page.page === selectedPage
-                                    ? ' bg-[#b1b1b1] border-r-[3px] border-[#4a23e6] text-black '
+                                    ? ' bg-[#b7b4b4] border-r-[3px] border-[#0084ff] text-black '
                                     : ''
                             }}`}
                             onClick={() => {

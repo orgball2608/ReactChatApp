@@ -17,7 +17,7 @@ type Props = {
     setVisible: Dispatch<SetStateAction<boolean>>;
 };
 export const MenuContext: FC<Props> = ({ setIsEditing, message, setVisible }) => {
-    const { setEditMessage } = useContext(MessageMenuContext);
+    const { setEditMessage, setIsForwardding, setForwardMessage } = useContext(MessageMenuContext);
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
@@ -69,7 +69,16 @@ export const MenuContext: FC<Props> = ({ setIsEditing, message, setVisible }) =>
                         Edit
                     </li>
                 )}
-                <li className="px-3 py-1 hover:cursor-pointer rounded-md hover:bg-[#5f5d5d] pr-12">Forward</li>
+                <li
+                    onClick={() => {
+                        setIsForwardding(true);
+                        setVisible(false);
+                        setForwardMessage(message);
+                    }}
+                    className="px-3 py-1 hover:cursor-pointer rounded-md hover:bg-[#5f5d5d] pr-12"
+                >
+                    Forward
+                </li>
             </ul>
         </div>
     );

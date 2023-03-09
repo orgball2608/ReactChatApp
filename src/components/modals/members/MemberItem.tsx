@@ -26,7 +26,7 @@ export const MemberItem: FC<MemberItemProps> = ({ user, group }) => {
         hover:bg-[#1a1a1c] rounded-md px-2 py-2"
         >
             <div className="flex justify-start items-center gap-3  rounded-md">
-                <img src={user?.profile.avatar || defaultAvatar} className="w-10 h-10 rounded-full" />
+                <img src={user?.profile?.avatar || defaultAvatar} className="w-10 h-10 rounded-full" />
                 <div className="flex flex-col justify-between cursor-pointer">
                     <span className="text-base">{user && getDisplayName(user)}</span>
 
@@ -40,6 +40,7 @@ export const MemberItem: FC<MemberItemProps> = ({ user, group }) => {
                 placement="bottom-start"
                 interactive={true}
                 animation="fade"
+                theme="group_member"
             >
                 <div
                     onClick={() => setVisible((prevState) => !prevState)}

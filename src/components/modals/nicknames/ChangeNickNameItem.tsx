@@ -1,5 +1,5 @@
-import { Check, Pencil } from 'akar-icons';
-import { Dispatch, FC, FormEvent, SetStateAction, useEffect, useState } from 'react';
+import { Check } from 'akar-icons';
+import { Dispatch, FC, FormEvent, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ChangeConversationNickName, ChangeGroupNickName } from '../../../services/api';
@@ -86,7 +86,7 @@ rounded-md w-full p-2 hover:bg-[#1a1a1c]"
                 className="flex justify-start items-center gap-3 rounded-md w-full hover:bg-[#1a1a1c]"
             >
                 <div className="flex flex-none justify-start items-center gap-3">
-                    <img src={member?.profile.avatar || defaultAvatar} className="w-10 h-10 rounded-full " />
+                    <img src={member?.profile?.avatar || defaultAvatar} className="w-10 h-10 rounded-full " />
                 </div>
                 {isSelected ? (
                     <form onSubmit={handleSubmit} className="w-full flex-grow rounded-md animate-fade-in ">

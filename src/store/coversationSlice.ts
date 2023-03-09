@@ -5,12 +5,10 @@ import { getConversations, postNewConversation } from '../services/api';
 
 export interface ConversationsState {
     conversations: Conversation[];
-    loading: boolean;
 }
 
 const initialState: ConversationsState = {
     conversations: [],
-    loading: false,
 };
 
 export const fetchConversationsThunk = createAsyncThunk('conversations/fetch', async () => {
@@ -92,16 +90,8 @@ export const conversationsSlice = createSlice({
         builder
             .addCase(fetchConversationsThunk.fulfilled, (state, action) => {
                 state.conversations = action.payload.data;
-                state.loading = false;
-            })
-            .addCase(fetchConversationsThunk.pending, (state, action) => {
-                state.loading = true;
-            })
-            .addCase(createConversationThunk.pending, (state) => {
-                state.loading = true;
             })
             .addCase(createConversationThunk.fulfilled, (state, action) => {
-                state.loading = true;
                 state.conversations.unshift(action.payload.data);
             });
     },

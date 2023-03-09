@@ -82,6 +82,17 @@ h1 {
     padding: 0;
 }
 
+.tippy-box[data-theme~='group_member'] {
+    background-color: #3a3b3c;
+    border-radius: 0.5rem;
+    padding: 0;
+}
+
+.tippy-box[data-theme~='group_member'] .tippy-content {
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
 /* Firefox */
 * {
     scrollbar-width: thin;

@@ -306,3 +306,9 @@ export type ChangeConversationNickNameParams = {
     id: number;
     nickname: string;
 };
+
+export type ForwardMessageParams = {
+    id: number;
+    messageId: number;
+    forwardedId: number;
+};

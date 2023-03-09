@@ -21,6 +21,7 @@ import {
     EditGroupTitleParams,
     EditMessageParams,
     FetchMessagePayload,
+    ForwardMessageParams,
     FriendRequestType,
     FriendType,
     GetConversationMessageWithLimitParams,
@@ -200,3 +201,15 @@ export const ChangeGroupNickName = ({ id, nickname, email }: ChangeConversationN
         },
         config,
     );
+
+export const ForwardMessageToCoversationAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
+    axiosClient.post(`/conversations/${id}/messages/${messageId}/forward/conversation/${forwardedId}`, {}, config);
+
+export const ForwardMessageToGroupAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
+    axiosClient.post(`/conversations/${id}/messages/${messageId}/forward/group/${forwardedId}`, {}, config);
+
+export const ForwardGroupMessageToCoversationAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
+    axiosClient.post(`/groups/${id}/messages/${messageId}/forward/conversation/${forwardedId}`, {}, config);
+
+export const ForwardGroupMessageToGroupAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
+    axiosClient.post(`/groups/${id}/messages/${messageId}/forward/group/${forwardedId}`, {}, config);
