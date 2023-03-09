@@ -5,12 +5,12 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { toggleSidebar } from '../../store/settingSidebarSlice';
-import { getFullName } from '../../utils/helpers';
+import { getFullName, getRecipient } from '../../utils/helpers';
 import { defaultAvatar } from '../../utils/constants';
-import { defaultGroupAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { GroupMemberViewModal } from '../modals/members/GroupMemberViewModal';
+import { GroupDefaultAvatar } from '../commons/GroupDefaultAvatar';
 
 export const MessagePanelHeader = () => {
     const { id } = useParams();
@@ -26,20 +26,42 @@ export const MessagePanelHeader = () => {
     const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
     const selectedGroup = groups.find((group) => group.id === parseInt(id!));
 
-    const recipientUser = conversation?.recipient.id !== user?.id ? conversation?.recipient : conversation?.creator;
+    const isOnline = onlineFriends.find((friend) => friend.id === recipient?.id) ? true : false;
 
-    const isOnline = onlineFriends.find((friend) => friend.id === recipientUser?.id) ? true : false;
+    const recipient = getRecipient(conversation!, user!);
 
     const getAvatar = () => {
         if (selectedType === 'private') {
-            if (recipientUser?.profile) {
-                if (recipientUser.profile.avatar) return recipientUser.profile.avatar;
-                return defaultAvatar;
+            if (recipient?.profile) {
+                if (recipient.profile.avatar)
+                    return (
+                        <LazyLoadImage
+                            src={recipient.profile.avatar}
+                            alt="avatar"
+                            effect="blur"
+                            className={`w-10 h-10 rounded-full object-cover bg-white`}
+                        />
+                    );
             }
-            return defaultAvatar;
+            return (
+                <LazyLoadImage
+                    src={defaultAvatar}
+                    alt="avatar"
+                    effect="blur"
+                    className={`w-10 h-10 rounded-full object-cover bg-white`}
+                />
+            );
         } else {
-            if (selectedGroup?.avatar) return selectedGroup.avatar;
-            return defaultGroupAvatar;
+            if (selectedGroup?.avatar)
+                return (
+                    <LazyLoadImage
+                        src={selectedGroup?.avatar}
+                        alt="avatar"
+                        effect="blur"
+                        className={`w-10 h-10 rounded-full object-cover bg-white`}
+                    />
+                );
+            return <GroupDefaultAvatar group={selectedGroup!} groupSize={10} itemSize={7} />;
         }
     };
     const handleChangeSideState = () => {
@@ -48,7 +70,7 @@ export const MessagePanelHeader = () => {
 
     const handleDirectProfile = () => {
         if (selectedType === 'private') {
-            navigate(`../../friend/profile/${recipientUser?.id}`);
+            navigate(`../../friend/profile/${recipient?.id}`);
         } else {
             setShowGroupMember(true);
         }
@@ -66,19 +88,13 @@ export const MessagePanelHeader = () => {
                     className="flex justify-center items-center gap-2 px-2 py-1 rounded-md cursor-pointer hover:bg-[#2d3133] "
                 >
                     <div className="w-10 h-10 rounded-full relative">
-                        <LazyLoadImage
-                            src={getAvatar()}
-                            alt="avatar"
-                            effect="blur"
-                            className={`w-10 h-10 rounded-full object-cover bg-white`}
-                        />
+                        {getAvatar()}
                         {isOnline && (
                             <div className="w-2 h-2 p-1 rounded-full absolute bottom-0 right-1 bg-green-500"></div>
                         )}
                     </div>
                     <div className="flex flex-col justify-center">
                         <span className="text-md font-semibold ">
-                            {' '}
                             {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}
                         </span>
                         {isOnline && (

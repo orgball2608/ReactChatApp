@@ -3,6 +3,7 @@ import { Conversation, FriendType, Group, SelectedPageType, User, UserContextMen
 import moment from 'moment';
 import { BsFillPersonFill, BsMessenger } from 'react-icons/bs';
 import { BiMessageRoundedMinus } from 'react-icons/bi';
+import { defaultAvatar } from './constants';
 
 export const getRecipientFromConversation = (conversation?: Conversation, user?: User) => {
     return user?.id === conversation?.creator.id ? conversation?.recipient : conversation?.creator;
@@ -69,7 +70,7 @@ export const searchFriends = (searchText: string, friends: FriendType[], user: U
 };
 
 export const getRecipient = (conversation: Conversation, user: User) => {
-    return user.id === conversation.creator.id ? conversation.recipient : conversation.creator;
+    return user.id === conversation?.creator.id ? conversation?.recipient : conversation?.creator;
 };
 
 export const searchConversation = (searchText: string, conversations: Conversation[], user: User) => {
@@ -119,4 +120,9 @@ export const getFileSize = (size: number) => {
         return `${fileSize.toFixed(2)} KB`;
     }
     return `${(fileSize / 1024).toFixed(2)} MB`;
+};
+
+export const getAvatar = (user: User) => {
+    if (!user.profile || !user.profile.avatar) return defaultAvatar;
+    return user.profile.avatar;
 };

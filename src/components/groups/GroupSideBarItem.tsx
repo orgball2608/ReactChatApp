@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { defaultGroupAvatar } from '../../utils/constants';
 import moment from 'moment';
 import { lastMessageContent } from '../../utils/helpers';
+import { GroupDefaultAvatar } from '../commons/GroupDefaultAvatar';
 
 type Props = {
     group: Group;
@@ -31,9 +32,8 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
     const getGroupAvatar = () => {
         if (group.avatar) {
             return group.avatar;
-        } else {
-            return defaultGroupAvatar;
         }
+        return defaultGroupAvatar;
     };
 
     return (
@@ -49,7 +49,16 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
                     group.id === parseInt(id!) ? 'bg-[#252F3C]' : 'hover:bg-[#28282b]'
                 } `}
             >
-                <img src={getGroupAvatar()} alt="avatar" className=" h-12 w-12 rounded-full bg-white object-cover" />
+                {group.avatar ? (
+                    <img
+                        src={getGroupAvatar()}
+                        alt="avatar"
+                        className=" h-12 w-12 rounded-full bg-white object-cover"
+                    />
+                ) : (
+                    <GroupDefaultAvatar group={group} groupSize={12} itemSize={9} />
+                )}
+
                 <div className="flex flex-col flex-nowrap font-normal flex-1 break-all justify-center">
                     <span className="block font-semibold text-base">{getGroupTitleDisplay(group)}</span>
                     <div className="flex justify-start items-center">

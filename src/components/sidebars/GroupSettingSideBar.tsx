@@ -13,6 +13,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { defaultGroupAvatar } from '../../utils/constants';
 import { MediaListFile } from '../conversation-options/MediaListFile';
 import { FileSideBar } from '../conversation-options/FileSideBar';
+import { GroupDefaultAvatar } from '../commons/GroupDefaultAvatar';
 
 export const GroupSettingSideBar = () => {
     const { id } = useParams();
@@ -68,12 +69,16 @@ export const GroupSettingSideBar = () => {
             ) : (
                 <aside className="w-72 flex-none px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto ">
                     <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
-                        <LazyLoadImage
-                            src={getGroupAvatar()}
-                            alt="group_avatar"
-                            className="w-28 h-28 rounded-full bg-white object-cover"
-                            effect="blur"
-                        />
+                        {selectedGroup && selectedGroup?.avatar ? (
+                            <LazyLoadImage
+                                src={getGroupAvatar()}
+                                alt="group_avatar"
+                                className="w-28 h-28 rounded-full bg-white object-cover"
+                                effect="blur"
+                            />
+                        ) : (
+                            <GroupDefaultAvatar group={selectedGroup!} groupSize={28} itemSize={20} />
+                        )}
                         <div className="flex flex-col text-xl font-semibold">
                             <span className="text-center break-all">{selectedGroup?.title}</span>
                         </div>

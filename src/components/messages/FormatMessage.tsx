@@ -50,6 +50,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
 
     const getNickname = () => {
         if (conversationType === 'private') {
+            if (!selectedConversation?.nicknames) return;
             const nickname = selectedConversation?.nicknames.find((nickname) => nickname.user.id === message.author.id);
             if (nickname) return nickname.nickname;
         } else {
