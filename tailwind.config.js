@@ -17,6 +17,7 @@ module.exports = {
                 'conversation-form': '#161616',
                 'message-form': '#101010',
                 elevation_background: '#1c1c1c',
+                'blue-messenger': '#0084ff',
             },
             fontFamily: {
                 poppins: ['Poppins', 'sans-serif'],

@@ -71,7 +71,7 @@ export const CreateConversationForm: FC<Props> = ({
             </section>
 
             <button
-                className={`outline-0 border-0 text-xl bg-blue-button text-white rounded-xl py-2 mt-1 px-4 transform active:scale-125 transition-all duration-300 ${
+                className={`outline-0 border-0 text-xl bg-blue-button text-white rounded-lg cursor-pointer py-2 mt-1 px-4 transform active:scale-125 transition-all duration-300 ${
                     !selectedUser && 'opacity-50 pointer-events-none'
                 }`}
             >

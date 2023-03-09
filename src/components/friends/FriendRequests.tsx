@@ -49,9 +49,9 @@ export const FriendRequests = () => {
     };
 
     return (
-        <div className="flex flex-col p-6 w-full h-full gap-4">
+        <div className="flex flex-col px-6 mt-2 w-full h-full gap-4 overflow-y-auto">
             <div className="flex flex-col gap-2">
-                <span>Receive Requests</span>
+                <span className="font-medium text-lg text-white">Receive Requests</span>
                 <div className="flex flex-col gap-3 w-full h-full cursor-pointer">
                     {friendReceiveRequests.length > 0 ? (
                         friendReceiveRequests.map((request: FriendRequestType) => (
@@ -60,13 +60,13 @@ export const FriendRequests = () => {
                                 <div className="flex justify-center items-start gap-2">
                                     <div
                                         onClick={() => handleAcceptFriendRequestReceive(request.id)}
-                                        className="rounded-full w-6 h-6 bg-[#1e1e1e] flex items-center justify-center hover:text-green-600"
+                                        className="rounded-full p-1 bg-[#302e2e] flex items-center justify-center hover:text-green-600"
                                     >
                                         <Check size={20} />
                                     </div>
                                     <div
                                         onClick={() => handleRejectFriendRequestReceive(request.id)}
-                                        className="rounded-full w-6 h-6 bg-[#1e1e1e] flex items-center justify-center hover:text-red-600"
+                                        className="rounded-full bg-[#302e2e] flex items-center justify-center hover:text-red-600 p-1"
                                     >
                                         <Cross size={20} />
                                     </div>
@@ -74,13 +74,13 @@ export const FriendRequests = () => {
                             </div>
                         ))
                     ) : (
-                        <p className="text-gray-500">No friend request yet</p>
+                        <p className="text-gray-500 flex justify-center">No friend request yet</p>
                     )}
                 </div>
             </div>
 
             <div className="flex flex-col gap-2">
-                <span>Send Requests</span>
+                <span className="font-medium text-lg text-white">Send Requests</span>
                 <div className="flex flex-col gap-3 w-full h-full cursor-pointer">
                     {friendSendRequests.length > 0 ? (
                         friendSendRequests.map((request) => (
@@ -97,7 +97,7 @@ export const FriendRequests = () => {
                             </div>
                         ))
                     ) : (
-                        <p className="text-gray-500">No friend request yet</p>
+                        <p className="text-gray-500 flex justify-center">No send friend request yet</p>
                     )}
                 </div>
             </div>

@@ -42,9 +42,9 @@ export const FriendRequestMenuContext: FC<Props> = ({ friend, setVisible }) => {
                 <div
                     onClick={() => handleFriendRequestMenuAction(item.action)}
                     key={item.label}
-                    className="text-white flex p-1 justify-start gap-4 text-base hover:bg-[#959292] rounded-md"
+                    className="text-white flex p-1 justify-start gap-4 text-base hover:bg-[#555454] rounded-md"
                 >
-                    <span>{item.label}</span>
+                    <span className="font-medium text-base">{item.label}</span>
                 </div>
             ))}
         </div>

@@ -6,6 +6,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { defaultAvatar } from '../../utils/constants';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { AuthContext } from '../../contex/AuthContext';
+import { getDisplayName } from '../../utils/helpers';
 
 type Props = {
     friend: FriendType | FriendRequestType;
@@ -39,7 +40,7 @@ export const FriendRequestItem: FC<Props> = ({ friend }) => {
                     effect="blur"
                     className="w-10 h-10 rounded-full relative"
                 />
-                <span className="text-lg font-medium">{recipient.firstName + ' ' + recipient.lastName}</span>
+                <span className="text-lg font-medium">{getDisplayName(recipient)}</span>
             </div>
         </Tippy>
     );

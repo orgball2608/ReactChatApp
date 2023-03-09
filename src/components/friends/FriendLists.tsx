@@ -6,7 +6,7 @@ export const FriendLists = () => {
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
     const offlineFriends = useSelector((state: RootState) => state.friends.offlineFriends);
     return (
-        <div className="flex flex-col py-6 px-1 w-full">
+        <div className="flex flex-col mt-2 px-1 w-full">
             <div className="flex flex-col gap-2 w-full">
                 {onlineFriends.length > 0 && (
                     <div className="flex flex-col justify-center gap-2 w-full">
@@ -25,8 +25,8 @@ export const FriendLists = () => {
             </div>
 
             {onlineFriends.length + offlineFriends.length === 0 && (
-                <div className="flex flex-col justify-center items-start px-5 gap-2 w-full">
-                    <p className="text-gray-500">No friends yet</p>
+                <div className="flex justify-center items-start px-5 gap-2 w-full">
+                    <p className="text-gray-500 text-base">No friends yet</p>
                 </div>
             )}
         </div>

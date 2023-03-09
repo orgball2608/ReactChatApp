@@ -56,7 +56,7 @@ export const MenuContext: FC<Props> = ({ setIsEditing, message, setVisible }) =>
                 {message?.author.id === user?.id && (
                     <li
                         onClick={handleDeleteMessage}
-                        className="px-3 py-[2px] w-full hover:cursor-pointer rounded-md hover:bg-[#5f5d5d] pr-12"
+                        className="px-3 py-[2px] w-full hover:cursor-pointer rounded-md hover:bg-[#555454] pr-12"
                     >
                         Delete
                     </li>
@@ -75,7 +75,7 @@ export const MenuContext: FC<Props> = ({ setIsEditing, message, setVisible }) =>
                         setVisible(false);
                         setForwardMessage(message);
                     }}
-                    className="px-3 py-1 hover:cursor-pointer rounded-md hover:bg-[#5f5d5d] pr-12"
+                    className="px-3 py-1 hover:cursor-pointer rounded-md hover:bg-[#555454] pr-12"
                 >
                     Forward
                 </li>

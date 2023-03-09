@@ -31,10 +31,10 @@ export const FriendPageHeader: FC<Props> = ({ selectedItem, setSelectedItem }) =
                 </div>
                 <div
                     onClick={() => setShowModal(true)}
-                    className="py-2 px-4 flex gap-2 justify-center items-center text-sm bg-blue-800 hover:bg-blue-900 text-white rounded-lg cursor-pointer  ease-in-out  transform active:scale-125 transition-all duration-300"
+                    className="py-[6px] px-4 flex gap-2 justify-center items-center text-base bg-[#0162bd] hover:bg-blue-600 text-white rounded-lg cursor-pointer  ease-in-out transform active:scale-110 transition-all duration-300"
                 >
-                    <PersonAdd size={20} className="text-white" />
-                    <span>Add</span>
+                    <PersonAdd size={20} />
+                    <span className="text-white text-base font-semibold ">Add</span>
                 </div>
             </aside>
         </>

@@ -11,6 +11,7 @@ import { AuthContext } from '../../contex/AuthContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { defaultAvatar } from '../../utils/constants';
 import { logoutUser } from '../../services/api';
+import { FriendRequestBadge } from '../friends/FriendRequestBadge';
 export const UserSideBar = () => {
     const navigate = useNavigate();
     const selectedPage = useSelector((state: RootState) => state.selectedPage.page);
@@ -51,7 +52,7 @@ export const UserSideBar = () => {
                     {SelectedPageTypes.map((page) => (
                         <div
                             key={page.page}
-                            className={`w-full p-2 flex justify-center items-center ${
+                            className={`w-full relative p-2 flex justify-center items-center ${
                                 page.page === selectedPage
                                     ? ' bg-[#b7b4b4] border-r-[3px] border-[#0084ff] text-black '
                                     : ''
@@ -62,6 +63,7 @@ export const UserSideBar = () => {
                             }}
                         >
                             <CustomIcon page={page.page} />
+                            {page.page === 'friend' && <FriendRequestBadge />}
                         </div>
                     ))}
                 </div>
