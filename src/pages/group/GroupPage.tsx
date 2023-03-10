@@ -9,6 +9,8 @@ import {
     changeGroupNickName,
     deleteGroupConversations,
     editGroupConversationsTitle,
+    leaveGroup,
+    removeRecipientWhenLeaveGroup,
     updateGroupAdded,
     updateGroupAvatarState,
     updateGroupConversations,
@@ -100,6 +102,14 @@ export const GroupPage = () => {
             dispatch(changeGroupNickName(payload));
         });
 
+        socket.on('onLeaveGroup', (payload) => {
+            dispatch(leaveGroup(payload));
+        });
+
+        socket.on('onGroupUserLeave', (payload) => {
+            dispatch(removeRecipientWhenLeaveGroup(payload));
+        });
+
         return () => {
             socket.off('onGroupMessage');
             socket.off('onGroupCreate');
@@ -115,6 +125,8 @@ export const GroupPage = () => {
             socket.off('onReactGroupMessageRemove');
             socket.off('onChangeGroupEmoji');
             socket.off('onChangeGroupNickname');
+            socket.off('onLeaveGroup');
+            socket.off('onGroupUserLeave');
         };
     }, [id]);
 

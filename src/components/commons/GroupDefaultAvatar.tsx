@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { defaultGroupAvatar } from '../../utils/constants';
 import { Group } from '../../utils/types';
 import { Avatar } from './Avatar';
 
@@ -9,6 +11,11 @@ type Props = {
 };
 
 export const GroupDefaultAvatar: FC<Props> = ({ group, groupSize, itemSize }) => {
+    if(!group?.users) return (<LazyLoadImage
+        src={defaultGroupAvatar}
+        alt={'profile'}
+        className={`rounded-full object-cover h-${groupSize} w-${groupSize}`}
+    />)  
     return (
         <div className={`relative w-${groupSize} h-${groupSize}`}>
             <Avatar user={group.users[0]} size={itemSize} className="absolute top-0 right-0 flex-shrink-0" />

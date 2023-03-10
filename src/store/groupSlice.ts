@@ -126,6 +126,20 @@ const groupsSlice = createSlice({
             if (!group) return;
             group.nicknames = nicknames;
         },
+        leaveGroup: (state, action) => {
+            const { savedGroup } = action.payload;
+            const index = state.groups.findIndex((gm) => gm.id === savedGroup.id);
+            if (index < 0) return;
+            state.groups.splice(index, 1);
+        },
+        removeRecipientWhenLeaveGroup: (state, action) => {
+            const { savedGroup, userId } = action.payload;
+            const group = state.groups.find((gm) => gm.id === savedGroup.id);
+            if (!group) return;
+            const index = group.users.findIndex((recipient) => recipient.id === userId);
+            if (index < 0) return;
+            group.users.splice(index, 1);
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -160,5 +174,7 @@ export const {
     updateGroupAdded,
     changeGroupEmoji,
     changeGroupNickName,
+    leaveGroup,
+    removeRecipientWhenLeaveGroup,
 } = groupsSlice.actions;
 export default groupsSlice.reducer;

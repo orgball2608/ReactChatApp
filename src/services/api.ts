@@ -213,3 +213,6 @@ export const ForwardGroupMessageToCoversationAPI = ({ id, messageId, forwardedId
 
 export const ForwardGroupMessageToGroupAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
     axiosClient.post(`/groups/${id}/messages/${messageId}/forward/group/${forwardedId}`, {}, config);
+
+
+export const LeaveGroupAPI = (id: number) => axiosClient.patch(`/groups/${id}/recipients/leave`,{}, config);

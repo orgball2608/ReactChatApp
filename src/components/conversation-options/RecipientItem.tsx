@@ -57,7 +57,7 @@ export const RecipientItem: FC<Props> = ({ user, isOnline }) => {
                     {isOnline && <div className="w-2 h-2 rounded-full absolute bottom-0 right-0 bg-green-500"></div>}
                 </div>
                 <div className="flex flex-col justify-center">
-                    <span>{getFullName(user)}</span>
+                    <span className='text-sm'>{getFullName(user)}</span>
                     <span className="text-xs text-gray-400">{getDisplayRole()}</span>
                 </div>
             </div>

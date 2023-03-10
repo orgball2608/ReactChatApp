@@ -123,6 +123,6 @@ export const getFileSize = (size: number) => {
 };
 
 export const getAvatar = (user: User) => {
-    if (!user.profile || !user.profile.avatar) return defaultAvatar;
+    if (!user?.profile || !user?.profile.avatar) return defaultAvatar;
     return user.profile.avatar;
 };

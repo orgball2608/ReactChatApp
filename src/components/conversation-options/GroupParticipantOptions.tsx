@@ -33,12 +33,12 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
     return (
         <>
             {showAddMemberModal && <GroupAddMemberModal setShowModal={setShowAddMemberModal} />}
-            <div className="flex flex-col h-full justify-center ml-2 relative">
+            <div className="flex flex-col h-full justify-center ml-2 relative font-poppins">
                 <div
-                    className="text-lg flex items-center justify-between font-medium py-2 px-2 hover:bg-[#1c1e21] rounded-md cursor-pointer"
+                    className="flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md cursor-pointer"
                     onClick={handleShowParticipants}
                 >
-                    <span className="font-semibold">Participants</span>
+                    <span className="font-medium text-base text-white">Participants</span>
                     <div className="px-1 py-1">
                         {showParticipants ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
                     </div>
@@ -46,9 +46,9 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                 {showParticipants && (
                     <div className="flex flex-col justify-center gap-2 px-2 ">
                         <div className="flex flex-col gap-2 justify-center">
-                            <div className="flex justify-between items-center">
-                                <div className="text-base font-medium rounded-md">Online</div>
-                                <div className="text-base font-medium text-green-600 mr-2">({onlineUsers?.length})</div>
+                            <div className="flex justify-between items-center text-sm">
+                                <div className="font-medium rounded-md">Online</div>
+                                <div className="font-medium text-green-600 mr-2">({onlineUsers?.length})</div>
                             </div>
 
                             <div className="flex flex-col gap-2">
@@ -62,7 +62,7 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 justify-center">
-                            <div className="flex justify-between items-center text-base font-medium">
+                            <div className="flex justify-between items-center text-base font-medium text-sm">
                                 <div className=" rounded-md">Offline</div>
                                 <div className=" text-red-600 mr-2">({offlineUsers?.length})</div>
                             </div>

@@ -23,12 +23,12 @@ export const MediaListFile: FC<Props> = ({ setShowMediaFileSideBar, setShowFileS
     };
 
     return (
-        <div className="flex flex-col justify-center ml-2 cursor-pointer font-medium">
+        <div className="flex flex-col justify-center ml-2 cursor-pointer font-medium font-poppins">
             <div
                 onClick={handleShowCustomizeConversation}
-                className="text-lg flex items-center justify-between font-medium py-2 px-2 my-1 hover:bg-[#1c1e21] rounded-md "
+                className="flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md "
             >
-                <span className="font-semibold">File Media</span>
+                <span className="font-medium text-base text-white">File Media</span>
                 <div className="px-1">{showFileMedia ? <ChevronDown size={20} /> : <ChevronRight size={20} />}</div>
             </div>
             {showFileMedia && (
@@ -40,7 +40,7 @@ export const MediaListFile: FC<Props> = ({ setShowMediaFileSideBar, setShowFileS
                         <div className="p-1 w-fit h-fit rounded-full text-white bg-[#373434]">
                             <FileMediaIcon className="w-6 h-6" />
                         </div>
-                        <span className="text-lg">File Media</span>
+                        <span className="text-base">File Media</span>
                     </div>
                     <div
                         onClick={() => setShowFileSideBar(true)}
@@ -49,7 +49,7 @@ export const MediaListFile: FC<Props> = ({ setShowMediaFileSideBar, setShowFileS
                         <div className="p-1 w-fit h-fit rounded-full text-white bg-[#373434]">
                             <FileIcon className="w-6 h-6" color="#ffffff" />
                         </div>
-                        <span className="text-lg">File</span>
+                        <span className="text-base">File</span>
                     </div>
                 </div>
             )}

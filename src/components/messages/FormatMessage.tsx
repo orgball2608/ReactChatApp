@@ -54,7 +54,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
             const nickname = selectedConversation?.nicknames.find((nickname) => nickname.user.id === message.author.id);
             if (nickname) return nickname.nickname;
         } else {
-            if (!selectedGroup) return;
+            if (!selectedGroup?.nicknames) return;
             const nickname = selectedGroup?.nicknames.find((nickname) => nickname.user?.id === message.author.id);
             if (nickname) return nickname.nickname;
         }

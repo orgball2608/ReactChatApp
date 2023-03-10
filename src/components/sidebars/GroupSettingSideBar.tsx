@@ -14,6 +14,7 @@ import { defaultGroupAvatar } from '../../utils/constants';
 import { MediaListFile } from '../conversation-options/MediaListFile';
 import { FileSideBar } from '../conversation-options/FileSideBar';
 import { GroupDefaultAvatar } from '../commons/GroupDefaultAvatar';
+import { PrivacyAndSupport } from '../conversation-options/PrivacyAndSupport';
 
 export const GroupSettingSideBar = () => {
     const { id } = useParams();
@@ -94,6 +95,7 @@ export const GroupSettingSideBar = () => {
                             setShowFileSideBar={setShowFileSideBar}
                             setShowMediaFileSideBar={setShowMediaFileSideBar}
                         />
+                        <PrivacyAndSupport />
                     </div>
                 </aside>
             )}
