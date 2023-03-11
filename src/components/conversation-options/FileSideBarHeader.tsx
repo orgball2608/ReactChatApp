@@ -14,7 +14,7 @@ export const FileSideBarHeader: FC<Props> = ({
     showMediaFileSideBar,
 }) => {
     return (
-        <div className="flex items-center h-10 justify-center w-full text-lg font-semibold cursor-pointer mb-2">
+        <div className="flex items-center h-10 justify-center w-full text-base font-medium cursor-pointer mb-2">
             <div
                 onClick={() => {
                     setShowMediaFileSideBar(true);

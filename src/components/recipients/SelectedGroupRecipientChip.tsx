@@ -14,8 +14,8 @@ export const SelectedGroupRecipientChip: FC<Props> = ({ selectedUser, setSelecte
     };
 
     return (
-        <div className="flex justify-start gap-2 items-center border-[1px] border-border-conversations rounded-full pl-2 pr-1 bg-[#211f1f] animate-fade-in">
-            <span className="text-white">{getDisplayName(selectedUser!)}</span>
+        <div className="flex justify-start gap-2 items-center border-[1px] border-border-conversations rounded-full pl-2 pr-1 py-[2px] bg-[#211f1f] animate-fade-in">
+            <span className="text-white text-sm">{getDisplayName(selectedUser!)}</span>
             <div className="cursor-pointer">
                 <CircleX size={18} onClick={handleRemoveSelectedUser} />
             </div>

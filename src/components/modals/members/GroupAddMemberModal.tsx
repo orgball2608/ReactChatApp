@@ -88,13 +88,13 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
 
     return (
         <div className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50">
-            <div className="bg-modal-background w-2/5 box-border rounded-lg font-poppins overflow-hidden">
+            <div className="bg-modal-background w-2/5 box-border rounded-lg overflow-hidden">
                 <div className=" box-border flex justify-center items-center mx-6 mt-6">
                     <div className="mr-auto invisible">
-                        <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
+                        <MdClose size={24} className="bg-[#383636] hover:bg-[#494747] cursor-pointer rounded-full" />
                     </div>
-                    <h1 className="text-xl font-bold">Add Member</h1>
-                    <div className="ml-auto bg-[#908f8f] p-1 rounded-full">
+                    <h1 className="text-xl font-medium">Add Member</h1>
+                    <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>
                 </div>
@@ -107,7 +107,7 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
                         <input
                             type="text"
                             onChange={handleSearchMember}
-                            className="w-full rounded-md py-[6px] bg-[#f1ecec] outline-none border-1 border-[#ced0d4] px-2 text-[#121212] text-sm font-poppins font-bold pl-8"
+                            className="w-full rounded-md py-[6px] bg-[#f1ecec] outline-none border-1 border-[#ced0d4] px-2 text-[#121212] text-sm font-bold pl-8"
                             placeholder="Search"
                         />
                     </section>

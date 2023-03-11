@@ -157,7 +157,7 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }
             }}
         >
             {isForwardding && <ForwardMessageModal setShowModal={setIsForwardding} />}
-            <div id="scrollableDiv" className="h-full box-border relative" onKeyDown={handleSubmit} tabIndex={0}>
+            <div id="scrollableDiv" className="h-full box-border relative outline-none" onKeyDown={handleSubmit} tabIndex={0}>
                 <InfiniteScroll
                     dataLength={messages?.length as number}
                     next={() => {

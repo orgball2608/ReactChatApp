@@ -48,7 +48,7 @@ export const MemberSearchItem: FC<Props> = ({
         >
             <div className="flex justify-start items-center gap-2">
                 <img src={getAvatar(friend!)} alt="avatar" className="rounded-full w-10 h-10" />
-                <span className="font-poppins text-base">{getDisplayName(friend!)}</span>
+                <span className="text-base">{getDisplayName(friend!)}</span>
             </div>
 
             <div className="bg-white border-[2px] border-[#484c51] w-5 h-5 rounded-sm">

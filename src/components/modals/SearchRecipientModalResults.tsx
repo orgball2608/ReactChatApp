@@ -36,7 +36,7 @@ export const SearchRecipientModalResults: FC<Props> = ({
                                     className="hover:cursor-pointer hover:bg-[#484545] box-border px-4 py-1 rounded-md"
                                     onClick={() => handleSelectedUser(u)}
                                 >
-                                    <span className="text-white">{getDisplayName(u)}</span>
+                                    <span className="text-white text-sm">{getDisplayName(u)}</span>
                                 </div>
                             )}
                         </>

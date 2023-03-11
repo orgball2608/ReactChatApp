@@ -1,7 +1,9 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
 
 body {
     margin: 0;
@@ -18,7 +20,7 @@ html,
 body,
 html {
     background-color: #1a1a1a;
-    font-family: 'Inter', serif;
+    font-family: 'Poppins', sans-serif;
     color: #fff;
 }
 

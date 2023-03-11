@@ -52,18 +52,18 @@ export const MenuContext: FC<Props> = ({ setIsEditing, message, setVisible }) =>
     };
     return (
         <div className={`box-border text-base w-full`}>
-            <ul className="list-none m-0 w-full">
+            <ul className="list-none m-0 min-w-[140px]">
                 {message?.author.id === user?.id && (
                     <li
                         onClick={handleDeleteMessage}
-                        className="px-3 py-[2px] w-full hover:cursor-pointer rounded-md hover:bg-[#555454] pr-12"
+                        className="px-3 py-[2px] w-full hover:cursor-pointer rounded-md hover:bg-[#555454]"
                     >
                         Delete
                     </li>
                 )}
                 {message?.author.id === user?.id && (
                     <li
-                        className="px-3 py-[2px] hover:cursor-pointer rounded-md hover:bg-[#5f5d5d] pr-12"
+                        className="px-3 py-[2px] hover:cursor-pointer rounded-md hover:bg-[#5f5d5d]"
                         onClick={handleEditMessage}
                     >
                         Edit
@@ -75,7 +75,7 @@ export const MenuContext: FC<Props> = ({ setIsEditing, message, setVisible }) =>
                         setVisible(false);
                         setForwardMessage(message);
                     }}
-                    className="px-3 py-1 hover:cursor-pointer rounded-md hover:bg-[#555454] pr-12"
+                    className="px-3 py-1 hover:cursor-pointer rounded-md hover:bg-[#555454]"
                 >
                     Forward
                 </li>

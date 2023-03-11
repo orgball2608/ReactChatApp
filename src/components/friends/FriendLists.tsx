@@ -26,7 +26,7 @@ export const FriendLists = () => {
 
             {onlineFriends.length + offlineFriends.length === 0 && (
                 <div className="flex justify-center items-start px-5 gap-2 w-full">
-                    <p className="text-gray-500 text-base">No friends yet</p>
+                    <p className="text-gray-400 text-sm">No friends yet</p>
                 </div>
             )}
         </div>

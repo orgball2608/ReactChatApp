@@ -51,9 +51,9 @@ export const ProfilePage = () => {
                         effect="blur"
                         className="w-36 flex-none h-36 rounded-full object-cover border-[#121212] border-4"
                     />
-                    <div className="flex flex-col gap-4 justify-center">
+                    <div className="flex flex-col gap-2 justify-center">
                         <span className="text-2xl font-bold">{getFullName()}</span>
-                        <span className="text-base font-semibold">
+                        <span className="text-base font-normal text-gray-400">
                             Location: {profile.location || 'Nothing to show'}
                         </span>
                     </div>
@@ -61,9 +61,9 @@ export const ProfilePage = () => {
                 <ProfileAction />
             </div>
             <div className="mt-32 w-full flex flex-col">
-                <label className="text-md font-bold my-1">About</label>
+                <label className="text-lg font-semibold my-1">About</label>
                 <textarea
-                    className="w-1/2 p-4 outline-none border-none bg-[#121212] h-32 resize-none rounded-lg"
+                    className="w-1/2 p-4 outline-none border-none bg-[#121212] h-32 resize-none rounded-lg text-sm"
                     defaultValue={profile.bio || 'Nothing to show'}
                 />
             </div>

@@ -332,13 +332,13 @@ export const MessageInputField: FC<Props> = ({
         <div className="w-full h-full">
             {replyInfo && (
                 <div className=" relative h-12 border-t border-[#2f3237] px-6 flex justify-between items-center py-auto animate-fade-in-slow">
-                    <div className="flex flex-col justify-center items-start">
+                    <div className="flex flex-col justify-center items-start text-sm font-light">
                         <p>
                             Replying to
                             {replyInfo?.author.id === user?.id ? (
                                 ' yourself'
                             ) : (
-                                <span className="font-semibold">{` ${replyInfo?.author.lastName}`}</span>
+                                <span className="font-medium">{` ${replyInfo?.author.lastName}`}</span>
                             )}
                         </p>
                         {replyInfo?.content ? (
@@ -381,7 +381,7 @@ export const MessageInputField: FC<Props> = ({
                             />
                         </label>
                         {content.length === 0 && (
-                            <div className="flex gap-1 justify-center items-center cursor-pointer relative animate-fade-in">
+                            <div className="flex gap-0 justify-center items-center cursor-pointer relative animate-fade-in">
                                 <StickerInput />
                                 <GifInput />
                             </div>
@@ -391,7 +391,7 @@ export const MessageInputField: FC<Props> = ({
 
                 <div
                     onKeyDown={handleSubmit}
-                    className={`w-full box-border bg-[#3e3b3b] pl-3 relative flex flex-col items-center gap-1 font-poppins ${
+                    className={`w-full box-border bg-[#3e3b3b] pl-3 relative flex flex-col items-center gap-1 ${
                         fileList.length > 0 ? 'rounded-xl ' : 'rounded-full '
                     }`}
                 >
@@ -406,7 +406,7 @@ export const MessageInputField: FC<Props> = ({
                         <form onSubmit={sendMessage} className="w-full">
                             <input
                                 type="text"
-                                className={`bg-inherit outline-0 border-0 text-white py-1 box-border text-md w-full p-0 break-words font-normal`}
+                                className={`bg-inherit outline-0 border-0 text-white py-1 box-border text-md w-full p-0 break-words`}
                                 ref={inputRef}
                                 placeholder="Send message..."
                                 maxLength={1000}

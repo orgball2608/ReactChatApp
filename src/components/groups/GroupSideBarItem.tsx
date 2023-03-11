@@ -60,10 +60,10 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
                 )}
 
                 <div className="flex flex-col flex-nowrap font-normal flex-1 break-all justify-center">
-                    <span className="block font-semibold text-base">{getGroupTitleDisplay(group)}</span>
+                    <span className="block font-medium text-sm text-white">{getGroupTitleDisplay(group)}</span>
                     <div className="flex justify-start items-center">
-                        <span className="text-sm text-white">{lastMessageContent(group)}</span>
-                        <span className="text-sm text-[#65676b] ml-3 font-semibold">
+                        <span className="text-sm text-[#65676b]">{lastMessageContent(group)}</span>
+                        <span className="text-sm text-[#65676b] ml-3">
                             {moment(group?.lastMessageSentAt).format('H:mm')}
                         </span>
                     </div>

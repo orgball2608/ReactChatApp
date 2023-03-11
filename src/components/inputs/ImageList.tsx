@@ -11,14 +11,14 @@ type ImageListProps = {
 export const ImageList: FC<ImageListProps> = ({ fileList, setFileList, handleGetFile }) => {
     return (
         <>
-            <label className="w-12 h-12 bg-[#1c1e21] rounded-md flex justify-center items-center cursor-pointer hover:bg-[#303234] ">
+            <label className="w-12 h-12 bg-[#2b2a2a] rounded-md flex justify-center items-center cursor-pointer hover:bg-[#303234] ">
                 <MdLibraryAdd size={30} />
                 <input onChange={handleGetFile} name="file" type="file" id="formId" className="hidden" multiple />
             </label>
             <div className="flex flex-wrap gap-2 justify-start">
                 {fileList.map((file, index) => (
                     <div key={index} className="flex items-center gap-2 ">
-                        <div className="w-12 h-12 bg-[#1c1e21] rounded-md relative">
+                        <div className="w-12 h-12 bg-[#2b2a2a] rounded-md relative">
                             <img src={URL.createObjectURL(file)} alt="attachments" className="w-12 h-12 rounded-md" />
                             <div
                                 onClick={() => setFileList((prev) => prev.filter((f) => f !== file))}

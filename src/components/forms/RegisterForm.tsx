@@ -17,7 +17,7 @@ export const RegisterForm = () => {
         <>
             <form className="w-[600px]" onSubmit={handleSubmit(FormSubmit)}>
                 <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box">
-                    <label htmlFor="email" className="block text-label-white text-sm px-[14px]">
+                    <label htmlFor="email" className="block text-label-white text-xs">
                         Email
                     </label>
                     <input
@@ -29,7 +29,7 @@ export const RegisterForm = () => {
                 </div>
                 <section className="w-full flex justify-between gap-2">
                     <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box my-2">
-                        <label htmlFor="firstName" className="block text-label-white text-sm px-[14px]">
+                        <label htmlFor="firstName" className="block text-label-white text-xs">
                             First Name
                         </label>
                         <input
@@ -40,7 +40,7 @@ export const RegisterForm = () => {
                         />
                     </div>
                     <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box my-2">
-                        <label htmlFor="lastName" className="block text-label-white text-sm px-[14px]">
+                        <label htmlFor="lastName" className="block text-label-white text-xs">
                             Last Name
                         </label>
                         <input
@@ -53,7 +53,7 @@ export const RegisterForm = () => {
                 </section>
 
                 <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box mb-2">
-                    <label htmlFor="password" className="block text-label-white text-sm px-[14px]">
+                    <label htmlFor="password" className="block text-label-white text-xs">
                         Password
                     </label>
                     <input
@@ -63,13 +63,13 @@ export const RegisterForm = () => {
                         className="text-base w-full border-box p-0  text-white bg-inherit border-0 outline-0"
                     />
                 </div>
-                <button className="w-full outline-0 border-0 text-[20px] bg-blue-button text-white rounded-[10px] py-3">
+                <button className="w-full outline-0 border-0 text-md font-medium bg-blue-button text-white rounded-[10px] py-3">
                     Create Account
                 </button>
-                <div className="text-center my-[10px] text-lg">
+                <div className="text-center my-[10px] text-base font-light">
                     <span>Already have an account? </span>
                     <Link to="/login" className="text-purple-500 underline decoration-solid mx-1">
-                        <span>Login</span>
+                        <span className='font-normal'>Login</span>
                     </Link>
                 </div>
             </form>

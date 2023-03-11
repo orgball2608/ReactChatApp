@@ -25,10 +25,9 @@ export const MessagePanelHeader = () => {
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
     const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
     const selectedGroup = groups.find((group) => group.id === parseInt(id!));
-
-    const isOnline = onlineFriends.find((friend) => friend.id === recipient?.id) ? true : false;
-
+    
     const recipient = getRecipient(conversation!, user!);
+    const isOnline = onlineFriends.find((friend) => friend.id === recipient?.id) ? true : false;
 
     const getAvatar = () => {
         if (selectedType === 'private') {
@@ -81,7 +80,7 @@ export const MessagePanelHeader = () => {
             {showGroupMember && <GroupMemberViewModal setShowModal={setShowGroupMember} group={selectedGroup} />}
             <header
                 className="border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-6 box-border
-    absolute top-0 left-0 w-full h-14 text-lg rounded z-10"
+    absolute top-0 left-0 w-full h-14 text-lg z-10"
             >
                 <div
                     onClick={handleDirectProfile}
@@ -94,11 +93,11 @@ export const MessagePanelHeader = () => {
                         )}
                     </div>
                     <div className="flex flex-col justify-center">
-                        <span className="text-md font-semibold ">
+                        <span className="text-base">
                             {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}
                         </span>
                         {isOnline && (
-                            <span className="text-sm text-gray-400">
+                            <span className="text-xs text-gray-400">
                                 {selectedType === 'private' ? 'Online' : 'Group'}
                             </span>
                         )}

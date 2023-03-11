@@ -57,21 +57,20 @@ export const CreateConversationForm: FC<Props> = ({
             />
 
             <section className="my-3">
-                <div className="bg-conversation-form py-2 px-4 rounded-[10px] w-full border-box">
-                    <label htmlFor="message" className="block text-label-white text-sm">
+                <div className="bg-conversation-form py-3 px-4 rounded-[10px] w-full border-box">
+                    <label htmlFor="message" className="block text-label-white text-xs">
                         Message (optional)
                     </label>
-
                     <textarea
                         id="message"
-                        className="text-lg w-full border-box p-0 text-white bg-inherit border-0 outline-0 scrollbar-hide overflow-auto resize-none"
+                        className="text-sm w-full border-box p-0 text-white bg-inherit border-0 outline-0 scrollbar-hide overflow-auto resize-none"
                         onChange={(event) => setMessage(event.target.value)}
                     />
                 </div>
             </section>
 
             <button
-                className={`outline-0 border-0 text-xl bg-blue-button text-white rounded-lg cursor-pointer py-2 mt-1 px-4 transform active:scale-125 transition-all duration-300 ${
+                className={`outline-0 border-0 bg-blue-button text-white rounded-lg cursor-pointer py-2 mt-1 px-4 transform active:scale-125 transition-all duration-300 text-base font-normal ${
                     !selectedUser && 'opacity-50 pointer-events-none'
                 }`}
             >

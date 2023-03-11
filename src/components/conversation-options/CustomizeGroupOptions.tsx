@@ -62,12 +62,12 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
             {showChangeEmojiModal && <EmojiSelectModal setShowModal={setShowChangeEmojiModal} />}
 
             {showChangeNickNameModal && <ChangeNickNameModal setShowModal={setShowChangeNickNameModal} />}
-            <div className="flex flex-col justify-center ml-2 cursor-pointer font-poppins">
+            <div className="flex flex-col justify-center ml-2 cursor-pointer font-normal">
                 <div
                     onClick={handleShowCustomizeConversation}
                     className="flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md"
                 >
-                    <span className="font-medium text-base text-white">Customize Group</span>
+                    <span className="font-normal text-base text-white">Customize Group</span>
                     <div className="px-1 py-1">
                         {showCustomizeConversation ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
                     </div>

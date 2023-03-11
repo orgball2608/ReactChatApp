@@ -100,7 +100,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                 className={`w-10 h-10 rounded-full flex-0 object-cover `}
                             />
                             <span
-                                className="text-[#6d6d6d] text-base font-bold"
+                                className="text-[#6d6d6d] text-base font-medium"
                                 style={{
                                     color: isAuthor ? '#989898' : '#5E8BFF',
                                 }}
@@ -166,15 +166,15 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                         <div
                                             id={'message-' + message.id}
                                             title={formatDate(message.createdAt)}
-                                            className={`bg-dark-header py-2 px-5 rounded-2xl relative ${
+                                            className={`py-2 px-3 rounded-2xl relative text-sm font-normal ${
                                                 message.reacts?.length > 0 ? 'mb-2' : ''
                                             } ${
                                                 isOneElement
-                                                    ? `${isAuthor ? 'rounded-r-2xl bg-primary' : 'rounded-l-2xl ml-14'}`
+                                                    ? `${isAuthor ? 'rounded-r-2xl bg-primary' : 'rounded-l-2xl ml-14 bg-dark-lighten'}`
                                                     : `${
                                                           isAuthor
                                                               ? 'rounded-br-none bg-primary'
-                                                              : 'rounded-bl-none ml-14'
+                                                              : 'rounded-bl-none ml-14 bg-dark-lighten'
                                                       }`
                                             } `}
                                         >

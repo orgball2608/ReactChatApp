@@ -68,7 +68,7 @@ export const GroupSettingSideBar = () => {
                     showMediaFileSideBar={showMediaFileSideBar}
                 />
             ) : (
-                <aside className="w-72 flex-none px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto ">
+                <aside className="w-72 flex-none px-2 gap-4 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto">
                     <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
                         {selectedGroup && selectedGroup?.avatar ? (
                             <LazyLoadImage
@@ -80,7 +80,7 @@ export const GroupSettingSideBar = () => {
                         ) : (
                             <GroupDefaultAvatar group={selectedGroup!} groupSize={28} itemSize={20} />
                         )}
-                        <div className="flex flex-col text-xl font-semibold">
+                        <div className="text-center break-all text-lg font-medium">
                             <span className="text-center break-all">{selectedGroup?.title}</span>
                         </div>
                     </div>

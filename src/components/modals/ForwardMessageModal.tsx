@@ -129,12 +129,12 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
             className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in "
             tabIndex={-1}
         >
-            <div className="bg-modal-background w-screen max-w-[550px] box-border rounded-lg font-poppins overflow-hidden h-4/5 min-w-screen flex flex-col gap-4">
-                <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-4 border-b-[1px] border-border-conversations ">
+            <div className="bg-modal-background w-screen max-w-[550px] box-border rounded-lg overflow-hidden h-4/5 min-w-screen flex flex-col gap-4">
+                <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
-                    <span className="text-xl font-semibold leading-5">Forward</span>
+                    <span className="text-lg font-medium leading-5">Forward</span>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
                     </div>
@@ -154,13 +154,13 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                             alt={'profile'}
                                             className="h-10 w-10 rounded-full flex-none object-cover "
                                         />
-                                        <span className="block font-medium text-base ">{` ${getDisplayName(
+                                        <span className="block font-normal text-base">{` ${getDisplayName(
                                             getRecipient(conversation, user!),
                                         )}`}</span>
                                     </div>
                                     <div className=" rounded-md flex justify-center items-center w-fit h-fit transform active:scale-125 transition-all duration-300">
                                         {isSelectedConversation(conversation.id) ? (
-                                            <button className="p-2 rounded-md text-sm bg-[#727785] text-white font-semibold flex justify-center items-center gap-1 opacity-50 pointer-events-none">
+                                            <button className="p-2 rounded-md text-sm bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
                                                 <Envelope size={20} />
                                                 <span>Sended</span>
                                             </button>
@@ -170,7 +170,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                                     handleForwardMessageToConversation(conversation.id);
                                                     setSelectedConversations((prev) => [...prev, conversation.id]);
                                                 }}
-                                                className="p-2 rounded-md text-sm bg-[#0084ff] text-white font-semibold"
+                                                className="p-2 rounded-md text-sm bg-[#0084ff] text-white font-medium"
                                             >
                                                 Send
                                             </button>
@@ -195,20 +195,20 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                             alt={'profile'}
                                             className="h-10 w-10 rounded-full flex-none object-cover "
                                         />
-                                        <span className="block font-medium text-base ">{` ${
+                                        <span className="block font-normal text-base ">{` ${
                                             group.title || 'Group'
                                         }`}</span>
                                     </div>
                                     <div className=" rounded-md flex justify-center items-center w-fit h-fit transform active:scale-125 transition-all duration-300">
                                         {isSelectedGroup(group.id) ? (
-                                            <button className="p-2 rounded-md text-sm bg-[#727785] text-white font-semibold flex justify-center items-center gap-1 opacity-50 pointer-events-none">
+                                            <button className="p-2 rounded-md text-sm bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
                                                 <Envelope size={20} />
                                                 <span>Sended</span>
                                             </button>
                                         ) : (
                                             <button
                                                 onClick={() => handleForwardMessageToGroup(group.id)}
-                                                className="p-2 rounded-md text-sm bg-[#0084ff] text-white font-semibold"
+                                                className="p-2 rounded-md text-sm bg-[#0084ff] text-white font-medium"
                                             >
                                                 Send
                                             </button>
@@ -233,19 +233,19 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                             alt={'profile'}
                                             className="h-10 w-10 rounded-full flex-none object-cover "
                                         />
-                                        <span className="block font-medium text-base ">{`${getDisplayName(
+                                        <span className="block font-normal text-base ">{`${getDisplayName(
                                             getFriend(friend, user!),
                                         )}`}</span>
                                     </div>
                                     {isSelectedFriend(friend.id) ? (
-                                        <button className="p-2 rounded-md text-sm bg-[#727785] text-white font-semibold flex justify-center items-center gap-1 opacity-50 pointer-events-none">
+                                        <button className="p-2 rounded-md text-sm bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
                                             <Envelope size={20} />
                                             <span>Sended</span>
                                         </button>
                                     ) : (
                                         <button
                                             onClick={() => handleForwardMessageToFriend(friend)}
-                                            className="p-2 rounded-md text-sm bg-[#0084ff] text-white font-semibold"
+                                            className="p-2 rounded-md text-sm bg-[#0084ff] text-white font-medium"
                                         >
                                             Send
                                         </button>

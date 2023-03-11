@@ -47,8 +47,8 @@ export const ConversationSidebar = () => {
             {showModal && <CreateConversationModal setShowModal={setShowModal} />}
             <aside className="h-full flex-none bg-dark-light w-80 border-solid border-r-[1px] border-border-conversations">
                 <header className="absolute top-0 left-16 w-80 flex flex-col justify-between items-center px-8">
-                    <div className="flex justify-between px-4 items-center h-14 w-80 border-b-[1px] border-r-[1px] border-border-conversations">
-                        <h1 className="font-normal text-2xl">Conversations</h1>
+                    <div className="flex justify-between px-4 items-center h-14 w-80">
+                        <h1 className="text-xl">Conversations</h1>
                         <div
                             className="hover:bg-[#686868] p-1 rounded-full flex justify-center items-center bg-[#5a5252] cursor-pointer "
                             onClick={() => setShowModal(!showModal)}
@@ -65,9 +65,10 @@ export const ConversationSidebar = () => {
                             userResults={userResults}
                             setUserResults={setUserResults}
                         />
+                        
                     </div>
                 </header>
-                <div className="w-full h-full pt-40 overflow-y-auto overflow-auto">
+                <div className="w-full h-full pt-38 overflow-y-auto overflow-auto">
                     {userResults.length > 0 || query !== '' ? (
                         <section className=" w-full cursor-pointer">
                             <SearchUserResults userResults={userResults} isSeaching={isSeaching} />

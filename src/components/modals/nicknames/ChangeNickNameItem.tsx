@@ -78,8 +78,7 @@ export const ChangeNickNameItem: FC<Props> = ({ member, onSelectMember, isSelect
 
     return (
         <div
-            className="flex justify-between items-center 
-rounded-md w-full p-2 hover:bg-[#1a1a1c]"
+            className="flex justify-between items-center rounded-md w-full px-2 py-1 hover:bg-[#1a1a1c]"
         >
             <div
                 onClick={() => handleItemClick()}
@@ -102,14 +101,14 @@ rounded-md w-full p-2 hover:bg-[#1a1a1c]"
                         {getNickname() && getNickname() !== '' ? (
                             <>
                                 <span className="text-base font-normal">{getNickname()}</span>
-                                <span className="text-sm font-extralight break-all">
+                                <span className="text-sm font-light break-all">
                                     {member && getDisplayName(member)}
                                 </span>
                             </>
                         ) : (
                             <>
                                 <span className="text-base font-normal">{member && getDisplayName(member)}</span>
-                                <span className="text-sm font-extralight break-all">Set Nickname</span>
+                                <span className="text-sm font-light break-all">Set Nickname</span>
                             </>
                         )}
                     </div>

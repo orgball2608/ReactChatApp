@@ -55,13 +55,13 @@ export const EditMessageContainer: FC<Props> = ({ onEditMessageChange, editMessa
         <div className="w-full">
             <form onSubmit={handleSubmitEditMessage}>
                 <input
-                    className="bg-[#222] w-full py-1 outline-0 border-0 rounded box-border font-Inter px-2"
+                    className="bg-[#222] w-full py-1 outline-0 border-0 rounded-lg box-border px-2"
                     onChange={onEditMessageChange}
                     defaultValue={editMessage?.content}
                     autoFocus
                 />
             </form>
-            <div className="text-sm text-[1d77ff] text-end">
+            <div className="text-xs text-white text-end">
                 escape to <span className="text-red-600">cancel</span> - enter to{' '}
                 <span className="text-blue-button">save</span>
             </div>

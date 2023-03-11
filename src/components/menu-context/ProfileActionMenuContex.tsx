@@ -40,12 +40,12 @@ export const ProfileActionMenuContext: FC<Props> = ({ friend, setVisible }) => {
         }
     };
     return (
-        <div className="flex flex-col w-32 rounded-3xl justify-center">
+        <div className="flex flex-col w-28 rounded-3xl justify-center cursor-pointer">
             {ProfileAction.map((item) => (
                 <div
                     onClick={() => handleProfileMenuAction(item.action)}
                     key={item.label}
-                    className="text-white flex py-1 px-2 justify-start gap-4 text-base hover:bg-[#959292] rounded-md font-semibold"
+                    className="text-white flex py-1 px-2 justify-start gap-4 text-sm hover:bg-[#555454] rounded-md font-normal"
                 >
                     <span>{item.label}</span>
                 </div>

@@ -16,9 +16,6 @@ export const FriendRequestResponse: FC<Props> = ({
     handleAcceptFriend,
     handleRejectFriendRequest,
 }) => {
-    const { id } = useParams();
-    const { user } = useContext(AuthContext);
-    const navigate = useNavigate();
     const FriendRequestResponseMenuAction = [
         {
             action: 'Accept',
@@ -47,7 +44,7 @@ export const FriendRequestResponse: FC<Props> = ({
                     key={item.label}
                     className="text-white flex p-1 justify-start gap-4 text-base hover:bg-[#555454] rounded-md"
                 >
-                    <span className="font-medium text-base">{item.label}</span>
+                    <span className="font-normal text-base">{item.label}</span>
                 </div>
             ))}
         </div>

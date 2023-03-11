@@ -19,7 +19,7 @@ export const GroupMemberViewModal: FC<GroupMemberProps> = ({ setShowModal, group
             className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in"
             tabIndex={-1}
         >
-            <div className="bg-modal-background w-screen max-w-[500px] box-border rounded-lg font-poppins overflow-hidden h-96 ">
+            <div className="bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-96 ">
                 <div className=" box-border flex justify-center flex-shrink-0 items-center mx-4 mt-6">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />

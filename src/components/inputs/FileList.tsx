@@ -12,14 +12,14 @@ type ImageListProps = {
 export const FileList: FC<ImageListProps> = ({ fileList, setFileList, handleGetFile }) => {
     return (
         <>
-            <label className="w-12 h-12 bg-[#1c1e21] rounded-xl flex justify-center items-center cursor-pointer hover:bg-[#303234] ">
+            <label className="w-12 h-12 bg-[#2b2a2a] rounded-xl flex justify-center items-center cursor-pointer hover:bg-[#303234] ">
                 <MdLibraryAdd size={30} />
                 <input onChange={handleGetFile} name="file" type="file" id="formId" className="hidden" multiple />
             </label>
             <div className="flex flex-wrap gap-2 justify-start animate-fade-in">
                 {fileList.map((file, index) => (
                     <div key={index} className="flex items-center gap-2 ">
-                        <div className="w-32 h-12 bg-[#1c1e21] rounded-xl relative flex items-center">
+                        <div className="w-32 h-12 bg-[#2b2a2a] rounded-xl relative flex items-center">
                             <div className=" flex items-center px-2 gap-2">
                                 <div className="p-[6px] rounded-full bg-[#585b60]">
                                     <RiFileList2Fill size={18} className="text-[#393a3b]" />

@@ -15,7 +15,7 @@ const ReactionStatus: FC<Props> = ({ message, setShowModal }) => {
     return (
         <div
             onClick={() => setShowModal(true)}
-            className={`absolute top-full -translate-y-1/2 right-0 bg-dark-lighten px-1 rounded-lg py-[1px] text-xs flex items-center gap-[2px] bg-[#4d4848] cursor-pointer
+            className={`absolute top-full -translate-y-1/2 right-0  px-1 rounded-lg py-[1px] text-xs flex items-center gap-[2px] bg-dark-lighten cursor-pointer
       `}
         >
             {reacts?.map((react) => (

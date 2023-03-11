@@ -110,7 +110,7 @@ export const MessageItem: FC<Props> = ({
                                     <div
                                         id={'message-' + m.id}
                                         title={formatDate(m.createdAt)}
-                                        className={`relative w-fit bg-dark-header ${
+                                        className={`relative w-fit rounded-2xl  ${
                                             m.reacts?.length > 0 ? 'mb-2' : ''
                                         } ${
                                             (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
@@ -120,17 +120,17 @@ export const MessageItem: FC<Props> = ({
                                                           ? `${
                                                                 m.attachments?.length === 0
                                                                     ? 'rounded-tr-none bg-primary'
-                                                                    : 'rounded-r-md bg-primary '
+                                                                    : 'rounded-r bg-primary '
                                                             }`
                                                           : `${
                                                                 m.attachments?.length === 0
-                                                                    ? 'rounded-tl-none '
-                                                                    : 'rounded-l-md '
+                                                                    ? 'rounded-tl-none bg-dark-lighten '
+                                                                    : 'rounded-l  bg-dark-lighten'
                                                             }`
                                                   }`
-                                                : `${isAuthor ? 'rounded-r-md bg-primary' : 'rounded-l-md '}`
-                                        } py-2 px-5 rounded-2xl`}
-                                    >
+                                                : `${isAuthor ? 'rounded-r bg-primary' : 'rounded-l bg-dark-lighten '}`
+                                        } py-2 px-3 text-sm font-normal`}
+                                    > 
                                         <p>{m.content}</p>
 
                                         {m.reacts?.length > 0 && (

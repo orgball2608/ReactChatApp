@@ -16,7 +16,7 @@ export const SearchUserResults: FC<Props> = ({ userResults, isSeaching }) => {
                     <Loader />
                 ) : (
                     <div className="flex justify-center items-center h-12">
-                        <p className="text-[#b1b1b1]">No results were found</p>
+                        <p className="text-[#b1b1b1] text-sm">No results were found</p>
                     </div>
                 )
             ) : (

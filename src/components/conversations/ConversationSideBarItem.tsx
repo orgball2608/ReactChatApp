@@ -47,10 +47,10 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                 </div>
 
                 <div className="flex flex-col flex-nowrap flex-1 font-normal break-all justify-center">
-                    <span className="block font-semibold text-base">{getFullName(user, conversation)}</span>
+                    <span className="block text-sm font-medium text-white">{getFullName(user, conversation)}</span>
                     <div className="flex justify-start items-center">
-                        <span className="text-md text-white">{lastMessageContent(conversation)}</span>
-                        <span className="text-sm text-[#65676b] ml-3 font-semibold">
+                        <span className="text-sm text-[#65676b]">{lastMessageContent(conversation)}</span>
+                        <span className="text-sm text-[#65676b] ml-3">
                             {moment(conversation?.lastMessageSentAt).format('H:mm')}
                         </span>
                     </div>

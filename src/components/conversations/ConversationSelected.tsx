@@ -24,18 +24,21 @@ export const ConversationSelected = () => {
     };
 
     return (
-        <div className="flex justify-center h-14 w-80 items-center px-2 gap-2 text-base font-medium box-border cursor-pointer border-r-[1px] border-border-conversations">
+        <div className="flex justify-center h-10 w-full px-4 items-center box-border cursor-pointer border-r-[1px] border-border-conversations text-sm">
+            <div className="flex justify-center h-10 w-full bg-sidebar-background rounded-full items-center gap-2 px-1 py-[6px] text-sm" >
             {ChatTypes.map((chat, index) => (
                 <div
                     onClick={() => handleChangeType(chat)}
-                    className={`rounded-md border-[#d3d3d3] border-solid border-[1px] bg-dark-light px-3 py-1 basis-2/4 text-center ${
-                        selectedType === chat.type ? 'bg-[#b1b1b1] border-[#b1b1b1] text-[#292929]' : ''
+                    className={`rounded-full w-1/2 px-1 py-2 text-center ${
+                        selectedType === chat.type ? 'bg-dark-lighten text-white ' : 'text-gray-400'
                     }`}
                     key={index}
                 >
                     {chat.label}
                 </div>
             ))}
+            </div>
+            
         </div>
     );
 };

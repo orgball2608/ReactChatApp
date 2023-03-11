@@ -33,12 +33,12 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
     return (
         <>
             {showAddMemberModal && <GroupAddMemberModal setShowModal={setShowAddMemberModal} />}
-            <div className="flex flex-col h-full justify-center ml-2 relative font-poppins">
+            <div className="flex flex-col h-full justify-center ml-2 relative">
                 <div
                     className="flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md cursor-pointer"
                     onClick={handleShowParticipants}
                 >
-                    <span className="font-medium text-base text-white">Participants</span>
+                    <span className="font-normal text-base text-white">Participants</span>
                     <div className="px-1 py-1">
                         {showParticipants ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
                     </div>
@@ -62,7 +62,7 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 justify-center">
-                            <div className="flex justify-between items-center text-base font-medium text-sm">
+                            <div className="flex justify-between items-center font-normal text-sm">
                                 <div className=" rounded-md">Offline</div>
                                 <div className=" text-red-600 mr-2">({offlineUsers?.length})</div>
                             </div>
@@ -86,7 +86,7 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                                 <div className="p-2 rounded-full text-white bg-[#373434]">
                                     <Plus size={18} />
                                 </div>
-                                <span className="text-md">Add Member</span>
+                                <span className="text-sm">Add Member</span>
                             </div>
                         )}
                     </div>

@@ -14,11 +14,11 @@ export const ConversationSelectTypeForm: FC<Props> = ({ conversationType, setCon
     };
     return (
         <div>
-            <div className="flex ml-6 gap-4 my-1 cursor-pointer">
+            <div className="flex ml-6 gap-2 my-1 cursor-pointer text-sm font-normal">
                 {ChatTypes.map((chat, index) => (
                     <div
                         key={index}
-                        className={`box-border bg-dark-light rounded-2xl px-2 py-1 ${
+                        className={`box-border bg-dark-light rounded-2xl px-2 py-[6px] ${
                             conversationType === chat.type
                                 ? 'border-b-[2px] border-dark-light bg-[#b1b1b1] text-[#292929] border-solid'
                                 : ''

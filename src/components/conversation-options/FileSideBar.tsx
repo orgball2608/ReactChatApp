@@ -92,7 +92,7 @@ export const FileSideBar: FC<Props> = ({
                 >
                     <ArrowLeft size={20} />
                 </div>
-                <span className="text-base flex justify-center items-center font-semibold font-poppins">
+                <span className="text-base flex justify-center items-center font-medium">
                     <span>Media, Links, and Docs</span>
                 </span>
             </div>
@@ -106,7 +106,7 @@ export const FileSideBar: FC<Props> = ({
                 <div className="w-full h-fit p-1 flex-none">
                     {files.length === 0 ? (
                         <div className="w-full h-full flex justify-center items-center">
-                            <span className="text-lg">No media, links, or docs</span>
+                            <span className="text-base text-[#b3b3b3]">No media, links, or docs</span>
                         </div>
                     ) : (
                         <div className="flex flex-col h-fit justify-center gap-1 cursor-pointer ">
@@ -119,14 +119,14 @@ export const FileSideBar: FC<Props> = ({
                                     download={attachment.name}
                                     className="flex justify-start gap-4 items-center border-b-2 border-border-conversations w-full py-2 px-2"
                                 >
-                                    <div className="p-3 bg-[#5e5f61] rounded-lg">
-                                        <FileIcon color="#050505" />
+                                    <div className="p-3 bg-dark-lighten rounded-lg">
+                                        <FileIcon color="#ffffff" />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <span className="text-sm font-semibold font-poppins text-white">
+                                        <span className="text-sm font-medium text-white">
                                             {getShortName(attachment.name) || 'No name'}
                                         </span>
-                                        <span className="text-xs font-poppins text-[#b3b3b3]">
+                                        <span className="text-xs  text-[#b3b3b3]">
                                             {getFileSize(attachment.size)}
                                         </span>
                                     </div>
@@ -139,7 +139,7 @@ export const FileSideBar: FC<Props> = ({
                 <div className="w-full h-fit p-1 flex-none">
                     {attachments.length === 0 ? (
                         <div className="w-full h-full flex justify-center items-center">
-                            <span className="text-lg">No media, links, or docs</span>
+                            <span className="text-base text-[#b3b3b3]">No media, links, or docs</span>
                         </div>
                     ) : (
                         <div className=" h-fit flex flex-wrap gap-1 cursor-pointer ">

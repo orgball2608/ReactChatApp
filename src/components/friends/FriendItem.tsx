@@ -42,7 +42,7 @@ export const FriendItem: FC<Props> = ({ friend, isOnline }) => {
                     )}
                 </div>
 
-                <span className="text-lg font-medium">{friend.firstName + ' ' + friend.lastName}</span>
+                <span className="text-base font-normal">{friend.firstName + ' ' + friend.lastName}</span>
             </div>
             <Tippy
                 visible={visible}
@@ -57,7 +57,7 @@ export const FriendItem: FC<Props> = ({ friend, isOnline }) => {
                     onClick={() => setVisible((prevState) => !prevState)}
                     className=" bg-[#989696] p-1 rounded-full opacity-50 absolute right-4 z-50 top-auto bottom-auto hover:opacity-70"
                 >
-                    <MoreVerticalFill size={20} />
+                    <MoreVerticalFill size={18} />
                 </div>
             </Tippy>
         </div>

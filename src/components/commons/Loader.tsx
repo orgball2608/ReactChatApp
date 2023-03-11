@@ -50,7 +50,7 @@ export const Loader = () => {
     return (
         <div className="flex gap-5 flex-col justify-center items-center h-full w-full">
             <img src={logo} alt="logo" id="logo" className="w-24 h-24" />
-            <span className="text-2xl font-bold text-[#d21717] uppercase">Infi Chat</span>
+            <span className="text-xl font-semibold text-[#d21717] uppercase">Infi Chat</span>
         </div>
     );
 };

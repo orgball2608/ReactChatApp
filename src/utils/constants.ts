@@ -5,11 +5,11 @@ import defaultGroupAvatarSrc from '../__assets__/groupAvatar.png';
 export const ConversationTypes: ConversationTypeData[] = [
     {
         type: 'private',
-        label: 'Direct Messages',
+        label: 'Private',
     },
     {
         type: 'group',
-        label: 'Group Chats',
+        label: 'Groups',
     },
 ];
 

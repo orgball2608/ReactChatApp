@@ -31,7 +31,7 @@ export const SearchGroupRecipientModalResults: FC<Props> = ({
     return (
         <>
             {!isSearching && userResults.length > 0 && (
-                <div className="absolute b-0 left-0 bg-[#161616] border-border-conversations border-[1px] h-36 w-full outline-0 rounded-lg transition-colors z-20 overflow-y-scroll animate-fade-in">
+                <div className="absolute b-0 left-0 text-sm bg-[#161616] border-border-conversations border-[1px] h-36 w-full outline-0 rounded-lg transition-colors z-20 overflow-y-scroll animate-fade-in">
                     {userResults.map((u) => (
                         <>
                             {u.id !== user?.id && (
