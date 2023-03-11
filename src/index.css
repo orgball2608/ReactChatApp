@@ -22,6 +22,7 @@ html {
     background-color: #1a1a1a;
     font-family: 'Poppins', sans-serif;
     color: #fff;
+    --primary-color: #0d90f3;
 }
 
 h1 {
@@ -116,3 +117,14 @@ h1 {
     border-radius: 8px;
     border: 1px solid #8f8f8f;
 }
+
+.check-overlay {
+    @apply relative;
+  }
+  
+.check-overlay::after {
+    @apply bg-center bg-no-repeat z-10 w-full h-full absolute top-0 left-0;
+    content: "";
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+}
+

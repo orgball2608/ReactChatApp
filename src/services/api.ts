@@ -3,6 +3,7 @@ import { STICKERS_URL } from '../utils/constants';
 import {
     AddGroupRecipientsParams,
     ChangeConversationNickNameParams,
+    ChangeConversationThemeParams,
     ChangeEmojiIconParams,
     ChangeGroupOwnerParams,
     Conversation,
@@ -216,3 +217,9 @@ export const ForwardGroupMessageToGroupAPI = ({ id, messageId, forwardedId }: Fo
 
 
 export const LeaveGroupAPI = (id: number) => axiosClient.patch(`/groups/${id}/recipients/leave`,{}, config);
+
+export const ChangeConversationTheme = ({ id, theme }: ChangeConversationThemeParams) =>
+    axiosClient.post(`/conversations/${id}/theme`, { theme }, config);
+
+export const ChangeGroupTheme = ({ id, theme }: ChangeConversationThemeParams) =>
+    axiosClient.post(`/groups/${id}/theme`, { theme }, config);

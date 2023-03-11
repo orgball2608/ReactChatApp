@@ -140,6 +140,13 @@ const groupsSlice = createSlice({
             if (index < 0) return;
             group.users.splice(index, 1);
         },
+        changeGroupTheme: (state, action) => {
+            console.log('changeGroupTheme');
+            const { id, theme } = action.payload;
+            const group = state.groups.find((gm) => gm.id === id);
+            if (!group) return;
+            group.theme = theme;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -176,5 +183,6 @@ export const {
     changeGroupNickName,
     leaveGroup,
     removeRecipientWhenLeaveGroup,
+    changeGroupTheme
 } = groupsSlice.actions;
 export default groupsSlice.reducer;

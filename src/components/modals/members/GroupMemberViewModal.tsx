@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { MdClose } from 'react-icons/md';
-import { Group, User } from '../../../utils/types';
+import { Group } from '../../../utils/types';
 import { MemberItem } from './MemberItem';
 
 type GroupMemberProps = {

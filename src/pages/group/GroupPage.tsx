@@ -7,6 +7,7 @@ import {
     addGroupConversations,
     changeGroupEmoji,
     changeGroupNickName,
+    changeGroupTheme,
     deleteGroupConversations,
     editGroupConversationsTitle,
     leaveGroup,
@@ -110,6 +111,10 @@ export const GroupPage = () => {
             dispatch(removeRecipientWhenLeaveGroup(payload));
         });
 
+        socket.on('onChangeGroupTheme', (payload) => {
+            dispatch(changeGroupTheme(payload));
+        });
+
         return () => {
             socket.off('onGroupMessage');
             socket.off('onGroupCreate');
@@ -127,6 +132,7 @@ export const GroupPage = () => {
             socket.off('onChangeGroupNickname');
             socket.off('onLeaveGroup');
             socket.off('onGroupUserLeave');
+            socket.off('onChangeGroupTheme');
         };
     }, [id]);
 

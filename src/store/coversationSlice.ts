@@ -84,6 +84,12 @@ export const conversationsSlice = createSlice({
             if (conversation) {
                 conversation.nicknames = nicknames;
             }
+        }, changeConversationTheme: (state, action) => {
+            const { id, theme } = action.payload;
+            const conversation = state.conversations.find((c) => c.id === id);
+            if (conversation) {
+                conversation.theme = theme;
+            }
         },
     },
     extraReducers: (builder) => {
@@ -106,5 +112,6 @@ export const {
     updateDeleteMessageEvent,
     changeConversationEmoji,
     changeConversationNickname,
+    changeConversationTheme
 } = conversationsSlice.actions;
 export default conversationsSlice.reducer;

@@ -19,7 +19,7 @@ export const GifInput = () => {
                 className="p-1 hover:bg-[#1c1e21] rounded-full cursor-pointer"
                 onClick={() => setVisible((prev) => !prev)}
             >
-                <GifIcon className=" hover:bg-[#1c1e21] rounded-full w-7 h-7" color="#0084ff" />
+                <GifIcon className=" hover:bg-[#1c1e21] rounded-full w-7 h-7 text-primary" />
             </div>
         </Tippy>
     );

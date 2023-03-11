@@ -12,10 +12,17 @@ export const GroupChannelPage = () => {
     const dispatch = useDispatch<AppDispatch>();
     const socket = useContext(SocketContext);
     const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
+    const groups = useSelector((state: RootState) => state.group.groups);
+    const selectedGroup = groups.find((group) => group.id === parseInt(id!));
 
     useEffect(() => {
         dispatch(resetGroupMessages());
     }, [id]);
+
+    useEffect(() => {
+        if (selectedGroup?.theme)
+            document.body.style.setProperty("--primary-color", selectedGroup.theme);
+    }, [selectedGroup]);
 
     useEffect(() => {
         const groupId = id!;

@@ -42,6 +42,7 @@ export type Conversation = {
     lastMessageSentAt: Date;
     emoji: string;
     nicknames: ConversationNickname[];
+    theme: string;
 };
 
 export type AttachmentType = {
@@ -139,6 +140,7 @@ export type Group = {
     avatar?: string;
     emoji: string;
     nicknames: GroupNickname[];
+    theme: string;
 };
 
 export type GroupMessageType = {
@@ -312,3 +314,9 @@ export type ForwardMessageParams = {
     messageId: number;
     forwardedId: number;
 };
+
+export type ChangeConversationThemeParams = {
+    id: number;
+    theme: string;
+};
+

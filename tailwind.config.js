@@ -19,6 +19,7 @@ module.exports = {
                 elevation_background: '#1c1c1c',
                 'blue-messenger': '#0084ff',
                 "dark-lighten": "#3A3B3C",
+                primary: "var(--primary-color)",
             },
             fontFamily: {
                 poppins: ['Poppins', 'sans-serif'],
@@ -31,7 +32,6 @@ module.exports = {
                 88: '22rem',
                 42: '10.5rem',
                 18: '4.5rem',
-                
                 26: '6.5rem',
             },
             padding: {

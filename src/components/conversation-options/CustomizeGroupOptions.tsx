@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { ChevronDown, ChevronRight } from 'akar-icons';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
 import { updateGroupAvatar } from '../../store/groupSlice';
 import { toast } from 'react-toastify';
 import PencilIcon from '../icons/PenciIcon';
@@ -10,6 +10,8 @@ import { EmojiSelectModal } from '../modals/EmojiSelectModal';
 import LikeIcon from '../icons/LikeIcon';
 import { ChangeNickNameModal } from '../modals/nicknames/ChangeNickNameModal';
 import ChangeNickNameIcon from '../icons/ChangeNickNameIcon';
+import { ChangeThemeModal } from '../modals/ChangeThemeModal';
+import { useParams } from 'react-router-dom';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -17,9 +19,13 @@ type Props = {
 };
 
 export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
+    const { id } = useParams();
     const [showCustomizeConversation, setShowCustomizeConversation] = useState<boolean>(false);
     const [showChangeNickNameModal, setShowChangeNickNameModal] = useState(false);
     const [showChangeEmojiModal, setShowChangeEmojiModal] = useState(false);
+    const [showChangeThemeModal, setShowChangeThemeModal] = useState(false);
+    const groups = useSelector((state: RootState) => state.group.groups);
+    const selectedGroup = groups.find((group) => group.id === parseInt(id!));
     const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
         setShowCustomizeConversation(false);
@@ -57,11 +63,16 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
         }
     };
 
+    const getTheme = () => {
+        if (selectedGroup?.theme) return selectedGroup.theme;
+        return '#0D90F3';
+    };
+
     return (
         <>
             {showChangeEmojiModal && <EmojiSelectModal setShowModal={setShowChangeEmojiModal} />}
-
             {showChangeNickNameModal && <ChangeNickNameModal setShowModal={setShowChangeNickNameModal} />}
+            {showChangeThemeModal && <ChangeThemeModal setShowModal={setShowChangeThemeModal} />}
             <div className="flex flex-col justify-center ml-2 cursor-pointer font-normal">
                 <div
                     onClick={handleShowCustomizeConversation}
@@ -106,7 +117,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                             className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
                         >
                             <div className="p-2 rounded-full text-white bg-[#373434]">
-                                <LikeIcon className="w-4 h-4" />
+                                <LikeIcon className="w-4 h-4 text-primary" />
                             </div>
                             <span className="text-base">Change Emoji Icon</span>
                         </div>
@@ -118,6 +129,20 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                                 <ChangeNickNameIcon className="w-6 h-6 font-bold" />
                             </div>
                             <span className="text-base">Change NickName</span>
+                        </div>
+                        <div
+                            onClick={() => setShowChangeThemeModal(true)}
+                            className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
+                        >
+                            <div className="p-1 rounded-full text-white bg-[#373434] flex justify-center items-center relative">
+                                <div className= "w-6 h-6 rounded-full" style={{
+                                    backgroundColor: getTheme()
+                                }}>
+                                </div>
+                                <span className='w-2 h-2 rounded-full absolute bg-white left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+                                </span>
+                            </div>
+                            <span className="text-base">Change theme</span>
                         </div>
                     </div>
                 )}
