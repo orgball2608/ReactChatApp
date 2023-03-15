@@ -1,8 +1,7 @@
 import { Dispatch, FC, SetStateAction, useContext, useState } from 'react';
 import { MdClose } from 'react-icons/md';
-import { REACTIONS_UI } from '../../utils/constants';
+import { defaultAvatar, REACTIONS_UI } from '../../utils/constants';
 import { GroupMessageType, MessageType } from '../../utils/types';
-import { defaultAvatar } from '../../utils/constants';
 import { AuthContext } from '../../contex/AuthContext';
 import { getDisplayName } from '../../utils/helpers';
 import { deleteReactionGroupMessageAPI, deleteReactionMessageAPI } from '../../services/api';
@@ -35,6 +34,12 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
         return message.reacts.filter((react) => react.type === selectedReact);
     };
 
+    const filterReacts = () => {
+        const cloneReacts = [...message.reacts];
+        return cloneReacts.filter((react, index) =>
+            index === cloneReacts.findIndex((obj) => obj.type === react.type));
+    };
+      
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Escape') {
             setShowModal(false);
@@ -66,17 +71,17 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
             className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in"
             tabIndex={-1}
         >
-            <div className="bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-80 ">
-                <div className=" box-border flex justify-center flex-shrink-0 items-center mx-4 mt-6">
+            <div className="bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-80">
+            <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
-                    <h1 className="text-lg font-medium">Reaction for Message</h1>
-                    <div className="ml-auto bg-[#d2d1d1] hover:bg-[#8f8c8c] p-1 rounded-full ">
-                        <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
+                    <span className="text-lg font-medium leading-5">React for Message</span>
+                    <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
+                        <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
                     </div>
                 </div>
-                <div className="flex justify-start mx-4 items-center h-12 cursor-pointer">
+                <div className="flex justify-start mx-4 items-center h-12 cursor-pointer mt-2">
                     <div
                         onClick={() => setSelectedReact('all')}
                         className={`px-4 rounded-md hover:bg-[#2f2f30] h-full flex items-center ${
@@ -85,7 +90,7 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                     >
                         <span className="text-base">All {message.reacts && message.reacts.length}</span>
                     </div>
-                    {message.reacts.map((react) => (
+                    {filterReacts().map((react) => (
                         <div
                             key={react.type}
                             onClick={() => setSelectedReact(react.type)}
@@ -93,7 +98,7 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                                 selectedReact === react.type && 'border-b-2 border-[#0099ff] rounded-b-none'
                             } `}
                         >
-                            <img src={getIcon(react.type)!} className="w-5 h-5" />
+                            <img src={getIcon(react.type)!} className="w-5 h-5" alt="icon" />
                             <span className="text-base text-[#0099ff]">{getCountReacts(react.type)}</span>
                         </div>
                     ))}
@@ -106,8 +111,9 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                         >
                             <div className="flex justify-start items-center gap-3  rounded-md">
                                 <img
-                                    src={react.author.profile.avatar || defaultAvatar}
+                                    src={react.author.profile?.avatar || defaultAvatar}
                                     className="w-10 h-10 rounded-full"
+                                    alt="avatar"
                                 />
                                 <div className="flex flex-col justify-between cursor-pointer">
                                     <span className="text-base">{getDisplayName(react.author)}</span>
@@ -122,7 +128,7 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                                 </div>
                             </div>
                             <div>
-                                <img src={getIcon(react.type)!} className="w-7 h-7" />
+                                <img src={getIcon(react.type)!} className="w-7 h-7" alt="icon" />
                             </div>
                         </div>
                     ))}

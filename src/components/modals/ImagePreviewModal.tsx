@@ -1,6 +1,5 @@
 import { ChevronLeft, ChevronRight, CloudDownload, Cross } from 'akar-icons';
-import React from 'react';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ImagePreviewModalContext } from '../../contex/ImagePreviewModalContext';
@@ -79,12 +78,12 @@ export const ImagePreviewModal = () => {
                 <Cross size={20} className="text-dark-light" />
             </div>
 
-            <div className="flex justify-center items-center cursor-pointer absolute top-4 right-4 rounded-ful z-50">
+            <div className="flex justify-center items-center cursor-pointer absolute top-4 right-4 rounded-full z-50 hover:bg-[#686868]">
                 <a
                     href={CDN_ORIGINAL_URL + currentAttachment?.key}
                     download
                     target={'_blank'}
-                    className="flex justify-center items-center p-2 bg-[#1c1e21] hover:bg-[#4a4c4e] rounded-full "
+                    className="flex justify-center items-center p-2 bg-[#1c1e21] hover:bg-[#4a4c4e] rounded-full " rel="noreferrer"
                 >
                     <CloudDownload strokeWidth={2} size={24} />
                 </a>

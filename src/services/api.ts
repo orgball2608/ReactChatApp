@@ -215,11 +215,14 @@ export const ForwardGroupMessageToCoversationAPI = ({ id, messageId, forwardedId
 export const ForwardGroupMessageToGroupAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
     axiosClient.post(`/groups/${id}/messages/${messageId}/forward/group/${forwardedId}`, {}, config);
 
-
-export const LeaveGroupAPI = (id: number) => axiosClient.patch(`/groups/${id}/recipients/leave`,{}, config);
+export const LeaveGroupAPI = (id: number) => axiosClient.patch(`/groups/${id}/recipients/leave`, {}, config);
 
 export const ChangeConversationTheme = ({ id, theme }: ChangeConversationThemeParams) =>
     axiosClient.post(`/conversations/${id}/theme`, { theme }, config);
 
 export const ChangeGroupTheme = ({ id, theme }: ChangeConversationThemeParams) =>
     axiosClient.post(`/groups/${id}/theme`, { theme }, config);
+
+export const GetGroupAttachments = (groupId: number) => axiosClient.get(`/groups/${groupId}/attachments`, config);
+
+export const GetConversationAttachments = (conversationId: number) => axiosClient.get(`/conversations/${conversationId}/messages/attachments`, config);

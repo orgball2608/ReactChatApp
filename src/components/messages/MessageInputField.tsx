@@ -22,6 +22,7 @@ import { GifInput } from '../inputs/GifInput';
 import SendMessageIcon from '../icons/SendMessageIcon';
 import ImageIcon from '../icons/ImageIcon';
 import FaceIcon from '../icons/FaceIcon';
+
 const Picker = lazy(() => import('@emoji-mart/react'));
 
 type Props = {
@@ -406,7 +407,7 @@ export const MessageInputField: FC<Props> = ({
                         <form onSubmit={sendMessage} className="w-full">
                             <input
                                 type="text"
-                                className={`bg-inherit outline-0 border-0 text-white py-1 box-border text-md w-full p-0 break-words`}
+                                className={`bg-inherit outline-0 border-0 text-white py-1 box-border text-base font-light w-full p-0 break-words`}
                                 ref={inputRef}
                                 placeholder="Send message..."
                                 maxLength={1000}
@@ -457,7 +458,7 @@ export const MessageInputField: FC<Props> = ({
                     <SpinLoading />
                 ) : content.length > 0 || fileList.length > 0 ? (
                     <div className="flex justify-center items-center cursor-pointer animate-fade-in hover:bg-[#1c1e21] rounded-full p-1">
-                        <SendMessageIcon className="text-primary" color="#0084ff" />
+                        <SendMessageIcon className="text-primary" />
                     </div>
                 ) : (
                     <div

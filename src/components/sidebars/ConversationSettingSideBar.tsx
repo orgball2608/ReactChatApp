@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../contex/AuthContext';
@@ -18,6 +18,11 @@ export const ConversationSettingSideBar = () => {
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
     const [showMediaFileSideBar, setShowMediaFileSideBar] = useState<boolean>(false);
     const [showFileSideBar, setShowFileSideBar] = useState<boolean>(false);
+
+    useEffect(()=>{
+        setShowMediaFileSideBar(false)
+        setShowFileSideBar(false)
+    },[id])
 
     const selectedConversation = conversations.find((group) => group.id === conversationId);
     const recipientUser =

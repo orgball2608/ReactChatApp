@@ -1,5 +1,5 @@
 import { ArrowLeft } from 'akar-icons';
-import { Dispatch, FC, useContext } from 'react';
+import React, { Dispatch, FC, useContext, useEffect, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -7,9 +7,10 @@ import { ImagePreviewModalContext } from '../../contex/ImagePreviewModalContext'
 import { RootState } from '../../store';
 import { CDN_PREVIEW_URL, CDN_URL } from '../../utils/constants';
 import { getFileSize } from '../../utils/helpers';
-import { AttachmentType } from '../../utils/types';
 import FileIcon from '../icons/FileIcon';
 import { FileSideBarHeader } from './FileSideBarHeader';
+import { GetConversationAttachments, GetGroupAttachments } from '../../services/api';
+import { AttachmentType } from '../../utils/types';
 
 type Props = {
     setShowMediaFileSideBar: Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +19,7 @@ type Props = {
     showMediaFileSideBar: boolean;
 };
 
-export const FileSideBar: FC<Props> = ({
+export const FileSideBar: FC<Props> =React.memo( ({
     setShowFileSideBar,
     setShowMediaFileSideBar,
     showFileSideBar,
@@ -26,52 +27,41 @@ export const FileSideBar: FC<Props> = ({
 }) => {
     const { id } = useParams();
     const Id = parseInt(id!);
-    const messages = useSelector((state: RootState) => state.messages.messages);
-    const selectedMessages = messages.find((message) => message.id === Id);
-    const groupMessages = useSelector((state: RootState) => state.groupMessage.messages);
-    const selectedGroupMessages = groupMessages.find((message) => message.id === Id);
     const { setShowModal, setAttachment } = useContext(ImagePreviewModalContext);
-
     const conversationType = useSelector((state: RootState) => state.type.type);
+    const [conversationAttachments,setConversationAttachments] = useState<any[]>([])
+
+    useEffect(() => {
+        if(conversationType === 'private'){
+            GetConversationAttachments(Id).then(({data})=>{
+                setConversationAttachments(data)
+            })
+        }
+        else {
+            GetGroupAttachments(Id).then(({data})=>{
+                setConversationAttachments(data)
+            })
+        }
+    },[Id,conversationType])
 
     const attachments: AttachmentType[] = [];
     const files: AttachmentType[] = [];
 
-    if (conversationType === 'group') {
-        selectedGroupMessages?.messages.forEach((message) => {
-            if (message.attachments.length > 0 && message.attachments[0].type === 'file') {
-                message.attachments.forEach((attachment) => {
-                    files.push(attachment);
-                });
-            }
-        });
-    } else {
-        selectedMessages?.messages.forEach((message) => {
-            if (message.attachments.length > 0 && message.attachments[0].type === 'file') {
-                message.attachments.forEach((attachment) => {
-                    files.push(attachment);
-                });
-            }
-        });
-    }
+    conversationAttachments.forEach((attachment) => {
+        if (attachment.length > 0 && attachment[0].type === 'file') {
+            attachment.forEach((a:AttachmentType) => {
+                files.push(a);
+            });
+        }
+    });
 
-    if (conversationType === 'group') {
-        selectedGroupMessages?.messages.forEach((message) => {
-            if (message.attachments.length > 0 && message.attachments[0].type === 'image') {
-                message.attachments.forEach((attachment) => {
-                    attachments.push(attachment);
-                });
-            }
-        });
-    } else {
-        selectedMessages?.messages.forEach((message) => {
-            if (message.attachments.length > 0 && message.attachments[0].type === 'image') {
-                message.attachments.forEach((attachment) => {
-                    attachments.push(attachment);
-                });
-            }
-        });
-    }
+    conversationAttachments?.forEach((attachment) => {
+        if (attachment.length > 0 && attachment[0].type === 'image') {
+            attachment.forEach((a:AttachmentType)=> {
+                attachments.push(a);
+            });
+        }
+    });
 
     const getShortName = (name: string) => {
         if (name && name.length > 15) {
@@ -80,6 +70,7 @@ export const FileSideBar: FC<Props> = ({
             return name;
         }
     };
+
     return (
         <aside className="w-72 h-full flex-none bg-[#141414] px-2 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto items-center animate-side-out">
             <div className="h-14 flex flex-none gap-4 w-full justify-start items-center">
@@ -104,7 +95,7 @@ export const FileSideBar: FC<Props> = ({
             />
             {showFileSideBar ? (
                 <div className="w-full h-fit p-1 flex-none">
-                    {files.length === 0 ? (
+                    {attachments.length === 0 ? (
                         <div className="w-full h-full flex justify-center items-center">
                             <span className="text-base text-[#b3b3b3]">No media, links, or docs</span>
                         </div>
@@ -166,4 +157,4 @@ export const FileSideBar: FC<Props> = ({
             )}
         </aside>
     );
-};
+});

@@ -25,7 +25,7 @@ export const MessageReplyBadge: FC<MessageReplyBadgeProps> = ({ message }) => {
                     toast.success('Cannot find your message. Try to scroll up to load more');
                 }
             }}
-            className="bg-[#4E4F50] opacity-60 rounded-xl px-5 py-2 cursor-pointer"
+            className="bg-[#4E4F50] opacity-60 rounded-xl px-3 py-2 cursor-pointer text-sm font-normal"
         >
             {message.deletedAt ? (
                 <p>Message has been removed</p>

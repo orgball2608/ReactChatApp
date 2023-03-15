@@ -30,6 +30,11 @@ export const GroupSettingSideBar = () => {
     const [showMediaFileSideBar, setShowMediaFileSideBar] = useState<boolean>(false);
     const [showFileSideBar, setShowFileSideBar] = useState<boolean>(false);
 
+    useEffect(()=>{
+        setShowMediaFileSideBar(false)
+        setShowFileSideBar(false)
+    },[id])
+
     useEffect(() => {
         if (user) setOnlineUsers((prev) => [...prev, user]);
         socket.emit('getOnlineGroupUsers', { groupId, userId: user?.id });
