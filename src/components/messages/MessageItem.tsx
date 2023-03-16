@@ -1,4 +1,4 @@
-import { Dispatch, FC, useContext, useState } from 'react';
+import React, { Dispatch, FC, useContext, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { AuthContext } from '../../contex/AuthContext';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
@@ -129,7 +129,7 @@ export const MessageItem: FC<Props> = ({
                                                             }`
                                                   }`
                                                 : `${isAuthor ? 'rounded-r bg-primary' : 'rounded-l bg-dark-lighten '}`
-                                        } py-2 px-3 text-sm font-normal`}
+                                        } py-[6px] px-3 text-base`}
                                     > 
                                         <p>{m.content}</p>
 

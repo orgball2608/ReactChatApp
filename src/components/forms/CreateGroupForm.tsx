@@ -1,5 +1,4 @@
-import React, { FC, useState } from 'react';
-import { Dispatch } from 'react';
+import React, { Dispatch, FC, useState } from 'react';
 import { User } from '../../utils/types';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
@@ -58,19 +57,19 @@ export const CreateGroupForm: FC<Props> = ({
 
             <section className="my-3">
                 <div className="bg-conversation-form py-3 px-4 rounded-[10px] w-full border-box">
-                    <label htmlFor="message" className="block text-label-white text-xs">
+                    <label htmlFor="message" className="block text-label-white text-sm">
                         Title (optional)
                     </label>
                     <textarea
                         id="message"
-                        className="text-sm w-full border-box p-0 text-white bg-inherit border-0 outline-0 scrollbar-hide overflow-auto resize-none"
+                        className="w-full border-box p-0 text-white bg-inherit border-0 outline-0 scrollbar-hide overflow-auto resize-none"
                         onChange={(event) => setTitle(event.target.value)}
                     />
                 </div>
             </section>
 
             <button
-                className={`outline-0 border-0 text-base font-medium bg-blue-button text-white rounded-[10px] py-2 mt-1 transform active:scale-125 transition-all duration-300 ${
+                className={`outline-0 border-0 text-lg font-medium bg-blue-button text-white rounded-[10px] py-2 mt-1 transform active:scale-125 transition-all duration-300 ${
                     selectedUsers.length === 0 && 'opacity-50 pointer-events-none'
                 }`}
             >

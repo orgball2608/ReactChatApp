@@ -45,7 +45,7 @@ export const ProfileActionMenuContext: FC<Props> = ({ friend, setVisible }) => {
                 <div
                     onClick={() => handleProfileMenuAction(item.action)}
                     key={item.label}
-                    className="text-white flex py-1 px-2 justify-start gap-4 text-sm hover:bg-[#555454] rounded-md font-normal"
+                    className="text-white flex py-1 px-2 justify-start gap-4 text-base hover:bg-[#555454] rounded-md"
                 >
                     <span>{item.label}</span>
                 </div>

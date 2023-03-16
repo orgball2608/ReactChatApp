@@ -1,6 +1,4 @@
-import { Dispatch, FC, useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { AuthContext } from '../../contex/AuthContext';
+import { Dispatch, FC } from 'react';
 import { FriendRequestType, FriendType } from '../../utils/types';
 
 type Props = {
@@ -11,7 +9,6 @@ type Props = {
 };
 
 export const FriendRequestResponse: FC<Props> = ({
-    request,
     setVisible,
     handleAcceptFriend,
     handleRejectFriendRequest,
@@ -44,7 +41,7 @@ export const FriendRequestResponse: FC<Props> = ({
                     key={item.label}
                     className="text-white flex p-1 justify-start gap-4 text-base hover:bg-[#555454] rounded-md"
                 >
-                    <span className="font-normal text-base">{item.label}</span>
+                    <span className="text-base">{item.label}</span>
                 </div>
             ))}
         </div>

@@ -45,7 +45,7 @@ export const ChangeNickNameModal: FC<Props> = ({ setShowModal }) => {
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
-                    <span className="text-lg font-medium leading-5">Nickname</span>
+                    <span className="text-2xl">Nickname</span>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full ">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>

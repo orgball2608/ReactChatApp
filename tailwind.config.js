@@ -4,7 +4,6 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: '#1E90FF',
                 'simple-gray': '#131313',
                 'dark-light': '#1a1a1a',
                 'sidebar-background': '#121212',
@@ -18,8 +17,8 @@ module.exports = {
                 'message-form': '#101010',
                 elevation_background: '#1c1c1c',
                 'blue-messenger': '#0084ff',
-                "dark-lighten": "#3A3B3C",
-                primary: "var(--primary-color)",
+                'dark-lighten': '#3A3B3C',
+                primary: 'var(--primary-color)',
             },
             fontFamily: {
                 poppins: ['Poppins', 'sans-serif'],
@@ -38,7 +37,7 @@ module.exports = {
                 38: '9.5rem',
             },
             fontWeight: {
-                middle: '550',
+                middle: '450',
             },
             keyframes: {
                 'fade-in': {

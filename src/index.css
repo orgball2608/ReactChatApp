@@ -2,8 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
-
 
 body {
     margin: 0;
@@ -20,7 +18,6 @@ html,
 body,
 html {
     background-color: #1a1a1a;
-    font-family: 'Poppins', sans-serif;
     color: #fff;
     --primary-color: #0d90f3;
 }
@@ -120,8 +117,8 @@ h1 {
 
 .check-overlay {
     @apply relative;
-  }
-  
+}
+
 .check-overlay::after {
     @apply bg-center bg-no-repeat z-10 w-full h-full absolute top-0 left-0;
     content: "";

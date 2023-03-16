@@ -1,5 +1,5 @@
 import { Check } from 'akar-icons';
-import { Dispatch, FC, useContext, useEffect, useState } from 'react';
+import React, { Dispatch, FC, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FriendType, User } from '../../utils/types';
 
@@ -48,7 +48,7 @@ export const MemberItemSelect: FC<Props> = ({
         <div
             onClick={() => handleSelectMember(getRecipient(friend, user)!)}
             key={friend.id}
-            className="flex justify-between py-1 px-2 rounded-md items-center gap-2 hover:bg-[#908f8f] w-full cursor-pointer"
+            className="flex justify-between py-1 px-2 rounded-md items-center gap-2 hover:bg-[#28282b] w-full cursor-pointer"
         >
             <div className="flex justify-start items-center gap-2">
                 <img src={getAvatar(getRecipient(friend, user)!)} alt="avatar" className="rounded-full w-10 h-10" />

@@ -333,7 +333,7 @@ export const MessageInputField: FC<Props> = ({
         <div className="w-full h-full">
             {replyInfo && (
                 <div className=" relative h-12 border-t border-[#2f3237] px-6 flex justify-between items-center py-auto animate-fade-in-slow">
-                    <div className="flex flex-col justify-center items-start text-sm font-light">
+                    <div className="flex flex-col justify-center items-start">
                         <p>
                             Replying to
                             {replyInfo?.author.id === user?.id ? (
@@ -407,7 +407,7 @@ export const MessageInputField: FC<Props> = ({
                         <form onSubmit={sendMessage} className="w-full">
                             <input
                                 type="text"
-                                className={`bg-inherit outline-0 border-0 text-white py-1 box-border text-base font-light w-full p-0 break-words`}
+                                className={`bg-inherit outline-0 border-0 text-white py-1 box-border text-base w-full p-0 break-words`}
                                 ref={inputRef}
                                 placeholder="Send message..."
                                 maxLength={1000}

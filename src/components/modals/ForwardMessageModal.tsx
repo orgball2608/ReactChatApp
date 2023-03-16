@@ -134,7 +134,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
-                    <span className="text-lg font-medium leading-5">Forward</span>
+                    <span className="text-2xl">Forward</span>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
                     </div>
@@ -142,7 +142,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                 <div className="flex flex-col overflow-hidden overflow-y-auto">
                     {newConversations.length > 0 && (
                         <div className="flex flex-col px-4 py-2">
-                            <span className="px-2 font-medium">Recent</span>
+                            <span className="px-2 text-lg font-medium">Recent</span>
                             {newConversations.map((conversation: Conversation) => (
                                 <div
                                     key={conversation.id}
@@ -154,15 +154,15 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                             alt={'profile'}
                                             className="h-10 w-10 rounded-full flex-none object-cover "
                                         />
-                                        <span className="block font-normal text-base">{` ${getDisplayName(
+                                        <span className="block text-base">{` ${getDisplayName(
                                             getRecipient(conversation, user!),
                                         )}`}</span>
                                     </div>
                                     <div className=" rounded-md flex justify-center items-center w-fit h-fit transform active:scale-125 transition-all duration-300">
                                         {isSelectedConversation(conversation.id) ? (
-                                            <button className="p-2 rounded-md text-sm bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
+                                            <button className="px-4 py-2 rounded-lg text-base bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
                                                 <Envelope size={20} />
-                                                <span>Sended</span>
+                                                <span>Sent</span>
                                             </button>
                                         ) : (
                                             <button
@@ -170,7 +170,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                                     handleForwardMessageToConversation(conversation.id);
                                                     setSelectedConversations((prev) => [...prev, conversation.id]);
                                                 }}
-                                                className="p-2 rounded-md text-sm bg-[#0084ff] text-white font-medium"
+                                                className="px-4 py-2 rounded-lg text-base bg-[#0084ff] text-white font-medium"
                                             >
                                                 Send
                                             </button>
@@ -183,7 +183,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
 
                     {newGroups.length > 0 && (
                         <div className="flex flex-col px-4 py-2">
-                            <span className="px-2 font-medium">Groups</span>
+                            <span className="px-2 text-lg font-medium">Groups</span>
                             {newGroups.map((group) => (
                                 <div
                                     key={group.id}
@@ -201,14 +201,14 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                     </div>
                                     <div className=" rounded-md flex justify-center items-center w-fit h-fit transform active:scale-125 transition-all duration-300">
                                         {isSelectedGroup(group.id) ? (
-                                            <button className="p-2 rounded-md text-sm bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
+                                            <button className="px-4 py-2 rounded-lg text-base bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
                                                 <Envelope size={20} />
-                                                <span>Sended</span>
+                                                <span>Sent</span>
                                             </button>
                                         ) : (
                                             <button
                                                 onClick={() => handleForwardMessageToGroup(group.id)}
-                                                className="p-2 rounded-md text-sm bg-[#0084ff] text-white font-medium"
+                                                className="px-4 py-2 rounded-lg text-base bg-[#0084ff] text-white font-medium"
                                             >
                                                 Send
                                             </button>
@@ -221,7 +221,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
 
                     {newFriends.length > 0 && (
                         <div className="flex flex-col px-4 py-2">
-                            <span className="px-2 font-medium">Friends</span>
+                            <span className="px-2 text-lg font-medium">Friends</span>
                             {newFriends.map((friend) => (
                                 <div
                                     key={friend.id}
@@ -238,14 +238,14 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                         )}`}</span>
                                     </div>
                                     {isSelectedFriend(friend.id) ? (
-                                        <button className="p-2 rounded-md text-sm bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
+                                        <button className="px-4 py-2 rounded-lg text-base bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
                                             <Envelope size={20} />
-                                            <span>Sended</span>
+                                            <span>Sent</span>
                                         </button>
                                     ) : (
                                         <button
                                             onClick={() => handleForwardMessageToFriend(friend)}
-                                            className="p-2 rounded-md text-sm bg-[#0084ff] text-white font-medium"
+                                            className="px-4 py-2 rounded-lg text-base bg-[#0084ff] text-white font-medium"
                                         >
                                             Send
                                         </button>

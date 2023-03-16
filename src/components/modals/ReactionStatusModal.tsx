@@ -76,7 +76,7 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
-                    <span className="text-lg font-medium leading-5">React for Message</span>
+                    <span className="text-2xl">React status</span>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
                     </div>
@@ -107,7 +107,7 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                     {getListReacts().map((react) => (
                         <div
                             key={react.id}
-                            className="flex justify-between items-center hover:bg-[#2f2f30] rounded-md px-2 py-2"
+                            className="flex justify-between items-center hover:bg-[#2f2f30] rounded-md px-2 py-2 cursor-pointer"
                         >
                             <div className="flex justify-start items-center gap-3  rounded-md">
                                 <img
@@ -115,12 +115,12 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                                     className="w-10 h-10 rounded-full"
                                     alt="avatar"
                                 />
-                                <div className="flex flex-col justify-between cursor-pointer">
+                                <div className="flex flex-col justify-between">
                                     <span className="text-base">{getDisplayName(react.author)}</span>
                                     {user?.id === react.author.id && (
                                         <span
                                             onClick={() => handleDeleteReaction(react)}
-                                            className="text-xs text-[#65676b]"
+                                            className="text-sm text-[#65676b]"
                                         >
                                             Click to remove
                                         </span>

@@ -46,7 +46,7 @@ export const RecipientItem: FC<Props> = ({ user, isOnline }) => {
 
     return (
         <div key={user.id} className="flex justify-between items-center">
-            <div className="flex justify-start items-center text-base gap-4 my-1 font-medium">
+            <div className="flex justify-start items-center text-base gap-4 my-1">
                 <div className="w-8 h-8 rounded-full relative">
                     <LazyLoadImage
                         src={getGroupAvatar()}
@@ -57,8 +57,8 @@ export const RecipientItem: FC<Props> = ({ user, isOnline }) => {
                     {isOnline && <div className="w-2 h-2 rounded-full absolute bottom-0 right-0 bg-green-500"></div>}
                 </div>
                 <div className="flex flex-col justify-center">
-                    <span className='text-sm font-normal'>{getFullName(user)}</span>
-                    <span className="text-xs text-gray-400 font-light">{getDisplayRole()}</span>
+                    <span className='text-base overflow-hidden text-ellipsis whitespace-nowrap '>{getFullName(user)}</span>
+                    <span className="text-xs text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap ">{getDisplayRole()}</span>
                 </div>
             </div>
             {own?.id !== user.id && (

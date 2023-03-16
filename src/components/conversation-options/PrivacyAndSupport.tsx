@@ -1,9 +1,9 @@
-import { ChevronDown, ChevronRight } from "akar-icons";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { LeaveGroupAPI } from "../../services/api";
-import LeaveGroupIcon from "../icons/LeaveGroupIcon";
+import { ChevronDown, ChevronRight } from 'akar-icons';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { LeaveGroupAPI } from '../../services/api';
+import LeaveGroupIcon from '../icons/LeaveGroupIcon';
 
 export const PrivacyAndSupport = () => {
     const {id} = useParams<{id: string}>()
@@ -15,10 +15,10 @@ export const PrivacyAndSupport = () => {
     };
 
     const handleLeaveGroup = () => {
-        LeaveGroupAPI(parseInt(id!)).then((res) => {
+        LeaveGroupAPI(parseInt(id!)).then(() => {
             toast.success("Left Group Successfully");
             navigate("/groups");
-        }).catch((err) => {
+        }).catch(() => {
             toast.error("Error Leaving Group");
         })
     };
@@ -28,9 +28,9 @@ export const PrivacyAndSupport = () => {
     onClick={handleShowPrivacyAndSupport}
         className=" flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md"
     >
-        <span className="font-normal text-base text-white">Privacy And Support</span>
+        <span className="text-base text-white font-medium text-[#fcfcfc]">Privacy And Support</span>
         <div className="px-1 py-1">
-            {showPrivacyAndSupport ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
+            {showPrivacyAndSupport ?  <ChevronDown size={16} /> : <ChevronRight size={16} />}
         </div>
     </div>
     {showPrivacyAndSupport && (

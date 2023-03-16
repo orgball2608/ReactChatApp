@@ -1,10 +1,10 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import { MdClose } from "react-icons/md";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { ChangeConversationTheme, ChangeGroupTheme } from "../../services/api";
-import { RootState } from "../../store";
-import { THEMES } from "../../utils/constants";
+import { Dispatch, FC, SetStateAction } from 'react';
+import { MdClose } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { ChangeConversationTheme, ChangeGroupTheme } from '../../services/api';
+import { RootState } from '../../store';
+import { THEMES } from '../../utils/constants';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -57,7 +57,7 @@ export const ChangeThemeModal:FC<Props>= ({
                 <div className="mr-auto invisible">
                     <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                 </div>
-                <span className="text-lg font-medium">Change theme</span>
+                <span className="text-2xl">Change theme</span>
                 <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full ">
                     <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                 </div>

@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import moment from 'moment';
 import { getFullName, getRecipient, lastMessageContent } from '../../utils/helpers';
+
 type Props = {
     conversation: Conversation;
 };
@@ -46,9 +47,9 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                     )}
                 </div>
 
-                <div className="flex flex-col flex-nowrap flex-1 font-normal break-all justify-center">
-                    <span className="block text-sm font-medium text-white">{getFullName(user, conversation)}</span>
-                    <div className="flex justify-start items-center">
+                <div className="flex flex-col flex-nowrap flex-1 break-all justify-center">
+                    <span className="block text-white">{getFullName(user, conversation)}</span>
+                    <div className="flex justify-start items-center max-w-[240px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
                         <span className="text-sm text-[#65676b]">{lastMessageContent(conversation)}</span>
                         <span className="text-sm text-[#65676b] ml-3">
                             {moment(conversation?.lastMessageSentAt).format('H:mm')}

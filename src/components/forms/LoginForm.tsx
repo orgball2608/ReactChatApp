@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserCredentialsParams } from '../../utils/types';
 import { postLoginUser } from '../../services/api';
-import { useNavigate } from 'react-router-dom';
 import { SocketContext } from '../../contex/SocketContext';
 
 export const LoginForm = () => {
@@ -23,7 +22,7 @@ export const LoginForm = () => {
         <>
             <form className="w-[600px]" onSubmit={handleSubmit(FormSubmit)}>
                 <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box my-2">
-                    <label htmlFor="email" className="block text-label-white text-xs">
+                    <label htmlFor="email" className="block text-label-white text-sm">
                         Email
                     </label>
                     <input
@@ -34,7 +33,7 @@ export const LoginForm = () => {
                     />
                 </div>
                 <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box my-2">
-                    <label htmlFor="password" className="block text-label-white text-xs">
+                    <label htmlFor="password" className="block text-label-white text-sm">
                         Password
                     </label>
                     <input
@@ -44,13 +43,13 @@ export const LoginForm = () => {
                         className="text-base w-full border-box p-0  text-white bg-inherit border-0 outline-0"
                     />
                 </div>
-                <button className="w-full outline-0 border-0 text-md font-medium bg-blue-button text-white rounded-[10px] py-3">
+                <button className="w-full outline-0 border-0 text-base font-medium bg-blue-button text-white rounded-[10px] py-3">
                     Login
                 </button>
-                <div className="text-center my-2 text-base font-light">
+                <div className="text-center my-2 text-base">
                     <span>Don't have an account? </span>
                     <Link to="/register" className="text-purple-500 underline decoration-solid mx-1">
-                        <span className='font-normal'>Register</span>
+                        <span>Register</span>
                     </Link>
                 </div>
             </form>

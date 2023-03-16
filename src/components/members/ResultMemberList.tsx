@@ -1,4 +1,4 @@
-import { Dispatch, FC, useContext, useEffect } from 'react';
+import React, { Dispatch, FC, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../contex/AuthContext';
@@ -23,12 +23,10 @@ type Props = {
 export const ResultMemberList: FC<Props> = ({
     selectedMembers,
     setSelectedMembers,
-    isSearching,
     getRecipient,
     getAvatar,
     memberChanged,
     searchValue,
-    setUserResults,
     userResults,
 }) => {
     const friends = useSelector((state: RootState) => state.friends.friends);
@@ -39,7 +37,7 @@ export const ResultMemberList: FC<Props> = ({
 
     useEffect(() => {
         dispatch(getFriends());
-    }, []);
+    }, [dispatch]);
 
     const filterFriend = [...friends!];
 
@@ -72,10 +70,10 @@ export const ResultMemberList: FC<Props> = ({
         <>
             {!searchValue ? (
                 <>
-                    <span>Suggest</span>
-                    {filterFriend && filterFriend.length == 0 ? (
+                    <span >Suggest</span>
+                    {filterFriend && filterFriend.length === 0 ? (
                         <div className="flex justify-center items-center w-full">
-                            <span className="text-gray-400 text-sm">No friends avaiable</span>
+                            <span className="text-base text-gray-400">No friends available</span>
                         </div>
                     ) : (
                         <div className="flex flex-col items-start w-full gap-1">
@@ -99,9 +97,9 @@ export const ResultMemberList: FC<Props> = ({
                 <>
                     <span>Search</span>
                     <div className="flex flex-col items-start w-full gap-1">
-                        {filterUserResults && filterUserResults.length == 0 ? (
+                        {filterUserResults && filterUserResults.length === 0 ? (
                             <div className="flex justify-center items-center w-full">
-                                <span className="text-gray-400 text-sm">No friends avaiable</span>
+                                <span className="text-base text-gray-400">No friends available</span>
                             </div>
                         ) : (
                             filterUserResults.map((friend) => {

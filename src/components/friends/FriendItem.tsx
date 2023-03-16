@@ -42,7 +42,7 @@ export const FriendItem: FC<Props> = ({ friend, isOnline }) => {
                     )}
                 </div>
 
-                <span className="text-base font-normal">{friend.firstName + ' ' + friend.lastName}</span>
+                <span className="text-base">{friend.firstName + ' ' + friend.lastName}</span>
             </div>
             <Tippy
                 visible={visible}

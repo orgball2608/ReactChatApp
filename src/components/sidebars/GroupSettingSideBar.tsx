@@ -86,7 +86,7 @@ export const GroupSettingSideBar = () => {
                             <GroupDefaultAvatar group={selectedGroup!} groupSize={28} itemSize={20} />
                         )}
                         <div className="text-center break-all text-lg font-medium">
-                            <span className="text-center break-all">{selectedGroup?.title}</span>
+                            <span className="text-center text-xl break-all">{selectedGroup?.title}</span>
                         </div>
                     </div>
                     <div className="flex flex-col justify-center">

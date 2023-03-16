@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { ChangeEmojiIcon, ChangeGroupEmojiIcon } from '../../services/api';
 import { RootState } from '../../store';
 import { SpinLoading } from '../commons/SpinLoading';
+
 const Picker = lazy(() => import('@emoji-mart/react'));
 
 type Props = {
@@ -38,7 +39,7 @@ export const EmojiSelectModal: FC<Props> = ({ setShowModal }) => {
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#383636] hover:bg-[#494747] cursor-pointer rounded-full" />
                     </div>
-                    <span className="text-lg font-medium">Select Emoji</span>
+                    <span className="text-2xl">Select Emoji</span>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>

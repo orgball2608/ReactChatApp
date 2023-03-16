@@ -1,4 +1,4 @@
-import { Dispatch, FC, useEffect, useState } from 'react';
+import React, { Dispatch, FC } from 'react';
 
 type Props = {
     setShowMediaFileSideBar: Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +14,7 @@ export const FileSideBarHeader: FC<Props> = ({
     showMediaFileSideBar,
 }) => {
     return (
-        <div className="flex items-center h-10 justify-center w-full text-base font-medium cursor-pointer mb-2">
+        <div className="flex items-center h-10 justify-center w-full text-base cursor-pointer mb-2">
             <div
                 onClick={() => {
                     setShowMediaFileSideBar(true);

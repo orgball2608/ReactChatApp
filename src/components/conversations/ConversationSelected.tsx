@@ -24,7 +24,7 @@ export const ConversationSelected = () => {
     };
 
     return (
-        <div className="flex justify-center h-10 w-full px-4 items-center box-border cursor-pointer border-r-[1px] border-border-conversations text-sm">
+        <div className="flex justify-center h-10 w-full px-2 items-center box-border cursor-pointer border-r-[1px] border-border-conversations">
             <div className="flex justify-center h-10 w-full bg-sidebar-background rounded-full items-center gap-2 px-1 py-[6px] text-sm" >
             {ChatTypes.map((chat, index) => (
                 <div

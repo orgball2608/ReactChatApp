@@ -1,5 +1,5 @@
 import { Check } from 'akar-icons';
-import { Dispatch, FC, useEffect, useState } from 'react';
+import React, { Dispatch, FC, useEffect, useState } from 'react';
 import { User } from '../../utils/types';
 
 type Props = {
@@ -44,7 +44,7 @@ export const MemberSearchItem: FC<Props> = ({
         <div
             onClick={() => handleSelectMember(friend)}
             key={friend.id}
-            className="flex justify-between py-1 px-2 rounded-md items-center gap-2 hover:bg-[#908f8f] w-full cursor-pointer"
+            className="flex justify-between py-1 px-2 rounded-md items-center gap-2 hover:bg-[#28282b] w-full cursor-pointer"
         >
             <div className="flex justify-start items-center gap-2">
                 <img src={getAvatar(friend!)} alt="avatar" className="rounded-full w-10 h-10" />

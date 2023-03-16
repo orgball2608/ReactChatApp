@@ -1,7 +1,7 @@
-import { User } from '../../utils/types';
+import { User } from '../../../utils/types';
 import React, { Dispatch, FC, useContext } from 'react';
-import { AuthContext } from '../../contex/AuthContext';
-import { getDisplayName } from '../../utils/helpers';
+import { AuthContext } from '../../../contex/AuthContext';
+import { getDisplayName } from '../../../utils/helpers';
 
 type Props = {
     userResults: User[];
@@ -36,7 +36,7 @@ export const SearchRecipientModalResults: FC<Props> = ({
                                     className="hover:cursor-pointer hover:bg-[#484545] box-border px-4 py-1 rounded-md"
                                     onClick={() => handleSelectedUser(u)}
                                 >
-                                    <span className="text-white text-sm">{getDisplayName(u)}</span>
+                                    <span className="text-white text-base">{getDisplayName(u)}</span>
                                 </div>
                             )}
                         </>

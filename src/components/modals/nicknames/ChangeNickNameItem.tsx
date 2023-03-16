@@ -85,7 +85,7 @@ export const ChangeNickNameItem: FC<Props> = ({ member, onSelectMember, isSelect
                 className="flex justify-start items-center gap-3 rounded-md w-full hover:bg-[#1a1a1c]"
             >
                 <div className="flex flex-none justify-start items-center gap-3">
-                    <img src={member?.profile?.avatar || defaultAvatar} className="w-10 h-10 rounded-full " />
+                    <img src={member?.profile?.avatar || defaultAvatar} className="w-10 h-10 rounded-full" alt="avatar" />
                 </div>
                 {isSelected ? (
                     <form onSubmit={handleSubmit} className="w-full flex-grow rounded-md animate-fade-in ">
@@ -100,15 +100,15 @@ export const ChangeNickNameItem: FC<Props> = ({ member, onSelectMember, isSelect
                     <div className="flex flex-col justify-between cursor-pointer flex-grow animate-fade-in">
                         {getNickname() && getNickname() !== '' ? (
                             <>
-                                <span className="text-base font-normal">{getNickname()}</span>
-                                <span className="text-sm font-light break-all">
+                                <span className="text-base">{getNickname()}</span>
+                                <span className="text-sm text-gray-400 break-all">
                                     {member && getDisplayName(member)}
                                 </span>
                             </>
                         ) : (
                             <>
-                                <span className="text-base font-normal">{member && getDisplayName(member)}</span>
-                                <span className="text-sm font-light break-all">Set Nickname</span>
+                                <span className="text-base">{member && getDisplayName(member)}</span>
+                                <span className="text-sm text-gray-400 break-all">Set Nickname</span>
                             </>
                         )}
                     </div>

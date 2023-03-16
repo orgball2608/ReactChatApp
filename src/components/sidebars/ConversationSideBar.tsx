@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { CreateConversationModal } from '../modals/CreateConversationModal';
+import { CreateConversationModal } from '../modals/conversations/CreateConversationModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { ConversationSelected } from '../conversations/ConversationSelected';
@@ -11,7 +11,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { SearchUserResults } from '../searchs/SearchUserResults';
 import { User } from '../../utils/types';
 import { AuthContext } from '../../contex/AuthContext';
-import { searchFriends, getFriends } from '../../utils/helpers';
+import { getFriends, searchFriends } from '../../utils/helpers';
 import CreateConversationIcon from '../icons/CreateConversationIcon';
 
 export const ConversationSidebar = () => {
@@ -57,7 +57,7 @@ export const ConversationSidebar = () => {
                         </div>
                     </div>
                     <div className="w-80 flex flex-col bg-dark-light">
-                        <ConversationSelected />
+                        < ConversationSelected/>
                         <ConversationSearchBar
                             setIsSearching={setIsSearching}
                             setQuery={setQuery}

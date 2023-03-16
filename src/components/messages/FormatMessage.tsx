@@ -8,8 +8,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { AttachmentTopRender } from '../attachments/AttachmentTopRender';
 import { MessageReaction } from '../reactions/MessageReaction';
 import ReactionStatus from '../reactions/ReactionStatus';
-import { formatDate } from '../../utils/helpers';
-import { getDisplayName } from '../../utils/helpers';
+import { formatDate, getDisplayName } from '../../utils/helpers';
 import SpriteRenderer from '../inputs/SpriteRenderer';
 import { MessageReplyIcon } from './MessageReplyIcon';
 import { MessageReplyBadge } from './MessageReplyBadge';
@@ -166,7 +165,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                         <div
                                             id={'message-' + message.id}
                                             title={formatDate(message.createdAt)}
-                                            className={`py-2 px-3 rounded-2xl relative text-sm font-normal ${
+                                            className={`py-[6px] px-3 rounded-2xl relative text-base ${
                                                 message.reacts?.length > 0 ? 'mb-2' : ''
                                             } ${
                                                 isOneElement

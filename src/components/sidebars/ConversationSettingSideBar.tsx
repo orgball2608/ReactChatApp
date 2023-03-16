@@ -55,7 +55,7 @@ export const ConversationSettingSideBar = () => {
                             className="w-28 h-28 rounded-full object-cover "
                         />
                         <div className="flex flex-col items-center">
-                            <span className="text-center break-all text-lg font-medium">
+                            <span className="text-center break-all text-xl font-medium">
                                 {getFullName(user, selectedConversation)}
                             </span>
                             {isOnline && <span className="text-base text-gray-400">Online</span>}

@@ -43,9 +43,9 @@ export const CustomizeConversationOptions = () => {
                     onClick={handleShowCustomizeConversation}
                     className=" flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md"
                 >
-                    <span className="font-normal text-base text-white">Customize Conversation</span>
+                    <span className="text-base text-white font-medium text-[#fcfcfc]">Customize Conversation</span>
                     <div className="px-1">
-                        {showCustomizeConversation ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
+                        {showCustomizeConversation ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                     </div>
                 </div>
                 {showCustomizeConversation && (

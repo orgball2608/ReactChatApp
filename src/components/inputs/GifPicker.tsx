@@ -27,7 +27,7 @@ export const GifPicker: FC<Props> = ({ setVisible, visible }) => {
     }, [visible]);
 
     useEffect(() => {
-        if (searchInputValue == '') {
+        if (searchInputValue === '') {
             getTrendingGiphy()
                 .then((res) => {
                     setGifPickerData(res.data.data);
@@ -48,7 +48,7 @@ export const GifPicker: FC<Props> = ({ setVisible, visible }) => {
     }, [debouncedSearchTerm]);
 
     const handleSendGif = (gif: string) => {
-        if (conversationType == 'group') {
+        if (conversationType === 'group') {
             CreateGroupGifMessageAPI({
                 id: parseInt(id!),
                 gif,
@@ -65,7 +65,7 @@ export const GifPicker: FC<Props> = ({ setVisible, visible }) => {
     return (
         <div className=" border-dark-lighten border-1 shadow-2xl rounded-lg w-72 h-96 flex flex-col items-stretch">
             <div className="relative w-60 h-9 rounded-full mt-2 mx-auto flex-none">
-                <Search className="absolute top-1/2 -translate-y-1/2 left-3 text-xl" size={18} />
+                <Search className="absolute top-1/2 -translate-y-1/2 left-3" size={18} />
                 <input
                     type="text"
                     value={searchInputValue}

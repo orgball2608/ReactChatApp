@@ -1,5 +1,5 @@
 import { Cross, Search } from 'akar-icons';
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -87,13 +87,13 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
     };
 
     return (
-        <div className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50">
-            <div className="bg-modal-background w-2/5 box-border rounded-lg overflow-hidden">
+        <div className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 ">
+            <div className="bg-modal-background w-2/5 box-border rounded-lg overflow-hidden animate-fade-in">
                 <div className=" box-border flex justify-center items-center mx-6 mt-6">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#383636] hover:bg-[#494747] cursor-pointer rounded-full" />
                     </div>
-                    <h1 className="text-xl font-medium">Add Member</h1>
+                    <h1 className="text-2xl">Add Member</h1>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>
@@ -107,15 +107,15 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
                         <input
                             type="text"
                             onChange={handleSearchMember}
-                            className="w-full rounded-md py-[6px] bg-[#f1ecec] outline-none border-1 border-[#ced0d4] px-2 text-[#121212] text-sm font-bold pl-8"
+                            className="w-full rounded-md py-1 bg-[#f1ecec] outline-none border-1 border-[#ced0d4] px-2 text-[#121212] text-base pl-8"
                             placeholder="Search"
                         />
                     </section>
                 </div>
-                <div className="flex items-start mx-6 gap-4 mt-4 overflow-x-auto h-32">
+                <div className="flex items-start mx-6 gap-4 mt-4 overflow-x-auto h-28">
                     {selectedMembers.length === 0 ? (
                         <div className="flex justify-center items-center w-full h-full">
-                            <span className="text-sm">No member selected</span>
+                            <span className="text-base text-gray-400">No member selected</span>
                         </div>
                     ) : (
                         selectedMembers.map((member) => {
@@ -130,7 +130,7 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
                                             <Cross size={14} className="text-[#121212]" />
                                         </div>
                                     </div>
-                                    <div className="w-20 break-words flex justify-center items-center ">
+                                    <div className="w-20 break-words overflow-hidden text-ellipsis whitespace-nowrap">
                                         <span className="text-sm">{getDisplayName(member)}</span>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
                 <div className="px-6 pb-6 pt-2">
                     <div onClick={handleSubmitMemberAdd} className="flex justify-center">
                         <button
-                            className={`bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 w-full rounded-md text-base ${
+                            className={`bg-blue-600 hover:bg-blue-700 text-white font-medium py-[6px] w-full rounded-md text-lg ${
                                 selectedMembers.length === 0 ? 'cursor-not-allowed opacity-30' : ''
                             }`}
                         >

@@ -4,6 +4,7 @@ import FileIcon from '../icons/FileIcon';
 import { HiDownload } from 'react-icons/hi';
 import { CDN_URL } from '../../utils/constants';
 import { getFileSize } from '../../utils/helpers';
+
 type Props = {
     attachments: AttachmentType[];
     message: MessageType | GroupMessageType;
@@ -19,11 +20,11 @@ export const MessageFileRender: FC<Props> = ({ attachments, message }) => {
                 <FileIcon color="#050505" />
             </div>
             <div className="flex flex-col justify-center items-start">
-                <p className="text-[#e6e6e6] leading-5 max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                <p className="text-[#e6e6e6] leading-5 max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal">
                     {attachments[0]?.name || 'File'}
                 </p>
                 {attachments[0]?.size && (
-                    <p className="text-[#b3b3b3] text-xs leading-5">{getFileSize(attachments[0]?.size)}</p>
+                    <p className="text-[#b3b3b3] text-sm leading-5">{getFileSize(attachments[0]?.size)}</p>
                 )}
             </div>
             <a

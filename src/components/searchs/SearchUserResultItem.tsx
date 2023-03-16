@@ -16,7 +16,7 @@ type Props = {
 
 export const SearchUserResultItem: FC<Props> = ({ user }) => {
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
-    const isOnline = onlineFriends.find((friend) => friend.id === user.id) ? true : false;
+    const isOnline = !!onlineFriends.find((friend) => friend.id === user.id);
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
     const conversationType = useSelector((state: RootState) => state.type.type);
@@ -61,7 +61,7 @@ export const SearchUserResultItem: FC<Props> = ({ user }) => {
                 )}
             </div>
             <div className="flex flex-col flex-nowrap flex-1 break-all">
-                <span className="block font-normal text-base">{` ${getDisplayName(user)}`}</span>
+                <span className="block text-base">{` ${getDisplayName(user)}`}</span>
                 <div className="flex items-center">
                     <span className="text-sm text-[#65676b]">{conversation && lastMessageContent(conversation)}</span>
                     <span className="text-sm text-[#65676b] ml-3">

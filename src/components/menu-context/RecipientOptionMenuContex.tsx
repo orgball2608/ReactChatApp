@@ -38,7 +38,7 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
         } else if (group.owner?.id === user?.id) {
             return userContextMenuItems;
         } else {
-            return userContextMenuItems.filter((item) => item.ownerOnly !== true);
+            return userContextMenuItems.filter((item) => !item.ownerOnly);
         }
     };
 
@@ -106,7 +106,7 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
                     <div
                         onClick={() => handleMenuContextAction(item.action)}
                         key={item.label}
-                        className="text-white flex p-1 justify-start gap-6 text-base font-normal hover:bg-[#555454] rounded-md py-2 "
+                        className="text-white flex p-1 justify-start gap-6 text-base hover:bg-[#555454] rounded-md py-2 "
                     >
                         <div className="w-4 h-4 rounded-full">
                             <CustomIcon action={item.action} />

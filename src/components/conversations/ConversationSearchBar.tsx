@@ -1,5 +1,5 @@
 import { ArrowLeft, Search } from 'akar-icons';
-import { Dispatch, FC } from 'react';
+import React, { Dispatch, FC } from 'react';
 import { User } from '../../utils/types';
 
 type Props = {
@@ -34,7 +34,7 @@ export const ConversationSearchBar: FC<Props> = ({ setIsSearching, setQuery, use
                     type="text"
                     placeholder="Search for Conversations..."
                     value={query}
-                    className={`rounded-full bg-transparent px-4 pl-8 py-2 w-full mx-2 outline-0 text-white box-border border-0 text-sm ${
+                    className={`rounded-full bg-transparent px-4 pl-8 py-[6px] w-full mx-2 outline-0 text-white box-border border-0 text-base ${
                         (userResults.length > 0 || query !== '') && 'pl-0'
                     }`}
                     onChange={(event) => handleSearch(event.target.value)}

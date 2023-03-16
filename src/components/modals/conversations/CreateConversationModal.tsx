@@ -1,12 +1,12 @@
 import React, { createRef, Dispatch, FC, useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
-import { ModalContainer, ModalContentBody, ModalHeader } from './index';
-import { CreateConversationForm } from '../forms/CreateConversationForm';
+import { ModalContainer, ModalContentBody, ModalHeader } from '../index';
+import { CreateConversationForm } from '../../forms/CreateConversationForm';
 import { ConversationSelectTypeForm } from './ConversationSelectTypeForm';
-import { ConversationType, User } from '../../utils/types';
-import { useDebounce } from '../../hooks/useDebounce';
-import { searchUsers } from '../../services/api';
-import { CreateGroupForm } from '../forms/CreateGroupForm';
+import { ConversationType, User } from '../../../utils/types';
+import { useDebounce } from '../../../hooks/useDebounce';
+import { searchUsers } from '../../../services/api';
+import { CreateGroupForm } from '../../forms/CreateGroupForm';
 
 type Props = {
     setShowModal: Dispatch<React.SetStateAction<boolean>>;
@@ -53,7 +53,7 @@ export const CreateConversationModal: FC<Props> = ({ setShowModal }) => {
         >
             <ModalContainer>
                 <ModalHeader>
-                    <span className="text-xl font-normal">Create a conversation</span>
+                    <span className="text-2xl font-semibold">Create a conversation</span>
                     <div className="p-1 rounded-full bg-[#383636] hover:bg-[#494747]">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
                     </div>

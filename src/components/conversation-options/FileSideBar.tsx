@@ -83,7 +83,7 @@ export const FileSideBar: FC<Props> =React.memo( ({
                 >
                     <ArrowLeft size={20} />
                 </div>
-                <span className="text-base flex justify-center items-center font-medium">
+                <span className="text-lg flex justify-center items-center font-medium">
                     <span>Media, Links, and Docs</span>
                 </span>
             </div>
@@ -114,7 +114,7 @@ export const FileSideBar: FC<Props> =React.memo( ({
                                         <FileIcon color="#ffffff" />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <span className="text-sm font-medium text-white">
+                                        <span className="text-base text-white">
                                             {getShortName(attachment.name) || 'No name'}
                                         </span>
                                         <span className="text-xs  text-[#b3b3b3]">

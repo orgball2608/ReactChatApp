@@ -19,7 +19,7 @@ export const ImageList: FC<ImageListProps> = ({ fileList, setFileList, handleGet
                 {fileList.map((file, index) => (
                     <div key={index} className="flex items-center gap-2 ">
                         <div className="w-12 h-12 bg-[#2b2a2a] rounded-md relative">
-                            <img src={URL.createObjectURL(file)} alt="attachments" className="w-12 h-12 rounded-md" />
+                            <img src={URL.createObjectURL(file)} alt="attachments" className="w-12 h-12 rounded-md object-cover" />
                             <div
                                 onClick={() => setFileList((prev) => prev.filter((f) => f !== file))}
                                 className="p-1 bg-white absolute -top-1 -right-1 rounded-full cursor-pointer shadow-[#65676b] leading-5 "

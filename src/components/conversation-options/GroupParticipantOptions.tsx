@@ -38,19 +38,14 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                     className="flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md cursor-pointer"
                     onClick={handleShowParticipants}
                 >
-                    <span className="font-normal text-base text-white">Participants</span>
+                    <span className="text-base text-white font-medium text-[#fcfcfc]">Participants</span>
                     <div className="px-1 py-1">
-                        {showParticipants ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
+                        {showParticipants ?  <ChevronDown size={16} /> : <ChevronRight size={16} />}
                     </div>
                 </div>
                 {showParticipants && (
                     <div className="flex flex-col justify-center gap-2 px-2 ">
                         <div className="flex flex-col gap-2 justify-center">
-                            <div className="flex justify-between items-center text-sm">
-                                <div className="font-medium rounded-md">Online</div>
-                                <div className="font-medium text-green-600 mr-2">({onlineUsers?.length})</div>
-                            </div>
-
                             <div className="flex flex-col gap-2">
                                 {onlineUsers?.length === 0 ? (
                                     <SpinLoading />
@@ -62,13 +57,9 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 justify-center">
-                            <div className="flex justify-between items-center font-normal text-sm">
-                                <div className=" rounded-md">Offline</div>
-                                <div className=" text-red-600 mr-2">({offlineUsers?.length})</div>
-                            </div>
                             <div className="flex flex-col gap-2">
                                 {offlineUsers?.length === 0 ? (
-                                    <div className="text-base font-medium text-gray-400 flex justify-center items-center">
+                                    <div className="text-base text-gray-400 flex justify-center items-center">
                                         No offline members
                                     </div>
                                 ) : (
@@ -81,12 +72,12 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                         {user?.id === selectedGroup?.owner.id && (
                             <div
                                 onClick={() => setShowAddMemberModal(true)}
-                                className="flex justify-start gap-2 items-center rounded-md px-1 py-2 hover:bg-[#1c1e21] cursor-pointer"
+                                className="flex justify-start gap-2 items-center rounded-md px-1 py-1 hover:bg-[#1c1e21] cursor-pointer"
                             >
-                                <div className="p-2 rounded-full text-white bg-[#373434]">
+                                <div className="p-2 rounded-full text-white bg-[#373434] text-primary">
                                     <Plus size={18} />
                                 </div>
-                                <span className="text-sm">Add Member</span>
+                                <span className="text-base text-primary">Add Member</span>
                             </div>
                         )}
                     </div>

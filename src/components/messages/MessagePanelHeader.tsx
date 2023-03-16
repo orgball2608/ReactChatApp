@@ -19,7 +19,7 @@ export const MessagePanelHeader = () => {
     const { user } = useContext(AuthContext);
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const [showGroupMember, setShowGroupMember] = useState<boolean>(false);
-    const conversation = conversations.find((con) => con.id == parseInt(id!));
+    const conversation = conversations.find((con) => con.id === parseInt(id!));
     const selectedType = useSelector((state: RootState) => state.type.type);
     const groups = useSelector((state: RootState) => state.group.groups);
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
@@ -80,7 +80,7 @@ export const MessagePanelHeader = () => {
             {showGroupMember && <GroupMemberViewModal setShowModal={setShowGroupMember} group={selectedGroup} />}
             <header
                 className="border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-6 box-border
-    absolute top-0 left-0 w-full h-14 text-lg z-10"
+    absolute top-0 left-0 w-full h-14 z-10"
             >
                 <div
                     onClick={handleDirectProfile}
@@ -97,7 +97,7 @@ export const MessagePanelHeader = () => {
                             {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}
                         </span>
                         {isOnline && (
-                            <span className="text-xs text-gray-400">
+                            <span className="text-sm text-gray-400">
                                 {selectedType === 'private' ? 'Online' : 'Group'}
                             </span>
                         )}
