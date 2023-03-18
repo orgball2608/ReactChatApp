@@ -7,9 +7,9 @@ import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../contex/AuthContext';
 import { MessageMenuContext } from '../../contex/MessageMenuContext';
 import {
-    ForwardGroupMessageToCoversationAPI,
+    ForwardGroupMessageToConversationAPI,
     ForwardGroupMessageToGroupAPI,
-    ForwardMessageToCoversationAPI,
+    ForwardMessageToConversationAPI,
     ForwardMessageToGroupAPI,
 } from '../../services/api';
 import { AppDispatch, RootState } from '../../store';
@@ -56,7 +56,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
 
     const handleForwardMessageToConversation = (forwardedId: number) => {
         if (conversationType === 'group') {
-            ForwardGroupMessageToCoversationAPI({
+            ForwardGroupMessageToConversationAPI({
                 id: parseInt(id!),
                 forwardedId,
                 messageId: forwardMessage!.id,
@@ -64,7 +64,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
 
             return;
         }
-        ForwardMessageToCoversationAPI({
+        ForwardMessageToConversationAPI({
             id: parseInt(id!),
             forwardedId,
             messageId: forwardMessage!.id,

@@ -1,8 +1,8 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { ConversationPanel } from '../../components/conversations/ConversationPanel';
 import { useContext, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
 import {
     addGroupConversations,
     changeGroupEmoji,
@@ -18,11 +18,16 @@ import {
     updateGroupDeleteMessage,
     updateGroupEditMessage,
     updateGroupRecipientAdd,
+    updateLastGroupMessageSeen,
 } from '../../store/groupSlice';
 import { socket } from '../../contex/SocketContext';
-import { addGroupMessage, editGroupMessage, reactGroupMessage } from '../../store/groupMessageSlice';
+import {
+    addGroupMessage,
+    deleteGroupMessage,
+    editGroupMessage,
+    reactGroupMessage,
+} from '../../store/groupMessageSlice';
 import { GroupMessageEventPayload } from '../../utils/types';
-import { deleteGroupMessage } from '../../store/groupMessageSlice';
 import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
 import { AuthContext } from '../../contex/AuthContext';
 
@@ -31,8 +36,13 @@ export const GroupPage = () => {
     const { id } = useParams();
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const groups = useSelector((state:RootState)=>state.group.groups)
 
     useEffect(() => {
+        groups.map((group)=> {
+            socket.emit('onGroupJoin', { groupId: group.id });
+        })
+
         socket.on('onGroupMessage', (payload: GroupMessageEventPayload) => {
             const { group } = payload;
             dispatch(addGroupMessage(payload));
@@ -115,6 +125,10 @@ export const GroupPage = () => {
             dispatch(changeGroupTheme(payload));
         });
 
+        socket.on('onUpdateGroupMessageStatus', (payload) => {
+            dispatch(updateLastGroupMessageSeen(payload));
+        });
+
         return () => {
             socket.off('onGroupMessage');
             socket.off('onGroupCreate');
@@ -133,6 +147,10 @@ export const GroupPage = () => {
             socket.off('onLeaveGroup');
             socket.off('onGroupUserLeave');
             socket.off('onChangeGroupTheme');
+            socket.off('onUpdateGroupMessageStatus')
+            groups.map((group)=> {
+                socket.emit('onGroupLeave', { GroupId: group.id });
+            })
         };
     }, [id]);
 

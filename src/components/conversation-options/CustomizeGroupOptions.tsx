@@ -89,7 +89,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                             onClick={handleShowModal}
                             className="flex justify-start gap-2 items-center rounded-md py-2 px-2 hover:bg-[#1c1e21] "
                         >
-                            <div className="p-1 rounded-full text-white bg-[#373434]">
+                            <div className="p-[2px] rounded-full text-white bg-[#373434]">
                                 <PencilIcon className="w-6 h-6" />
                             </div>
                             <span className="text-base">Change group title</span>
@@ -99,7 +99,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                                 htmlFor="groupAvatar"
                                 className="flex justify-start gap-2 items-center cursor-pointer "
                             >
-                                <div className="p-1 rounded-full text-white bg-[#373434]">
+                                <div className="p-[2px] rounded-full text-white bg-[#373434]">
                                     <ImageIcon className="w-6 h-6" />
                                 </div>
                                 <span className="text-base">Change group avatar</span>
@@ -116,7 +116,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                             onClick={() => setShowChangeEmojiModal(true)}
                             className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
                         >
-                            <div className="p-2 rounded-full text-white bg-[#373434]">
+                            <div className="p-[6px] rounded-full text-white bg-[#373434]">
                                 <LikeIcon className="w-4 h-4 text-primary" />
                             </div>
                             <span className="text-base">Change Emoji Icon</span>
@@ -126,7 +126,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                             className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
                         >
                             <div className="p-1 rounded-full text-white bg-[#373434]">
-                                <ChangeNickNameIcon className="w-6 h-6 font-bold" />
+                                <ChangeNickNameIcon className="w-5 h-5 font-bold" />
                             </div>
                             <span className="text-base">Change NickName</span>
                         </div>
@@ -135,7 +135,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId }) => {
                             className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
                         >
                             <div className="p-1 rounded-full text-white bg-[#373434] flex justify-center items-center relative">
-                                <div className= "w-6 h-6 rounded-full" style={{
+                                <div className= "w-5 h-5 rounded-full" style={{
                                     backgroundColor: getTheme()
                                 }}>
                                 </div>

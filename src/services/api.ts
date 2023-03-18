@@ -30,6 +30,7 @@ import {
     GroupMessageType,
     MessageType,
     UpdateGroupAvatarParams,
+    UpdateSeenMessageParams,
     User,
     UserCredentialsParams,
 } from '../utils/types';
@@ -203,13 +204,13 @@ export const ChangeGroupNickName = ({ id, nickname, email }: ChangeConversationN
         config,
     );
 
-export const ForwardMessageToCoversationAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
+export const ForwardMessageToConversationAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
     axiosClient.post(`/conversations/${id}/messages/${messageId}/forward/conversation/${forwardedId}`, {}, config);
 
 export const ForwardMessageToGroupAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
     axiosClient.post(`/conversations/${id}/messages/${messageId}/forward/group/${forwardedId}`, {}, config);
 
-export const ForwardGroupMessageToCoversationAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
+export const ForwardGroupMessageToConversationAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
     axiosClient.post(`/groups/${id}/messages/${messageId}/forward/conversation/${forwardedId}`, {}, config);
 
 export const ForwardGroupMessageToGroupAPI = ({ id, messageId, forwardedId }: ForwardMessageParams) =>
@@ -226,3 +227,13 @@ export const ChangeGroupTheme = ({ id, theme }: ChangeConversationThemeParams) =
 export const GetGroupAttachments = (groupId: number) => axiosClient.get(`/groups/${groupId}/attachments`, config);
 
 export const GetConversationAttachments = (conversationId: number) => axiosClient.get(`/conversations/${conversationId}/messages/attachments`, config);
+
+export const UpdateSeenMessage = ({
+                                      id,
+                                      messageId,
+                                  }: UpdateSeenMessageParams) => axiosClient.post(`/conversations/${id}/messages/${messageId}/statuses`, {}, config);
+
+export const UpdateSeenGroupMessage = ({
+                                           id,
+                                           messageId,
+                                       }: UpdateSeenMessageParams) => axiosClient.post(`/groups/${id}/messages/${messageId}/statuses`, {}, config);

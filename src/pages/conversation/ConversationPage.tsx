@@ -9,6 +9,7 @@ import {
     updateConversation,
     updateDeleteMessageEvent,
     updateEditMessage,
+    updateLastMessageSeen,
 } from '../../store/coversationSlice';
 import { AppDispatch } from '../../store';
 import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
@@ -16,10 +17,12 @@ import { SocketContext } from '../../contex/SocketContext';
 import { MessageEventPayload } from '../../utils/types';
 import { addMessage, deleteMessage, editMessage, reactMessage } from '../../store/messageSlice';
 
+
 export const ConversationPage = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { id } = useParams();
     const socket = useContext(SocketContext);
+
     useEffect(() => {
         socket.on('onMessage', (payload: MessageEventPayload) => {
             const { conversation } = payload;
@@ -68,6 +71,10 @@ export const ConversationPage = () => {
             dispatch(changeConversationTheme(payload));
         });
 
+        socket.on('onUpdateMessageStatus', (payload) => {
+            dispatch(updateLastMessageSeen(payload));
+        });
+
         return () => {
             socket.off('connected');
             socket.off('onMessage');
@@ -78,6 +85,7 @@ export const ConversationPage = () => {
             socket.off('onChangeConversationEmoji');
             socket.off('onChangeConversationNickname');
             socket.off('onChangeConversationTheme');
+            socket.off('onUpdateMessageStatus')
         };
     }, []);
 

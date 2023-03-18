@@ -1,4 +1,4 @@
-import { Conversation } from '../../utils/types';
+import { Conversation, MessageStatus } from '../../utils/types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FC, useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
@@ -20,7 +20,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     const recipientUser = getRecipient(conversation, user!);
     const { profile } = recipientUser;
 
-    const isOnline = onlineFriends.find((friend) => friend.id === recipientUser.id) ? true : false;
+    const isOnline = !!onlineFriends.find((friend) => friend.id === recipientUser.id);
 
     const navigate = useNavigate();
     return (
@@ -32,7 +32,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
             key={conversation.id}
         >
             <div
-                className={`flex justify-start gap-2 py-2 px-4 rounded-lg  ${
+                className={`flex justify-start gap-2 py-2 px-4 rounded-lg relative  ${
                     conversation.id === parseInt(id!) ? '!bg-[#29323d]' : 'hover:bg-[#28282b] '
                 }`}
             >
@@ -48,14 +48,12 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                 </div>
 
                 <div className="flex flex-col flex-nowrap flex-1 break-all justify-center">
-                    <span className="block text-white">{getFullName(user, conversation)}</span>
-                    <div className="flex justify-start items-center max-w-[240px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
-                        <span className="text-sm text-[#65676b]">{lastMessageContent(conversation)}</span>
-                        <span className="text-sm text-[#65676b] ml-3">
-                            {moment(conversation?.lastMessageSentAt).format('H:mm')}
-                        </span>
-                    </div>
+                    <p className="text-white font-medium">{getFullName(user, conversation)}</p>
+                    <p className="text-sm text-gray-400 max-w-[240px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">{lastMessageContent(conversation)} • {moment(conversation?.lastMessageSentAt).format('H:mm')}</p>
                 </div>
+                {
+                    conversation && conversation.lastMessageSent.messageStatuses?.find((status: MessageStatus) => status.user.id === user?.id) ?<></>: <div className="absolute top-1/2 -translate-y-1/2 right-4 w-[10px] h-[10px] bg-[#0d90f3] rounded-full"></div>
+                }
             </div>
         </div>
     );

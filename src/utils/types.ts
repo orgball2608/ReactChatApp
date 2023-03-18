@@ -52,6 +52,13 @@ export type AttachmentType = {
     size: number;
 };
 
+export type MessageStatus = {
+    id: number;
+    seen: boolean;
+    message?: MessageType | GroupMessageType;
+    user: User;
+}
+
 export type MessageType = {
     id: number;
     content: string;
@@ -64,6 +71,7 @@ export type MessageType = {
     sticker: string;
     reply: MessageType;
     deletedAt: Date;
+    messageStatuses?: MessageStatus[]
 };
 
 export type MessageEventPayload = {
@@ -155,6 +163,7 @@ export type GroupMessageType = {
     sticker: string;
     reply: GroupMessageType;
     deletedAt: Date;
+    messageStatuses?: MessageStatus[]
 };
 
 export type GroupMessage = {
@@ -320,3 +329,7 @@ export type ChangeConversationThemeParams = {
     theme: string;
 };
 
+export type UpdateSeenMessageParams = {
+    id: number;
+    messageId: number
+}

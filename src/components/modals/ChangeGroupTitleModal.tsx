@@ -15,6 +15,7 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
     const [title, setTitle] = useState<string | undefined>('');
     const dispatch = useDispatch<AppDispatch>();
     const { id } = useParams();
+    const LENGTH_OF_TITLE = 100
 
     useEffect(() => {
         setTitle(selectedGroup?.title);
@@ -36,6 +37,13 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
     const handleKeyDownSubmitTitle = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter' && selectedGroup?.title !== title) handleSubmitTitle();
     };
+
+    const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>)=>{
+        if(!title || (title && title?.length < LENGTH_OF_TITLE)){
+            setTitle(e.target.value)
+        }
+    }
+
     return (
         <div
             onKeyDown={(e) => handleKeyDownSubmitTitle(e)}
@@ -52,17 +60,20 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
                     </div>
                 </div>
                 <div className="px-6 pb-4 pt-2">
-                    <span className='text-sm'>Everyone knows when to change the chat group name.</span>
+                    <span className='text-sm ml-1'>Everyone knows when to change the chat group name.</span>
                     <div className="w-full flex justify-center flex-col relative gap-2">
                         <section className="my-1">
-                            <div className="bg-conversation-form py-3 px-4 rounded-xl w-full border-box">
-                                <label htmlFor="title" className="block text-label-white text-xs">
-                                    Title
+                            <div className="bg-conversation-form py-3 px-4 rounded-lg w-full border-box">
+                                <label htmlFor="title" className="block text-label-white text-xs relative">
+                                    Title Of Group
+                                    <div className="absolute top-1/2 right-0 transform -translate-y-1/2">
+                                        {title?.length+`/${LENGTH_OF_TITLE}`}
+                                    </div>
                                 </label>
                                 <input
                                     id="title"
                                     value={title || ''}
-                                    onChange={(e) => setTitle(e.target.value)}
+                                    onChange={(e) => handleChangeTitle(e)}
                                     className="text-base w-full border-box p-0 text-white bg-inherit border-0 outline-0 scrollbar-hide overflow-auto resize-none"
                                 />
                             </div>
@@ -70,14 +81,14 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
                         <div className="flex w-full gap-2 justify-center items-center">
                             <button
                                 onClick={handleCancelSubmitTitle}
-                                className=" w-1/2 outline-0 border-0 text-lg hover:bg-[#1c1e20] text-white rounded-xl py-2 mt-1 transform active:scale-125 transition-all duration-300"
+                                className=" w-1/2 border-0 text-base font-medium py-[6px] hover:bg-[#1c1e20] text-white rounded-md mt-1 transform active:scale-125 transition-all duration-300"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={handleSubmitTitle}
                                 disabled={selectedGroup?.title === title}
-                                className="w-1/2 outline-0 border-0 text-lg bg-[#0d90f3] text-white rounded-xl py-2 mt-1 disabled:opacity-75 transform active:scale-125 transition-all duration-300"
+                                className={`w-1/2 border-0 text-base py-[6px] font-medium bg-[#0084ff] text-white rounded-md  mt-1 disabled:opacity-75 transform active:scale-125 transition-all duration-300 ${selectedGroup?.title === title && 'cursor-not-allowed'}`}
                             >
                                 Save
                             </button>

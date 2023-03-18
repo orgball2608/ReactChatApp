@@ -17,7 +17,7 @@ type Props = {
     setVisible: Dispatch<SetStateAction<boolean>>;
 };
 export const MenuContext: FC<Props> = ({ setIsEditing, message, setVisible }) => {
-    const { setEditMessage, setIsForwardding, setForwardMessage } = useContext(MessageMenuContext);
+    const { setEditMessage, setIsForwarding, setForwardMessage } = useContext(MessageMenuContext);
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
@@ -71,7 +71,7 @@ export const MenuContext: FC<Props> = ({ setIsEditing, message, setVisible }) =>
                 )}
                 <li
                     onClick={() => {
-                        setIsForwardding(true);
+                        setIsForwarding(true);
                         setVisible(false);
                         setForwardMessage(message);
                     }}

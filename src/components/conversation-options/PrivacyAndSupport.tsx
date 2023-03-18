@@ -39,7 +39,7 @@ export const PrivacyAndSupport = () => {
                 onClick={handleLeaveGroup}
                 className="flex justify-start gap-2 items-center rounded-md py-2 px-2 hover:bg-[#1c1e21] "
             >
-                <div className="p-1 rounded-full text-white bg-[#373434]">
+                <div className="p-[2px] rounded-full text-white bg-[#373434]">
                     <LeaveGroupIcon className="w-6 h-6 text-white" />
                 </div> 
                 <span className="text-base">Leave Group</span>

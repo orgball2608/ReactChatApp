@@ -27,7 +27,7 @@ export const MessagePanelHeader = () => {
     const selectedGroup = groups.find((group) => group.id === parseInt(id!));
     
     const recipient = getRecipient(conversation!, user!);
-    const isOnline = onlineFriends.find((friend) => friend.id === recipient?.id) ? true : false;
+    const isOnline = !!onlineFriends.find((friend) => friend.id === recipient?.id);
 
     const getAvatar = () => {
         if (selectedType === 'private') {
@@ -93,7 +93,7 @@ export const MessagePanelHeader = () => {
                         )}
                     </div>
                     <div className="flex flex-col justify-center">
-                        <span className="text-base">
+                        <span className="text-base font-medium">
                             {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}
                         </span>
                         {isOnline && (

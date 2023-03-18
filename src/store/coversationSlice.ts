@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Conversation, CreateConversationParams } from '../utils/types';
 import { getConversations, postNewConversation } from '../services/api';
 
@@ -91,6 +91,15 @@ export const conversationsSlice = createSlice({
                 conversation.theme = theme;
             }
         },
+        updateLastMessageSeen: (state, action) => {
+            const { conversation, message } = action.payload;
+            const conversationState = state.conversations.find((c) => c.id === conversation.id);
+            if (!conversationState) return;
+            if (message.id === conversationState.lastMessageSent.id) {
+                conversationState.lastMessageSent = message;
+                conversationState.lastMessageSentAt = message.createdAt;
+            }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -112,6 +121,7 @@ export const {
     updateDeleteMessageEvent,
     changeConversationEmoji,
     changeConversationNickname,
-    changeConversationTheme
+    changeConversationTheme,
+    updateLastMessageSeen,
 } = conversationsSlice.actions;
 export default conversationsSlice.reducer;

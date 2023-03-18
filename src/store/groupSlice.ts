@@ -8,8 +8,8 @@ import {
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     createGroupConversation,
-    fetchGroups as fetchGroupsAPI,
     editGroupTitle as editGroupTitleAPI,
+    fetchGroups as fetchGroupsAPI,
     removeRecipient,
     updateGroupAvatarAPI,
 } from '../services/api';
@@ -17,6 +17,7 @@ import {
 export interface GroupState {
     groups: Group[];
 }
+
 const initialState: GroupState = {
     groups: [],
 };
@@ -146,6 +147,14 @@ const groupsSlice = createSlice({
             const group = state.groups.find((gm) => gm.id === id);
             if (!group) return;
             group.theme = theme;
+        }, updateLastGroupMessageSeen: (state, action) => {
+            const { group, message } = action.payload;
+            const groupState = state.groups.find((gm) => gm.id === group.id);
+            if (!groupState) return;
+            if (message.id === groupState.lastMessageSent.id) {
+                groupState.lastMessageSent = message;
+                groupState.lastMessageSentAt = message.createdAt;
+            }
         },
     },
     extraReducers: (builder) => {
@@ -183,6 +192,7 @@ export const {
     changeGroupNickName,
     leaveGroup,
     removeRecipientWhenLeaveGroup,
-    changeGroupTheme
+    changeGroupTheme,
+    updateLastGroupMessageSeen,
 } = groupsSlice.actions;
 export default groupsSlice.reducer;

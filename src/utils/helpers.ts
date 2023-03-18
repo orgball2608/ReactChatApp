@@ -1,5 +1,14 @@
 import { ArrowCycle, ChatDots, Crown, Gear, Person, Ribbon } from 'akar-icons';
-import { Conversation, FriendType, Group, SelectedPageType, User, UserContextMenuItemType } from './types';
+import {
+    Conversation,
+    FriendType,
+    Group,
+    GroupMessageType,
+    MessageType,
+    SelectedPageType,
+    User,
+    UserContextMenuItemType,
+} from './types';
 import moment from 'moment';
 import { BsFillPersonFill, BsMessenger } from 'react-icons/bs';
 import { BiMessageRoundedMinus } from 'react-icons/bi';
@@ -126,3 +135,21 @@ export const getAvatar = (user: User) => {
     if (!user?.profile || !user?.profile.avatar) return defaultAvatar;
     return user.profile.avatar;
 };
+
+export const getLastSeenMessage = (messages: MessageType[] | GroupMessageType[], user: User) => {
+    let lastSeenMessage = null;
+    messages.slice().reverse().forEach((message) => {
+        if (message.messageStatuses && message.messageStatuses.length > 0) {
+            message.messageStatuses.forEach((status) => {
+                if (status.user.id === user?.id) {
+                    lastSeenMessage = message;
+                }
+            });
+        }
+    });
+    return lastSeenMessage;
+};
+
+
+
+
