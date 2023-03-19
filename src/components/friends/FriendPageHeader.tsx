@@ -1,6 +1,6 @@
-import { PersonAdd } from 'akar-icons';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { AddNewFriendModal } from '../modals/AddNewFriendModal';
+import { BsFillPersonPlusFill } from 'react-icons/bs';
 
 type Props = {
     selectedItem: string;
@@ -32,10 +32,10 @@ export const FriendPageHeader: FC<Props> = ({ selectedItem, setSelectedItem }) =
                 </div>
                 <div
                     onClick={() => setShowModal(true)}
-                    className="py-[6px] px-4 flex gap-2 justify-center items-center bg-[#0162bd] hover:bg-blue-600 text-white rounded-lg cursor-pointer  ease-in-out transform active:scale-110 transition-all duration-300"
+                    className="py-[6px] px-4 flex gap-2 mr-2 justify-center items-center bg-[#0162bd] hover:bg-blue-600 text-white rounded-lg cursor-pointer  ease-in-out transform active:scale-110 transition-all duration-300"
                 >
-                    <PersonAdd size={20} />
-                    <span className="text-white text-base">Add</span>
+                    <BsFillPersonPlusFill size={20} />
+                    <span className="text-white text-base font-medium">Add</span>
                 </div>
             </aside>
         </>

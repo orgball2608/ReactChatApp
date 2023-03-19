@@ -30,6 +30,7 @@ import {
 import { GroupMessageEventPayload } from '../../utils/types';
 import { ConversationSidebar } from '../../components/sidebars/ConversationSideBar';
 import { AuthContext } from '../../contex/AuthContext';
+import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 
 export const GroupPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -37,6 +38,7 @@ export const GroupPage = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const groups = useSelector((state:RootState)=>state.group.groups)
+    const { isMobile } = useCurrentViewportView();
 
     useEffect(() => {
         groups.map((group)=> {
@@ -156,9 +158,9 @@ export const GroupPage = () => {
 
     return (
         <div className="bg-dark-light h-full w-full flex">
-            <ConversationSidebar />
-            {!id && <ConversationPanel />}
-            <Outlet />
+            {((!id && isMobile)|| !isMobile) && <ConversationSidebar />}
+            {(!id &&!isMobile) && <ConversationPanel />}
+            {((id && isMobile) || !isMobile) && <Outlet />}
         </div>
     );
 };

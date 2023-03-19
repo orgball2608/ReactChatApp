@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { editGroupTitleThunk } from '../../store/groupSlice';
 import { useParams } from 'react-router-dom';
+import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -14,6 +15,7 @@ type Props = {
 export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }) => {
     const [title, setTitle] = useState<string | undefined>('');
     const dispatch = useDispatch<AppDispatch>();
+    const { isMobile } = useCurrentViewportView();
     const { id } = useParams();
     const LENGTH_OF_TITLE = 100
 
@@ -47,19 +49,19 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
     return (
         <div
             onKeyDown={(e) => handleKeyDownSubmitTitle(e)}
-            className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-30 animate-fade-in"
+            className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in"
         >
-            <div className="bg-modal-background w-screen max-w-[550px] box-border rounded-lg  overflow-hidden h-fit min-w-screen flex flex-col gap-4">
-                <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
+            <div className={`bg-modal-background w-screen max-w-[550px] box-border rounded-lg  overflow-hidden h-fit min-w-screen flex flex-col gap-4 ${isMobile ?'mx-3':''}`}>
+                <div className="box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
-                    <span className="text-2xl leading-5">Change group title</span>
+                    <span className={`${isMobile ?'text-xl':'text-2xl'}`}>Change group title</span>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
                     </div>
                 </div>
-                <div className="px-6 pb-4 pt-2">
+                <div className={`pb-4 pt-2 ${isMobile ?'px-3':'px-6'}`}>
                     <span className='text-sm ml-1'>Everyone knows when to change the chat group name.</span>
                     <div className="w-full flex justify-center flex-col relative gap-2">
                         <section className="my-1">

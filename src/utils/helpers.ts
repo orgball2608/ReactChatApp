@@ -1,4 +1,4 @@
-import { ArrowCycle, ChatDots, Crown, Gear, Person, Ribbon } from 'akar-icons';
+import { ArrowCycle, ChatDots, Gear, Person, Ribbon } from 'akar-icons';
 import {
     Conversation,
     FriendType,
@@ -11,8 +11,9 @@ import {
 } from './types';
 import moment from 'moment';
 import { BsFillPersonFill, BsMessenger } from 'react-icons/bs';
-import { BiMessageRoundedMinus } from 'react-icons/bi';
 import { defaultAvatar } from './constants';
+import { RiVipCrown2Fill } from 'react-icons/ri';
+import { FaUserMinus } from 'react-icons/fa';
 
 export const getRecipientFromConversation = (conversation?: Conversation, user?: User) => {
     return user?.id === conversation?.creator.id ? conversation?.recipient : conversation?.creator;
@@ -38,9 +39,9 @@ export const getUserSideBarIcon = (page: SelectedPageType) => {
 export const getUserContextMenuIcon = (type: UserContextMenuItemType) => {
     switch (type) {
         case 'kick':
-            return { icon: BiMessageRoundedMinus };
+            return { icon: FaUserMinus };
         case 'transfer_owner':
-            return { icon: Crown };
+            return { icon: RiVipCrown2Fill };
         case 'profile':
             return { icon: BsFillPersonFill };
         case 'message':
@@ -52,8 +53,8 @@ export const getUserContextMenuIcon = (type: UserContextMenuItemType) => {
 
 export const getFullName = (user: User | undefined, conversation: Conversation | undefined) =>
     user?.id !== conversation?.creator.id
-        ? `${conversation?.creator.lastName} ${conversation?.creator.firstName}`
-        : `${conversation?.recipient.lastName} ${conversation?.recipient.firstName}`;
+        ? `${conversation?.creator.firstName}${conversation?.creator.lastName}`
+        : `${conversation?.recipient.firstName}${conversation?.recipient.lastName}`;
 
 export const getDisplayName = (user: User) => {
     if (user && user.firstName && user.lastName) {

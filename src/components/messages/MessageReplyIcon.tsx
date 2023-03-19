@@ -1,4 +1,4 @@
-import { FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
 import { BsReplyFill } from 'react-icons/bs';
 import { GroupMessageType, MessageType } from '../../utils/types';
 

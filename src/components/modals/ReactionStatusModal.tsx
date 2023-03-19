@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useContext, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useContext, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { defaultAvatar, REACTIONS_UI } from '../../utils/constants';
 import { GroupMessageType, MessageType } from '../../utils/types';
@@ -8,6 +8,7 @@ import { deleteReactionGroupMessageAPI, deleteReactionMessageAPI } from '../../s
 import { RootState } from '../../store';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -17,6 +18,7 @@ type Props = {
 export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
     const [selectedReact, setSelectedReact] = useState<string>('all');
     const conversationType = useSelector((state: RootState) => state.type.type);
+    const { isMobile } = useCurrentViewportView();
     const { id } = useParams<{ id: string }>();
     const { user } = useContext(AuthContext);
     const getIcon = (reaction: string) => {
@@ -71,17 +73,17 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
             className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in"
             tabIndex={-1}
         >
-            <div className="bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-80">
+            <div className={`bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-80 ${isMobile ?'mx-3':''}`}>
             <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
-                    <span className="text-2xl">React status</span>
+                    <span className={`${isMobile ?'text-xl':'text-2xl'}`}>React status</span>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
                     </div>
                 </div>
-                <div className="flex justify-start mx-4 items-center h-12 cursor-pointer mt-2">
+                <div className={`flex justify-start items-center h-12 cursor-pointer mt-2 ${isMobile ?'px-2':'px-4'}`}>
                     <div
                         onClick={() => setSelectedReact('all')}
                         className={`px-4 rounded-md hover:bg-[#2f2f30] h-full flex items-center ${
@@ -103,7 +105,7 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                         </div>
                     ))}
                 </div>
-                <div className="mt-2 mx-4 flex-grow overflow-y-auto overflow-x-hidden">
+                <div className={`mt-2 flex-grow overflow-y-auto overflow-x-hidden ${isMobile ?'px-2':'px-4'}`}>
                     {getListReacts().map((react) => (
                         <div
                             key={react.id}

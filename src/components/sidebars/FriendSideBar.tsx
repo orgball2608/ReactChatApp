@@ -15,6 +15,7 @@ import {
 import { changePage } from '../../store/selectedPageSlice';
 import { FriendLists } from '../friends/FriendLists';
 import { FriendRequests } from '../friends/FriendRequests';
+import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 
 type Props = {
     selectedItem: string;
@@ -24,16 +25,17 @@ export const FriendSideBar: FC<Props> = ({ selectedItem }) => {
     const socket = useContext(SocketContext);
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation();
+    const { isMobile } = useCurrentViewportView();
     const selectedPath = location.pathname.split('/')[1];
 
     useEffect(() => {
         if (selectedPath === 'friend') dispatch(changePage('friend'));
-    }, [selectedPath]);
+    }, [selectedPath,dispatch]);
 
     useEffect(() => {
         dispatch(getSendFriendRequests());
         dispatch(getReceiveFriendRequests());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         socket.on('onFriendRequestReceived', (payload) => {
@@ -58,10 +60,10 @@ export const FriendSideBar: FC<Props> = ({ selectedItem }) => {
             socket.off('onFriendRequestCancelled');
             socket.off('onFriendRemoved');
         };
-    }, []);
+    }, [dispatch]);
 
     return (
-        <div className="flex flex-col flex-none w-88 h-full border-border-conversations border-r-[1px]">
+        <div className={`flex flex-col flex-none w-80 h-full border-border-conversations border-r-[1px] ${isMobile?'!w-full':''}`}>
             {selectedItem === 'requests' && <FriendRequests />}
             {selectedItem === 'friends' && <FriendLists />}
         </div>

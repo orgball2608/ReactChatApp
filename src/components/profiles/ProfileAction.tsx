@@ -195,7 +195,7 @@ export const ProfileAction = () => {
     };
 
     return (
-        <div className="flex justify-center gap-2 mr-10">
+        <div className="flex justify-center gap-2 lg:mr-2">
             {isFriend ? (
                 <Tippy
                     visible={visible}

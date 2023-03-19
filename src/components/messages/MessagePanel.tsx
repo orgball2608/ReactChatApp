@@ -15,7 +15,6 @@ export const MessagePanel = () => {
     const { id } = useParams();
     const { user } = useContext(AuthContext);
     const [replyInfo, setReplyInfo] = useState<MessageType | GroupMessageType>();
-
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
     const conversation = conversations.find((conversation) => conversation.id === parseInt(id!));
     const [isRecipientTyping, setIsRecipientTyping] = useState(false);

@@ -20,8 +20,8 @@ export const LoginForm = () => {
     };
     return (
         <>
-            <form className="w-[600px]" onSubmit={handleSubmit(FormSubmit)}>
-                <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box my-2">
+            <form className="max-w-[600px] w-screen mx-3" onSubmit={handleSubmit(FormSubmit)}>
+                <div className="bg-simple-gray py-3 px-4 rounded-lg w-full border-box my-2">
                     <label htmlFor="email" className="block text-label-white text-sm">
                         Email
                     </label>
@@ -32,7 +32,7 @@ export const LoginForm = () => {
                         className="text-base w-full border-box p-0 text-white bg-inherit border-0 outline-0"
                     />
                 </div>
-                <div className="bg-simple-gray py-3 px-4 rounded-[10px] w-full border-box my-2">
+                <div className="bg-simple-gray py-3 px-4 rounded-lg w-full border-box my-2">
                     <label htmlFor="password" className="block text-label-white text-sm">
                         Password
                     </label>

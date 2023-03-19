@@ -31,7 +31,7 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
             (conversation.recipient.id === recipient?.id && conversation.creator.id === user?.id),
     );
 
-    const getUserMenuContexAction = (user?: User, group?: Group) => {
+    const getUserMenuContextAction = (user?: User, group?: Group) => {
         if (!user || !group) return [];
         if (user?.id === recipient.id && group.owner.id === recipient.id) {
             return userContextMenuItems.filter((item) => item.label === 'Profile');
@@ -47,7 +47,7 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
     };
     const CustomIcon: FC<CustomIconProps> = ({ action }) => {
         const { icon: MyIcon } = getUserContextMenuIcon(action);
-        return <MyIcon size={24} />;
+        return <MyIcon size={22} />;
     };
 
     const handleMenuContextAction = (action: UserContextMenuItemType) => {
@@ -100,18 +100,18 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
     };
 
     return (
-        <div className={`w-60 rounded-3xl`}>
+        <div className={`w-48 rounded-3xl`}>
             <div className="flex flex-col justify-center gap-1 cursor-pointer">
-                {getUserMenuContexAction(user, selectedGroup).map((item: ContextMenuItemType) => (
+                {getUserMenuContextAction(user, selectedGroup).map((item: ContextMenuItemType) => (
                     <div
                         onClick={() => handleMenuContextAction(item.action)}
                         key={item.label}
-                        className="text-white flex p-1 justify-start gap-6 text-base hover:bg-[#555454] rounded-md py-2 "
+                        className="text-white flex px-1 justify-start gap-1 text-base hover:bg-[#555454] rounded-md py-[6px] "
                     >
-                        <div className="w-4 h-4 rounded-full">
+                        <div className="rounded-full flex justify-center items-center px-2">
                             <CustomIcon action={item.action} />
                         </div>
-                        <span>{item.label}</span>
+                        <span className="text-base font-middle">{item.label}</span>
                     </div>
                 ))}
             </div>

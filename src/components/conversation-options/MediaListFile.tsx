@@ -38,7 +38,7 @@ export const MediaListFile: FC<Props> = ({ setShowMediaFileSideBar, setShowFileS
                         className="flex justify-start gap-2 items-center rounded-md px-2 py-2 hover:bg-[#1c1e21]"
                     >
                         <div className="p-[2px] w-fit h-fit rounded-full text-white bg-[#373434]">
-                            <FileMediaIcon className="w-6 h-6" />
+                            <FileMediaIcon className="w-6 h-6" color="#ffffff" />
                         </div>
                         <span className="text-base">File Media</span>
                     </div>

@@ -20,11 +20,11 @@ export const MessageFileRender: FC<Props> = ({ attachments, message }) => {
                 <FileIcon color="#050505" />
             </div>
             <div className="flex flex-col justify-center items-start">
-                <p className="text-[#e6e6e6] leading-5 max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal">
+                <p className="text-white leading-5 max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-base font-middle">
                     {attachments[0]?.name || 'File'}
                 </p>
                 {attachments[0]?.size && (
-                    <p className="text-[#b3b3b3] text-sm leading-5">{getFileSize(attachments[0]?.size)}</p>
+                    <p className="text-gray-400 text-xs leading-5">{getFileSize(attachments[0]?.size)}</p>
                 )}
             </div>
             <a

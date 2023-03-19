@@ -1,6 +1,7 @@
 import { ConversationTypes } from '../../../utils/constants';
 import { ConversationType } from '../../../utils/types';
 import React, { Dispatch, FC, SetStateAction } from 'react';
+import { useCurrentViewportView } from '../../../hooks/useCurrentViewportView';
 
 type Props = {
     conversationType: ConversationType;
@@ -9,11 +10,12 @@ type Props = {
 
 export const ConversationSelectTypeForm: FC<Props> = ({ conversationType, setConversationType }) => {
     const ChatTypes = ConversationTypes;
+    const { isMobile } = useCurrentViewportView();
     const handleSetConversationType = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, data: ConversationType) => {
         setConversationType(data);
     };
     return (
-        <div className="flex ml-6 gap-2 cursor-pointer text-base bg-[#1c1c1c] w-fit rounded-full p-[3px]">
+        <div className={`flex gap-2 cursor-pointer text-base bg-[#1c1c1c] w-fit rounded-full p-[3px] ${isMobile ?'ml-2':'ml-6'}`}>
             {ChatTypes.map((chat, index) => (
                 <div
                     key={index}

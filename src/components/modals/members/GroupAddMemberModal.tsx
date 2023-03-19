@@ -6,8 +6,9 @@ import { toast } from 'react-toastify';
 import { useDebounce } from '../../../hooks/useDebounce';
 import { addGroupRecipientsAPI, searchUsers } from '../../../services/api';
 import { FriendType, User } from '../../../utils/types';
-import { defaultAvatar } from '../../../utils/constants';
 import { ResultMemberList } from '../../members/ResultMemberList';
+import { getAvatar, getDisplayName } from '../../../utils/helpers';
+import { useCurrentViewportView } from '../../../hooks/useCurrentViewportView';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -20,6 +21,7 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
     const [searchValue, setSearchValue] = useState('');
     const [memberChanged, setMemberChanged] = useState<User>();
     const [userResults, setUserResults] = useState<User[]>([]);
+    const { isMobile } = useCurrentViewportView();
 
     useEffect(() => {
         if (memberChanged) {
@@ -44,19 +46,6 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
     const getRecipient = (friend: FriendType, user: User | undefined) => {
         if (!user) return null;
         return friend.receiver.id === user.id ? friend.sender : friend.receiver;
-    };
-
-    const getAvatar = (friend: User) => {
-        if (friend.profile) {
-            if (friend.profile.avatar) {
-                return friend.profile.avatar;
-            }
-        }
-        return defaultAvatar;
-    };
-
-    const getDisplayName = (friend: User) => {
-        return friend.firstName + ' ' + friend.lastName;
     };
 
     const handleRemoveSelectedMember = (member: User) => {
@@ -88,17 +77,17 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
 
     return (
         <div className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 ">
-            <div className="bg-modal-background w-2/5 box-border rounded-lg overflow-hidden animate-fade-in">
-                <div className=" box-border flex justify-center items-center mx-6 mt-6">
+            <div className={`bg-modal-background w-screen max-w-[550px] box-border rounded-lg overflow-hidden animate-fade-in ${isMobile ?'mx-3':''}`}>
+                <div className="box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#383636] hover:bg-[#494747] cursor-pointer rounded-full" />
                     </div>
-                    <h1 className="text-2xl">Add Member</h1>
+                    <h1 className={`${isMobile ?'text-xl':'text-2xl'}`}>Add Member</h1>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>
                 </div>
-                <div className="flex justify-center mx-6 mt-4 ">
+                <div className={`flex justify-center mt-4 ${isMobile ?'px-2':'px-6'}`}>
                     <section className="w-full relative h-fit">
                         <Search
                             size={20}
@@ -107,15 +96,15 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
                         <input
                             type="text"
                             onChange={handleSearchMember}
-                            className="w-full rounded-md py-1 bg-[#f1ecec] outline-none border-1 border-[#ced0d4] px-2 text-[#121212] text-base pl-8"
+                            className="w-full rounded-md py-1 bg-dark-lighten text-white outline-none border-1 border-[#ced0d4] px-2 text-base pl-8"
                             placeholder="Search"
                         />
                     </section>
                 </div>
-                <div className="flex items-start mx-6 gap-4 mt-4 overflow-x-auto h-28">
+                <div className={`flex items-start gap-4 mt-4 overflow-x-auto h-28 ${isMobile ?'px-2':'px-6'}`}>
                     {selectedMembers.length === 0 ? (
                         <div className="flex justify-center items-center w-full h-full">
-                            <span className="text-base text-gray-400">No member selected</span>
+                            <span className="text-sm text-gray-400">No member selected</span>
                         </div>
                     ) : (
                         selectedMembers.map((member) => {
@@ -138,12 +127,11 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
                         })
                     )}
                 </div>
-                <div className="flex flex-col items-start mx-6 gap-2 mt- overflow-y-auto">
+                <div className={`flex flex-col items-start gap-2 mt- overflow-y-auto ${isMobile ?'px-2':'px-6'}`}>
                     <ResultMemberList
                         searchValue={searchValue}
                         setSelectedMembers={setSelectedMembers}
                         getRecipient={getRecipient}
-                        getAvatar={getAvatar}
                         selectedMembers={selectedMembers}
                         isSearching={isSearching}
                         memberChanged={memberChanged}
@@ -151,11 +139,11 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
                         userResults={userResults}
                     />
                 </div>
-                <div className="px-6 pb-6 pt-2">
+                <div className={`pb-6 pt-2 ${isMobile ?'px-2':'px-6'}`}>
                     <div onClick={handleSubmitMemberAdd} className="flex justify-center">
                         <button
-                            className={`bg-blue-600 hover:bg-blue-700 text-white font-medium py-[6px] w-full rounded-md text-lg ${
-                                selectedMembers.length === 0 ? 'cursor-not-allowed opacity-30' : ''
+                            className={`bg-blue-600 hover:bg-blue-700 text-white font-medium py-[6px] w-full rounded-md text-base ${
+                                selectedMembers.length === 0 ? 'cursor-not-allowed opacity-70' : ''
                             }`}
                         >
                             Add Member

@@ -160,7 +160,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                     </div>
                                     <div className=" rounded-md flex justify-center items-center w-fit h-fit transform active:scale-125 transition-all duration-300">
                                         {isSelectedConversation(conversation.id) ? (
-                                            <button className="px-4 py-2 rounded-lg text-base bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
+                                            <button className="px-3 py-2 rounded-lg text-base bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
                                                 <Envelope size={20} />
                                                 <span>Sent</span>
                                             </button>
@@ -170,7 +170,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                                     handleForwardMessageToConversation(conversation.id);
                                                     setSelectedConversations((prev) => [...prev, conversation.id]);
                                                 }}
-                                                className="px-4 py-2 rounded-lg text-base bg-[#0084ff] text-white font-medium"
+                                                className="px-3 py-2 rounded-lg text-base bg-[#0084ff] text-white font-medium"
                                             >
                                                 Send
                                             </button>
@@ -201,14 +201,14 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                     </div>
                                     <div className=" rounded-md flex justify-center items-center w-fit h-fit transform active:scale-125 transition-all duration-300">
                                         {isSelectedGroup(group.id) ? (
-                                            <button className="px-4 py-2 rounded-lg text-base bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
+                                            <button className="px-3 py-2 rounded-lg text-base bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
                                                 <Envelope size={20} />
                                                 <span>Sent</span>
                                             </button>
                                         ) : (
                                             <button
                                                 onClick={() => handleForwardMessageToGroup(group.id)}
-                                                className="px-4 py-2 rounded-lg text-base bg-[#0084ff] text-white font-medium"
+                                                className="px-3 py-2 rounded-lg text-base bg-[#0084ff] text-white font-medium"
                                             >
                                                 Send
                                             </button>
@@ -238,14 +238,14 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                         )}`}</span>
                                     </div>
                                     {isSelectedFriend(friend.id) ? (
-                                        <button className="px-4 py-2 rounded-lg text-base bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
+                                        <button className="px-3 py-2 rounded-lg text-base bg-[#727785] text-white font-medium flex justify-center items-center gap-1 opacity-50 pointer-events-none">
                                             <Envelope size={20} />
                                             <span>Sent</span>
                                         </button>
                                     ) : (
                                         <button
                                             onClick={() => handleForwardMessageToFriend(friend)}
-                                            className="px-4 py-2 rounded-lg text-base bg-[#0084ff] text-white font-medium"
+                                            className="px-3 py-2 rounded-lg text-base bg-[#0084ff] text-white font-medium"
                                         >
                                             Send
                                         </button>

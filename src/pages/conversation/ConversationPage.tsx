@@ -16,13 +16,14 @@ import { ConversationSidebar } from '../../components/sidebars/ConversationSideB
 import { SocketContext } from '../../contex/SocketContext';
 import { MessageEventPayload } from '../../utils/types';
 import { addMessage, deleteMessage, editMessage, reactMessage } from '../../store/messageSlice';
+import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 
 
 export const ConversationPage = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { id } = useParams();
     const socket = useContext(SocketContext);
-
+    const { isMobile } = useCurrentViewportView();
     useEffect(() => {
         socket.on('onMessage', (payload: MessageEventPayload) => {
             const { conversation } = payload;
@@ -91,9 +92,9 @@ export const ConversationPage = () => {
 
     return (
         <div className="bg-dark-light h-full w-full flex">
-            <ConversationSidebar />
-            {!id && <ConversationPanel />}
-            <Outlet />
+            {((!id && isMobile)|| !isMobile) && <ConversationSidebar />}
+            {(!id &&!isMobile) && <ConversationPanel />}
+            {((id && isMobile) || !isMobile) && <Outlet />}
         </div>
     );
 };

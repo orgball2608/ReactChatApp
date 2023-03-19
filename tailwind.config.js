@@ -32,6 +32,10 @@ module.exports = {
                 42: '10.5rem',
                 18: '4.5rem',
                 26: '6.5rem',
+                76: '19rem',
+                22: '5.5rem',
+            }, height: {
+                22: '5.5rem',
             },
             padding: {
                 38: '9.5rem',
@@ -49,7 +53,7 @@ module.exports = {
                     to: { transform: 'translateX(0)' },
                 },
                 'side-in': {
-                    from: { transform: 'translateX(50%)' },
+                    from: { transform: 'translateX(-100%)' },
                     to: { transform: 'translateX(0)' },
                 },
             },

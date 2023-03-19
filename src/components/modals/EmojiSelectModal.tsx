@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { ChangeEmojiIcon, ChangeGroupEmojiIcon } from '../../services/api';
 import { RootState } from '../../store';
 import { SpinLoading } from '../commons/SpinLoading';
+import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 
 const Picker = lazy(() => import('@emoji-mart/react'));
 
@@ -15,6 +16,7 @@ type Props = {
 export const EmojiSelectModal: FC<Props> = ({ setShowModal }) => {
     const { id } = useParams<{ id: string }>();
     const conversationType = useSelector((state: RootState) => state.type.type);
+    const { isMobile } = useCurrentViewportView();
     const onEmojiClick = (emoji: string) => {
         if (conversationType === 'group') {
             ChangeGroupEmojiIcon({
@@ -39,7 +41,7 @@ export const EmojiSelectModal: FC<Props> = ({ setShowModal }) => {
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#383636] hover:bg-[#494747] cursor-pointer rounded-full" />
                     </div>
-                    <span className="text-2xl">Select Emoji</span>
+                    <span className={`${isMobile ?'text-xl':'text-2xl'}`}>Select Emoji</span>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>

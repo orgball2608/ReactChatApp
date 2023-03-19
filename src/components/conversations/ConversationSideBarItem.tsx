@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import moment from 'moment';
 import { getFullName, getRecipient, lastMessageContent } from '../../utils/helpers';
+import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 
 type Props = {
     conversation: Conversation;
@@ -15,14 +16,12 @@ type Props = {
 export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
     const { user } = useContext(AuthContext);
     const { id } = useParams();
+    const navigate = useNavigate();
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
-
+    const { isMobile,isTablet } = useCurrentViewportView();
     const recipientUser = getRecipient(conversation, user!);
     const { profile } = recipientUser;
-
     const isOnline = !!onlineFriends.find((friend) => friend.id === recipientUser.id);
-
-    const navigate = useNavigate();
     return (
         <div
             className={'mt-42 items-center w-full px-1'}
@@ -32,11 +31,11 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
             key={conversation.id}
         >
             <div
-                className={`flex justify-start gap-2 py-2 px-4 rounded-lg relative  ${
+                className={`flex justify-start gap-2 py-2 px-4 lg:rounded-lg rounded-md  relative  ${
                     conversation.id === parseInt(id!) ? '!bg-[#29323d]' : 'hover:bg-[#28282b] '
                 }`}
             >
-                <div className="h-12 w-12 rounded-full relative">
+                <div className="h-12 w-12 flex-none rounded-full relative">
                     <LazyLoadImage
                         src={profile?.avatar || defaultAvatar}
                         alt={'profile'}
@@ -48,8 +47,8 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                 </div>
 
                 <div className="flex flex-col flex-nowrap flex-1 break-all justify-center">
-                    <p className="text-white font-medium">{getFullName(user, conversation)}</p>
-                    <p className="text-sm text-gray-400 max-w-[240px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">{lastMessageContent(conversation)} • {moment(conversation?.lastMessageSentAt).format('H:mm')}</p>
+                    <p className={`text-white font-medium max-w-[140px] lg:max-w-[260px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[260px]': ''}`}>{(isTablet) ? getFullName(user, conversation).split(' ').slice(1, -1).join(' ') : getFullName(user, conversation)}</p>
+                    <p className={`max-w-[100px] lg:max-w-[180px] text-sm text-gray-400 flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[180px]': ''}`}>{lastMessageContent(conversation)}{' • ' + moment(conversation?.lastMessageSentAt).format('H:mm')}</p>
                 </div>
                 {
                     conversation && conversation.lastMessageSent.messageStatuses?.find((status: MessageStatus) => status.user.id === user?.id) ?<></>: <div className="absolute top-1/2 -translate-y-1/2 right-4 w-[10px] h-[10px] bg-[#0d90f3] rounded-full"></div>

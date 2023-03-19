@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { RootState } from '../../../store';
 import { Conversation, Group } from '../../../utils/types';
 import { ChangeNickNameItem } from './ChangeNickNameItem';
+import { useCurrentViewportView } from '../../../hooks/useCurrentViewportView';
 
 type Props = {
     setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -14,10 +15,11 @@ export const ChangeNickNameModal: FC<Props> = ({ setShowModal }) => {
     const { id } = useParams<{ id: string }>();
     const conversationType = useSelector((state: RootState) => state.type.type);
     const conversations = useSelector((state: RootState) => state.conversation.conversations);
-    const selectedConversation = conversations.find((conversation: Conversation) => conversation.id === parseInt(id!));
     const groups = useSelector((state: RootState) => state.group.groups);
-    const selectedGroup = groups.find((group: Group) => group.id === parseInt(id!));
     const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
+    const { isMobile } = useCurrentViewportView();
+    const selectedGroup = groups.find((group: Group) => group.id === parseInt(id!));
+    const selectedConversation = conversations.find((conversation: Conversation) => conversation.id === parseInt(id!));
 
     const getMember = () => {
         if (conversationType === 'group') {
@@ -40,7 +42,7 @@ export const ChangeNickNameModal: FC<Props> = ({ setShowModal }) => {
             className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in"
             tabIndex={-1}
         >
-            <div className="bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-fit min-w-screen flex flex-col gap-2">
+            <div className={`bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-fit min-w-screen flex flex-col gap-2 ${isMobile ?'mx-3':''}`}>
                 <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
@@ -50,7 +52,7 @@ export const ChangeNickNameModal: FC<Props> = ({ setShowModal }) => {
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>
                 </div>
-                <div className="flex flex-col justify-start items-start h-full px-3 pb-2">
+                <div className={`flex flex-col justify-start items-start h-full pb-2 ${isMobile ?'px-1':'px-3'}`}>
                     {getMember()?.map((member) => (
                         <ChangeNickNameItem
                             member={member}

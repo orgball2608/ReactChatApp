@@ -1,9 +1,9 @@
 import { Check } from 'akar-icons';
 import React, { Dispatch, FC, useEffect, useState } from 'react';
 import { User } from '../../utils/types';
+import { getAvatar } from '../../utils/helpers';
 
 type Props = {
-    getAvatar: (friend: User) => string;
     friend: User;
     setSelectedMembers: Dispatch<React.SetStateAction<User[]>>;
     memberChanged: User | undefined;
@@ -11,7 +11,6 @@ type Props = {
 };
 
 export const MemberSearchItem: FC<Props> = ({
-    getAvatar,
     friend,
     setSelectedMembers,
     memberChanged,

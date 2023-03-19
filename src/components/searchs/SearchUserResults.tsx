@@ -5,14 +5,14 @@ import { SearchUserResultItem } from './SearchUserResultItem';
 
 type Props = {
     userResults: User[];
-    isSeaching: boolean;
+    isSearching: boolean;
 };
 
-export const SearchUserResults: FC<Props> = ({ userResults, isSeaching }) => {
+export const SearchUserResults: FC<Props> = ({ userResults, isSearching }) => {
     return (
         <div className="flex flex-col w-full h-full">
             {userResults.length === 0 ? (
-                isSeaching ? (
+                isSearching ? (
                     <Loader />
                 ) : (
                     <div className="flex justify-center items-center h-12">

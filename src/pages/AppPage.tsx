@@ -1,5 +1,5 @@
 import { UserSideBar } from '../components/sidebars/UserSideBar';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'tippy.js/dist/tippy.css';
@@ -14,18 +14,21 @@ import { ImagePreviewModalContext } from '../contex/ImagePreviewModalContext';
 import { ImagePreviewModal } from '../components/modals/ImagePreviewModal';
 import { AttachmentType } from '../utils/types';
 import { fetchGroupsThunk } from '../store/groupSlice';
+import { useCurrentViewportView } from '../hooks/useCurrentViewportView';
 
 export const AppPage = () => {
     const dispatch = useDispatch<AppDispatch>();
+    const {id} = useParams<{id:string}>()
     const socket = useContext(SocketContext);
     const { user } = useContext(AuthContext);
     const [showModal, setShowModal] = useState(false);
     const [attachment, setAttachment] = useState<AttachmentType | undefined>(undefined);
+    const { isMobile } = useCurrentViewportView();
 
     useEffect(() => {
         dispatch(fetchConversationsThunk());
         dispatch(fetchGroupsThunk());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         socket.emit('getOnlineFriends', { user });
@@ -43,12 +46,12 @@ export const AppPage = () => {
             dispatch(updateOfflineFriends([]));
             dispatch(updateOnlineFriends([]));
         };
-    }, []);
+    }, [dispatch]);
     return (
         <ImagePreviewModalContext.Provider value={{ setShowModal, showModal, attachment, setAttachment }}>
             {showModal && <ImagePreviewModal />}
-            <div className="h-full flex flex-nowrap overflow-hidden">
-                <UserSideBar />
+            <div className="h-full flex flex-nowrap overflow-hidden relative">
+                {((isMobile && !id) || !isMobile) && <UserSideBar /> }
                 <Outlet />
                 <ToastContainer />
             </div>

@@ -1,8 +1,8 @@
 import { Cross } from 'akar-icons';
 import React, { Dispatch, FC } from 'react';
 import { MdLibraryAdd } from 'react-icons/md';
-import { RiFileList2Fill } from 'react-icons/ri';
 import { getFileSize } from '../../utils/helpers';
+import FileIcon from '../icons/FileIcon';
 
 type ImageListProps = {
     fileList: File[];
@@ -22,8 +22,8 @@ export const FileList: FC<ImageListProps> = ({ fileList, setFileList, handleGetF
                     <div key={index} className="flex items-center gap-2">
                         <div className="w-40 h-12 bg-[#2b2a2a] rounded-xl relative flex items-center">
                             <div className=" flex items-center px-2 gap-2">
-                                <div className="p-[6px] rounded-full bg-[#585b60]">
-                                    <RiFileList2Fill size={18} className="text-[#393a3b]" />
+                                <div className="p-1 rounded-full bg-[#585b60]">
+                                    <FileIcon color="#050505" />
                                 </div>
                                 <div className="flex flex-col justify-center overflow-hidden w-24">
                                     <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">{file.name}</span>

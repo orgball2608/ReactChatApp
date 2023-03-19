@@ -105,11 +105,11 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }
         const lastMessage = messages[0];
         if(!lastMessage) return;
         if(selectedType==='private'){
-            UpdateSeenMessage({ id: parseInt(id!), messageId: lastMessage.id }).then (r =>console.log(r.data))
+            UpdateSeenMessage({ id: parseInt(id!), messageId: lastMessage.id });
             lastSeenMessages.push(getLastSeenMessage(messages,selectedConversation?.creator!)!)
             lastSeenMessages.push(getLastSeenMessage(messages,selectedConversation?.recipient!)!)
         } else {
-            UpdateSeenGroupMessage({ id: parseInt(id!), messageId: lastMessage.id }).then (r =>console.log(r.data))
+            UpdateSeenGroupMessage({ id: parseInt(id!), messageId: lastMessage.id });
             selectedGroup && selectedGroup.users.map((user)=>{
                 lastSeenMessages.push(getLastSeenMessage(messages,user)!)
             });
@@ -208,7 +208,6 @@ export const MessageContainer: FC<Props> = ({ setReplyInfo, inputSectionOffset }
                         display: 'flex',
                         flexDirection: 'column-reverse',
                         padding: '0.5rem  1.5rem ',
-                        marginTop: '2rem',
                         gap: '0.25rem',
                         outline: 'none',
                     }}

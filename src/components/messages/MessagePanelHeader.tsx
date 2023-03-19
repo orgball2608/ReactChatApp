@@ -11,6 +11,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { GroupMemberViewModal } from '../modals/members/GroupMemberViewModal';
 import { GroupDefaultAvatar } from '../commons/GroupDefaultAvatar';
+import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
+import { FaChevronLeft } from 'react-icons/fa';
 
 export const MessagePanelHeader = () => {
     const { id } = useParams();
@@ -25,6 +27,7 @@ export const MessagePanelHeader = () => {
     const onlineFriends = useSelector((state: RootState) => state.friends.onlineFriends);
     const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
     const selectedGroup = groups.find((group) => group.id === parseInt(id!));
+    const { isMobile } = useCurrentViewportView();
     
     const recipient = getRecipient(conversation!, user!);
     const isOnline = !!onlineFriends.find((friend) => friend.id === recipient?.id);
@@ -67,6 +70,14 @@ export const MessagePanelHeader = () => {
         dispatch(toggleSidebar());
     };
 
+    const handleRedirectHome= ()=>{
+        if (selectedType === 'private') {
+            navigate('../../conversations')
+        } else {
+            navigate('../../groups')
+        }
+    }
+
     const handleDirectProfile = () => {
         if (selectedType === 'private') {
             navigate(`../../friend/profile/${recipient?.id}`);
@@ -79,39 +90,54 @@ export const MessagePanelHeader = () => {
         <>
             {showGroupMember && <GroupMemberViewModal setShowModal={setShowGroupMember} group={selectedGroup} />}
             <header
-                className="border-b-[1px] border-solid border-border-conversations flex justify-between items-center px-6 box-border
+                className="border-b-[1px] border-solid border-border-conversations flex gap-2 items-center pl-2 pr-6 box-border
     absolute top-0 left-0 w-full h-14 z-10"
             >
-                <div
-                    onClick={handleDirectProfile}
-                    className="flex justify-center items-center gap-2 px-2 py-1 rounded-md cursor-pointer hover:bg-[#2d3133] "
-                >
-                    <div className="w-10 h-10 rounded-full relative">
-                        {getAvatar()}
-                        {isOnline && (
-                            <div className="w-2 h-2 p-1 rounded-full absolute bottom-0 right-1 bg-green-500"></div>
-                        )}
+                {(isMobile) && (
+                    <div
+                        onClick={handleRedirectHome}
+                        className="rounded-full p-2 hover:bg-[#2d3133] cursor-pointer">
+                        <FaChevronLeft size={20} className="text-primary"/>
                     </div>
-                    <div className="flex flex-col justify-center">
-                        <span className="text-base font-medium">
+                )}
+                <div className="flex justify-between items-center w-full">
+                    <div
+                        onClick={handleDirectProfile}
+                        className="flex justify-center items-center gap-2 px-2 py-1 rounded-md cursor-pointer hover:bg-[#2d3133] "
+                    >
+                        <div
+                            className="flex items-center gap-3">
+                            <div
+                                className="w-10 h-10 rounded-full relative">
+                                {getAvatar()}
+                                {isOnline && (
+                                    <div className="w-2 h-2 p-1 rounded-full absolute bottom-0 right-1 bg-green-500"></div>
+                                )}
+                            </div>
+
+                        </div>
+                        <div className="flex flex-col justify-center">
+                        <span className="text-base font-medium max-w-[180px] lg:max-w-[400px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
                             {selectedType === 'private' ? getFullName(user, conversation) : selectedGroup?.title}
                         </span>
-                        {isOnline && (
-                            <span className="text-sm text-gray-400">
+                            {isOnline && (
+                                <span className="text-sm text-gray-400">
                                 {selectedType === 'private' ? 'Online' : 'Group'}
                             </span>
-                        )}
+                            )}
+                        </div>
+                    </div>
+
+                    <div
+                        onClick={handleChangeSideState}
+                        className={`w-fit h-fit p-1 hover:bg-[#2d3133] rounded-full cursor-pointer`}
+                    >
+                        <div className={`rounded-full p-[1px] ${showSidebar ? 'bg-primary' : ''}`}>
+                            <FiMoreHorizontal size={20} className={` ${showSidebar ? 'text-black' : 'text-primary'}`} />
+                        </div>
                     </div>
                 </div>
 
-                <div
-                    onClick={handleChangeSideState}
-                    className={`w-fit h-fit p-2 hover:bg-[#2d3133] rounded-full cursor-pointer`}
-                >
-                    <div className={`rounded-full p-[1px] ${showSidebar ? 'bg-primary' : ''}`}>
-                        <FiMoreHorizontal size={16} className={` ${showSidebar ? 'text-black' : 'text-white'}`} />
-                    </div>
-                </div>
             </header>
         </>
     );

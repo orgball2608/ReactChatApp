@@ -2,10 +2,10 @@ import { Check } from 'akar-icons';
 import React, { Dispatch, FC, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { FriendType, User } from '../../utils/types';
+import { getAvatar } from '../../utils/helpers';
 
 type Props = {
     getRecipient: (friend: FriendType, user: User | undefined) => User | null;
-    getAvatar: (friend: User) => string;
     friend: FriendType;
     setSelectedMembers: Dispatch<React.SetStateAction<User[]>>;
     memberChanged: User | undefined;
@@ -14,7 +14,6 @@ type Props = {
 
 export const MemberItemSelect: FC<Props> = ({
     getRecipient,
-    getAvatar,
     friend,
     setSelectedMembers,
     memberChanged,

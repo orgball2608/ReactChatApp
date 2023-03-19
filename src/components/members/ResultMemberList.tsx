@@ -10,7 +10,6 @@ import { MemberSearchItem } from './MemberSearchItem';
 
 type Props = {
     getRecipient: (friend: FriendType, user: User | undefined) => User | null;
-    getAvatar: (friend: User) => string;
     setSelectedMembers: Dispatch<React.SetStateAction<User[]>>;
     memberChanged: User | undefined;
     selectedMembers: User[];
@@ -24,7 +23,6 @@ export const ResultMemberList: FC<Props> = ({
     selectedMembers,
     setSelectedMembers,
     getRecipient,
-    getAvatar,
     memberChanged,
     searchValue,
     userResults,
@@ -73,7 +71,7 @@ export const ResultMemberList: FC<Props> = ({
                     <span >Suggest</span>
                     {filterFriend && filterFriend.length === 0 ? (
                         <div className="flex justify-center items-center w-full">
-                            <span className="text-base text-gray-400">No friends available</span>
+                            <span className="text-sm text-gray-400">No friends available</span>
                         </div>
                     ) : (
                         <div className="flex flex-col items-start w-full gap-1">
@@ -82,7 +80,6 @@ export const ResultMemberList: FC<Props> = ({
                                     <MemberItemSelect
                                         key={friend.id}
                                         friend={friend}
-                                        getAvatar={getAvatar}
                                         getRecipient={getRecipient}
                                         setSelectedMembers={setSelectedMembers}
                                         memberChanged={memberChanged}
@@ -99,7 +96,7 @@ export const ResultMemberList: FC<Props> = ({
                     <div className="flex flex-col items-start w-full gap-1">
                         {filterUserResults && filterUserResults.length === 0 ? (
                             <div className="flex justify-center items-center w-full">
-                                <span className="text-base text-gray-400">No friends available</span>
+                                <span className="text-sm text-gray-400">No friends available</span>
                             </div>
                         ) : (
                             filterUserResults.map((friend) => {
@@ -107,7 +104,6 @@ export const ResultMemberList: FC<Props> = ({
                                     <MemberSearchItem
                                         key={friend.id}
                                         friend={friend}
-                                        getAvatar={getAvatar}
                                         setSelectedMembers={setSelectedMembers}
                                         memberChanged={memberChanged}
                                         selectedMembers={selectedMembers}

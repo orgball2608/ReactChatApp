@@ -50,12 +50,16 @@ const StickerPicker: FC<StickerPickerOpened> = ({ setVisible }) => {
             CreateGroupStickerMessageAPI({
                 sticker,
                 id: parseInt(id!),
-            });
+            }).catch(()=>{
+                setError(true)
+            })
         } else {
             CreateStickerMessageAPI({
                 sticker,
                 id: parseInt(id!),
-            });
+            }).catch(()=>{
+                setError(true)
+            })
         }
         setVisible(false);
     };
@@ -78,6 +82,7 @@ const StickerPicker: FC<StickerPickerOpened> = ({ setVisible }) => {
                                     {recentStickers.map((url) => (
                                         <SpriteRenderer
                                             size={60}
+                                            key={url}
                                             onClick={() => {
                                                 addRecentSticker(url);
                                                 handleCreateStickerMessage(url);
@@ -126,6 +131,7 @@ const StickerPicker: FC<StickerPickerOpened> = ({ setVisible }) => {
                         )}
                         {data?.map((collection) => (
                             <img
+                                key={collection.id}
                                 onClick={() => document.querySelector(`#sticker-${collection.id}`)?.scrollIntoView()}
                                 className="h-9 w-9 cursor-pointer object-cover"
                                 src={collection.icon}

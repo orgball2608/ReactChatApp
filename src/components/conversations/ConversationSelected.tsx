@@ -10,16 +10,12 @@ export const ConversationSelected = () => {
     const selectedType = useSelector((state: RootState) => state.type.type);
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const firstConversation = useSelector((state: RootState) => state.conversation.conversations)[0];
-    const firstGroup = useSelector((state: RootState) => state.group.groups)[0];
     const handleChangeType = (chat: ConversationTypeData) => {
         dispatch(changeType(chat.type));
         if (chat.type === 'group') {
-            if (firstGroup) navigate(`/groups/${firstGroup.id}`);
-            else navigate('/groups');
+            navigate('/groups');
         } else {
-            if (firstConversation) navigate(`/conversations/${firstConversation.id}`);
-            else navigate('/conversations');
+           navigate('/conversations');
         }
     };
 

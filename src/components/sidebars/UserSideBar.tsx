@@ -1,5 +1,5 @@
 import { BiLogOutCircle } from 'react-icons/bi';
-import { SelectedPageTypes } from '../../utils/constants';
+import { defaultAvatar, SelectedPageTypes } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
@@ -9,9 +9,9 @@ import { getUserSideBarIcon } from '../../utils/helpers';
 import { FC, useContext } from 'react';
 import { AuthContext } from '../../contex/AuthContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { defaultAvatar } from '../../utils/constants';
 import { logoutUser } from '../../services/api';
 import { FriendRequestBadge } from '../friends/FriendRequestBadge';
+
 export const UserSideBar = () => {
     const navigate = useNavigate();
     const selectedPage = useSelector((state: RootState) => state.selectedPage.page);
@@ -40,7 +40,7 @@ export const UserSideBar = () => {
     };
 
     return (
-        <div className="w-16 flex-none h-full flex flex-col items-center justify-between bg-sidebar-background border-r-[1px] border-solid border-border-conversations">
+        <div className="w-16 flex-none h-full flex flex-col items-center justify-between border-r-[1px] border-solid border-border-conversations">
             <div className=" w-full flex justify-center items-center flex-col box-border mt-3">
                 <LazyLoadImage
                     src={getAvatar()}

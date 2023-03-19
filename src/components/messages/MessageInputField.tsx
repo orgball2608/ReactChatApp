@@ -365,9 +365,9 @@ export const MessageInputField: FC<Props> = ({
                 </div>
             )}
 
-            <div className="flex justify-center items-center mt-2 gap-1 px-4">
+            <div className="flex justify-center items-center mt-2 px-4">
                 {fileList.length === 0 && (
-                    <>
+                    <div className="flex justify-center items-center gap-0">
                         <label htmlFor="formId" className="flex justify-center items-center animate-fade-in">
                             <div className="p-1 hover:bg-[#1c1e21] rounded-full cursor-pointer text-primary">
                                 <ImageIcon className="w-7 h-7" />
@@ -387,12 +387,12 @@ export const MessageInputField: FC<Props> = ({
                                 <GifInput />
                             </div>
                         )}
-                    </>
+                    </div>
                 )}
 
                 <div
                     onKeyDown={handleSubmit}
-                    className={`w-full box-border bg-[#3e3b3b] pl-3 relative flex flex-col items-center gap-1 ${
+                    className={`w-full box-border bg-[#3e3b3b] pl-3 relative flex flex-col items-center gap-1 mr-1 ${
                         fileList.length > 0 ? 'rounded-xl ' : 'rounded-full '
                     }`}
                 >
@@ -465,7 +465,7 @@ export const MessageInputField: FC<Props> = ({
                         onClick={() => onSendEmojiMessage(getEmoji())}
                         className=" flex-none rounded-full p-1 hover:bg-[#1c1e21] cursor-pointer flex justify-center items-center"
                     >
-                        <button className="text-xl w-6 h-6">{getEmoji()}</button>
+                        <button className="text-lg w-6 h-6 rounded-full">{getEmoji()}</button>
                     </div>
                 )}
             </div>

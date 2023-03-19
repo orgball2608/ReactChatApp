@@ -20,7 +20,7 @@ export const FileSideBarHeader: FC<Props> = ({
                     setShowMediaFileSideBar(true);
                     setShowFileSideBar(false);
                 }}
-                className={`basis-1/2 text-center py-2 rounded-lg  ${
+                className={`basis-1/2 text-center py-2 rounded-lg font-medium ${
                     showMediaFileSideBar && 'border-b-[3px] border-[#0099ff] text-[#0099ff] rounded-b-none '
                 } hover:bg-[#1c1e21] `}
             >
@@ -31,7 +31,7 @@ export const FileSideBarHeader: FC<Props> = ({
                     setShowFileSideBar(true);
                     setShowMediaFileSideBar(false);
                 }}
-                className={`basis-1/2 text-center py-2 rounded-lg  ${
+                className={`basis-1/2 text-center py-2 rounded-lg font-medium ${
                     showFileSideBar && 'border-b-[3px] border-[#0099ff] text-[#0099ff] rounded-b-none'
                 } hover:bg-[#1c1e21]  `}
             >

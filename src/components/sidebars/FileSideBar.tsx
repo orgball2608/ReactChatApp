@@ -8,9 +8,10 @@ import { RootState } from '../../store';
 import { CDN_PREVIEW_URL, CDN_URL } from '../../utils/constants';
 import { getFileSize } from '../../utils/helpers';
 import FileIcon from '../icons/FileIcon';
-import { FileSideBarHeader } from './FileSideBarHeader';
+import { FileSideBarHeader } from '../conversation-options/FileSideBarHeader';
 import { GetConversationAttachments, GetGroupAttachments } from '../../services/api';
 import { AttachmentType } from '../../utils/types';
+import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 
 type Props = {
     setShowMediaFileSideBar: Dispatch<React.SetStateAction<boolean>>;
@@ -30,6 +31,8 @@ export const FileSideBar: FC<Props> =React.memo( ({
     const { setShowModal, setAttachment } = useContext(ImagePreviewModalContext);
     const conversationType = useSelector((state: RootState) => state.type.type);
     const [conversationAttachments,setConversationAttachments] = useState<any[]>([])
+    const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
+    const { isMobile,isTablet } = useCurrentViewportView();
 
     useEffect(() => {
         if(conversationType === 'private'){
@@ -63,17 +66,10 @@ export const FileSideBar: FC<Props> =React.memo( ({
         }
     });
 
-    const getShortName = (name: string) => {
-        if (name && name.length > 15) {
-            return name.slice(0, 15) + '...';
-        } else {
-            return name;
-        }
-    };
-
     return (
-        <aside className="w-72 h-full flex-none bg-[#141414] px-2 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto items-center animate-side-out">
-            <div className="h-14 flex flex-none gap-4 w-full justify-start items-center">
+        <aside className={`lg:w-72 w-76 h-full flex-none bg-[#141414] px-2 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto items-center lg:animate-side-out animate-side-in shrink-0 top-0 left-0 lg:sticky lg:translate-x-0 lg:bg-transparent lg:shadow-none
+                    -translate-x-full fixed h-screen shadow-md transition duration-300 bg-dark-lighten z-30 ${showSidebar && "translate-x-0"}`}>
+            <div className={`h-14 flex flex-none gap-4 w-full justify-start items-center ${(isMobile||isTablet) && 'flex-row-reverse justify-between'}`}>
                 <div
                     onClick={() => {
                         if (showFileSideBar) setShowFileSideBar(false);
@@ -114,10 +110,10 @@ export const FileSideBar: FC<Props> =React.memo( ({
                                         <FileIcon color="#ffffff" />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <span className="text-base text-white">
-                                            {getShortName(attachment.name) || 'No name'}
+                                        <span className="text-base font-middle text-white max-w-[180px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
+                                            {attachment.name || 'No name'}
                                         </span>
-                                        <span className="text-xs  text-[#b3b3b3]">
+                                        <span className="text-xs text-gray-400">
                                             {getFileSize(attachment.size)}
                                         </span>
                                     </div>
@@ -133,7 +129,7 @@ export const FileSideBar: FC<Props> =React.memo( ({
                             <span className="text-base text-[#b3b3b3]">No media, links, or docs</span>
                         </div>
                     ) : (
-                        <div className=" h-fit flex flex-wrap gap-1 cursor-pointer ">
+                        <div className=" h-fit flex flex-wrap lg:gap-1 gap-[6px] cursor-pointer ">
                             {attachments.map((attachment) => (
                                 <div
                                     key={attachment.key}
@@ -147,7 +143,7 @@ export const FileSideBar: FC<Props> =React.memo( ({
                                         src={`${CDN_PREVIEW_URL + attachment.key}`}
                                         alt="media"
                                         effect="blur"
-                                        className="w-20 h-20 object-cover"
+                                        className="lg:w-20 lg:h-20 w-22 h-22 object-cover"
                                     />
                                 </div>
                             ))}
