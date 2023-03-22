@@ -39,6 +39,10 @@ module.exports = {
             },
             padding: {
                 38: '9.5rem',
+                26: '6.5rem',
+            },
+            borderRadius: {
+                'xxl': '1.125rem',
             },
             fontWeight: {
                 middle: '450',

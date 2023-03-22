@@ -59,11 +59,11 @@ function App() {
                         <Route path="/groups/:id" element={<GroupChannelPage />} />
                     </Route>
 
-                    <Route path="/setting" element={<SettingPage />}></Route>
-                    <Route path="/archire" element={<SettingPage />}></Route>
-                    <Route path="/async" element={<SettingPage />}></Route>
-                    <Route path="/friend" element={<FriendPageLayout />}>
-                        <Route path="/friend/profile/:id" element={<ProfilePage />} />
+                    <Route path="/settings" element={<SettingPage />}></Route>
+                    <Route path="/archives" element={<SettingPage />}></Route>
+                    <Route path="/calls" element={<SettingPage />}></Route>
+                    <Route path="/friends" element={<FriendPageLayout />}>
+                        <Route path="/friends/profile/:id" element={<ProfilePage />} />
                     </Route>
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />

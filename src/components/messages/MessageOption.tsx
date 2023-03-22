@@ -1,4 +1,4 @@
-import { FiMoreVertical } from 'react-icons/fi';
+import { MdOutlineMoreVert } from 'react-icons/md';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { GroupMessageType, MessageType } from '../../utils/types';
 import Tippy from '@tippyjs/react';
@@ -26,12 +26,12 @@ export const MessageOption: FC<Props> = ({ message, setIsEditing }) => {
         >
             <div
                 onScroll={() => handleScroll()}
-                className={`w-fit h-fit px-1 py-1 hover:bg-[#8f8888] hover:rounded-full cursor-pointer flex justify-center items-center ${
+                className={`w-fit h-fit p-[2px] hover:bg-dark-lighten hover:rounded-full cursor-pointer flex justify-center items-center ${
                     visible ? 'visible' : ''
                 }`}
                 onClick={() => setVisible((prev) => !prev)}
             >
-                <FiMoreVertical size={18} className="text-white" />
+                <MdOutlineMoreVert size={20} className="text-gray-300 hover:opacity-100"/>
             </div>
         </Tippy>
     );

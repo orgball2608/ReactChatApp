@@ -201,7 +201,7 @@ export type EditGroupTitleParams = {
     title: string | undefined;
 };
 
-export type SelectedPageType = 'setting' | 'async' | 'archire' | 'friend' | 'conversations';
+export type SelectedPageType = 'settings' | 'archives' | 'friends' | 'conversations' | 'calls';
 
 export type SelectedPageTypeData = {
     page: SelectedPageType;

@@ -32,10 +32,10 @@ export const FriendPageHeader: FC<Props> = ({ selectedItem, setSelectedItem }) =
                 </div>
                 <div
                     onClick={() => setShowModal(true)}
-                    className="py-[6px] px-4 flex gap-2 mr-2 justify-center items-center bg-[#0162bd] hover:bg-blue-600 text-white rounded-lg cursor-pointer  ease-in-out transform active:scale-110 transition-all duration-300"
+                    className="py-2 pl-2 pr-4 flex gap-[6px] mr-2 justify-center items-center bg-[#0162bd] hover:bg-blue-600 text-white rounded-md cursor-pointer  ease-in-out transform active:scale-110 transition-all duration-300"
                 >
                     <BsFillPersonPlusFill size={20} />
-                    <span className="text-white text-base font-medium">Add</span>
+                    <span className="text-white text-sm font-medium">Add</span>
                 </div>
             </aside>
         </>

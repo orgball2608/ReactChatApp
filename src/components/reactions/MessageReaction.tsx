@@ -1,8 +1,8 @@
-import { RxFace } from 'react-icons/rx';
 import { FC, useState } from 'react';
 import { ReactionPopup } from './ReactionPopup';
 import Tippy from '@tippyjs/react';
 import { GroupMessageType, MessageType } from '../../utils/types';
+import { MdOutlineTagFaces } from 'react-icons/md';
 
 type Props = {
     message: MessageType | GroupMessageType;
@@ -22,11 +22,11 @@ export const MessageReaction: FC<Props> = ({ message }) => {
         >
             <div
                 onClick={() => setVisible(!visible)}
-                className={`w-fit h-fit p-1 hover:bg-[#8f8888] hover:rounded-full cursor-pointer  ${
+                className={`w-fit h-fit p-1 hover:bg-dark-lighten hover:rounded-full cursor-pointer  ${
                     visible ? 'visible' : ''
                 }`}
             >
-                <RxFace size={18} className="text-white hover:opacity-100 font-bold" />
+                <MdOutlineTagFaces size={20} className="text-gray-300 hover:opacity-100" />
             </div>
         </Tippy>
     );

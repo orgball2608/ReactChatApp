@@ -99,9 +99,9 @@ export const GroupSettingSideBar = () => {
                         )}
                         <div className="flex flex-col items-center text-center break-all ">
                             <p className="text-center text-xl font-medium break-all">{selectedGroup?.title}</p>
-                            <div className="flex text-sm flex-grow max-w-[240px] overflow-hidden text-ellipsis whitespace-nowrap">
-                                <p className="text-gray-400">{selectedGroup?.users.length + ' Member • '}</p>
-                                <p className={"text-green-500"}>{onlineUsers?.length + ' Online'}</p>
+                            <div className="flex text-sm font-middle flex-grow max-w-[240px] overflow-hidden text-ellipsis whitespace-nowrap">
+                                <p className="text-gray-400">{selectedGroup?.users.length + ' Member '}</p>
+                                <p className={"text-green-500"}>{'  • ' + onlineUsers?.length + ' Online'}</p>
                             </div>
                         </div>
                     </div>

@@ -31,7 +31,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
             key={conversation.id}
         >
             <div
-                className={`flex justify-start gap-2 py-2 px-4 lg:rounded-lg rounded-md  relative  ${
+                className={`flex justify-start gap-3 py-2 px-3 lg:rounded-lg rounded-md  relative  ${
                     conversation.id === parseInt(id!) ? '!bg-[#29323d]' : 'hover:bg-[#28282b] '
                 }`}
             >

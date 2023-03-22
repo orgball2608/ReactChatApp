@@ -59,7 +59,7 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                             onClick={() => setShowAddMemberModal(true)}
                             className="flex justify-start gap-2 items-center rounded-md py-1 hover:bg-[#1c1e21] cursor-pointer"
                         >
-                            <div className="p-2 rounded-full text-white bg-[#373434] text-primary">
+                            <div className="p-[6px] rounded-full text-white bg-[#373434] text-primary">
                                 <GoPlus size={20} />
                             </div>
                             <span className="text-base text-primary font-medium">Add Member</span>

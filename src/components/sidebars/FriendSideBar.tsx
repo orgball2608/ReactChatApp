@@ -29,7 +29,7 @@ export const FriendSideBar: FC<Props> = ({ selectedItem }) => {
     const selectedPath = location.pathname.split('/')[1];
 
     useEffect(() => {
-        if (selectedPath === 'friend') dispatch(changePage('friend'));
+        if (selectedPath === 'friends') dispatch(changePage('friends'));
     }, [selectedPath,dispatch]);
 
     useEffect(() => {

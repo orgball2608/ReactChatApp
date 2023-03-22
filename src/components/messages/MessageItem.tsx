@@ -65,7 +65,7 @@ export const MessageItem: FC<Props> = ({
                                 id={'message-' + m.id}
                                 title={formatDate(m.createdAt)}
                                 className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
-                                    isAuthor ? 'flex-row-reverse' : 'pl-14'
+                                    isAuthor ? 'flex-row-reverse' : 'pl-10'
                                 } ${m.reacts?.length > 0 ? 'mb-2' : ''}`}
                             >
                                 <DeletedMessage />
@@ -80,7 +80,7 @@ export const MessageItem: FC<Props> = ({
                         key={m.id}
                     >
                         {isEditing && m.id === editMessage?.id ? (
-                            <div className="p-0 pl-14 text-base flex justify-start items-center w-full mt-2">
+                            <div className="p-0 pl-10 text-base flex justify-start items-center w-full mt-2">
                                 <EditMessageContainer
                                     onEditMessageChange={onEditMessageChange}
                                     editMessage={editMessage}
@@ -89,7 +89,7 @@ export const MessageItem: FC<Props> = ({
                             </div>
                         ) : (
                             <div
-                                className={`p-0 pl-14 text-base flex flex-col  w-fit ${
+                                className={`p-0 pl-10 text-base flex flex-col  w-fit ${
                                     isAuthor ? 'flex-row-reverse' : ''
                                 }   `}
                             >
@@ -110,7 +110,7 @@ export const MessageItem: FC<Props> = ({
                                     <div
                                         id={'message-' + m.id}
                                         title={formatDate(m.createdAt)}
-                                        className={`relative w-fit rounded-2xl  ${
+                                        className={`relative w-fit rounded-xxl  ${
                                             m.reacts?.length > 0 ? 'mb-2' : ''
                                         } ${
                                             (currentMessage.author.id !== prevMessage?.author.id && index !== 0) ||
@@ -119,17 +119,17 @@ export const MessageItem: FC<Props> = ({
                                                       isAuthor
                                                           ? `${
                                                                 m.attachments?.length === 0
-                                                                    ? 'rounded-tr-none bg-primary'
+                                                                    ? 'rounded-tr bg-primary'
                                                                     : 'rounded-r bg-primary '
                                                             }`
                                                           : `${
                                                                 m.attachments?.length === 0
-                                                                    ? 'rounded-tl-none bg-dark-lighten '
+                                                                    ? 'rounded-tl bg-dark-lighten '
                                                                     : 'rounded-l  bg-dark-lighten'
                                                             }`
                                                   }`
                                                 : `${isAuthor ? 'rounded-r bg-primary' : 'rounded-l bg-dark-lighten '}`
-                                        } py-[6px] px-3 text-base`}
+                                        } py-2 px-3 text-base`}
                                     > 
                                         <p>{m.content}</p>
 
@@ -138,9 +138,9 @@ export const MessageItem: FC<Props> = ({
                                         )}
                                     </div>
                                     <div
-                                        className={`invisible group-hover:visible flex  ${
+                                        className={`invisible group-hover:visible flex ${
                                             isAuthor ? 'flex-row-reverse' : ''
-                                        }`}
+                                        } `}
                                     >
                                         <MessageReaction message={m} />
                                         <MessageReplyIcon setReplyInfo={setReplyInfo} message={m} />
@@ -166,7 +166,7 @@ export const MessageItem: FC<Props> = ({
                                 <div
                                     title={formatDate(m.createdAt)}
                                     className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
-                                        isAuthor ? 'flex-row-reverse' : 'pl-14'
+                                        isAuthor ? 'flex-row-reverse' : 'pl-10'
                                     } ${m.reacts?.length > 0 ? 'mb-2' : ''}`}
                                 >
                                     {
@@ -201,8 +201,8 @@ export const MessageItem: FC<Props> = ({
                                                 index === 0
                                                     ? `${
                                                           user?.id === m.author.id
-                                                              ? 'rounded-tr-none '
-                                                              : 'rounded-tl-none '
+                                                              ? 'rounded-tr '
+                                                              : 'rounded-tl '
                                                       }`
                                                     : `${user?.id === m.author.id ? 'rounded-r-md ' : 'rounded-l-md  '}`
                                             } w-52 h-fit rounded-xl object-cover cursor-default`}

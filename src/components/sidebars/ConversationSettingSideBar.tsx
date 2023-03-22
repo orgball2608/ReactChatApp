@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../../contex/AuthContext';
 import { RootState } from '../../store';
 import { getFullName } from '../../utils/helpers';
@@ -65,9 +65,10 @@ export const ConversationSettingSideBar = () => {
                             className="w-28 h-28 rounded-full object-cover "
                         />
                         <div className="flex flex-col items-center">
-                            <span className="text-center break-all text-xl font-medium">
+                            <Link to={`../../friend/profile/${recipientUser && recipientUser.id}`}
+                                className="text-center break-all text-lg font-semibold hover:underline hover:underline-offset-1 cursor-pointer">
                                 {getFullName(user, selectedConversation)}
-                            </span>
+                            </Link>
                             {isOnline && <span className="text-base text-gray-400">Online</span>}
                         </div>
                     </div>

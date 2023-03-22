@@ -332,14 +332,14 @@ export const MessageInputField: FC<Props> = ({
     return (
         <div className="w-full h-full">
             {replyInfo && (
-                <div className=" relative h-12 border-t border-[#2f3237] px-6 flex justify-between items-center py-auto animate-fade-in-slow">
-                    <div className="flex flex-col justify-center items-start">
-                        <p>
+                <div className=" relative h-12 border-t border-[#2f3237] px-5 flex justify-between items-center py-auto animate-fade-in-slow">
+                    <div className="flex flex-col justify-center items-start text-sm">
+                        <p className="text-sm">
                             Replying to
                             {replyInfo?.author.id === user?.id ? (
                                 ' yourself'
                             ) : (
-                                <span className="font-medium">{` ${replyInfo?.author.lastName}`}</span>
+                                <span className="text-gray-400">{` ${replyInfo?.author.lastName}`}</span>
                             )}
                         </p>
                         {replyInfo?.content ? (
@@ -357,7 +357,7 @@ export const MessageInputField: FC<Props> = ({
                         ) : null}
                     </div>
                     <button
-                        className="p-2 rounded-full hover:bg-[#1c1e21] absolute right-2 top-0"
+                        className="p-[6px] rounded-full hover:bg-[#1c1e21] absolute right-2 top-0"
                         onClick={() => setReplyInfo && setReplyInfo(undefined)}
                     >
                         <Cross size={14} />

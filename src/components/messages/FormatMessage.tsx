@@ -91,15 +91,15 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                     {!isAuthor && (
                         <div
                             title={getDisplayName(message.author)}
-                            className={`flex gap-3 py-1  ${isAuthor ? 'justify-end' : ''}`}
+                            className={`flex gap-3 py-1 ${isAuthor ? 'justify-end' : ''}`}
                         >
                             <LazyLoadImage
                                 src={getAvatar()}
                                 alt="avatar"
-                                className={`w-10 h-10 rounded-full flex-0 object-cover `}
+                                className={`w-7 h-7 rounded-full flex-0 object-cover `}
                             />
                             <span
-                                className="text-primary text-sm font-medium"
+                                className="text-gray-400 text-sm"
                             >
                                 {getNicknameOrName()}
                             </span>
@@ -114,7 +114,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                             >
                                 <div
                                     className={`p-0 text-base flex justify-start items-center w-fit gap-2 cursor-pointer ${
-                                        isAuthor ? 'flex-row-reverse' : ' ml-14 '
+                                        isAuthor ? 'flex-row-reverse' : ' ml-10 '
                                     }`}
                                 >
                                     <div
@@ -146,7 +146,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                 >
                                     {message.reply && (
                                         <div
-                                            className={`${!isAuthor && 'ml-14'} -mb-2 ${
+                                            className={`${!isAuthor && 'ml-10'} -mb-2 ${
                                                 isAuthor ? 'flex-row-reverse' : ''
                                             } flex justify-start `}
                                         >
@@ -154,22 +154,20 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                         </div>
                                     )}
                                     <div
-                                        className={`flex justify-start gap-2 ${
-                                            isAuthor ? 'items-end' : 'items-start'
-                                        } ${isAuthor ? 'flex-row-reverse' : ''}`}
+                                        className={`flex items-center gap-2 justify-start ${isAuthor ? 'flex-row-reverse' : ''}`}
                                     >
                                         <div
                                             id={'message-' + message.id}
                                             title={formatDate(message.createdAt)}
-                                            className={`py-[6px] px-3 rounded-2xl relative text-base ${
+                                            className={`py-2 px-3 rounded-xxl relative text-base ${
                                                 message.reacts?.length > 0 ? 'mb-2' : ''
                                             } ${
                                                 isOneElement
-                                                    ? `${isAuthor ? 'rounded-r-2xl bg-primary' : 'rounded-l-2xl ml-14 bg-dark-lighten'}`
+                                                    ? `${isAuthor ? 'rounded-r-xxl bg-primary' : 'rounded-l-xxl ml-10 bg-dark-lighten'}`
                                                     : `${
                                                           isAuthor
-                                                              ? 'rounded-br-none bg-primary'
-                                                              : 'rounded-bl-none ml-14 bg-dark-lighten'
+                                                              ? 'rounded-br bg-primary'
+                                                              : 'rounded-bl ml-10 bg-dark-lighten'
                                                       }`
                                             } `}
                                         >
@@ -182,7 +180,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                             )}
                                         </div>
                                         <div
-                                            className={`invisible group-hover:visible flex ${
+                                            className={`invisible group-hover:visible flex items-center ${
                                                 isAuthor ? 'flex-row-reverse' : ''
                                             }`}
                                         >
@@ -244,8 +242,8 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                                     src={message.gif}
                                                     className={` ${
                                                         isOneElement
-                                                            ? `${isAuthor ? 'rounded-r-2xl' : 'rounded-l-2xl'}`
-                                                            : `${isAuthor ? 'rounded-br-none' : 'rounded-bl-none'}`
+                                                            ? `${isAuthor ? 'rounded-r-xxl' : 'rounded-l-xxl'}`
+                                                            : `${isAuthor ? 'rounded-br' : 'rounded-bl'}`
                                                     } 
                                                     w-52 h-fit rounded-md object- cursor-default`}
                                                 />

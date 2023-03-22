@@ -1,15 +1,15 @@
 import { SelectedPageType } from '../utils/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface SeletedPageSlice {
+export interface SelectedPageSlice {
     page: SelectedPageType;
 }
 
-const initialState: SeletedPageSlice = {
+const initialState: SelectedPageSlice = {
     page: 'conversations',
 };
 
-const seletedPageSlice = createSlice({
+const selectedPageSlice = createSlice({
     name: 'page',
     initialState,
     reducers: {
@@ -19,6 +19,6 @@ const seletedPageSlice = createSlice({
     },
 });
 
-export const { changePage } = seletedPageSlice.actions;
+export const { changePage } = selectedPageSlice.actions;
 
-export default seletedPageSlice.reducer;
+export default selectedPageSlice.reducer;

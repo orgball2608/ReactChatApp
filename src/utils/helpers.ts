@@ -1,4 +1,3 @@
-import { ArrowCycle, ChatDots, Gear, Person, Ribbon } from 'akar-icons';
 import {
     Conversation,
     FriendType,
@@ -14,6 +13,12 @@ import { BsFillPersonFill, BsMessenger } from 'react-icons/bs';
 import { defaultAvatar } from './constants';
 import { RiVipCrown2Fill } from 'react-icons/ri';
 import { FaUserMinus } from 'react-icons/fa';
+import LeaveGroupIcon from '../components/icons/LeaveGroupIcon';
+import SettingIcon from '../components/icons/SettingIcon';
+import ChatIcon from '../components/icons/ChatIcon';
+import FriendIcon from '../components/icons/FriendIcon';
+import ArchiveIcon from '../components/icons/ArchiveIcon';
+import CallIcon from '../components/icons/CallIcon';
 
 export const getRecipientFromConversation = (conversation?: Conversation, user?: User) => {
     return user?.id === conversation?.creator.id ? conversation?.recipient : conversation?.creator;
@@ -22,17 +27,28 @@ export const getRecipientFromConversation = (conversation?: Conversation, user?:
 export const getUserSideBarIcon = (page: SelectedPageType) => {
     switch (page) {
         case 'conversations':
-            return { icon: ChatDots };
-        case 'friend':
-            return { icon: Person };
-        case 'archire':
-            return { icon: Ribbon };
-        case 'async':
-            return { icon: ArrowCycle };
-        case 'setting':
-            return { icon: Gear };
+            return { icon: ChatIcon };
+        case 'friends':
+            return { icon: FriendIcon };
+        case 'archives':
+            return { icon: ArchiveIcon };
+        case 'settings':
+            return { icon: SettingIcon };
+        case 'calls':
+            return { icon: CallIcon };
         default:
-            return { icon: ChatDots };
+            return { icon: SettingIcon };
+    }
+};
+
+export const getUserSettingIcon = (action: string) => {
+    switch (action) {
+        case 'setting':
+            return { icon: SettingIcon };
+        case 'logout':
+            return { icon: LeaveGroupIcon };
+        default:
+            return { icon: SettingIcon };
     }
 };
 

@@ -19,21 +19,22 @@ export const SelectedPageTypes: SelectedPageTypeData[] = [
         action: 'Chat',
     },
     {
-        page: 'friend',
+        page: 'friends',
         action: 'Friend',
     },
     {
-        page: 'archire',
-        action: 'Archire',
+        page: 'archives',
+        action: 'Archive',
     },
     {
-        page: 'async',
-        action: 'Async',
+        page: 'calls',
+        action: 'Call',
     },
     {
-        page: 'setting',
+        page: 'settings',
         action: 'Setting',
     },
+
 ];
 
 export const userContextMenuItems: ContextMenuItemType[] = [
@@ -105,10 +106,10 @@ export const defaultGroupAvatar = defaultGroupAvatarSrc;
 
 export const EMOJI_REPLACEMENT = {
     '😭': ['ToT', 'T-T', 'T_T', 'T.T', ':((', ':-(('],
-    '😓': ["'-_-"],
+    '😓': ['\'-_-'],
     '😜': [';p', ';-p', ';P', ';-P'],
     '😑': ['-_-'],
-    '😢': [":'(", ":'-("],
+    '😢': [':\'(', ':\'-('],
     '😞': [':(', ':-(', '=(', ')=', ':['],
     '😐': [':|', ':-|'],
     '😛': [':P', ':-P', ':p', ':-p', '=P', '=p'],
@@ -127,20 +128,31 @@ export const EMOJI_REPLACEMENT = {
     '😕': [':/', ':-/', ':\\', ':-\\', '=/', '=\\'],
     '🙂': [':)', ':]', ':-)', '(:', '(='],
     '💗': ['<3'],
-    '😂': [":')"],
+    '😂': [':\')'],
     '🤑': ['$-)'],
 };
 
 export const STICKERS_URL = 'https://cdn.jsdelivr.net/gh/naptestdev/zalo-stickers/data/favourite.json';
 
 export const THEMES = [
-    "#0D90F3",
-    "#EB3A2A",
-    "#0AD4EB",
-    "#643ECB",
-    "#93BF34",
-    "#E84FCF",
-    "#B43F3F",
-    "#E6A50A",
-    "#69C90C",
-  ];
+    '#0D90F3',
+    '#EB3A2A',
+    '#0AD4EB',
+    '#643ECB',
+    '#93BF34',
+    '#E84FCF',
+    '#B43F3F',
+    '#E6A50A',
+    '#69C90C',
+];
+
+export const UserOptions = [
+    {
+        label: 'Setting',
+        action: 'setting',
+    },
+    {
+        label: 'Logout',
+        action: 'logout',
+    },
+];

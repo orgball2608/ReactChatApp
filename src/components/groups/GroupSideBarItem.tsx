@@ -49,7 +49,7 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
             key={group.id}
         >
             <div
-                className={`flex justify-start gap-2 py-2 px-4 rounded-lg box-border relative  ${
+                className={`flex justify-start gap-3 py-2 px-3 rounded-lg box-border relative  ${
                     group.id === parseInt(id!) ? 'bg-[#252F3C]' : 'hover:bg-[#28282b]'
                 } `}
             >

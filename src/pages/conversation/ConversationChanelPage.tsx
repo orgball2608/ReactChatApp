@@ -26,7 +26,7 @@ export const ConversationChannelPage = () => {
     }, [selectedConversation]);
 
     useEffect(()=>{
-        if(width<1023){
+        if(width < 1023){
             dispatch(hiddenSideBar())
         }
     },[width, dispatch])
