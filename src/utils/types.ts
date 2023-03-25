@@ -18,12 +18,17 @@ export type ProfileType = {
     location: string;
 };
 
+export type Peer = {
+    id: string;
+}
+
 export type User = {
     id: number;
     email: string;
     firstName: string;
     lastName: string;
     profile: ProfileType;
+    peer: Peer;
 };
 
 export type ConversationNickname = {
@@ -333,3 +338,17 @@ export type UpdateSeenMessageParams = {
     id: number;
     messageId: number
 }
+
+export type AcceptedVideoCallPayload = {
+    acceptor: User;
+    caller: User;
+    conversation: Conversation;
+};
+
+export type VideoCallPayload = {
+    recipientId: number;
+    conversationId: number;
+    caller: User;
+};
+
+export type HandleCallType = 'accept' | 'reject';

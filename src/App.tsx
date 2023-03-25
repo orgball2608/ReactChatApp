@@ -19,6 +19,7 @@ import { AppPage } from './pages/AppPage';
 import SettingPage from './pages/SettingPage';
 import { FriendPageLayout } from './pages/friend/FriendPageLayout';
 import { ProfilePage } from './pages/friend/ProfilePage';
+import { CallPage } from './pages/calls/CallPage';
 
 enableMapSet();
 
@@ -45,6 +46,7 @@ function App() {
             <Routes>
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
+
                 <Route
                     element={
                         <AuthenticatedRoute>
@@ -60,8 +62,8 @@ function App() {
                     </Route>
 
                     <Route path="/settings" element={<SettingPage />}></Route>
+                    <Route path="/calls" element={<CallPage />}></Route>
                     <Route path="/archives" element={<SettingPage />}></Route>
-                    <Route path="/calls" element={<SettingPage />}></Route>
                     <Route path="/friends" element={<FriendPageLayout />}>
                         <Route path="/friends/profile/:id" element={<ProfilePage />} />
                     </Route>

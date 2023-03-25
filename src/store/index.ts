@@ -7,6 +7,7 @@ import groupMessageReducer from './groupMessageSlice';
 import settingSidebarReducer from './settingSidebarSlice';
 import selectedPageReducer from './selectedPageSlice';
 import friendReducer from './friendSlice';
+import callReducer from './callSlice';
 
 export const store = configureStore({
     reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
         settingSidebar: settingSidebarReducer,
         selectedPage: selectedPageReducer,
         friends: friendReducer,
+        calls: callReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });

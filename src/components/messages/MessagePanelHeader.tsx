@@ -15,6 +15,8 @@ import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 import { FaChevronLeft } from 'react-icons/fa';
 import CallIcon from '../icons/CallIcon';
 import VideoCallIcon from '../icons/VideoCallIcon';
+import { SocketContext } from '../../contex/SocketContext';
+import { setActiveConversationId, setCaller, setLocalStream, setReceiver } from '../../store/callSlice';
 
 export const MessagePanelHeader = () => {
     const { id } = useParams();
@@ -30,6 +32,7 @@ export const MessagePanelHeader = () => {
     const showSidebar = useSelector((state: RootState) => state.settingSidebar.showSidebar);
     const selectedGroup = groups.find((group) => group.id === parseInt(id!));
     const { isMobile } = useCurrentViewportView();
+    const socket = useContext(SocketContext);
     
     const recipient = getRecipient(conversation!, user!);
     const isOnline = !!onlineFriends.find((friend) => friend.id === recipient?.id);
@@ -88,6 +91,25 @@ export const MessagePanelHeader = () => {
         }
     };
 
+    const handleVideoCall = async () => {
+        if (!recipient) return console.log('Recipient undefined');
+        if (!user) return console.log('User undefined');
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true,
+        });
+        if(!stream) return;
+        dispatch(setLocalStream(stream));
+        dispatch(setActiveConversationId(conversation!.id))
+        dispatch(setReceiver(recipient))
+        dispatch(setCaller(user!))
+        navigate('../../calls')
+        socket.emit('onVideoCallCreated', {
+            conversationId: conversation?.id,
+            recipientId: recipient.id,
+        });
+    };
+
     return (
         <>
             {showGroupMember && <GroupMemberViewModal setShowModal={setShowGroupMember} group={selectedGroup} />}
@@ -133,7 +155,9 @@ export const MessagePanelHeader = () => {
                         <div className="rounded-full p-[2px] hover:bg-[#2d3133] flex justify-center items-center cursor-pointer">
                             <CallIcon className="w-8 h-8 rounded-full text-primary"/>
                         </div>
-                        <div className="rounded-full p-[2px] hover:bg-[#2d3133] flex justify-center items-center cursor-pointer">
+                        <div
+                            onClick={handleVideoCall}
+                            className="rounded-full p-[2px] hover:bg-[#2d3133] flex justify-center items-center cursor-pointer">
                             <VideoCallIcon className="w-8 h-8 rounded-full text-primary"/>
                         </div>
                         <div

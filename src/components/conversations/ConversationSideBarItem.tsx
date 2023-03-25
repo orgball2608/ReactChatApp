@@ -51,7 +51,7 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                     <p className={`max-w-[100px] lg:max-w-[180px] text-sm text-gray-400 flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[180px]': ''}`}>{lastMessageContent(conversation)}{' • ' + moment(conversation?.lastMessageSentAt).format('H:mm')}</p>
                 </div>
                 {
-                    conversation && conversation.lastMessageSent.messageStatuses?.find((status: MessageStatus) => status.user.id === user?.id) ?<></>: <div className="absolute top-1/2 -translate-y-1/2 right-4 w-[10px] h-[10px] bg-[#0d90f3] rounded-full"></div>
+                    conversation && conversation.lastMessageSent && conversation.lastMessageSent.messageStatuses?.find((status: MessageStatus) => status.user.id === user?.id) ?<></>: <div className="absolute top-1/2 -translate-y-1/2 right-4 w-[10px] h-[10px] bg-[#0d90f3] rounded-full"></div>
                 }
             </div>
         </div>
