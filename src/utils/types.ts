@@ -339,16 +339,27 @@ export type UpdateSeenMessageParams = {
     messageId: number
 }
 
-export type AcceptedVideoCallPayload = {
+export type AcceptedCallPayload = {
     acceptor: User;
     caller: User;
     conversation: Conversation;
 };
 
-export type VideoCallPayload = {
+export type CallPayload = {
     recipientId: number;
     conversationId: number;
     caller: User;
 };
 
 export type HandleCallType = 'accept' | 'reject';
+
+export type CallType = 'video' | 'audio';
+
+export type CallInitiatePayload = {
+    localStream: MediaStream;
+    isCalling: boolean;
+    activeConversationId: number;
+    caller: User;
+    receiver: User;
+    callType: CallType;
+};

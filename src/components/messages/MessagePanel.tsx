@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { MessagePanelHeader } from './MessagePanelHeader';
+import { MessagePanelHeader } from './headers/MessagePanelHeader';
 import { MessageContainer } from './MessageContainer';
 import { MessagePanelBody } from './MessagePanelBody';
 import { MessageInputField } from './MessageInputField';
@@ -10,6 +10,7 @@ import { RootState } from '../../store';
 import { getDisplayName, getRecipientFromConversation } from '../../utils/helpers';
 import { defaultAvatar } from '../../utils/constants';
 import { GroupMessageType, MessageType } from '../../utils/types';
+import { MessagePanelGroupHeader } from './headers/MessagePanelGroupHeader';
 
 export const MessagePanel = () => {
     const { id } = useParams();
@@ -19,6 +20,7 @@ export const MessagePanel = () => {
     const conversation = conversations.find((conversation) => conversation.id === parseInt(id!));
     const [isRecipientTyping, setIsRecipientTyping] = useState(false);
     const [inputSectionOffset, setInputSectionOffset] = useState(0);
+    const selectedType = useSelector((state:RootState) => state.type.type)
 
     const recipient = getRecipientFromConversation(conversation, user);
 
@@ -32,7 +34,9 @@ export const MessagePanel = () => {
 
     return (
         <div className="bg-inherit h-full w-full box-border relative">
-            <MessagePanelHeader />
+            {
+                selectedType ==='private' ?<MessagePanelHeader /> : <MessagePanelGroupHeader/>
+            }
             <MessagePanelBody>
                 <MessageContainer setReplyInfo={setReplyInfo} inputSectionOffset={inputSectionOffset} />
                 <div className="flex-none w-full">

@@ -156,3 +156,25 @@ export const UserOptions = [
         action: 'logout',
     },
 ];
+
+export enum CallEvents {
+    VIDEO_CALL_INITIATE = 'onVideoCallCreated',
+    VOICE_CALL_INITIATE = 'onVoiceCallInitiate',
+    VIDEO_CALL_ACCEPT = 'videoCallAccepted',
+    VOICE_CALL_ACCEPT = 'voiceCallAccepted',
+    VIDEO_CALL_REJECT = 'videoCallRejected',
+    VOICE_CALL_REJECT = 'voiceCallRejected',
+    VIDEO_CALL_HANG_UP = 'videoCallHangUp',
+    VOICE_CALL_HANG_UP = 'voiceCallHangUp',
+}
+
+export enum WebsocketEvents {
+    VOICE_CALL_ACCEPTED = 'onVoiceCallAccepted',
+    VIDEO_CALL_ACCEPTED = 'onVideoCallAccept',
+    VOICE_CALL_HANG_UP = 'onVoiceCallHangUp',
+    VIDEO_CALL_HANG_UP = 'onVideoCallHangUp',
+    VOICE_CALL_REJECTED = 'onVoiceCallRejected',
+    VIDEO_CALL_REJECTED = 'onVideoCallRejected',
+    VOICE_CALL = 'onVoiceCall',
+    VIDEO_CALL = 'onVideoCall',
+}
