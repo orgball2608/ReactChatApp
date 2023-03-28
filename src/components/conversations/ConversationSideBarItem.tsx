@@ -42,13 +42,16 @@ export const ConversationSideBarItem: FC<Props> = ({ conversation }) => {
                         className="h-12 w-12 rounded-full flex-none object-cover "
                     />
                     {isOnline && (
-                        <div className="w-[10px] h-[10px] rounded-full absolute bottom-0 right-1 bg-green-500"></div>
+                        <div className="w-[10px] h-[10px] rounded-full absolute bottom-0 right-1 bg-green-500 dot-ping"></div>
                     )}
                 </div>
 
                 <div className="flex flex-col flex-nowrap flex-1 break-all justify-center">
-                    <p className={`text-white font-medium max-w-[140px] lg:max-w-[260px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[260px]': ''}`}>{(isTablet) ? getFullName(user, conversation).split(' ').slice(1, -1).join(' ') : getFullName(user, conversation)}</p>
-                    <p className={`max-w-[100px] lg:max-w-[180px] text-sm text-gray-400 flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[180px]': ''}`}>{lastMessageContent(conversation)}{' • ' + moment(conversation?.lastMessageSentAt).format('H:mm')}</p>
+                    <div className="flex justify-between items-center gap-1">
+                        <p className={`text-white font-semibold max-w-[100px] lg:max-w-[180px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[260px]': ''}`}>{(isTablet) ? getFullName(user, conversation).split(' ').slice(1, -1).join(' ') : getFullName(user, conversation)}</p>
+                        <p className="text-sm text-gray-400 font-semibold">{moment(conversation?.lastMessageSentAt).format('H:mm')}</p>
+                    </div>
+                    <p className={`max-w-[140px] lg:max-w-[220px] text-sm text-gray-400 flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[180px]': ''}`}>{lastMessageContent(conversation)}</p>
                 </div>
                 {
                     conversation && conversation.lastMessageSent && conversation.lastMessageSent.messageStatuses?.find((status: MessageStatus) => status.user.id === user?.id) ?<></>: <div className="absolute top-1/2 -translate-y-1/2 right-4 w-[10px] h-[10px] bg-[#0d90f3] rounded-full"></div>

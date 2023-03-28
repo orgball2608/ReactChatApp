@@ -95,7 +95,7 @@ export const ProfileAction = () => {
             dispatch(cancelFriendRequestSend(id))
                 .unwrap()
                 .then(() => {
-                    toast.success('Cancle friend request successfully');
+                    toast.success('Cancel friend request successfully');
                 })
                 .catch((err) => {
                     toast.error(err.message);
@@ -164,7 +164,7 @@ export const ProfileAction = () => {
                         <div>
                             <BsFillPersonCheckFill size={20} />
                         </div>
-                        <span>Response</span>
+                        <span className="font-semibold">Response</span>
                     </div>
                 </Tippy>
             );
@@ -177,7 +177,7 @@ export const ProfileAction = () => {
                     <div>
                         <BsFillPersonXFill size={20} />
                     </div>
-                    <span>Cancel Request</span>
+                    <span className="font-semibold">Cancel Request</span>
                 </div>
             );
         else
@@ -189,7 +189,7 @@ export const ProfileAction = () => {
                     <div>
                         <BsPersonPlusFill size={20} />
                     </div>
-                    <span>Add Friend</span>
+                    <span className="font-semibold">Add Friend</span>
                 </div>
             );
     };
@@ -213,7 +213,7 @@ export const ProfileAction = () => {
                         <div>
                             <BsFillPersonCheckFill size={20} />
                         </div>
-                        <span>Friend</span>
+                        <span className="font-semibold">Friend</span>
                     </div>
                 </Tippy>
             ) : (
@@ -227,7 +227,7 @@ export const ProfileAction = () => {
                     <div>
                         <BsMessenger size={18} />
                     </div>
-                    <span>Message</span>
+                    <span className="font-semibold">Message</span>
                 </div>
             )}
         </div>

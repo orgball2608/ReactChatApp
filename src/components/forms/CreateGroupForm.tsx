@@ -52,7 +52,7 @@ export const CreateGroupForm: FC<Props> = ({
                 setSelectedUsers={setSelectedUsers}
                 selectedUsers={selectedUsers}
                 query={query}
-                title="Recipient"
+                title="Members"
             />
 
             <section className="my-3">
@@ -68,13 +68,15 @@ export const CreateGroupForm: FC<Props> = ({
                 </div>
             </section>
 
-            <button
-                className={`outline-0 border-0 text-lg font-medium bg-blue-button text-white rounded-[10px] py-2 mt-1 transform active:scale-125 transition-all duration-300 ${
-                    selectedUsers.length === 0 && 'opacity-50 pointer-events-none'
-                }`}
-            >
-                Create Conversation
-            </button>
+            <div className="mt-10 w-full flex justify-end items-center">
+                <button
+                    className={`outline-0 border-0 bg-[#3366FF] w-40 text-white rounded-lg cursor-pointer py-2 px-4 transform active:scale-125 transition-all duration-300 text-lg font-medium ${
+                        selectedUsers.length === 0 && 'opacity-50 pointer-events-none'
+                    }`}
+                >
+                    Create
+                </button>
+            </div>
         </form>
     );
 };

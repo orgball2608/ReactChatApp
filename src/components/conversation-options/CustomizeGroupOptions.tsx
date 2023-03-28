@@ -71,7 +71,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId ,setSho
                 onClick={handleShowCustomizeConversation}
                 className="flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md"
             >
-                <span className="text-base text-white font-medium text-[#fcfcfc]">Customize Group</span>
+                <span className="text-lg text-white text-[#fcfcfc]">Customize Group</span>
                 <div className="px-1 py-1">
                     {showCustomizeConversation ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                 </div>
@@ -85,7 +85,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId ,setSho
                         <div className="p-[2px] rounded-full text-white bg-[#373434]">
                             <PencilIcon className="w-6 h-6" />
                         </div>
-                        <span className="text-base">Change group title</span>
+                        <span className="text-lg font-medium">Change group title</span>
                     </div>
                     <div className="rounded-md py-2 px-2 hover:bg-[#1c1e21] ">
                         <label
@@ -95,7 +95,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId ,setSho
                             <div className="p-[2px] rounded-full text-white bg-[#373434]">
                                 <ImageIcon className="w-6 h-6" />
                             </div>
-                            <span className="text-base">Change group avatar</span>
+                            <span className="text-lg font-medium">Change group avatar</span>
                             <input
                                 onChange={(e) => handleGetFile(e)}
                                 name="file"
@@ -112,7 +112,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId ,setSho
                         <div className="p-[6px] rounded-full text-white bg-[#373434]">
                             <LikeIcon className="w-4 h-4 text-primary" />
                         </div>
-                        <span className="text-base">Change Emoji Icon</span>
+                        <span className="text-lg font-medium">Change emoji icon</span>
                     </div>
                     <div
                         onClick={() => setShowChangeNickNameModal(true)}
@@ -121,7 +121,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId ,setSho
                         <div className="p-1 rounded-full text-white bg-[#373434]">
                             <ChangeNickNameIcon className="w-5 h-5 font-bold" />
                         </div>
-                        <span className="text-base">Change NickName</span>
+                        <span className="text-lg font-medium">Change nickname</span>
                     </div>
                     <div
                         onClick={() => setShowChangeThemeModal(true)}
@@ -135,7 +135,7 @@ export const CustomizeGroupOptions: FC<Props> = ({ setShowModal, groupId ,setSho
                             <span className='w-2 h-2 rounded-full absolute bg-white left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'>
                                 </span>
                         </div>
-                        <span className="text-base">Change theme</span>
+                        <span className="text-lg font-medium">Change theme</span>
                     </div>
                 </div>
             )}

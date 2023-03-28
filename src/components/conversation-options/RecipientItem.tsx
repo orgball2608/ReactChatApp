@@ -10,6 +10,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { getDisplayName } from '../../utils/helpers';
 
 type Props = {
     user: User;
@@ -22,8 +23,6 @@ export const RecipientItem: FC<Props> = ({ user, isOnline }) => {
     const { id } = useParams();
     const groups = useSelector((state: RootState) => state.group.groups);
     const selectedGroup = groups.find((group) => group.id === parseInt(id!));
-
-    const getFullName = (user: User) => user.lastName + ' ' + user.firstName;
     const getGroupAvatar = () => {
         if (user.profile) {
             if (user.profile.avatar) {
@@ -54,10 +53,10 @@ export const RecipientItem: FC<Props> = ({ user, isOnline }) => {
                         effect="blur"
                         className="w-8 h-8 rounded-full object-cover"
                     />
-                    {isOnline && <div className="w-2 h-2 rounded-full absolute bottom-0 right-0 bg-green-500"></div>}
+                    {isOnline && <div className="w-2 h-2 rounded-full absolute bottom-0 right-0 bg-green-500 dot-ping"></div>}
                 </div>
                 <div className="flex flex-col justify-center">
-                    <span className='text-base overflow-hidden text-ellipsis whitespace-nowrap '>{getFullName(user)}</span>
+                    <span className='text-base font-medium overflow-hidden text-ellipsis whitespace-nowrap '>{getDisplayName(user!)}</span>
                     <span className="text-xs text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap ">{getDisplayRole()}</span>
                 </div>
             </div>

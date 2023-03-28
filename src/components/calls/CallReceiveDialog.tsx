@@ -37,7 +37,7 @@ export const CallReceiveDialog = () => {
                 <div className="flex flex-col justify-center items-center gap-4">
                     <img src={caller?.profile?.avatar|| defaultAvatar} alt="avatar" className="w-32 h-32 rounded-full"/>
                     <div className="flex flex-col justify-center items-center">
-                        <p className="text-xl font-medium">
+                        <p className="text-2xl font-semibold">
                             {getDisplayName(caller!)}
                         </p>
                         <p className="text-base text-gray-400">

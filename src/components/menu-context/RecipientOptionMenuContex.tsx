@@ -70,7 +70,7 @@ export const RecipientOptionMenuContext: FC<Props> = ({ recipient, setVisible })
                     .catch((err) => toast.error(err.message));
                 break;
             case 'profile':
-                navigate(`/friend/profile/${recipient.id}`);
+                navigate(`/friends/profile/${recipient.id}`);
                 setVisible(false);
                 break;
             case 'message':

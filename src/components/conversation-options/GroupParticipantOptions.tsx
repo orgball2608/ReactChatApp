@@ -36,7 +36,7 @@ export const GroupParticipantOptions: FC<Props> = ({ offlineUsers, onlineUsers, 
                 className="flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md cursor-pointer"
                 onClick={handleShowParticipants}
             >
-                <span className="text-base text-white font-medium text-[#fcfcfc]">Participants</span>
+                <span className="text-lg text-white text-[#fcfcfc]">Participants</span>
                 <div className="px-1 py-1">
                     {showParticipants ?  <ChevronDown size={16} /> : <ChevronRight size={16} />}
                 </div>

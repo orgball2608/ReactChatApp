@@ -55,7 +55,7 @@ export const ChangeThemeModal:FC<Props>= ({
     tabIndex={-1}
     >
         <div className={`bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-fit ${isMobile ?'mx-3':''}`}>
-            <div className="  box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations">
+            <div className="  box-border flex justify-center flex-shrink-0 items-center p-4 border-b-[1px] border-border-conversations">
                 <div className="mr-auto invisible">
                     <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                 </div>

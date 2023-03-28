@@ -52,7 +52,7 @@ export const MessagePanelGroupHeader = () => {
         <>
             {showGroupMember && <GroupMemberViewModal setShowModal={setShowGroupMember} group={selectedGroup} />}
             <header
-                className="border-b-[1px] border-solid border-border-conversations flex gap-2 items-center pl-2 pr-4 box-border
+                className="border-b-[1px] border-solid border-border-conversations flex items-center pl-2 pr-4 box-border
     absolute top-0 left-0 w-full h-14 z-10"
             >
                 {(isMobile) && (
@@ -76,7 +76,7 @@ export const MessagePanelGroupHeader = () => {
 
                         </div>
                         <div className="flex flex-col justify-center">
-                            <span className="text-base font-medium max-w-[180px] lg:max-w-[400px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
+                            <span className="text-lg max-w-[140px] md:max-w-[400px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
                                 {selectedGroup?.title}
                             </span>
                         </div>

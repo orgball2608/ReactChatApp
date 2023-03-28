@@ -67,9 +67,9 @@ export const FileSideBar: FC<Props> =React.memo( ({
     });
 
     return (
-        <aside className={`lg:w-72 w-76 h-full flex-none bg-[#141414] px-2 flex flex-col border-border-conversations border-l-[1px] overflow-y-auto items-center lg:animate-side-out animate-side-in shrink-0 top-0 left-0 lg:sticky lg:translate-x-0 lg:bg-transparent lg:shadow-none
+        <aside className={`lg:w-72 w-76 h-full flex-none bg-[#141414] flex flex-col border-border-conversations border-l-[1px] overflow-y-auto items-center lg:animate-side-out animate-side-in shrink-0 top-0 left-0 lg:sticky lg:translate-x-0 lg:bg-transparent lg:shadow-none
                     -translate-x-full fixed h-screen shadow-md transition duration-300 bg-dark-lighten z-30 ${showSidebar && "translate-x-0"}`}>
-            <div className={`h-14 flex flex-none gap-4 w-full justify-start items-center ${(isMobile||isTablet) && 'flex-row-reverse justify-between'}`}>
+            <div className={`h-14 px-2 flex flex-none gap-4 w-full justify-start items-center border-b-[1px] border-solid border-border-conversations ${(isMobile||isTablet) && 'flex-row-reverse justify-between'}`}>
                 <div
                     onClick={() => {
                         if (showFileSideBar) setShowFileSideBar(false);
@@ -79,8 +79,8 @@ export const FileSideBar: FC<Props> =React.memo( ({
                 >
                     <ArrowLeft size={20} />
                 </div>
-                <span className="text-lg flex justify-center items-center font-medium">
-                    <span>Media, Links, and Docs</span>
+                <span className="text-lg flex justify-center items-center font-semibold">
+                    <span>Media, links and docs</span>
                 </span>
             </div>
             <FileSideBarHeader
@@ -93,7 +93,7 @@ export const FileSideBar: FC<Props> =React.memo( ({
                 <div className="w-full h-fit p-1 flex-none">
                     {attachments.length === 0 ? (
                         <div className="w-full h-full flex justify-center items-center">
-                            <span className="text-base text-[#b3b3b3]">No media, links, or docs</span>
+                            <span className="text-base text-[#b3b3b3]">No media, links or docs</span>
                         </div>
                     ) : (
                         <div className="flex flex-col h-fit justify-center gap-1 cursor-pointer ">
@@ -110,7 +110,7 @@ export const FileSideBar: FC<Props> =React.memo( ({
                                         <FileIcon color="#ffffff" />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <span className="text-base font-middle text-white max-w-[180px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
+                                        <span className="text-base font-semibold text-white max-w-[180px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
                                             {attachment.name || 'No name'}
                                         </span>
                                         <span className="text-xs text-gray-400">
@@ -126,7 +126,7 @@ export const FileSideBar: FC<Props> =React.memo( ({
                 <div className="w-full h-fit p-1 flex-none">
                     {attachments.length === 0 ? (
                         <div className="w-full h-full flex justify-center items-center">
-                            <span className="text-base text-[#b3b3b3]">No media, links, or docs</span>
+                            <span className="text-base text-[#b3b3b3]">No media, links or docs</span>
                         </div>
                     ) : (
                         <div className=" h-fit flex flex-wrap lg:gap-1 gap-[6px] cursor-pointer ">

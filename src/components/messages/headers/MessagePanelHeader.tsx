@@ -69,7 +69,7 @@ export const MessagePanelHeader = () => {
     }
 
     const handleDirectProfile = () => {
-        navigate(`../../friend/profile/${recipient?.id}`);
+        navigate(`../../friends/profile/${recipient?.id}`);
     };
 
     const handleVideoCall = async () => {
@@ -114,7 +114,7 @@ export const MessagePanelHeader = () => {
 
     return (
         <header
-            className="border-b-[1px] border-solid border-border-conversations flex gap-2 items-center pl-2 pr-4 box-border
+            className="border-b-[1px] border-solid border-border-conversations flex items-center pl-2 pr-4 box-border
     absolute top-0 left-0 w-full h-14 z-10"
         >
             {(isMobile) && (
@@ -134,21 +134,23 @@ export const MessagePanelHeader = () => {
                         <div
                             className="w-10 h-10 rounded-full relative flex justify-center items-center">
                             {getAvatar()}
-                            {isOnline && (
-                                <div className="w-2 h-2 p-1 rounded-full absolute bottom-0 right-1 bg-green-500"></div>
-                            )}
+                            {
+                                isOnline &&  <div className="w-2 h-2 p-1 rounded-full absolute bottom-0 right-1 bg-green-500 dot-ping">
+                                </div>
+                            }
                         </div>
 
                     </div>
                     <div className="flex flex-col justify-center">
-                        <span className="text-base font-medium max-w-[180px] lg:max-w-[400px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
+                        <span className="text-lg max-w-[140px] md:max-w-[360px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
                             {getFullName(user, conversation)}
                         </span>
-                        {isOnline && (
-                            <span className="text-sm text-gray-400">
+                        {
+                            isOnline &&  <span className="text-sm text-gray-400">
                                 Online
-                            </span>
-                        )}
+                        </span>
+                        }
+
                     </div>
                 </div>
                 <div className="flex items-center justify-center gap-2">

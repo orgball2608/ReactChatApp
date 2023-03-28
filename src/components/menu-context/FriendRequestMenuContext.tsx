@@ -26,7 +26,7 @@ export const FriendRequestMenuContext: FC<Props> = ({ friend, setVisible }) => {
             case 'Profile':
                 if (parseInt(id!) === recipient.id) setVisible(false);
                 else {
-                    navigate(`/friend/profile/${recipient.id}`);
+                    navigate(`/friends/profile/${recipient.id}`);
                     setVisible(false);
                 }
 

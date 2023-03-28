@@ -43,6 +43,7 @@ export const ConversationSettingSideBar = () => {
         if (recipientUser?.profile) return recipientUser?.profile.avatar;
         return defaultAvatar;
     };
+
     return (
         <>
             {showChangeEmojiModal && <EmojiSelectModal setShowModal={setShowChangeEmojiModal} />}
@@ -58,12 +59,17 @@ export const ConversationSettingSideBar = () => {
             ) : (
                 <aside className={`lg:w-72 w-76 flex-none px-2 gap-4 flex flex-col border-border-conversations lg:border-l-[1px] border-r-[1px] shrink-0 top-0 left-0 lg:sticky md:translate-x-0 lg:bg-transparent lg:shadow-none
       -translate-x-full fixed h-screen shadow-md transition duration-300 bg-[#333335] z-30 ${showSidebar && "translate-x-0"}`}>
-                    <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3 ">
-                        <LazyLoadImage
-                            src={getAvatar() || defaultAvatar}
-                            alt={'avatar'}
-                            className="w-28 h-28 rounded-full object-cover "
-                        />
+                    <div className="flex flex-col gap-2 justify-center items-center mt-4 px-3">
+                        <div className="relative w-20 h-20 rounded-full">
+                            <LazyLoadImage
+                                src={getAvatar() || defaultAvatar}
+                                alt={'avatar'}
+                                className="w-20 h-20 rounded-full object-cover"
+                            />
+                            {isOnline && (
+                                <div className="w-3 h-3 rounded-full absolute bottom-0 right-[10px] bg-green-500 dot-ping"></div>
+                            )}
+                        </div>
                         <div className="flex flex-col items-center">
                             <Link to={`../../friend/profile/${recipientUser && recipientUser.id}`}
                                 className="text-center break-all text-lg font-semibold hover:underline hover:underline-offset-1 cursor-pointer">

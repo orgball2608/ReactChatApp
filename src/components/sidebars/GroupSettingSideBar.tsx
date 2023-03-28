@@ -59,7 +59,7 @@ export const GroupSettingSideBar = () => {
             setOfflineUsers([]);
             setOnlineUsers([]);
         };
-    }, [groupId]);
+    }, [groupId,socket]);
 
     const getGroupAvatar = () => {
         if (selectedGroup?.avatar) {
@@ -91,18 +91,14 @@ export const GroupSettingSideBar = () => {
                             <LazyLoadImage
                                 src={getGroupAvatar()}
                                 alt="group_avatar"
-                                className="w-28 h-28 rounded-full bg-white object-cover"
+                                className="w-20 h-20 rounded-full bg-white object-cover"
                                 effect="blur"
                             />
                         ) : (
-                            <GroupDefaultAvatar group={selectedGroup!} groupSize={28} itemSize={20} />
+                            <GroupDefaultAvatar group={selectedGroup!} groupSize={24} itemSize={16} />
                         )}
                         <div className="flex flex-col items-center text-center break-all ">
-                            <p className="text-center text-xl font-medium break-all">{selectedGroup?.title}</p>
-                            <div className="flex text-sm font-middle flex-grow max-w-[240px] overflow-hidden text-ellipsis whitespace-nowrap">
-                                <p className="text-gray-400">{selectedGroup?.users.length + ' Member '}</p>
-                                <p className={"text-green-500"}>{'  • ' + onlineUsers?.length + ' Online'}</p>
-                            </div>
+                            <p className="text-center text-lg font-semibold break-all">{selectedGroup?.title}</p>
                         </div>
                     </div>
                     <div className="flex flex-col justify-center">

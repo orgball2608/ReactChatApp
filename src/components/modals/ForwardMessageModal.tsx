@@ -130,7 +130,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
             tabIndex={-1}
         >
             <div className="bg-modal-background w-screen max-w-[550px] box-border rounded-lg overflow-hidden h-4/5 min-w-screen flex flex-col gap-4">
-                <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
+                <div className="box-border flex justify-center flex-shrink-0 items-center px-4 py-4 border-b-[1px] border-border-conversations">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
@@ -154,7 +154,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                             alt={'profile'}
                                             className="h-10 w-10 rounded-full flex-none object-cover "
                                         />
-                                        <span className="block text-base">{` ${getDisplayName(
+                                        <span className="block text-lg">{` ${getDisplayName(
                                             getRecipient(conversation, user!),
                                         )}`}</span>
                                     </div>
@@ -195,7 +195,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                             alt={'profile'}
                                             className="h-10 w-10 rounded-full flex-none object-cover "
                                         />
-                                        <span className="block font-normal text-base ">{` ${
+                                        <span className="block font-normal text-lg">{` ${
                                             group.title || 'Group'
                                         }`}</span>
                                     </div>
@@ -233,7 +233,7 @@ export const ForwardMessageModal: FC<Props> = ({ setShowModal }) => {
                                             alt={'profile'}
                                             className="h-10 w-10 rounded-full flex-none object-cover "
                                         />
-                                        <span className="block font-normal text-base ">{`${getDisplayName(
+                                        <span className="block font-normal text-lg">{`${getDisplayName(
                                             getFriend(friend, user!),
                                         )}`}</span>
                                     </div>

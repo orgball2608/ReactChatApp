@@ -67,14 +67,16 @@ export const CreateConversationForm: FC<Props> = ({
                     />
                 </div>
             </section>
+            <div className="mt-10 w-full flex justify-end items-center">
+                <button
+                    className={`outline-0 border-0 bg-[#3366FF] w-40 text-white rounded-lg cursor-pointer py-2 px-4 transform active:scale-125 transition-all duration-300 text-xl font-medium ${
+                        !selectedUser && 'opacity-50 pointer-events-none'
+                    }`}
+                >
+                    Create
+                </button>
+            </div>
 
-            <button
-                className={`outline-0 border-0 bg-blue-button text-white rounded-lg cursor-pointer py-2 mt-1 px-4 transform active:scale-125 transition-all duration-300 text-lg font-medium ${
-                    !selectedUser && 'opacity-50 pointer-events-none'
-                }`}
-            >
-                Create Conversation
-            </button>
         </form>
     );
 };

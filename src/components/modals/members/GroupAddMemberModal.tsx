@@ -78,7 +78,7 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
     return (
         <div className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 ">
             <div className={`bg-modal-background w-screen max-w-[550px] box-border rounded-lg overflow-hidden animate-fade-in ${isMobile ?'mx-3':''}`}>
-                <div className="box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
+                <div className="box-border flex justify-center flex-shrink-0 items-center p-4">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#383636] hover:bg-[#494747] cursor-pointer rounded-full" />
                     </div>
@@ -142,7 +142,7 @@ export const GroupAddMemberModal: FC<Props> = ({ setShowModal }) => {
                 <div className={`pb-6 pt-2 ${isMobile ?'px-2':'px-6'}`}>
                     <div onClick={handleSubmitMemberAdd} className="flex justify-center">
                         <button
-                            className={`bg-blue-600 hover:bg-blue-700 text-white font-medium py-[6px] w-full rounded-md text-base ${
+                            className={`bg-blue-600 hover:bg-blue-700 text-white font-medium py-[6px] w-full rounded-md text-lg ${
                                 selectedMembers.length === 0 ? 'cursor-not-allowed opacity-70' : ''
                             }`}
                         >

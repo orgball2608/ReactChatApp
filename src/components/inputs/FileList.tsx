@@ -26,7 +26,7 @@ export const FileList: FC<ImageListProps> = ({ fileList, setFileList, handleGetF
                                     <FileIcon color="#050505" />
                                 </div>
                                 <div className="flex flex-col justify-center overflow-hidden w-24">
-                                    <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">{file.name}</span>
+                                    <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium">{file.name}</span>
                                     <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-gray-400">
                                         {getFileSize(file.size)}
                                     </span>

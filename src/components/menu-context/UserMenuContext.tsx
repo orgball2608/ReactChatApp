@@ -45,7 +45,7 @@ export const UserMenuContext:FC<Props> = ({
                     <div className="p-[2px] rounded-full text-white bg-[#848889] flex justify-center items-center">
                         <CustomIcon action={option.action} />
                     </div>
-                    <span>{option.label}</span>
+                    <span className="text-lg">{option.label}</span>
                 </div>
             ))
         }

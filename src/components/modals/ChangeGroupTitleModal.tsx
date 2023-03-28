@@ -51,8 +51,8 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
             onKeyDown={(e) => handleKeyDownSubmitTitle(e)}
             className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in"
         >
-            <div className={`bg-modal-background w-screen max-w-[550px] box-border rounded-lg  overflow-hidden h-fit min-w-screen flex flex-col gap-4 ${isMobile ?'mx-3':''}`}>
-                <div className="box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
+            <div className={`bg-modal-background w-screen max-w-[550px] box-border rounded-lg  overflow-hidden h-fit min-w-screen flex flex-col gap-2 ${isMobile ?'mx-3':''}`}>
+                <div className="box-border flex justify-center flex-shrink-0 items-center p-4 border-b-[1px] border-border-conversations">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
@@ -61,7 +61,7 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer" />
                     </div>
                 </div>
-                <div className={`pb-4 pt-2 ${isMobile ?'px-3':'px-6'}`}>
+                <div className={`pb-2 pt-1 ${isMobile ?'px-2':'px-6'}`}>
                     <span className='text-sm ml-1'>Everyone knows when to change the chat group name.</span>
                     <div className="w-full flex justify-center flex-col relative gap-2">
                         <section className="my-1">
@@ -76,11 +76,11 @@ export const ChangeGroupTitleModal: FC<Props> = ({ setShowModal, selectedGroup }
                                     id="title"
                                     value={title || ''}
                                     onChange={(e) => handleChangeTitle(e)}
-                                    className="text-base w-full border-box p-0 text-white bg-inherit border-0 outline-0 scrollbar-hide overflow-auto resize-none"
+                                    className="text-lg w-full border-box p-0 text-white bg-inherit border-0 outline-0 scrollbar-hide overflow-auto resize-none"
                                 />
                             </div>
                         </section>
-                        <div className="flex w-full gap-2 justify-center items-center">
+                        <div className="flex w-full pb-2 gap-2 justify-center items-center">
                             <button
                                 onClick={handleCancelSubmitTitle}
                                 className=" w-1/2 border-0 text-base font-medium py-[6px] hover:bg-[#1c1e20] text-white rounded-md mt-1 transform active:scale-125 transition-all duration-300"

@@ -20,12 +20,12 @@ export const ConversationSelected = () => {
     };
 
     return (
-        <div className="flex justify-center h-10 w-full px-2 items-center box-border cursor-pointer border-r-[1px] border-border-conversations">
-            <div className="flex justify-center h-10 w-full bg-sidebar-background rounded-full items-center gap-2 px-1 py-[6px] text-sm" >
+        <div className="flex justify-center bg-dark-gray px-3 items-center h-10 w-full items-center box-border cursor-pointer border-r-[1px] border-border-conversations">
+            <div className="flex justify-center items-center h-10 w-full bg-sidebar-background rounded-full gap-2 p-1 text-lg font-medium" >
             {ChatTypes.map((chat, index) => (
                 <div
                     onClick={() => handleChangeType(chat)}
-                    className={`rounded-full w-1/2 px-1 py-2 text-center ${
+                    className={`rounded-full w-1/2 text-center py-1 ${
                         selectedType === chat.type ? 'bg-dark-lighten text-white ' : 'text-gray-400'
                     }`}
                     key={index}

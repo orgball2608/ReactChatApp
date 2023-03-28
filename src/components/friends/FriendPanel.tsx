@@ -1,5 +1,11 @@
+import NoChat from '../commons/NoChat';
+
 export const FriendPanel = () => {
     return (
-        <div className="w-full h-full text-2xl flex justify-center items-center">Please Selected Friend</div>
+    <div className="h-full w-full flex flex-col justify-center items-center">
+        <NoChat color="#0084ff"/>
+        <p className="text-xl">Select a friend to view profile
+        </p>
+    </div>
     );
 };

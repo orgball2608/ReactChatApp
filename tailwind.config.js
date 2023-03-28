@@ -5,9 +5,10 @@ module.exports = {
         extend: {
             colors: {
                 'simple-gray': '#131313',
-                'dark-light': '#1a1a1a',
+                'dark-light': '#262626',
                 'sidebar-background': '#121212',
                 'label-white': '#8f8f8f',
+                'dark-gray': '#212121',
                 'blue-button': '#2b09ff',
                 'dark-header': '#151515',
                 'border-conversations': '#5454543d',
@@ -23,12 +24,12 @@ module.exports = {
             fontFamily: {
                 poppins: ['Poppins', 'sans-serif'],
                 roboto: ['Roboto', 'sans-serif'],
-                Inter: ['Inter', 'sans-serif'],
             },
             invisible: ['group-hover'],
             width: {
                 86: '21.5rem',
                 88: '22rem',
+                82: '20.5rem',
                 42: '10.5rem',
                 18: '4.5rem',
                 26: '6.5rem',

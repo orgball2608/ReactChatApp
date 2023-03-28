@@ -18,13 +18,13 @@ export const ConversationSidebar = () => {
     return (
         <>
             {showModal && <CreateConversationModal setShowModal={setShowModal} />}
-            <aside className={`h-full flex-none bg-dark-light w-60 lg:w-80 border-solid border-r-[1px] border-border-conversations ${isMobile && 'w-full flex-1'}`}>
+            <aside className={`h-full flex-none bg-dark-gray w-60 lg:w-80 border-solid border-r-[1px] border-border-conversations ${isMobile && '!w-full flex-1'}`}>
                 <header className={`absolute top-0 left-16 lg:w-80 w-60 flex flex-col items-start ${isMobile && `!w-full pr-16`}`}>
                     <div className={`flex justify-between px-3 lg:px-4 items-center h-14 lg:w-80 w-60 ${isMobile && '!w-full'}`}>
                         <h1 className="text-2xl font-semibold">Chat</h1>
                         <div
                             className="hover:bg-[#686868] p-[2px] rounded-full flex justify-center items-center bg-[#5a5252] cursor-pointer "
-                            onClick={() => setShowModal(!showModal)}
+                            onClick={() => setShowModal(true)}
                         >
                             <CreateConversationIcon className="w-7 h-7" color="#ffffff" />
                         </div>

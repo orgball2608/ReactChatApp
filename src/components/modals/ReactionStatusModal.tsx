@@ -73,8 +73,8 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
             className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in"
             tabIndex={-1}
         >
-            <div className={`bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-80 ${isMobile ?'mx-3':''}`}>
-            <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations ">
+            <div className={`bg-modal-background w-screen max-w-[550px] box-border rounded-lg overflow-hidden h-80 ${isMobile ?'mx-3':''}`}>
+            <div className="box-border flex justify-center flex-shrink-0 items-center px-4 py-4 border-b-[1px] border-border-conversations ">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
@@ -118,11 +118,11 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                                     alt="avatar"
                                 />
                                 <div className="flex flex-col justify-between">
-                                    <span className="text-base">{getDisplayName(react.author)}</span>
+                                    <span className="text-base font-medium">{getDisplayName(react.author)}</span>
                                     {user?.id === react.author.id && (
                                         <span
                                             onClick={() => handleDeleteReaction(react)}
-                                            className="text-sm text-[#65676b]"
+                                            className="text-xs text-[#65676b]"
                                         >
                                             Click to remove
                                         </span>
@@ -130,7 +130,7 @@ export const ReactionStatusModal: FC<Props> = ({ setShowModal, message }) => {
                                 </div>
                             </div>
                             <div>
-                                <img src={getIcon(react.type)!} className="w-7 h-7" alt="icon" />
+                                <img src={getIcon(react.type)!} className="w-6 h-6" alt="icon"/>
                             </div>
                         </div>
                     ))}

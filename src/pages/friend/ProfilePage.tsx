@@ -37,7 +37,7 @@ export const ProfilePage = () => {
 
     const profile = user?.profile;
     const handleRedirectProfilePage =( )=>{
-        navigate('../../friend')
+        navigate('../../friends')
     }
 
     return (
@@ -45,8 +45,8 @@ export const ProfilePage = () => {
             {(isMobile||isTablet) && (
                 <div
                     onClick={handleRedirectProfilePage}
-                    className={`rounded-full hover:bg-[#2d3133] flex justify-center items-center bg-white cursor-pointer absolute top-3 left-3 ${isMobile?'p-1':'p-2'}`}>
-                    <FaChevronLeft size={isMobile? 20 : 24} className="text-dark-light"/>
+                    className={`rounded-full hover:bg-dark-lighten flex justify-center items-center bg-white cursor-pointer absolute top-3 left-3 ${isMobile?'p-1':'p-2'}`}>
+                    <FaChevronLeft size={isMobile? 20 : 24} className="text-dark-light hover:text-white"/>
                 </div>
             )}
             <div className="w-full">

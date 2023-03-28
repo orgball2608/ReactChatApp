@@ -20,7 +20,7 @@ export const GroupChannelPage = () => {
 
     useEffect(() => {
         dispatch(resetGroupMessages());
-    }, [id]);
+    }, [id,dispatch]);
 
     useEffect(() => {
         if (selectedGroup?.theme)
@@ -33,7 +33,7 @@ export const GroupChannelPage = () => {
         return () => {
             socket.emit('onGroupLeave', { groupId });
         };
-    }, [id]);
+    }, [id,socket]);
 
     useEffect(()=>{
         if(width<1023){
@@ -42,11 +42,9 @@ export const GroupChannelPage = () => {
     },[width,dispatch])
 
     return (
-        <>
-            <div className={`h-full w-full flex`}>
-                <MessagePanel />
-                {showSidebar && <GroupSettingSideBar />}
-            </div>
-        </>
+        <div className={`h-full w-full flex`}>
+            <MessagePanel />
+            {showSidebar && <GroupSettingSideBar />}
+        </div>
     );
 };

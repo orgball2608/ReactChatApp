@@ -65,12 +65,12 @@ export const VoiceCallScreen = () => {
                                         </p>
                                     </div>
                                 </div> :
-                                <div className="flex flex-col justify-center items-center gap-2">
+                                <div className="flex flex-col justify-center items-center gap-1">
                                     <img src={receiver?.profile?.avatar|| defaultAvatar} alt="avatar" className="w-32 h-32 rounded-full"/>
-                                    <p className="text-xl font-medium">
+                                    <p className="text-2xl font-semibold">
                                         {getDisplayName(receiver!)}
                                     </p>
-                                    <p className="text-xl font-medium">
+                                    <p className="text-xl text-gray-400 font-medium">
                                         is calling...
                                     </p>
                                 </div>

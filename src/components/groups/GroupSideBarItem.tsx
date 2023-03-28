@@ -64,8 +64,11 @@ export const GroupSideBarItem: FC<Props> = ({ group }) => {
                 )}
 
                 <div className="flex flex-col flex-grow flex-nowrap font-normal flex-1 break-all justify-center">
-                    <p className={`text-white font-medium max-w-[140px] lg:max-w-[260px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[260px]': ''}`}>{getGroupTitleDisplay(group)}</p>
-                    <p className={`max-w-[100px] text-sm text-gray-400 lg:max-w-[180px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[180px]': ''}`}>{lastMessageContent(group)}{' • ' + moment(group?.lastMessageSentAt).format('H:mm')}</p>
+                    <div className="flex justify-between items-center gap-1">
+                        <p className={`text-white font-semibold max-w-[100px] lg:max-w-[180px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[260px]': ''}`}>{getGroupTitleDisplay(group)}</p>
+                        <p className="text-sm text-gray-400 font-semibold">{moment(group?.lastMessageSentAt).format('H:mm')}</p>
+                    </div>
+                    <p className={`max-w-[140px] text-sm text-gray-400 lg:max-w-[220px] flex-grow overflow-hidden text-ellipsis whitespace-nowrap ${isMobile ? 'max-w-[180px]': ''}`}>{lastMessageContent(group)}</p>
                 </div>
                 {
                     group && group.lastMessageSent && group.lastMessageSent.messageStatuses?.find((status: MessageStatus) => status.user.id === user?.id) ? <></>: <div className="absolute top-1/2 -translate-y-1/2 right-4 w-[10px] h-[10px] bg-[#0d90f3] rounded-full"></div>

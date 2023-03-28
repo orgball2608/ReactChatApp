@@ -52,7 +52,7 @@ export const MessageItem: FC<Props> = ({
             >
                 {m.deletedAt ? (
                     <div
-                        className={`flex gap-4 items-center w-5/6 group ${
+                        className={`flex gap-4 items-center w-full group ${
                             isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
                         }`}
                     >
@@ -74,7 +74,7 @@ export const MessageItem: FC<Props> = ({
                     </div>
                 ) : m.content ? (
                     <div
-                        className={`flex gap-4 items-center break-all w-5/6 group ${
+                        className={`flex gap-4 items-center break-all w-full group ${
                             isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
                         }`}
                         key={m.id}
@@ -154,7 +154,7 @@ export const MessageItem: FC<Props> = ({
                     // if message has attachments
                     (m.attachments?.length > 0 || m.gif || m.sticker) && (
                         <div
-                            className={`flex gap-4 items-center w-5/6 group ${
+                            className={`flex gap-4 items-center w-full group ${
                                 isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
                             }`}
                         >

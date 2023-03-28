@@ -37,7 +37,7 @@ export const EmojiSelectModal: FC<Props> = ({ setShowModal }) => {
     return (
         <div className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in ">
             <div className="bg-modal-background w-fit box-border rounded-lg overflow-hidden flex gap-2 flex-col min-w-88 ">
-                <div className=" box-border flex justify-center items-center mx-6 mt-6">
+                <div className="box-border flex justify-center flex-shrink-0 items-center px-4 py-4">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#383636] hover:bg-[#494747] cursor-pointer rounded-full" />
                     </div>

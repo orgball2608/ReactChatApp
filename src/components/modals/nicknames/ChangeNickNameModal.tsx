@@ -42,12 +42,12 @@ export const ChangeNickNameModal: FC<Props> = ({ setShowModal }) => {
             className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50 animate-fade-in"
             tabIndex={-1}
         >
-            <div className={`bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-fit min-w-screen flex flex-col gap-2 ${isMobile ?'mx-3':''}`}>
-                <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-3 border-b-[1px] border-border-conversations">
+            <div className={`bg-modal-background w-screen max-w-[550px] box-border rounded-lg overflow-hidden h-fit min-w-screen flex flex-col gap-2 ${isMobile ?'mx-3':''}`}>
+                <div className=" box-border flex justify-center flex-shrink-0 items-center p-4 border-b-[1px] border-border-conversations">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
-                    <span className="text-2xl">Nickname</span>
+                    <span className={`${isMobile ?'text-xl':'text-2xl'}`}>Nickname</span>
                     <div className="ml-auto bg-[#383636] hover:bg-[#494747] p-1 rounded-full ">
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>

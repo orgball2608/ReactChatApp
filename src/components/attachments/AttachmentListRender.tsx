@@ -16,6 +16,7 @@ type Props = {
 export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, prevMessage, message, index }) => {
     const { user } = useContext(AuthContext);
     const { setShowModal, setAttachment } = useContext(ImagePreviewModalContext);
+    const isAuthor = user?.id === message.author.id;
 
     const handleShowAttachments = (i: number) => {
         setAttachment(attachments[i]);
@@ -54,7 +55,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                className="w-40 h-40 rounded-lg object-cover transition duration-300 hover:brightness-[85%] "
+                                className="md:h-40 md:w-40 w-52 h-fit rounded-lg object-cover transition duration-300 hover:brightness-[85%] "
                             />
                         );
                     })}
@@ -67,8 +68,8 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                     id={'message-' + message.id}
                     className={`w-full flex flex-wrap gap-[3px] justify-end rounded-2xl ${
                         (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
-                            ? `${user?.id === message.author.id ? 'rounded-tr-none ' : 'rounded-tl-none '}`
-                            : `${user?.id === message.author.id ? 'rounded-r-md ' : 'rounded-l-md  '}`
+                            ? `${isAuthor ? 'rounded-tr-none ' : 'rounded-tl-none '}`
+                            : `${isAuthor ? 'rounded-r-md ' : 'rounded-l-md  '}`
                     } `}
                 >
                     {attachments.map((attachment: AttachmentType, index) => {
@@ -78,7 +79,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                className="w-32 h-32 rounded-xl object-cover transition duration-300 hover:brightness-[85%] "
+                                className="md:w-40 md:h-40 w-52 h-fit rounded-xl object-cover transition duration-300 hover:brightness-[85%] "
                             />
                         );
                     })}
@@ -89,7 +90,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
             return (
                 <div
                     id={'message-' + message.id}
-                    className={`w-fit flex flex-wrap gap-[3px] ${
+                    className={`md:w-86 w-fit flex flex-wrap gap-[3px] ${
                         (currentMessage.author.id !== prevMessage?.author.id && index !== 0) || index === 0
                             ? `${
                                   user?.id === message.author.id
@@ -110,7 +111,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                 key={attachment.key}
                                 src={CDN_PREVIEW_URL + attachment.key}
                                 alt="attachment"
-                                className="w-40 h-40 rounded-lg object-cover transition duration-300 hover:brightness-[85%] "
+                                className="md:h-40 md:w-40 w-52 h-fit rounded-lg object-cover transition duration-300 hover:brightness-[85%] "
                             />
                         );
                     })}
@@ -141,7 +142,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    className="w-48 h-48 rounded-lg transition duration-300 hover:brightness-[85%] "
+                                    className="md:w-48 md:h-48 w-52 h-fit rounded-lg transition duration-300 hover:brightness-[85%] "
                                 />
                             );
                         })}
@@ -168,7 +169,7 @@ export const AttachmentListRender: FC<Props> = ({ attachments, currentMessage, p
                                     key={attachment.key}
                                     src={CDN_PREVIEW_URL + attachment.key}
                                     alt="attachment"
-                                    className="w-32 h-32 rounded-lg transition duration-300 hover:brightness-[85%] "
+                                    className="md:w-32 md:h-32 w-52 h-fit rounded-lg transition duration-300 hover:brightness-[85%] "
                                 />
                             );
                         })}

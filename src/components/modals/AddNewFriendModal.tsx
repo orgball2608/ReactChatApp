@@ -75,7 +75,7 @@ export const AddNewFriendModal: FC<Props> = ({  setShowModal }) => {
                 className="w-full h-full bg-overlay-background fixed left-0 top-0 flex justify-center items-center z-50"
             >
                 <div className={`bg-modal-background w-screen max-w-[550px] box-border rounded-lg overflow-hidden h-fit min-w-screen flex flex-col gap-4 animate-fade-in ${isMobile ?'mx-3':''}`}>
-                    <div className=" box-border flex justify-center flex-shrink-0 items-center px-4 py-4 border-b-[1px] border-border-conversations ">
+                    <div className=" box-border flex justify-center flex-shrink-0 items-center p-4 border-b-[1px] border-border-conversations ">
                         <div className="mr-auto invisible">
                             <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                         </div>

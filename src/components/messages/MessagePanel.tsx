@@ -28,10 +28,6 @@ export const MessagePanel = () => {
         setInputSectionOffset(0);
     }, [id]);
 
-    useEffect(() => {
-        if (isRecipientTyping) setInputSectionOffset(1.5);
-    }, [isRecipientTyping]);
-
     return (
         <div className="bg-inherit h-full w-full box-border relative">
             {
@@ -39,10 +35,10 @@ export const MessagePanel = () => {
             }
             <MessagePanelBody>
                 <MessageContainer setReplyInfo={setReplyInfo} inputSectionOffset={inputSectionOffset} />
-                <div className="flex-none w-full">
+                <div className="flex-none w-full relative">
                     {isRecipientTyping && (
-                        <div className="w-full px-6 flex gap-2 items-center animate-fade-in">
-                            <img src={recipient?.profile?.avatar || defaultAvatar} className="w-8 h-8 rounded-full" alt="avatar"/>
+                        <div className="w-full absolute -top-6 h-6 bg-dark-light z-30 left-0 px-6 flex gap-2 items-center animate-fade-in">
+                            <img src={recipient?.profile?.avatar || defaultAvatar} className="w-6 h-6 rounded-full" alt="avatar"/>
                             <span className="text-gray-400 text-sm ml-2">
                                 {getDisplayName(recipient!)} is typing...
                             </span>

@@ -4,7 +4,7 @@ import { useCurrentViewportView } from '../../hooks/useCurrentViewportView';
 
 export const ModalHeader: FC<PropsWithChildren> = ({ children }) => {
     const { isMobile } = useCurrentViewportView();
-    return <header className={`w-full box-border flex justify-between items-center mt-6 ${isMobile ?'px-2':'px-6'}`}>{children}</header>;
+    return <header className={`w-full box-border flex justify-between items-center mt-6 mb-3 ${isMobile ?'px-2':'px-6'}`}>{children}</header>;
 };
 
 export const ModalContentBody: FC<PropsWithChildren> = ({ children }) => {
@@ -14,5 +14,5 @@ export const ModalContentBody: FC<PropsWithChildren> = ({ children }) => {
 
 export const ModalContainer: FC<PropsWithChildren> = ({ children }) => {
     const { isMobile } = useCurrentViewportView();
-    return <div className={`bg-modal-background w-screen max-w-[550px] box-border rounded-xl flex flex-col gap-1 ${isMobile ?'mx-3':''}`}>{children}</div>;
+    return <div className={`bg-modal-background w-screen max-w-[460px] box-border rounded-xl flex flex-col gap-1 ${isMobile ?'mx-3':''}`}>{children}</div>;
 };

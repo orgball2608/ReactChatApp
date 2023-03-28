@@ -332,7 +332,7 @@ export const MessageInputField: FC<Props> = ({
     return (
         <div className="w-full h-full">
             {replyInfo && (
-                <div className=" relative h-12 border-t border-[#2f3237] px-5 flex justify-between items-center py-auto animate-fade-in-slow">
+                <div className=" relative h-12 border-t border-[#2f3237] px-5 flex justify-between items-center animate-fade-in-slow">
                     <div className="flex flex-col justify-center items-start text-sm">
                         <p className="text-sm">
                             Replying to
@@ -365,7 +365,7 @@ export const MessageInputField: FC<Props> = ({
                 </div>
             )}
 
-            <div className="flex justify-center items-center mt-2 px-4">
+            <div className="flex justify-center items-center px-4">
                 {fileList.length === 0 && (
                     <div className="flex justify-center items-center gap-0">
                         <label htmlFor="formId" className="flex justify-center items-center animate-fade-in">

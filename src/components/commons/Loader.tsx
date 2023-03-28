@@ -14,22 +14,30 @@ export const Loader = () => {
                 targets: '#logo',
                 delay: 0,
                 scale: 1,
-                duration: 300,
+                duration: 500,
                 easing: 'easeOutExpo',
             })
             .add({
                 targets: '#logo',
                 delay: 0,
                 scale: 1.25,
-                duration: 300,
+                duration: 500,
                 easing: 'easeOutExpo',
-            }).add({
-            targets: '#logo',
-            delay: 0,
-            translateX:'calc(50vw + 50px)',
-            duration: 500,
-            easing: 'easeOutExpo',
-        });
+            })
+            .add({
+                targets: '#logo',
+                delay: 0,
+                scale: 1,
+                duration: 500,
+                easing: 'easeOutExpo',
+            })
+            .add({
+                targets: '#logo',
+                delay: 0,
+                scale: 1.25,
+                duration: 500,
+                easing: 'easeOutExpo',
+            })
     };
 
     useEffect(() => {
@@ -42,9 +50,8 @@ export const Loader = () => {
 
     return (
         <div
-            id="logo"
-            className="flex gap-5 flex-col justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-x-hidden">
-            <img src={logo} alt="logo" className="w-24 h-24" />
+            className="w-full h-full flex gap-5 flex-col justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-x-hidden">
+            <img id="logo" src={logo} alt="logo" className="w-24 h-24" />
             <span className="text-xl font-semibold text-[#d21717]">Speed Chat</span>
         </div>
     );

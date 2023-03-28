@@ -37,7 +37,7 @@ export const UserSideBar = () => {
     };
 
     return (
-        <div className="w-16 flex-none h-full flex flex-col items-center justify-between border-r-[1px] border-solid border-border-conversations bg-sidebar-background">
+        <div className="w-16 flex-none h-full flex flex-col items-center justify-between border-r-[1px] border-solid border-border-conversations bg-[#1f1f1f]">
             <div className=" w-full flex justify-center items-center flex-col box-border mt-4">
                 <Link to="/conversations"
                     className="flex justify-center items-center">
@@ -47,29 +47,26 @@ export const UserSideBar = () => {
                         alt="avatar cua quang"
                     />
                 </Link>
-                <div className="w-full flex mx-1 justify-center items-center flex-col gap-4 mt-5 cursor-pointer">
+                <div className="w-full flex mx-1 justify-center items-center flex-col gap-1 mt-5 cursor-pointer">
                     {SelectedPageTypes.map((page) => (
                         <div
+                            title={page.action}
                             key={page.page}
-                            className="w-12 h-12 relative flex justify-center items-center rounded-md hover:bg-dark-lighten"
+                            className={`w-12 h-12 relative flex justify-center items-center rounded-md transition duration-150 ease-out hover:rounded-lg transition-all ${
+                                page.page === selectedPage
+                                    ? 'bg-dark-lighten'
+                                    : 'hover:bg-dark-lighten'
+                            }`}
                             onClick={() => {
                                 navigate(`/${page.page}`);
                                 dispatch(changePage(page.page));
                             }}
                         >
-                            <div className="flex flex-col justify-center items-center">
-                                <CustomIcon page={page.page} className={`${
-                                    page.page === selectedPage
-                                        ? '!text-[#0084ff]'
-                                        : ''
-                                }`} />
-                                <p className={`text-gray-400 font-medium text-xs ${
-                                    page.page === selectedPage
-                                        ? '!text-white'
-                                        : ''
-                                }`}>{page.action}</p>
-                            </div>
-
+                            <CustomIcon page={page.page} className={` ${
+                                page.page === selectedPage
+                                    ? '!text-white'
+                                    : 'text-[#65676b]'
+                            }`} />
                             {page.page === 'friends' && <FriendRequestBadge />}
                         </div>
                     ))}

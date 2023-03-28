@@ -78,7 +78,7 @@ export const ChangeNickNameItem: FC<Props> = ({ member, onSelectMember, isSelect
 
     return (
         <div
-            className="flex justify-between items-center rounded-md w-full px-2 py-1 hover:bg-[#1a1a1c]"
+            className="flex justify-between items-center rounded-md w-full px-2 py-[6px] hover:bg-[#1a1a1c]"
         >
             <div
                 onClick={() => handleItemClick()}
@@ -100,7 +100,7 @@ export const ChangeNickNameItem: FC<Props> = ({ member, onSelectMember, isSelect
                     <div className="flex flex-col justify-between cursor-pointer flex-grow animate-fade-in">
                         {getNickname() && getNickname() !== '' ? (
                             <>
-                                <span className="text-base">{getNickname()}</span>
+                                <span className="text-base font-medium">{getNickname()}</span>
                                 <span className="text-sm text-gray-400 break-all">
                                     {member && getDisplayName(member)}
                                 </span>
@@ -108,7 +108,7 @@ export const ChangeNickNameItem: FC<Props> = ({ member, onSelectMember, isSelect
                         ) : (
                             <>
                                 <span className="text-base">{member && getDisplayName(member)}</span>
-                                <span className="text-sm text-gray-400 break-all">Set Nickname</span>
+                                <span className="text-sm text-gray-400 break-all">Set nickname</span>
                             </>
                         )}
                     </div>

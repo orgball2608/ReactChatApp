@@ -22,7 +22,7 @@ export const GroupMemberViewModal: FC<GroupMemberProps> = ({ setShowModal, group
             tabIndex={-1}
         >
             <div className={`bg-modal-background w-screen max-w-[500px] box-border rounded-lg overflow-hidden h-96 ${isMobile ?'mx-3':''}`}>
-                <div className=" box-border flex justify-center flex-shrink-0 items-center mx-4 mt-6">
+                <div className="box-border flex justify-center flex-shrink-0 items-center p-4">
                     <div className="mr-auto invisible">
                         <MdClose size={24} className="bg-[#908f8f] cursor-pointer rounded-full" />
                     </div>
@@ -31,14 +31,14 @@ export const GroupMemberViewModal: FC<GroupMemberProps> = ({ setShowModal, group
                         <MdClose size={20} onClick={() => setShowModal(false)} className="cursor-pointer " />
                     </div>
                 </div>
-                <div className={`flex justify-start items-center h-12 cursor-pointer border-b-[1px] border-[#ced0d4] pb-1 ${isMobile ?'px-2':'px-4'}`}>
+                <div className={`flex justify-start items-center h-12 cursor-pointer border-b-[1px] border-border-conversations pb-1 ${isMobile ?'px-2':'px-4'}`}>
                     <div
                         onClick={() => setTypeMember('all')}
                         className={`px-4 rounded-md hover:bg-[#2f2f30] h-full flex items-center  ${
                             typeMember === 'all' && 'border-b-2 border-[#0099ff] rounded-b-none'
                         }  `}
                     >
-                        <span className="text-base">All </span>
+                        <span className="text-base">All</span>
                     </div>
                     <div
                         onClick={() => setTypeMember('admin')}
@@ -46,7 +46,7 @@ export const GroupMemberViewModal: FC<GroupMemberProps> = ({ setShowModal, group
                             typeMember === 'admin' && 'border-b-2 border-[#0099ff] rounded-b-none'
                         }  `}
                     >
-                        <span className="text-base">Admin </span>
+                        <span className="text-base">Admin</span>
                     </div>
                 </div>
                 <div className={`mt-2 flex-grow overflow-y-auto overflow-x-hidden ${isMobile ?'px-2':'px-4'}`}>

@@ -21,7 +21,7 @@ export const FriendItem: FC<Props> = ({ friend, isOnline }) => {
     const onProfileClick = () => {
         if (parseInt(id!) === friend.id) setVisible(false);
         else {
-            navigate(`/friend/profile/${friend.id}`);
+            navigate(`/friends/profile/${friend.id}`);
             setVisible(false);
         }
     };
@@ -38,11 +38,11 @@ export const FriendItem: FC<Props> = ({ friend, isOnline }) => {
                         className="w-10 h-10 rounded-full object-cover"
                     />
                     {isOnline && (
-                        <div className="w-2 h-2 rounded-full absolute bottom-1 right-[2px] bg-green-500"></div>
+                        <div className="w-2 h-2 rounded-full absolute bottom-1 right-[2px] bg-green-500 dot-ping"></div>
                     )}
                 </div>
 
-                <span className="text-base font-medium">{getDisplayName(friend)}</span>
+                <span className="text-lg font-medium">{getDisplayName(friend)}</span>
             </div>
             <Tippy
                 visible={visible}

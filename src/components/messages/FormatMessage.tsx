@@ -83,11 +83,11 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                 <ReactionStatusModal message={message} setShowModal={setShowReactionStatusModal} />
             )}
             <div
-                className={`flex gap-4 pt-3 items-center w-5/6 ${
+                className={`flex gap-4 pt-3 items-center w-full ${
                     isAuthor ? 'place-self-end justify-end' : 'place-self-start'
                 }`}
             >
-                <div className=" flex-col gap-3 w-full">
+                <div className="flex flex-col w-full">
                     {!isAuthor && (
                         <div
                             title={getDisplayName(message.author)}
@@ -99,7 +99,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                 className={`w-7 h-7 rounded-full flex-0 object-cover `}
                             />
                             <span
-                                className="text-gray-400 text-sm"
+                                className="text-gray-400 text-sm font-medium"
                             >
                                 {getNicknameOrName()}
                             </span>
@@ -108,7 +108,7 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                     {message.deletedAt ? (
                         <div key={message.id} className="flex flex-col justify-end">
                             <div
-                                className={`flex gap-4 items-center w-5/6 group ${
+                                className={`flex gap-4 items-center w-full group ${
                                     isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
                                 }`}
                             >
@@ -146,9 +146,9 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                                 >
                                     {message.reply && (
                                         <div
-                                            className={`${!isAuthor && 'ml-10'} -mb-2 ${
+                                            className={`${!isAuthor && 'ml-10'} flex justify-start -mb-2 ${
                                                 isAuthor ? 'flex-row-reverse' : ''
-                                            } flex justify-start `}
+                                            }`}
                                         >
                                             <MessageReplyBadge message={message.reply} />
                                         </div>
@@ -196,19 +196,19 @@ export const FormattedMessage: FC<FormattedMessageProps> = ({
                         (message.attachments?.length > 0 || message.gif || message.sticker) && (
                             <div key={message.id} className="flex flex-col justify-end">
                                 <div
-                                    className={`flex gap-4 items-center w-5/6 ${
+                                    className={`flex gap-4 items-center w-full ${
                                         isAuthor ? 'place-self-end justify-end' : 'place-self-start justify-start'
                                     } ${message.attachments?.length > 0 ? 'mt-1 ' : ''}}`}
                                 >
                                     <div
-                                        className={`p-0 text-base group flex justify-start items-center w-fit gap-2 cursor-pointer ${
+                                        className={`p-0 text-base group flex items-center justify-start w-fit gap-2 cursor-pointer ${
                                             isAuthor ? 'flex-row-reverse' : ''
                                         }`}
                                     >
                                         <div
                                             title={formatDate(message.createdAt)}
-                                            className={`p-0 relative text-base flex justify-start items-center w-fit cursor-pointer ${
-                                                isAuthor ? '' : 'pl-14'
+                                            className={`p-0 relative text-base flex items-center w-fit cursor-pointer ${
+                                                isAuthor ? 'justify-end' : 'pl-10 justify-start'
                                             } ${message.reacts?.length > 0 ? 'mb-2' : ''}`}
                                         >
                                             {
