@@ -21,15 +21,15 @@ export function useVideoCall() {
 
     useEffect(() => {
         socket.on(WebsocketEvents.VIDEO_CALL, (data: CallPayload) => {
-            dispatch(setCaller(data.caller))
-            dispatch(setIsReceivingCall(true))
-            dispatch(setReceiver(user!))
-            dispatch(setActiveConversationId(data.conversationId))
+            dispatch(setCaller(data.caller));
+            dispatch(setIsReceivingCall(true));
+            dispatch(setReceiver(user!));
+            dispatch(setActiveConversationId(data.conversationId));
             dispatch(setCallType('video'));
         });
 
         return () => {
             socket.off(WebsocketEvents.VIDEO_CALL);
         };
-    }, [isReceivingCall,dispatch,socket]);
+    }, [isReceivingCall, dispatch, socket]);
 }

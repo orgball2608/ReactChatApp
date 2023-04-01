@@ -363,3 +363,21 @@ export type CallInitiatePayload = {
     receiver: User;
     callType: CallType;
 };
+
+export type GroupCallPayload = {
+    participants: User[];
+    groupId: number;
+    caller: User;
+};
+
+export type AcceptedGroupCallPayload = {
+    acceptor: User;
+    caller: User;
+    group: Group;
+};
+
+export type GroupCallRejectEventPayload = {
+    receiver: User;
+    isEndCall: boolean;
+};
+

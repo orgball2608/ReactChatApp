@@ -15,7 +15,6 @@ export function useVideoCallAccepted() {
 
     useEffect(() => {
         socket.on(WebsocketEvents.VIDEO_CALL_ACCEPTED, (data: AcceptedCallPayload) => {
-            console.log('video call was accepted!');
             dispatch(setIsCallInProgress(true));
             dispatch(setIsReceivingCall(false));
             if (!peer) return console.log('No peer....');
@@ -26,7 +25,6 @@ export function useVideoCallAccepted() {
                     const newCall = peer.call(data.acceptor.peer.id, localStream);
                     dispatch(setCall(newCall));
                 }
-
             }
         });
 

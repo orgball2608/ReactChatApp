@@ -34,7 +34,6 @@ export const SelectedPageTypes: SelectedPageTypeData[] = [
         page: 'settings',
         action: 'Setting',
     },
-
 ];
 
 export const userContextMenuItems: ContextMenuItemType[] = [
@@ -106,10 +105,10 @@ export const defaultGroupAvatar = defaultGroupAvatarSrc;
 
 export const EMOJI_REPLACEMENT = {
     '😭': ['ToT', 'T-T', 'T_T', 'T.T', ':((', ':-(('],
-    '😓': ['\'-_-'],
+    '😓': ["'-_-"],
     '😜': [';p', ';-p', ';P', ';-P'],
     '😑': ['-_-'],
-    '😢': [':\'(', ':\'-('],
+    '😢': [":'(", ":'-("],
     '😞': [':(', ':-(', '=(', ')=', ':['],
     '😐': [':|', ':-|'],
     '😛': [':P', ':-P', ':p', ':-p', '=P', '=p'],
@@ -128,7 +127,7 @@ export const EMOJI_REPLACEMENT = {
     '😕': [':/', ':-/', ':\\', ':-\\', '=/', '=\\'],
     '🙂': [':)', ':]', ':-)', '(:', '(='],
     '💗': ['<3'],
-    '😂': [':\')'],
+    '😂': [":')"],
     '🤑': ['$-)'],
 };
 
@@ -166,6 +165,11 @@ export enum CallEvents {
     VOICE_CALL_REJECT = 'voiceCallRejected',
     VIDEO_CALL_HANG_UP = 'videoCallHangUp',
     VOICE_CALL_HANG_UP = 'voiceCallHangUp',
+    GROUP_VIDEO_CALL_INITIATE = 'onGroupVideoCallInitiate',
+    GROUP_VOICE_CALL_INITIATE = 'onGroupVoiceCallInitiate',
+    GROUP_CALL_ACCEPT = 'groupCallAccepted',
+    GROUP_CALL_REJECT = 'groupCallRejected',
+    GROUP_CALL_HANG_UP = 'groupCallHangUp',
 }
 
 export enum WebsocketEvents {
@@ -177,4 +181,12 @@ export enum WebsocketEvents {
     VIDEO_CALL_REJECTED = 'onVideoCallRejected',
     VOICE_CALL = 'onVoiceCall',
     VIDEO_CALL = 'onVideoCall',
+
+    // Group call
+    GROUP_CALL_ACCEPTED = 'onGroupCallAccept',
+    GROUP_CALL_HANG_UP = 'onGroupCallHangUp',
+    GROUP_CALL_REJECTED = 'onGroupCallReject',
+    GROUP_CALL_MEMBER_LEFT = 'onGroupCallMemberLeft',
+    GROUP_VOICE_CALL = 'onGroupVoiceCall',
+    GROUP_VIDEO_CALL = 'onGroupVideoCall',
 }
