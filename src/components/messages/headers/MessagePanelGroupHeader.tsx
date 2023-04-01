@@ -79,7 +79,7 @@ export const MessagePanelGroupHeader = () => {
         if (!user) return console.log('User undefined');
         const users = selectedGroup!.users;
         const stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
+            video: false,
             audio: true,
         });
         if (!stream) return;

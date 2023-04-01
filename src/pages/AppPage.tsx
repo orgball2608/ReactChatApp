@@ -37,6 +37,7 @@ import { useGroupCallHangUp } from '../hooks/calls/useGroupCallHangUp';
 import { useGroupCallMemberLeft } from '../hooks/calls/useGroupCallMemberLeft';
 import { useGroupVideoCall } from '../hooks/calls/useGroupVideoCall';
 import { useGroupCallAccepted } from '../hooks/calls/useGroupCallAccepted';
+import { useGroupVoiceCall } from '../hooks/calls/useGroupVoiceCall';
 
 export const AppPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -154,6 +155,7 @@ export const AppPage = () => {
     useVideoCallHangUp();
     //group call
     useGroupVideoCall();
+    useGroupVoiceCall()
     useGroupCallAccepted();
     useGroupCallRejected();
     useGroupCallHangUp();

@@ -1,11 +1,16 @@
-import React, { useRef } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
+import { User } from '../../../utils/types';
+import { defaultAvatar } from '../../../utils/constants';
 
 interface RemoteStreamsProps {
     remoteStreams: MediaStream[];
 }
 
-const VoiceRemoteStreams: React.FC<RemoteStreamsProps> = ({ remoteStreams }) => {
+const VoiceRemoteStreams: FC<RemoteStreamsProps> = ({ remoteStreams }) => {
     const videoRefs = useRef<(HTMLAudioElement | null)[]>([]);
+    const { groupCalls, participants } = useSelector((state: RootState) => state.groupCalls);
 
     // create an array of refs to store references to the video elements
     const createVideoRefs = (length: number) => {
@@ -28,22 +33,41 @@ const VoiceRemoteStreams: React.FC<RemoteStreamsProps> = ({ remoteStreams }) => 
     createVideoRefs(remoteStreams.length);
 
     // update the srcObject property of each video element when the remoteStreams prop changes
-    React.useEffect(() => {
+    useEffect(() => {
         updateVideoStreams();
     }, [remoteStreams]);
 
+    const getUser = (index: number): User | null => {
+        if (!groupCalls) return null;
+        const peers = groupCalls[index]?.peer;
+        for (const participant of participants) {
+            if (peers?.includes(participant.peer?.id)) {
+                return participant as User;
+            }
+        }
+        return null;
+    };
+
     return (
-        <>
+        <div className="w-80 h-full bg-dark-lighten absolute right-0 top-0 flex flex-col flex-wrap overflow-y-auto overflow-x-hidden gap-1 z-50 border-[1px] border-border-conversations">
             {remoteStreams.map((_, index) => (
-                <audio
-                    key={index}
-                    ref={(el) => (videoRefs.current[index] = el)}
-                    playsInline
-                    autoPlay
-                    className="w-1/2 h-1/2"
-                />
+                <div key={index} className="w-80 h-48 bg-dark-gray border-[1px] border-border-conversations rounded-lg">
+                    <audio
+                        ref={(el) => (videoRefs.current[index] = el)}
+                        playsInline
+                        autoPlay
+                        className="w-80 h-fit rounded-md hidden"
+                    />
+                    <div className="absolute top-0 left-0 w-80 h-48 flex justify-center items-center">
+                        <img
+                            src={getUser(index)?.profile?.avatar || defaultAvatar}
+                            alt="avatar"
+                            className="w-20 h-20 rounded-full border-[1px] border-dark-gray"
+                        />
+                    </div>
+                </div>
             ))}
-        </>
+        </div>
     );
 };
 
