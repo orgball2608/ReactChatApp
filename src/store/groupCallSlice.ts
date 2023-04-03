@@ -45,7 +45,6 @@ const groupCallSlice = createSlice({
             state.initiator = action.payload;
         },
         setGroupPeer(state, action: PayloadAction<Peer>) {
-            console.log(action.payload);
             state.groupPeer = action.payload;
         },
         addGroupCall(state, action: PayloadAction<MediaConnection>) {
