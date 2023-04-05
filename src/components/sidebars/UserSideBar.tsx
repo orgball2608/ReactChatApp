@@ -86,8 +86,8 @@ export const UserSideBar = () => {
                     className="flex justify-center items-center">
                     <LazyLoadImage
                         src={getAvatar()}
-                        className="w-8 h-8 rounded-full object-cover mb-6 cursor-pointer"
-                        alt="avatar cua quang"
+                        className="w-8 h-8 rounded-full object-cover mb-4 cursor-pointer"
+                        alt="avatar"
                     />
                 </div>
             </Tippy>

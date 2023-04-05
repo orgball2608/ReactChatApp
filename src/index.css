@@ -15,12 +15,13 @@ body,
 html,
 #root {
     height: 100%;
+    width: 100%;
     font-family: Roboto sans-serif;
 }
 
 body,
 html {
-    background-color: #1a1a1a;
+    background-color: #262626;
     color: #fff;
     --primary-color: #0d90f3;
 }

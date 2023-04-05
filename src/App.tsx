@@ -19,6 +19,7 @@ import { AppPage } from './pages/AppPage';
 import SettingPage from './pages/SettingPage';
 import { FriendPageLayout } from './pages/friend/FriendPageLayout';
 import { ProfilePage } from './pages/friend/ProfilePage';
+import LandingPage from './pages/LandingPage';
 
 enableMapSet();
 
@@ -43,9 +44,9 @@ function App() {
     return (
         <AppWithProviders user={user} setUser={setUser} socket={socket}>
             <Routes>
+                <Route path="/" element={<LandingPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
-
                 <Route
                     element={
                         <AuthenticatedRoute>

@@ -28,7 +28,7 @@ export const MediaListFile: FC<Props> = ({ setShowMediaFileSideBar, setShowFileS
                 onClick={handleShowCustomizeConversation}
                 className="flex items-center justify-between py-2 px-2 hover:bg-[#1c1e21] rounded-md "
             >
-                <span className="text-lg text-white text-[#fcfcfc]">File Media</span>
+                <span className="text-lg text-[#fcfcfc]">File Media</span>
                 <div className="px-1">{showFileMedia ?  <ChevronDown size={16} /> : <ChevronRight size={16} />}</div>
             </div>
             {showFileMedia && (
@@ -40,7 +40,7 @@ export const MediaListFile: FC<Props> = ({ setShowMediaFileSideBar, setShowFileS
                         <div className="p-[2px] w-fit h-fit rounded-full text-white bg-[#373434]">
                             <FileMediaIcon className="w-6 h-6" color="#ffffff" />
                         </div>
-                        <span className="text-lg font-medium">File Media</span>
+                        <span className="text-lg font-medium">File media</span>
                     </div>
                     <div
                         onClick={() => setShowFileSideBar(true)}
